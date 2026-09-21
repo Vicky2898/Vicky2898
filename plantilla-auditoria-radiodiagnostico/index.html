@@ -110,6 +110,9 @@
   .check-row{display:flex; flex-wrap:wrap; gap:10px 18px;}
   .check-row label{display:flex; align-items:center; gap:7px; font-size:13.5px;}
   .check-row input{width:16px; height:16px; accent-color:var(--accent);}
+  .equip-group-label{font-size:11px; font-weight:700; color:var(--text-mute); text-transform:uppercase; letter-spacing:.5px; margin:12px 0 8px;}
+  .equip-group-label:first-of-type{margin-top:2px;}
+  .equip-note{margin-top:12px; padding-top:10px; border-top:1px dashed var(--border);}
 
   /* Dashboard */
   .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;}
@@ -291,7 +294,11 @@
     <fieldset>
       <legend>Equipos incluidos</legend>
       <p class="hint">Marque los equipos generadores de radiación (y RM) presentes en la instalación.</p>
-      <div class="check-row" id="equiposRow"></div>
+      <div class="equip-group-label">Diagnóstico</div>
+      <div class="check-row" id="equiposRowDiag"></div>
+      <div class="equip-group-label">Intervencionismo</div>
+      <div class="check-row" id="equiposRowInter"></div>
+      <p class="hint equip-note">El telecomandado se clasifica habitualmente como radiodiagnóstico (fluoroscopia diagnóstica/contrastada); se incluye aquí porque, junto con TAC, angiógrafo, arco en C y litotriptor, el checklist lo agrupa como equipo de alta complejidad que exige contar con OSR permanente (ver nota de la sección 2).</p>
     </fieldset>
   </section>
 
@@ -362,7 +369,9 @@
 (function(){
   "use strict";
 
-  var EQUIPOS = ["RX","TAC","DMO","Mamografía","RM","Intervencionismo"];
+  var EQUIPOS_DIAG = ["RX","TAC","DMO","Mamografía","RM","Telecomandado"];
+  var EQUIPOS_INTER = ["Arco en C","Angiógrafo","Litotriptor"];
+  var EQUIPOS = EQUIPOS_DIAG.concat(EQUIPOS_INTER);
 
   var SECTIONS = [
     {id:1, title:"Carpeta legal e institucional", items:[
@@ -536,16 +545,19 @@
   pRadEl.addEventListener("change", function(){ state.practica.radiodiagnostico = pRadEl.checked; persist(); });
   pInterEl.addEventListener("change", function(){ state.practica.intervencionismo = pInterEl.checked; persist(); });
 
-  var equiposRow = document.getElementById("equiposRow");
-  EQUIPOS.forEach(function(eq){
+  function renderEquipoCheckbox(eq, container){
     var id = "eq-"+eq.replace(/[^a-zA-Z]/g,"");
     var label = document.createElement("label");
     label.innerHTML = '<input type="checkbox" id="'+id+'"> '+esc(eq);
-    equiposRow.appendChild(label);
+    container.appendChild(label);
     var input = label.querySelector("input");
     input.checked = !!state.equipos[eq];
     input.addEventListener("change", function(){ state.equipos[eq]=input.checked; persist(); });
-  });
+  }
+  var equiposRowDiag = document.getElementById("equiposRowDiag");
+  var equiposRowInter = document.getElementById("equiposRowInter");
+  EQUIPOS_DIAG.forEach(function(eq){ renderEquipoCheckbox(eq, equiposRowDiag); });
+  EQUIPOS_INTER.forEach(function(eq){ renderEquipoCheckbox(eq, equiposRowInter); });
 
   // ---------- Sections & items ----------
   var sectionsRoot = document.getElementById("sections");
