@@ -222,6 +222,13 @@
   .autosave strong{color:var(--text-2);}
 
   .sign-block{display:none;}
+  .sign-card{border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; break-inside:avoid;}
+  .sign-role{font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:var(--text-mute); font-weight:700; margin-bottom:22px;}
+  .sign-space{height:40px; border-bottom:1px solid var(--text);}
+  .sign-label{font-size:10px; color:var(--text-mute); margin-top:4px;}
+  .sign-meta{font-size:12px; margin-top:10px; color:var(--text-2);}
+  .sign-meta .sm-label{color:var(--text-mute);}
+  .sign-meta .sm-blank{display:inline-block; min-width:110px; border-bottom:1px solid var(--border);}
 
   footer.page-foot{margin-top:26px; font-size:12px; color:var(--text-mute); text-align:center; padding-bottom:20px;}
 
@@ -236,13 +243,24 @@
   }
 
   @media print{
+    /* !important: the dark-mode rules (:root:not([data-theme="light"])) outrank a
+       plain :root by specificity, so without it a dark OS theme would win over
+       this print override even though this block comes later in the source. */
+    :root{
+      color-scheme: light !important;
+      --bg:#ffffff !important; --surface:#ffffff !important; --surface-2:#f3f5f4 !important;
+      --border:#999999 !important; --border-soft:#cccccc !important;
+      --text:#000000 !important; --text-2:#333333 !important; --text-mute:#666666 !important;
+      --good:#1c7a4a !important; --good-bg:#e0f4e8 !important; --critical:#b23a34 !important; --critical-bg:#fbe8e6 !important;
+      --na:#5c6b66 !important; --na-bg:#e7ece9 !important; --warn:#a8730f !important; --warn-bg:#fbeed3 !important;
+      --pending:#9aa8a2 !important; --pending-bg:#eef1ef !important; --accent:#0f766e !important; --accent-soft:#d9efec !important;
+    }
     .topbar,.toolbar-row .mini-actions,.footer-card,.no-print{display:none !important;}
     body{background:#fff; color:#000; padding:0;}
     .card,details.section-card{box-shadow:none; border:1px solid #999;}
     a{color:#000;}
     .item{break-inside:avoid;}
-    .sign-block{display:grid; grid-template-columns:1fr 1fr; gap:28px 40px; margin-top:30px;}
-    .sign-block div{border-top:1px solid #333; padding-top:6px; font-size:12px;}
+    .sign-block{display:grid; grid-template-columns:1fr 1fr; gap:20px 30px; margin-top:34px;}
   }
 </style>
 
@@ -283,6 +301,7 @@
     <h2 id="h-datos">Datos de la instalación</h2>
     <p class="card-desc">Información general que identifica a la instalación auditada. Se incluye en la cabecera del informe.</p>
     <div class="grid-form">
+      <div class="field"><label for="f-dirigidoA">Dirigido a</label><input type="text" id="f-dirigidoA" placeholder="Autoridad reguladora / Gerencia / Dirección médica…"></div>
       <div class="field"><label for="f-tipoInstalacion">Tipo de instalación</label>
         <select id="f-tipoInstalacion">
           <option value="">Seleccionar…</option>
@@ -294,7 +313,7 @@
       <div class="field"><label for="f-representanteLegal">Representante legal</label><input type="text" id="f-representanteLegal" placeholder="Nombre completo"></div>
       <div class="field"><label for="f-ruc">RUC</label><input type="text" id="f-ruc" class="mono" inputmode="numeric" maxlength="13" placeholder="1790000000001"></div>
       <div class="field"><label for="f-ubicacion">Ubicación</label><input type="text" id="f-ubicacion" placeholder="Provincia, cantón, dirección"></div>
-      <div class="field"><label for="f-responsableMedico">Responsable médico</label><input type="text" id="f-responsableMedico" placeholder="Médico responsable de la protección del paciente"></div>
+      <div class="field"><label for="f-responsableMedico">Médico radiólogo / imagenólogo del área</label><input type="text" id="f-responsableMedico" placeholder="Nombre completo"></div>
       <div class="field"><label for="f-osr">Oficial de Seguridad Radiológica (OSR)</label><input type="text" id="f-osr" placeholder="Nombre del OSR, si aplica"></div>
       <div class="field"><label for="f-responsableRevision">Responsable de la revisión</label><input type="text" id="f-responsableRevision" placeholder="Auditor/a que realiza el check list"></div>
       <div class="field"><label for="f-fecha">Fecha de revisión</label><input type="date" id="f-fecha"></div>
@@ -374,12 +393,7 @@
   </section>
   <p class="hint no-print" style="text-align:center; margin-top:10px;">¿"Generar informe" no abre el diálogo de impresión? Usa <strong>"Descargar informe (HTML)"</strong>: se guarda un archivo listo para abrir en el navegador e imprimir/guardar como PDF desde ahí.</p>
 
-  <div class="sign-block">
-    <div>Responsable de la revisión — Firma</div>
-    <div>Representante legal — Firma</div>
-    <div>Oficial de Seguridad Radiológica (OSR) — Firma</div>
-    <div>Fecha</div>
-  </div>
+  <div class="sign-block" id="signBlock"></div>
 
   <footer class="page-foot">
     Plantilla basada en los requisitos documentales de inspección de seguridad radiológica para radiodiagnóstico médico, radiología intervencionista, RX, TAC, DMO, mamografía y RM.
@@ -499,7 +513,7 @@
   var STORE_KEY = "auditoria-radiodiagnostico-v1";
 
   var state = {
-    header:{tipoInstalacion:"",razonSocial:"",representanteLegal:"",ruc:"",ubicacion:"",responsableMedico:"",osr:"",responsableRevision:"",fecha:"",version:"01"},
+    header:{dirigidoA:"",tipoInstalacion:"",razonSocial:"",representanteLegal:"",ruc:"",ubicacion:"",responsableMedico:"",osr:"",responsableRevision:"",fecha:"",version:"01"},
     practica:{radiodiagnostico:false,intervencionismo:false},
     equipos:{},
     items:{}
@@ -525,6 +539,7 @@
   }
   function persist(){
     try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+    renderSignBlock();
     var el = document.getElementById("autosaveTxt");
     if(el){
       var t = new Date();
@@ -546,7 +561,7 @@
   }
 
   // ---------- Header form ----------
-  var headerFields = ["razonSocial","representanteLegal","ruc","ubicacion","responsableMedico","osr","responsableRevision"];
+  var headerFields = ["dirigidoA","razonSocial","representanteLegal","ruc","ubicacion","responsableMedico","osr","responsableRevision"];
   headerFields.forEach(function(key){
     var el = document.getElementById("f-"+key);
     el.value = state.header[key];
@@ -561,6 +576,27 @@
   var versionEl = document.getElementById("f-version");
   versionEl.value = state.header.version;
   versionEl.addEventListener("input", function(){ state.header.version = versionEl.value; persist(); });
+
+  function buildSignCard(role, name, fecha){
+    return '<div class="sign-card">'+
+      '<div class="sign-role">'+esc(role)+'</div>'+
+      '<div class="sign-space"></div>'+
+      '<div class="sign-label">Firma</div>'+
+      '<div class="sign-meta"><span class="sm-label">Nombre:</span> '+(name ? esc(name) : '<span class="sm-blank">&nbsp;</span>')+'</div>'+
+      '<div class="sign-meta"><span class="sm-label">Fecha:</span> '+(fecha ? esc(fecha) : '<span class="sm-blank">&nbsp;</span>')+'</div>'+
+    '</div>';
+  }
+  function renderSignBlock(){
+    var el = document.getElementById("signBlock");
+    if(!el) return;
+    var fecha = state.header.fecha || "";
+    el.innerHTML =
+      buildSignCard("Responsable de la revisión", state.header.responsableRevision, fecha)+
+      buildSignCard("Representante legal", state.header.representanteLegal, fecha)+
+      buildSignCard("Médico radiólogo / imagenólogo del área", state.header.responsableMedico, fecha)+
+      buildSignCard("Oficial de Seguridad Radiológica (OSR)", state.header.osr, fecha);
+  }
+  renderSignBlock();
 
   var pRadEl = document.getElementById("p-radiodiagnostico");
   var pInterEl = document.getElementById("p-intervencionismo");
@@ -793,7 +829,8 @@
   var TIPO_INSTALACION_LABELS = {publica:"Pública", privada:"Privada"};
   var ESTADO_COLORS = {cumple:"#1c7a4a", no_cumple:"#b23a34", na:"#5c6b66", pendiente:"#a8730f"};
   var REPORT_CSS =
-    "body{font-family:'Segoe UI',Arial,sans-serif;color:#13201d;max-width:900px;margin:32px auto;padding:0 24px;line-height:1.5;}"+
+    ":root{color-scheme:light;}"+
+    "body{font-family:'Segoe UI',Arial,sans-serif;color:#13201d;background:#fff;max-width:900px;margin:32px auto;padding:0 24px;line-height:1.5;}"+
     "h1{font-size:22px;margin:0 0 4px;}"+
     ".r-sub{color:#5b6b66;font-size:13px;margin:0 0 24px;text-transform:uppercase;letter-spacing:.5px;}"+
     ".r-info{border-collapse:collapse;width:100%;margin-bottom:28px;font-size:13px;}"+
@@ -816,11 +853,27 @@
     ".r-ev{font-size:12px;color:#5b6b66;margin:3px 0 0 38px;}"+
     ".r-obs,.r-resp{font-size:12px;margin:4px 0 0 38px;}"+
     ".r-obs strong,.r-resp strong{color:#45524d;}"+
-    ".r-sign{display:grid;grid-template-columns:1fr 1fr;gap:30px 40px;margin-top:40px;}"+
-    ".r-sign div{border-top:1px solid #333;padding-top:6px;font-size:12px;}"+
+    ".r-sign{display:grid;grid-template-columns:1fr 1fr;gap:20px 30px;margin-top:40px;}"+
+    ".r-sign-card{border:1px solid #dde5e1;border-radius:10px;padding:16px 18px;break-inside:avoid;}"+
+    ".r-sign-role{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:#71827c;font-weight:700;margin-bottom:24px;}"+
+    ".r-sign-space{height:44px;border-bottom:1px solid #13201d;}"+
+    ".r-sign-label{font-size:10px;color:#9aa8a2;margin-top:4px;}"+
+    ".r-sign-meta{font-size:12.5px;margin-top:12px;color:#333;}"+
+    ".r-sign-meta b{color:#5b6b66;font-weight:600;}"+
+    ".r-sign-meta .blank{display:inline-block;min-width:120px;border-bottom:1px solid #ccd7d2;}"+
     ".r-foot{margin-top:30px;font-size:11px;color:#9aa8a2;text-align:center;}"+
     "@media print{body{margin:0;padding:16px;}}"+
     "@page{margin:18mm 14mm;}";
+
+  function buildReportSignCard(role, name, fecha){
+    return '<div class="r-sign-card">'+
+      '<div class="r-sign-role">'+esc(role)+'</div>'+
+      '<div class="r-sign-space"></div>'+
+      '<div class="r-sign-label">Firma</div>'+
+      '<div class="r-sign-meta"><b>Nombre:</b> '+(name ? esc(name) : '<span class="blank">&nbsp;</span>')+'</div>'+
+      '<div class="r-sign-meta"><b>Fecha:</b> '+(fecha ? esc(fecha) : '<span class="blank">&nbsp;</span>')+'</div>'+
+    '</div>';
+  }
 
   function buildPrintableSnapshot(){
     var totalCumple=0,totalNoCumple=0,totalNA=0,totalOtros=0;
@@ -864,12 +917,13 @@
     var equiposSel = EQUIPOS.filter(function(e){ return state.equipos[e]; });
 
     var headerRows = [
+      ["Dirigido a", state.header.dirigidoA],
       ["Tipo de instalación", TIPO_INSTALACION_LABELS[state.header.tipoInstalacion] || ""],
       ["Razón social", state.header.razonSocial],
       ["Representante legal", state.header.representanteLegal],
       ["RUC", state.header.ruc],
       ["Ubicación", state.header.ubicacion],
-      ["Responsable médico", state.header.responsableMedico],
+      ["Médico radiólogo / imagenólogo del área", state.header.responsableMedico],
       ["Oficial de Seguridad Radiológica (OSR)", state.header.osr],
       ["Responsable de la revisión", state.header.responsableRevision],
       ["Fecha de revisión", state.header.fecha],
@@ -898,10 +952,10 @@
       '</section>'+
       sectionsHtml+
       '<section class="r-sign">'+
-        '<div>Responsable de la revisión — Firma</div>'+
-        '<div>Representante legal — Firma</div>'+
-        '<div>Oficial de Seguridad Radiológica (OSR) — Firma</div>'+
-        '<div>Fecha</div>'+
+        buildReportSignCard("Responsable de la revisión", state.header.responsableRevision, state.header.fecha)+
+        buildReportSignCard("Representante legal", state.header.representanteLegal, state.header.fecha)+
+        buildReportSignCard("Médico radiólogo / imagenólogo del área", state.header.responsableMedico, state.header.fecha)+
+        buildReportSignCard("Oficial de Seguridad Radiológica (OSR)", state.header.osr, state.header.fecha)+
       '</section>'+
       '<p class="r-foot">Generado el '+esc(new Date().toLocaleString("es-EC"))+' · Plantilla de auditoría de seguridad radiológica.</p>'+
       '</body></html>';
