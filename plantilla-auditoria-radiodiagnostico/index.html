@@ -100,10 +100,11 @@
   .grid-form{display:grid; grid-template-columns:repeat(2,1fr); gap:14px 18px;}
   .field{display:flex; flex-direction:column; gap:5px;}
   .field label{font-size:12px; font-weight:600; color:var(--text-2);}
-  .field input[type=text],.field input[type=date]{
+  .field input[type=text],.field input[type=date],.field select{
     border:1px solid var(--border); border-radius:var(--radius-sm); padding:9px 11px; font-size:14px;
+    background:var(--surface); color:var(--text); font-family:inherit;
   }
-  .field input:focus{border-color:var(--accent);}
+  .field input:focus,.field select:focus{border-color:var(--accent);}
   fieldset{border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 14px; margin-top:16px;}
   fieldset legend{font-size:12px; font-weight:600; color:var(--text-2); padding-inline:4px;}
   fieldset .hint{font-size:12px; color:var(--text-mute); margin:2px 0 10px;}
@@ -282,7 +283,13 @@
     <h2 id="h-datos">Datos de la instalación</h2>
     <p class="card-desc">Información general que identifica a la instalación auditada. Se incluye en la cabecera del informe.</p>
     <div class="grid-form">
-      <div class="field"><label for="f-instalacion">Instalación</label><input type="text" id="f-instalacion" placeholder="Nombre de la instalación / servicio de imagen"></div>
+      <div class="field"><label for="f-tipoInstalacion">Tipo de instalación</label>
+        <select id="f-tipoInstalacion">
+          <option value="">Seleccionar…</option>
+          <option value="publica">Pública</option>
+          <option value="privada">Privada</option>
+        </select>
+      </div>
       <div class="field"><label for="f-razonSocial">Razón social</label><input type="text" id="f-razonSocial" placeholder="Razón social registrada"></div>
       <div class="field"><label for="f-representanteLegal">Representante legal</label><input type="text" id="f-representanteLegal" placeholder="Nombre completo"></div>
       <div class="field"><label for="f-ruc">RUC</label><input type="text" id="f-ruc" class="mono" inputmode="numeric" maxlength="13" placeholder="1790000000001"></div>
@@ -305,7 +312,7 @@
 
     <fieldset>
       <legend>Equipos incluidos</legend>
-      <p class="hint">Marque los equipos generadores de radiación (y RM) presentes en la instalación.</p>
+      <p class="hint">Marque los equipos generadores de radiación ionizante presentes en la instalación.</p>
       <div class="equip-group-label">Diagnóstico</div>
       <div class="check-row" id="equiposRowDiag"></div>
       <div class="equip-group-label">Intervencionismo</div>
@@ -383,7 +390,7 @@
 (function(){
   "use strict";
 
-  var EQUIPOS_DIAG = ["RX","TAC","DMO","Mamografía","RM","Telecomandado"];
+  var EQUIPOS_DIAG = ["RX","TAC","DMO","Mamografía","Telecomandado"];
   var EQUIPOS_INTER = ["Arco en C","Angiógrafo","Litotriptor"];
   var EQUIPOS = EQUIPOS_DIAG.concat(EQUIPOS_INTER);
 
@@ -492,7 +499,7 @@
   var STORE_KEY = "auditoria-radiodiagnostico-v1";
 
   var state = {
-    header:{instalacion:"",razonSocial:"",representanteLegal:"",ruc:"",ubicacion:"",responsableMedico:"",osr:"",responsableRevision:"",fecha:"",version:"01"},
+    header:{tipoInstalacion:"",razonSocial:"",representanteLegal:"",ruc:"",ubicacion:"",responsableMedico:"",osr:"",responsableRevision:"",fecha:"",version:"01"},
     practica:{radiodiagnostico:false,intervencionismo:false},
     equipos:{},
     items:{}
@@ -539,12 +546,15 @@
   }
 
   // ---------- Header form ----------
-  var headerFields = ["instalacion","razonSocial","representanteLegal","ruc","ubicacion","responsableMedico","osr","responsableRevision"];
+  var headerFields = ["razonSocial","representanteLegal","ruc","ubicacion","responsableMedico","osr","responsableRevision"];
   headerFields.forEach(function(key){
     var el = document.getElementById("f-"+key);
     el.value = state.header[key];
     el.addEventListener("input", function(){ state.header[key]=el.value; persist(); });
   });
+  var tipoInstEl = document.getElementById("f-tipoInstalacion");
+  tipoInstEl.value = state.header.tipoInstalacion;
+  tipoInstEl.addEventListener("change", function(){ state.header.tipoInstalacion = tipoInstEl.value; persist(); });
   var fechaEl = document.getElementById("f-fecha");
   fechaEl.value = state.header.fecha;
   fechaEl.addEventListener("input", function(){ state.header.fecha = fechaEl.value; persist(); });
@@ -780,6 +790,7 @@
   // current state so it always works: open the downloaded file in a normal
   // browser tab and print/save as PDF from there.
   var ESTADO_LABELS = {cumple:"Cumple", no_cumple:"No cumple", na:"N.A.", pendiente:"Pendiente"};
+  var TIPO_INSTALACION_LABELS = {publica:"Pública", privada:"Privada"};
   var ESTADO_COLORS = {cumple:"#1c7a4a", no_cumple:"#b23a34", na:"#5c6b66", pendiente:"#a8730f"};
   var REPORT_CSS =
     "body{font-family:'Segoe UI',Arial,sans-serif;color:#13201d;max-width:900px;margin:32px auto;padding:0 24px;line-height:1.5;}"+
@@ -853,7 +864,7 @@
     var equiposSel = EQUIPOS.filter(function(e){ return state.equipos[e]; });
 
     var headerRows = [
-      ["Instalación", state.header.instalacion],
+      ["Tipo de instalación", TIPO_INSTALACION_LABELS[state.header.tipoInstalacion] || ""],
       ["Razón social", state.header.razonSocial],
       ["Representante legal", state.header.representanteLegal],
       ["RUC", state.header.ruc],
@@ -868,7 +879,7 @@
     ].map(function(r){ return '<tr><th>'+esc(r[0])+'</th><td>'+esc(r[1]||"—")+'</td></tr>'; }).join("");
 
     return '<!doctype html><html lang="es"><head><meta charset="utf-8">'+
-      '<title>Informe de auditoría — '+esc(state.header.instalacion||"Instalación")+'</title>'+
+      '<title>Informe de auditoría — '+esc(state.header.razonSocial||"Instalación")+'</title>'+
       '<style>'+REPORT_CSS+'</style></head><body>'+
       '<header class="r-head">'+
         '<h1>Informe de auditoría de seguridad radiológica</h1>'+
@@ -898,7 +909,7 @@
 
   async function downloadReportSnapshot(){
     var html = buildPrintableSnapshot();
-    var filename = "informe-"+fileSafe(state.header.instalacion)+"-"+(state.header.fecha||"")+".html";
+    var filename = "informe-"+fileSafe(state.header.razonSocial)+"-"+(state.header.fecha||"")+".html";
     try{
       if(window.claude && typeof window.claude.use === "function"){
         var downloads = await window.claude.use("downloads");
@@ -926,7 +937,7 @@
   }
   async function exportData(){
     var payload = JSON.stringify(state, null, 2);
-    var filename = "auditoria-"+fileSafe(state.header.instalacion)+"-"+(state.header.fecha||"")+".json";
+    var filename = "auditoria-"+fileSafe(state.header.razonSocial)+"-"+(state.header.fecha||"")+".json";
     try{
       if(window.claude && typeof window.claude.use === "function"){
         var downloads = await window.claude.use("downloads");
