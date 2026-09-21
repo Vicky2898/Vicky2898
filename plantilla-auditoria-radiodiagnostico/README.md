@@ -13,7 +13,7 @@ No requiere instalación ni servidor: se abre directamente en el navegador (dobl
 - **Cálculo automático del % de cumplimiento** (excluye los ítems marcados N.A. y Pendiente), con panel resumen, avance de la auditoría y desglose por sección.
 - **Sello institucional**: se puede cargar una imagen (PNG/JPG) del sello de la instalación; aparece en grande en la portada y junto a la firma del OSR del informe generado. Es opcional y se guarda junto con el resto de la auditoría.
 - **Descargar informe (PDF)**: genera un PDF con diseño de informe institucional (portada con banda de color y sello, ficha técnica, tarjetas de resumen, insignias de estado por ítem, firma del OSR y cuadro de elaborado/revisado/aprobado) directamente en el navegador, con [jsPDF](https://github.com/parallax/jsPDF) y las tipografías Archivo / Source Sans 3 / IBM Plex Mono incluidas en el propio archivo — no depende de internet ni del diálogo de impresión. Es la forma recomendada de generar el informe.
-- **Descargar informe (HTML)**: alternativa en formato web, útil si se quiere editar o visualizar antes de imprimir.
+- **Descargar informe (HTML)**: misma tipografía, tamaños y anillo grande de % de cumplimiento que el PDF (usa Google Fonts si hay internet, con una alternativa del sistema si no la hay); útil si se quiere editar o visualizar antes de imprimir.
 - **Exportar / importar datos (JSON)**: para guardar la auditoría de una instalación y retomarla después, o auditar varias instalaciones por separado.
 
 Los datos se guardan automáticamente en el navegador (localStorage) mientras se completa el formulario; el archivo JSON exportado es la forma confiable de conservar o compartir una auditoría específica.

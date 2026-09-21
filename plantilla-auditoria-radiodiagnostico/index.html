@@ -1309,43 +1309,58 @@ window.__PDF_FONTS__ = {
   var ESTADO_LABELS = {cumple:"Cumple", no_cumple:"No cumple", na:"N.A.", pendiente:"Pendiente"};
   var TIPO_INSTALACION_LABELS = {publica:"Pública", privada:"Privada"};
   var ESTADO_COLORS = {cumple:"#1c7a4a", no_cumple:"#b23a34", na:"#5c6b66", pendiente:"#a8730f"};
+  var REPORT_FONTS_LINK =
+    '<link rel="preconnect" href="https://fonts.googleapis.com">'+
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'+
+    '<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">';
   var REPORT_CSS =
     ":root{color-scheme:light;}"+
-    "body{font-family:'Segoe UI',Arial,sans-serif;color:#13201d;background:#fff;max-width:900px;margin:32px auto;padding:0 24px;line-height:1.5;}"+
-    ".r-head{display:flex; align-items:flex-start; justify-content:space-between; gap:16px;}"+
-    "h1{font-size:22px;margin:0 0 4px;}"+
-    ".r-sub{color:#5b6b66;font-size:13px;margin:0 0 24px;text-transform:uppercase;letter-spacing:.5px;}"+
-    ".r-seal{width:64px;height:64px;object-fit:contain;flex:none;}"+
-    ".r-info{border-collapse:collapse;width:100%;margin-bottom:28px;font-size:13px;}"+
-    ".r-info th{text-align:left;color:#5b6b66;font-weight:600;padding:5px 12px 5px 0;white-space:nowrap;vertical-align:top;width:230px;}"+
-    ".r-info td{padding:5px 0;border-bottom:1px solid #e4e9e7;}"+
-    ".r-summary{margin-bottom:28px;}"+
-    ".r-summary h2{font-size:15px;text-transform:uppercase;letter-spacing:.4px;color:#45524d;margin:0 0 12px;}"+
-    ".r-stats{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;}"+
-    ".r-stat{border:1px solid #dde5e1;border-radius:10px;padding:10px 16px;min-width:110px;}"+
-    ".r-stat .v{display:block;font-size:22px;font-weight:700;}"+
-    ".r-stat .l{display:block;font-size:11px;color:#71827c;text-transform:uppercase;letter-spacing:.4px;}"+
-    ".r-section{margin-bottom:26px;break-inside:avoid-page;}"+
-    ".r-section h2{font-size:15px;border-bottom:2px solid #13201d;padding-bottom:6px;margin:0 0 10px;}"+
-    ".r-note{background:#fbeed3;border-left:3px solid #a8730f;color:#7a5610;padding:8px 12px;font-size:12.5px;border-radius:6px;margin:0 0 12px;}"+
-    ".r-item{border-bottom:1px solid #e4e9e7;padding:10px 0;break-inside:avoid;}"+
-    ".r-item-top{display:flex;align-items:baseline;gap:10px;}"+
-    ".r-n{font-family:Consolas,monospace;font-size:11px;color:#71827c;width:28px;flex:none;}"+
-    ".r-title{font-weight:600;font-size:13.5px;flex:1;}"+
-    ".r-badge{border:1px solid;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700;flex:none;white-space:nowrap;}"+
-    ".r-ev{font-size:12px;color:#5b6b66;margin:3px 0 0 38px;}"+
-    ".r-obs,.r-resp{font-size:12px;margin:4px 0 0 38px;}"+
+    "body{font-family:'Source Sans 3',Arial,sans-serif;color:#13201d;background:#fff;max-width:960px;margin:36px auto;padding:0 28px;line-height:1.55;font-size:15.5px;}"+
+    ".r-head{display:flex; align-items:flex-start; justify-content:space-between; gap:20px;}"+
+    "h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:33px;line-height:1.15;margin:0 0 8px;}"+
+    ".r-sub{color:#5b6b66;font-size:14px;font-weight:600;margin:0 0 30px;text-transform:uppercase;letter-spacing:.6px;}"+
+    ".r-seal{width:86px;height:86px;object-fit:contain;flex:none;}"+
+    ".r-info{border-collapse:collapse;width:100%;margin-bottom:34px;font-size:15.5px;}"+
+    ".r-info th{text-align:left;color:#5b6b66;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px;padding:8px 16px 8px 0;white-space:nowrap;vertical-align:top;width:250px;}"+
+    ".r-info td{padding:8px 0;border-bottom:1px solid #e4e9e7;}"+
+    ".r-summary{margin-bottom:34px;}"+
+    ".r-summary>h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:21px;color:#13201d;margin:0 0 18px;}"+
+    ".r-summary-main{display:flex;align-items:center;gap:32px;flex-wrap:wrap;margin-bottom:24px;}"+
+    ".r-ring-wrap{position:relative;width:168px;height:168px;flex:none;}"+
+    ".r-ring-wrap svg{width:100%;height:100%;}"+
+    ".r-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}"+
+    ".r-ring-pct{font-family:'Archivo',sans-serif;font-weight:800;font-size:38px;color:#13201d;}"+
+    ".r-ring-band{font-family:'Source Sans 3',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.3px;padding:5px 14px;border-radius:999px;margin-top:9px;white-space:nowrap;}"+
+    ".r-summary-copy{flex:1;min-width:280px;}"+
+    ".r-summary-copy h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:19px;margin:0 0 9px;}"+
+    ".r-summary-copy p{font-size:14.5px;color:#45524d;margin:0 0 13px;}"+
+    ".r-progress-track{height:10px;border-radius:999px;background:#e6ece9;overflow:hidden;}"+
+    ".r-progress-fill{height:100%;border-radius:999px;background:#0f766e;}"+
+    ".r-stats{display:flex;gap:16px;flex-wrap:wrap;}"+
+    ".r-stat{border:1px solid #dde5e1;border-radius:12px;padding:15px 19px;min-width:135px;}"+
+    ".r-stat .v{display:block;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:29px;}"+
+    ".r-stat .l{display:block;font-size:12px;font-weight:700;color:#71827c;text-transform:uppercase;letter-spacing:.4px;margin-top:3px;}"+
+    ".r-section{margin-bottom:32px;break-inside:avoid-page;}"+
+    ".r-section h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;border-bottom:2px solid #13201d;padding-bottom:9px;margin:0 0 13px;}"+
+    ".r-note{background:#fbeed3;border-left:3px solid #a8730f;color:#7a5610;padding:11px 15px;font-size:14.5px;border-radius:6px;margin:0 0 15px;}"+
+    ".r-item{border-bottom:1px solid #e4e9e7;padding:13px 0;break-inside:avoid;}"+
+    ".r-item-top{display:flex;align-items:baseline;gap:12px;}"+
+    ".r-n{font-family:'IBM Plex Mono',Consolas,monospace;font-weight:600;font-size:13.5px;color:#71827c;width:34px;flex:none;}"+
+    ".r-title{font-weight:700;font-size:16px;flex:1;}"+
+    ".r-badge{color:#fff;border-radius:999px;padding:4px 13px;font-size:12.5px;font-weight:700;flex:none;white-space:nowrap;}"+
+    ".r-ev{font-size:14px;color:#5b6b66;margin:5px 0 0 46px;}"+
+    ".r-obs,.r-resp{font-size:14px;margin:6px 0 0 46px;}"+
     ".r-obs strong,.r-resp strong{color:#45524d;}"+
-    ".r-sign{display:grid;grid-template-columns:1fr 1fr;gap:20px 30px;margin-top:40px;}"+
-    ".r-sign-card{border:1px solid #dde5e1;border-radius:10px;padding:16px 18px;break-inside:avoid;}"+
-    ".r-sign-role{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:#71827c;font-weight:700;margin-bottom:24px;}"+
-    ".r-sign-space{height:44px;border-bottom:1px solid #13201d;}"+
-    ".r-sign-label{font-size:10px;color:#9aa8a2;margin-top:4px;}"+
-    ".r-sign-meta{font-size:12.5px;margin-top:12px;color:#333;}"+
+    ".r-sign{display:grid;grid-template-columns:1fr 1fr;gap:22px 32px;margin-top:46px;}"+
+    ".r-sign-card{border:1px solid #dde5e1;border-radius:12px;padding:19px 21px;break-inside:avoid;}"+
+    ".r-sign-role{font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;color:#71827c;font-weight:700;margin-bottom:28px;}"+
+    ".r-sign-space{height:50px;border-bottom:1px solid #13201d;}"+
+    ".r-sign-label{font-size:11.5px;color:#9aa8a2;margin-top:5px;}"+
+    ".r-sign-meta{font-size:14.5px;margin-top:14px;color:#333;}"+
     ".r-sign-meta b{color:#5b6b66;font-weight:600;}"+
-    ".r-sign-meta .blank{display:inline-block;min-width:120px;border-bottom:1px solid #ccd7d2;}"+
-    ".r-foot{margin-top:30px;font-size:11px;color:#9aa8a2;text-align:center;}"+
-    "@media print{body{margin:0;padding:16px;}}"+
+    ".r-sign-meta .blank{display:inline-block;min-width:135px;border-bottom:1px solid #ccd7d2;}"+
+    ".r-foot{margin-top:36px;font-size:13px;color:#9aa8a2;text-align:center;}"+
+    "@media print{body{margin:0;padding:18px;}}"+
     "@page{margin:18mm 14mm;}";
 
   function buildReportSignCard(role, name, fecha){
@@ -1432,7 +1447,7 @@ window.__PDF_FONTS__ = {
           '<div class="r-item-top">'+
             '<span class="r-n">#'+String(it.n).padStart(2,"0")+'</span>'+
             '<span class="r-title">'+esc(it.req)+'</span>'+
-            '<span class="r-badge" style="color:'+it.color+';border-color:'+it.color+'">'+esc(it.label)+'</span>'+
+            '<span class="r-badge" style="background:'+it.color+'">'+esc(it.label)+'</span>'+
           '</div>'+
           '<div class="r-ev">'+esc(it.ev)+'</div>'+
           extra+
@@ -1452,7 +1467,20 @@ window.__PDF_FONTS__ = {
       return buildReportSignCard(s[0], s[1], state.header.fecha);
     }).join("");
 
+    // Compliance ring: same math as the on-screen dashboard ring, computed
+    // once here since this report is a static snapshot.
+    function tintHex(hex, amt){
+      var r=parseInt(hex.substr(1,2),16), g=parseInt(hex.substr(3,2),16), b=parseInt(hex.substr(5,2),16);
+      return "rgb("+Math.round(r+(255-r)*amt)+","+Math.round(g+(255-g)*amt)+","+Math.round(b+(255-b)*amt)+")";
+    }
+    var ringR = 56, ringC = 2*Math.PI*ringR;
+    var bandColor = data.evaluados===0 ? "#9aa8a2" : (data.pct>=BAND_GOOD ? "#1c7a4a" : (data.pct>=BAND_WARN ? "#a8730f" : "#b23a34"));
+    var bandLabel = data.evaluados===0 ? "Sin evaluar" : (data.pct>=BAND_GOOD ? "Cumplimiento alto" : (data.pct>=BAND_WARN ? "Cumplimiento medio" : "Cumplimiento bajo"));
+    var ringOffset = ringC*(1-data.pct/100);
+    var evaluadosCount = data.totalCumple+data.totalNoCumple+data.totalNA;
+
     return '<!doctype html><html lang="es"><head><meta charset="utf-8">'+
+      REPORT_FONTS_LINK+
       '<title>Informe de auditoría — '+esc(state.header.razonSocial||"Instalación")+'</title>'+
       '<style>'+REPORT_CSS+'</style></head><body>'+
       '<header class="r-head">'+
@@ -1465,13 +1493,30 @@ window.__PDF_FONTS__ = {
       '<table class="r-info">'+headerRowsHtml+'</table>'+
       '<section class="r-summary">'+
         '<h2>Resumen de cumplimiento</h2>'+
+        '<div class="r-summary-main">'+
+          '<div class="r-ring-wrap">'+
+            '<svg viewBox="0 0 132 132">'+
+              '<circle cx="66" cy="66" r="'+ringR+'" fill="none" stroke="#e6ece9" stroke-width="14"/>'+
+              '<circle cx="66" cy="66" r="'+ringR+'" fill="none" stroke="'+bandColor+'" stroke-width="14" stroke-linecap="round" '+
+                'stroke-dasharray="'+ringC.toFixed(2)+'" stroke-dashoffset="'+ringOffset.toFixed(2)+'" transform="rotate(-90 66 66)"/>'+
+            '</svg>'+
+            '<div class="r-ring-center">'+
+              '<div class="r-ring-pct">'+data.pct+'%</div>'+
+              '<div class="r-ring-band" style="color:'+bandColor+';background:'+tintHex(bandColor,0.88)+'">'+esc(bandLabel.toUpperCase())+'</div>'+
+            '</div>'+
+          '</div>'+
+          '<div class="r-summary-copy">'+
+            '<h3>Avance de la auditoría</h3>'+
+            '<p>'+evaluadosCount+' de '+TOTAL_ITEMS+' ítems evaluados ('+data.avance+'%). El % de cumplimiento se calcula sobre '+data.evaluados+' ítems evaluados; excluye N.A. y pendientes.</p>'+
+            '<div class="r-progress-track"><div class="r-progress-fill" style="width:'+data.avance+'%"></div></div>'+
+          '</div>'+
+        '</div>'+
         '<div class="r-stats">'+
           '<div class="r-stat"><span class="v" style="color:#1c7a4a">'+data.totalCumple+'</span><span class="l">Cumple</span></div>'+
           '<div class="r-stat"><span class="v" style="color:#b23a34">'+data.totalNoCumple+'</span><span class="l">No cumple</span></div>'+
           '<div class="r-stat"><span class="v" style="color:#5c6b66">'+data.totalNA+'</span><span class="l">N.A.</span></div>'+
           '<div class="r-stat"><span class="v" style="color:#a8730f">'+data.totalOtros+'</span><span class="l">Pendiente / sin revisar</span></div>'+
         '</div>'+
-        '<p><strong>% de cumplimiento:</strong> '+data.pct+'% (sobre '+data.evaluados+' ítems evaluados; excluye N.A. y pendientes) · <strong>Avance de la auditoría:</strong> '+data.avance+'% ('+(data.totalCumple+data.totalNoCumple+data.totalNA)+' de '+TOTAL_ITEMS+' ítems evaluados)</p>'+
       '</section>'+
       sectionsHtml+
       '<section class="r-sign">'+signHtml+'</section>'+
@@ -1590,7 +1635,7 @@ window.__PDF_FONTS__ = {
       y += size*0.42 + spaceAfter;
     }
     function paragraph(str, x, width, size, color){
-      var lineH = size*0.42+1.7;
+      var lineH = size*0.44+2;
       doc.setFont(FAMILY_BODY,"normal");
       doc.setFontSize(size);
       doc.setTextColor(color[0],color[1],color[2]);
@@ -1601,51 +1646,68 @@ window.__PDF_FONTS__ = {
       });
     }
     function sectionBadge(num, title){
-      var d = 7.4;
-      ensureSpace(d+3);
+      var d = 9.2;
+      ensureSpace(d+4);
       doc.setFillColor(ACCENT[0],ACCENT[1],ACCENT[2]);
       doc.circle(marginX+d/2, y+d/2, d/2, "F");
-      doc.setFont(FAMILY_MONO,"bold"); doc.setFontSize(9); doc.setTextColor(255,255,255);
+      doc.setFont(FAMILY_MONO,"bold"); doc.setFontSize(10.5); doc.setTextColor(255,255,255);
       doc.text(num, marginX+d/2, y+d/2+0.3, {align:"center", baseline:"middle"});
-      doc.setFont(FAMILY_DISPLAY,"bold"); doc.setFontSize(12.5); doc.setTextColor(INK[0],INK[1],INK[2]);
-      doc.text(title, marginX+d+4, y+d/2+0.3, {baseline:"middle"});
-      y += d+3;
+      doc.setFont(FAMILY_DISPLAY,"bold"); doc.setFontSize(15); doc.setTextColor(INK[0],INK[1],INK[2]);
+      doc.text(title, marginX+d+5, y+d/2+0.3, {baseline:"middle"});
+      y += d+4;
     }
     function statusBadge(rightX, topY, label, rgb){
-      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(7.6);
-      var w = doc.getTextWidth(label)+6.5;
+      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(9);
+      var w = doc.getTextWidth(label)+7.5;
       doc.setFillColor(rgb[0],rgb[1],rgb[2]);
-      doc.roundedRect(rightX-w, topY, w, 5.6, 2.4, 2.4, "F");
+      doc.roundedRect(rightX-w, topY, w, 6.6, 2.8, 2.8, "F");
       doc.setTextColor(255,255,255);
-      doc.text(label, rightX-w/2, topY+2.9, {align:"center", baseline:"middle"});
+      doc.text(label, rightX-w/2, topY+3.4, {align:"center", baseline:"middle"});
       return w;
     }
     function checkBadge(cx, cy, r){
       doc.setFillColor(ACCENT[0],ACCENT[1],ACCENT[2]);
       doc.circle(cx, cy, r, "F");
-      doc.setDrawColor(255,255,255); doc.setLineWidth(0.7);
+      doc.setDrawColor(255,255,255); doc.setLineWidth(0.9);
       if(doc.setLineCap) doc.setLineCap("round");
       doc.line(cx-r*0.46, cy+r*0.02, cx-r*0.08, cy+r*0.42);
       doc.line(cx-r*0.08, cy+r*0.42, cx+r*0.52, cy-r*0.38);
     }
+    // Radial progress ring (compliance %): a filled circular track plus a
+    // colored arc approximated as a dense polyline, since jsPDF has no
+    // native partial-arc-stroke primitive.
+    function drawArcRing(cx, cy, r, strokeW, fracStart, fracEnd, color){
+      doc.setDrawColor(color[0],color[1],color[2]);
+      doc.setLineWidth(strokeW);
+      if(doc.setLineCap) doc.setLineCap("round");
+      var steps = Math.max(1, Math.round(160*(fracEnd-fracStart)));
+      var prevX, prevY;
+      for(var i=0; i<=steps; i++){
+        var t = fracStart + (fracEnd-fracStart)*(i/steps);
+        var a = t*Math.PI*2;
+        var x = cx + r*Math.sin(a), yy = cy - r*Math.cos(a);
+        if(i>0) doc.line(prevX, prevY, x, yy);
+        prevX = x; prevY = yy;
+      }
+    }
     function drawSignCard(x, cy, w, h, role, name, fecha, sealHere){
       doc.setDrawColor(BORDER[0],BORDER[1],BORDER[2]); doc.setLineWidth(0.3);
-      doc.roundedRect(x, cy, w, h, 1.8, 1.8, "S");
+      doc.roundedRect(x, cy, w, h, 2, 2, "S");
       doc.setFillColor(ACCENT[0],ACCENT[1],ACCENT[2]);
-      doc.roundedRect(x, cy, 1.3, h, 0.6, 0.6, "F");
-      var textW = (sealHere ? w*0.6 : w) - 9;
-      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(7.6); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
-      doc.text(doc.splitTextToSize(role.toUpperCase(), textW), x+5, cy+4, {baseline:"top"});
-      doc.setDrawColor(INK[0],INK[1],INK[2]); doc.setLineWidth(0.25);
-      doc.line(x+5, cy+20, x+5+textW, cy+20);
-      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(6.8); doc.setTextColor(FAINT[0],FAINT[1],FAINT[2]);
-      doc.text("Firma", x+5, cy+21, {baseline:"top"});
-      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(8.3); doc.setTextColor(INK[0],INK[1],INK[2]);
-      doc.text("Nombre: "+(name || "________________"), x+5, cy+25.5, {baseline:"top"});
-      doc.text("Fecha: "+(fecha || "________________"), x+5, cy+30, {baseline:"top"});
+      doc.roundedRect(x, cy, 1.5, h, 0.7, 0.7, "F");
+      var textW = (sealHere ? w*0.6 : w) - 11;
+      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(8.8); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+      doc.text(doc.splitTextToSize(role.toUpperCase(), textW), x+6, cy+5, {baseline:"top"});
+      doc.setDrawColor(INK[0],INK[1],INK[2]); doc.setLineWidth(0.3);
+      doc.line(x+6, cy+23.5, x+6+textW, cy+23.5);
+      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(7.8); doc.setTextColor(FAINT[0],FAINT[1],FAINT[2]);
+      doc.text("Firma", x+6, cy+25, {baseline:"top"});
+      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.6); doc.setTextColor(INK[0],INK[1],INK[2]);
+      doc.text("Nombre: "+(name || "________________"), x+6, cy+30.5, {baseline:"top"});
+      doc.text("Fecha: "+(fecha || "________________"), x+6, cy+36, {baseline:"top"});
       if(sealHere){
-        var box = sealBox(w*0.3, h-10);
-        if(box) drawSeal(box, x+w-box.w-5, cy+h/2);
+        var box = sealBox(w*0.3, h-12);
+        if(box) drawSeal(box, x+w-box.w-6, cy+h/2);
       }
     }
 
@@ -1653,152 +1715,175 @@ window.__PDF_FONTS__ = {
 
     // ---- Cover header band (page 1) ----
     drawTopBar();
-    var bandTop = 2.4, bandH = 40;
+    var bandTop = 2.4, bandH = 46;
     doc.setFillColor(HEADBG[0],HEADBG[1],HEADBG[2]);
     doc.rect(0, bandTop, pageW, bandH, "F");
-    var sBox = sealBox(30, 30);
+    var sBox = sealBox(32, 32);
     var titleAvailW = contentW - (sBox ? sBox.w+8 : 0);
-    doc.setFont(FAMILY_DISPLAY,"bold"); doc.setFontSize(17);
+    doc.setFont(FAMILY_DISPLAY,"bold"); doc.setFontSize(23);
     var titleLines = doc.splitTextToSize("Informe de auditoría de seguridad radiológica", titleAvailW);
-    var titleLineH = 6.8;
+    var titleLineH = 8.8;
     var titleBlockH = titleLines.length*titleLineH;
-    var titleStartY = bandTop + Math.max(5, (bandH-titleBlockH-9)/2);
+    var titleStartY = bandTop + Math.max(6, (bandH-titleBlockH-10)/2);
     doc.setTextColor(255,255,255);
     titleLines.forEach(function(l,i){ doc.text(l, marginX, titleStartY+i*titleLineH, {baseline:"top"}); });
-    doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(8.3); doc.setTextColor(175,196,189);
-    doc.text("RADIODIAGNÓSTICO MÉDICO  ·  RADIOLOGÍA INTERVENCIONISTA", marginX, titleStartY+titleBlockH+3.8, {baseline:"top"});
+    doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(9.6); doc.setTextColor(175,196,189);
+    doc.text("RADIODIAGNÓSTICO MÉDICO  ·  RADIOLOGÍA INTERVENCIONISTA", marginX, titleStartY+titleBlockH+4.6, {baseline:"top"});
     if(sBox) drawSeal(sBox, pageW-marginX-sBox.w, bandTop+bandH/2);
-    y = bandTop+bandH+9;
+    y = bandTop+bandH+10;
 
     // ---- Ficha técnica (header info) ----
-    ensureSpace(95);
-    var padCard = 6, colW = contentW/2, lineH = 4.5;
+    ensureSpace(105);
+    var padCard = 7, colW = contentW/2, lineH = 5.4;
     var boxTop = y;
     y += padCard;
     for(var i=0;i<data.headerRows.length;i+=2){
       var pair = [data.headerRows[i], data.headerRows[i+1] || null];
-      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.2);
+      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(10.8);
       var linesArr = pair.map(function(r){ return r ? doc.splitTextToSize(r[1] || "—", colW-padCard-4) : []; });
       var maxLines = Math.max(linesArr[0].length||1, linesArr[1].length||1);
-      var rowH = 4+maxLines*lineH+3.2;
+      var rowH = 4.6+maxLines*lineH+3.8;
       pair.forEach(function(r, ci){
         if(!r) return;
         var cx = marginX+padCard+ci*colW;
-        doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(7); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+        doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(8); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
         doc.text(r[0].toUpperCase(), cx, y, {baseline:"top"});
-        doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.2); doc.setTextColor(INK[0],INK[1],INK[2]);
-        linesArr[ci].forEach(function(l,li){ doc.text(l, cx, y+4+li*lineH, {baseline:"top"}); });
+        doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(10.8); doc.setTextColor(INK[0],INK[1],INK[2]);
+        linesArr[ci].forEach(function(l,li){ doc.text(l, cx, y+4.6+li*lineH, {baseline:"top"}); });
       });
       y += rowH;
     }
-    y += padCard-3.2;
+    y += padCard-3.8;
     doc.setDrawColor(BORDER[0],BORDER[1],BORDER[2]); doc.setLineWidth(0.3);
-    doc.roundedRect(marginX, boxTop, contentW, y-boxTop, 2, 2, "S");
-    y += 9;
+    doc.roundedRect(marginX, boxTop, contentW, y-boxTop, 2.5, 2.5, "S");
+    y += 11;
 
-    // ---- Summary ----
-    heading("Resumen de cumplimiento", 12.5, INK, 4);
+    // ---- Summary: a big compliance ring is the focal point, matching the
+    // on-screen dashboard, so the % reads at a glance instead of hiding in
+    // a small number. ----
+    heading("Resumen de cumplimiento", 15.5, INK, 6);
+    var band = data.pct>=BAND_GOOD ? STATUS_FILL.cumple : (data.pct>=BAND_WARN ? STATUS_FILL.pendiente : STATUS_FILL.no_cumple);
+    var bandLabel = data.evaluados===0 ? "Sin evaluar" : (data.pct>=BAND_GOOD ? "Cumplimiento alto" : (data.pct>=BAND_WARN ? "Cumplimiento medio" : "Cumplimiento bajo"));
+    var ringR = 19, ringStroke = 7.4, ringD = ringR*2+ringStroke;
+    ensureSpace(ringD+6);
+    var ringCx = marginX+ringD/2, ringCy = y+ringD/2;
+    drawArcRing(ringCx, ringCy, ringR, ringStroke, 0, 1, [230,235,232]);
+    if(data.pct>0) drawArcRing(ringCx, ringCy, ringR, ringStroke, 0, data.pct/100, band);
+    doc.setFont(FAMILY_DISPLAY,"bold"); doc.setFontSize(28); doc.setTextColor(INK[0],INK[1],INK[2]);
+    doc.text(data.pct+"%", ringCx, ringCy, {align:"center", baseline:"middle"});
+
+    // Band label as a pill BELOW the ring rather than crammed inside its
+    // inner circle, which is too narrow for a phrase like "CUMPLIMIENTO ALTO".
+    var pillLabel = bandLabel.toUpperCase();
+    doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(8.4);
+    var pillW = doc.getTextWidth(pillLabel)+10;
+    var pillH = 7;
+    var pillY = y+ringD+2.5;
+    var lightBand = tint(band, 0.88);
+    doc.setFillColor(lightBand[0],lightBand[1],lightBand[2]);
+    doc.roundedRect(ringCx-pillW/2, pillY, pillW, pillH, pillH/2, pillH/2, "F");
+    doc.setTextColor(band[0],band[1],band[2]);
+    doc.text(pillLabel, ringCx, pillY+pillH/2+0.3, {align:"center", baseline:"middle"});
+
+    var sumTextX = marginX+ringD+11, sumTextW = contentW-ringD-11;
+    var sty = y+3;
+    doc.setFont(FAMILY_DISPLAY,"bold"); doc.setFontSize(13); doc.setTextColor(INK[0],INK[1],INK[2]);
+    doc.text("Avance de la auditoría", sumTextX, sty, {baseline:"top"});
+    sty += 8;
+    doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(10); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+    doc.splitTextToSize((data.totalCumple+data.totalNoCumple+data.totalNA)+" de "+TOTAL_ITEMS+" ítems evaluados ("+data.avance+"%). El % de cumplimiento se calcula sobre "+data.evaluados+" ítems evaluados; excluye N.A. y pendientes.", sumTextW)
+      .forEach(function(l){ doc.text(l, sumTextX, sty, {baseline:"top"}); sty += 5; });
+    sty += 3;
+    var barH2 = 4;
+    doc.setFillColor(233,237,235);
+    doc.roundedRect(sumTextX, sty, sumTextW, barH2, 2, 2, "F");
+    if(data.avance>0){
+      doc.setFillColor(ACCENT[0],ACCENT[1],ACCENT[2]);
+      doc.roundedRect(sumTextX, sty, Math.max(barH2, sumTextW*data.avance/100), barH2, 2, 2, "F");
+    }
+    y = pillY+pillH+9;
+
     var stats = [
       ["Cumple", data.totalCumple, STATUS_FILL.cumple],
       ["No cumple", data.totalNoCumple, STATUS_FILL.no_cumple],
       ["N.A.", data.totalNA, STATUS_FILL.na],
       ["Pendiente / sin revisar", data.totalOtros, STATUS_FILL.pendiente]
     ];
-    ensureSpace(21);
-    var tileGap = 4, tileW = (contentW - tileGap*3)/4;
+    ensureSpace(25);
+    var tileGap = 5, tileW = (contentW - tileGap*3)/4;
     stats.forEach(function(s, i){
       var x = marginX + i*(tileW+tileGap);
       var light = tint(s[2], 0.92);
       doc.setFillColor(light[0],light[1],light[2]);
       doc.setDrawColor(s[2][0],s[2][1],s[2][2]); doc.setLineWidth(0.35);
-      doc.roundedRect(x, y, tileW, 19, 1.8, 1.8, "FD");
-      doc.setFont(FAMILY_MONO,"bold"); doc.setFontSize(16); doc.setTextColor(s[2][0],s[2][1],s[2][2]);
-      doc.text(String(s[1]), x+4, y+5, {baseline:"top"});
-      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(6.6); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
-      doc.text(doc.splitTextToSize(s[0].toUpperCase(), tileW-8), x+4, y+13.5, {baseline:"top"});
+      doc.roundedRect(x, y, tileW, 23, 2, 2, "FD");
+      doc.setFont(FAMILY_MONO,"bold"); doc.setFontSize(20); doc.setTextColor(s[2][0],s[2][1],s[2][2]);
+      doc.text(String(s[1]), x+5, y+6, {baseline:"top"});
+      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(7.6); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+      doc.text(doc.splitTextToSize(s[0].toUpperCase(), tileW-9), x+5, y+16.5, {baseline:"top"});
     });
-    y += 25;
-
-    var band = data.pct>=BAND_GOOD ? STATUS_FILL.cumple : (data.pct>=BAND_WARN ? STATUS_FILL.pendiente : STATUS_FILL.no_cumple);
-    doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(9); doc.setTextColor(INK[0],INK[1],INK[2]);
-    doc.text("% de cumplimiento", marginX, y, {baseline:"top"});
-    doc.setFont(FAMILY_MONO,"bold"); doc.setTextColor(band[0],band[1],band[2]);
-    doc.text(data.pct+"%", marginX+contentW, y, {baseline:"top", align:"right"});
-    y += 5.2;
-    var barH = 3.2;
-    doc.setFillColor(233,237,235);
-    doc.roundedRect(marginX, y, contentW, barH, 1.6, 1.6, "F");
-    if(data.pct>0){
-      doc.setFillColor(band[0],band[1],band[2]);
-      doc.roundedRect(marginX, y, Math.max(barH, contentW*data.pct/100), barH, 1.6, 1.6, "F");
-    }
-    y += barH+5;
-    paragraph(
-      "Calculado sobre "+data.evaluados+" ítems evaluados (excluye N.A. y pendientes)   ·   Avance de la auditoría: "+data.avance+"% ("+(data.totalCumple+data.totalNoCumple+data.totalNA)+" de "+TOTAL_ITEMS+" ítems)",
-      marginX, contentW, 8.6, MUTE
-    );
-    y += 5;
+    y += 31;
 
     // ---- Sections ----
     data.sectionsData.forEach(function(sec){
-      ensureSpace(20);
+      ensureSpace(24);
       sectionBadge(String(sec.id).padStart(2,"0"), sec.title);
-      hr(4);
+      hr(5);
       if(sec.note){
-        var noteLines = doc.splitTextToSize(sec.note, contentW-10);
-        var noteH = noteLines.length*4.3+5;
+        var noteLines = doc.splitTextToSize(sec.note, contentW-12);
+        var noteH = noteLines.length*4.9+5.5;
         ensureSpace(noteH);
         doc.setFillColor(251,238,211);
-        doc.roundedRect(marginX, y, contentW, noteH, 1.5, 1.5, "F");
+        doc.roundedRect(marginX, y, contentW, noteH, 1.8, 1.8, "F");
         doc.setFillColor(168,115,15);
-        doc.rect(marginX, y, 1.3, noteH, "F");
-        doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(8.4); doc.setTextColor(122,86,16);
-        noteLines.forEach(function(l,i){ doc.text(l, marginX+5, y+3.3+i*4.3, {baseline:"top"}); });
-        y += noteH+3.5;
+        doc.rect(marginX, y, 1.5, noteH, "F");
+        doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.6); doc.setTextColor(122,86,16);
+        noteLines.forEach(function(l,i){ doc.text(l, marginX+6, y+3.7+i*4.9, {baseline:"top"}); });
+        y += noteH+4;
       }
       sec.items.forEach(function(it){
-        var textX = marginX+6;
-        var titleLines = doc.splitTextToSize(it.req, contentW-6-9-27);
-        var evLines = doc.splitTextToSize(it.ev, contentW-6-9-3);
-        var obsLines = it.obs ? doc.splitTextToSize("Observación: "+it.obs, contentW-6-9-3) : [];
-        var respLines = it.resp ? doc.splitTextToSize("Responsable / en trámite con: "+it.resp, contentW-6-9-3) : [];
-        var blockH = titleLines.length*4.6 + evLines.length*3.8 + obsLines.length*3.8 + respLines.length*3.8 + 6.5;
+        var textX = marginX+7;
+        var titleLines = doc.splitTextToSize(it.req, contentW-7-11-32);
+        var evLines = doc.splitTextToSize(it.ev, contentW-7-11-4);
+        var obsLines = it.obs ? doc.splitTextToSize("Observación: "+it.obs, contentW-7-11-4) : [];
+        var respLines = it.resp ? doc.splitTextToSize("Responsable / en trámite con: "+it.resp, contentW-7-11-4) : [];
+        var blockH = titleLines.length*5.4 + evLines.length*4.4 + obsLines.length*4.4 + respLines.length*4.4 + 8;
         ensureSpace(blockH);
         var blockStartY = y;
-        doc.setFont(FAMILY_MONO,"bold"); doc.setFontSize(8.6); doc.setTextColor(INK[0],INK[1],INK[2]);
-        doc.text("#"+String(it.n).padStart(2,"0"), textX, y+0.3, {baseline:"top"});
-        doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(9.4);
-        titleLines.forEach(function(l,i){ doc.text(l, textX+9, y+i*4.6, {baseline:"top"}); });
+        doc.setFont(FAMILY_MONO,"bold"); doc.setFontSize(9.6); doc.setTextColor(INK[0],INK[1],INK[2]);
+        doc.text("#"+String(it.n).padStart(2,"0"), textX, y+0.4, {baseline:"top"});
+        doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(11);
+        titleLines.forEach(function(l,i){ doc.text(l, textX+11, y+i*5.4, {baseline:"top"}); });
         var rgb = STATUS_FILL[it.estado] || hexToRgb("#9aa8a2");
-        statusBadge(marginX+contentW, y-0.3, it.label, rgb);
-        y += titleLines.length*4.6;
-        doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(8.5); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
-        evLines.forEach(function(l){ doc.text(l, textX+9, y, {baseline:"top"}); y += 3.8; });
+        statusBadge(marginX+contentW, y-0.5, it.label, rgb);
+        y += titleLines.length*5.4+0.8;
+        doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.6); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+        evLines.forEach(function(l){ doc.text(l, textX+11, y, {baseline:"top"}); y += 4.4; });
         if(obsLines.length){
-          doc.setTextColor(60,70,66);
-          obsLines.forEach(function(l){ doc.text(l, textX+9, y, {baseline:"top"}); y += 3.8; });
+          doc.setTextColor(55,65,61);
+          obsLines.forEach(function(l){ doc.text(l, textX+11, y, {baseline:"top"}); y += 4.4; });
         }
         if(respLines.length){
-          doc.setTextColor(60,70,66);
-          respLines.forEach(function(l){ doc.text(l, textX+9, y, {baseline:"top"}); y += 3.8; });
+          doc.setTextColor(55,65,61);
+          respLines.forEach(function(l){ doc.text(l, textX+11, y, {baseline:"top"}); y += 4.4; });
         }
-        y += 2.7;
+        y += 3.2;
         doc.setFillColor(rgb[0],rgb[1],rgb[2]);
-        doc.rect(marginX, blockStartY-0.6, 1.1, (y-3.2)-(blockStartY-0.6), "F");
+        doc.rect(marginX, blockStartY-0.8, 1.4, (y-3.7)-(blockStartY-0.8), "F");
         doc.setDrawColor(234,238,236); doc.setLineWidth(0.15);
         doc.line(marginX, y, marginX+contentW, y);
-        y += 3;
+        y += 3.6;
       });
       y += 3;
     });
 
     // ---- Signature: OSR only (typically the one who compiles the audit and
     // reports to the institution's authorities) ----
-    var cardH = 34;
-    ensureSpace(cardH+16);
-    heading("Firma", 12.5, INK, 5);
+    var cardH = 40;
+    ensureSpace(cardH+18);
+    heading("Firma", 15.5, INK, 6);
     drawSignCard(marginX, y, contentW, cardH, "Oficial de Seguridad Radiológica (OSR)", state.header.osr, state.header.fecha, !!sello);
-    y += cardH+11;
+    y += cardH+12;
 
     // ---- Elaboración, revisión y aprobación ----
     var controlItems = [
@@ -1806,39 +1891,39 @@ window.__PDF_FONTS__ = {
       {label:"Revisado por", role:"Dirigido a", name: state.header.dirigidoA},
       {label:"Aprobado por", role:"Representante legal", name: state.header.representanteLegal}
     ];
-    heading("Elaboración, revisión y aprobación", 12.5, INK, 5);
-    var ctColGap = 0, ctColW = contentW/3, ctPad = 5, ctCheckR = 4.2, ctLineH = 3.7;
+    heading("Elaboración, revisión y aprobación", 15.5, INK, 6);
+    var ctColW = contentW/3, ctPad = 6, ctCheckR = 5, ctLineH = 4.3;
     var ctLinesPerItem = controlItems.map(function(it){
-      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(8.2);
+      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.4);
       return {
         role: doc.splitTextToSize(it.role, ctColW-ctPad*2),
         name: doc.splitTextToSize(it.name || "—", ctColW-ctPad*2)
       };
     });
-    var ctTopPad = 4+ctCheckR*2+4;
+    var ctTopPad = 5+ctCheckR*2+5;
     var ctH = ctTopPad + Math.max.apply(null, ctLinesPerItem.map(function(l){
-      return l.role.length*ctLineH + 2 + l.name.length*ctLineH;
-    })) + 6;
+      return l.role.length*ctLineH + 2.5 + l.name.length*ctLineH;
+    })) + 7;
     ensureSpace(ctH);
     var ctTop = y;
     doc.setDrawColor(BORDER[0],BORDER[1],BORDER[2]); doc.setLineWidth(0.3);
-    doc.roundedRect(marginX, ctTop, contentW, ctH, 2, 2, "S");
+    doc.roundedRect(marginX, ctTop, contentW, ctH, 2.5, 2.5, "S");
     controlItems.forEach(function(it, i){
       var cx = marginX+i*ctColW;
       if(i>0){
         doc.setDrawColor(BORDER[0],BORDER[1],BORDER[2]); doc.setLineWidth(0.25);
-        doc.line(cx, ctTop+5, cx, ctTop+ctH-5);
+        doc.line(cx, ctTop+6, cx, ctTop+ctH-6);
       }
       var centerX = cx+ctColW/2;
-      checkBadge(centerX, ctTop+4+ctCheckR, ctCheckR);
+      checkBadge(centerX, ctTop+5+ctCheckR, ctCheckR);
       var ly = ctTop+ctTopPad;
-      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(7.4); doc.setTextColor(ACCENT[0],ACCENT[1],ACCENT[2]);
+      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(8.4); doc.setTextColor(ACCENT[0],ACCENT[1],ACCENT[2]);
       doc.text(it.label.toUpperCase(), centerX, ly, {align:"center", baseline:"top"});
-      ly += 5;
-      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(8.2); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+      ly += 6;
+      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.4); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
       ctLinesPerItem[i].role.forEach(function(l){ doc.text(l, centerX, ly, {align:"center", baseline:"top"}); ly += ctLineH; });
-      ly += 1.5;
-      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(8.2); doc.setTextColor(INK[0],INK[1],INK[2]);
+      ly += 2;
+      doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(9.4); doc.setTextColor(INK[0],INK[1],INK[2]);
       ctLinesPerItem[i].name.forEach(function(l){ doc.text(l, centerX, ly, {align:"center", baseline:"top"}); ly += ctLineH; });
     });
     y = ctTop+ctH;
@@ -1848,13 +1933,13 @@ window.__PDF_FONTS__ = {
     for(var p=1; p<=totalPages; p++){
       doc.setPage(p);
       doc.setDrawColor(234,238,236); doc.setLineWidth(0.2);
-      doc.line(marginX, pageH-12, pageW-marginX, pageH-12);
-      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(8); doc.setTextColor(FAINT[0],FAINT[1],FAINT[2]);
-      doc.text(state.header.razonSocial || "Informe de auditoría", marginX, pageH-8, {baseline:"top"});
+      doc.line(marginX, pageH-13, pageW-marginX, pageH-13);
+      doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9); doc.setTextColor(FAINT[0],FAINT[1],FAINT[2]);
+      doc.text(state.header.razonSocial || "Informe de auditoría", marginX, pageH-8.5, {baseline:"top"});
       doc.setFont(FAMILY_MONO,"bold");
-      doc.text("Página "+p+" de "+totalPages, pageW/2, pageH-8, {baseline:"top", align:"center"});
+      doc.text("Página "+p+" de "+totalPages, pageW/2, pageH-8.5, {baseline:"top", align:"center"});
       doc.setFont(FAMILY_BODY,"normal");
-      doc.text(new Date().toLocaleDateString("es-EC"), pageW-marginX, pageH-8, {baseline:"top", align:"right"});
+      doc.text(new Date().toLocaleDateString("es-EC"), pageW-marginX, pageH-8.5, {baseline:"top", align:"right"});
     }
 
     return doc;
