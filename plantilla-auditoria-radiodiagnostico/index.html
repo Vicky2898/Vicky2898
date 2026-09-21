@@ -1,0 +1,809 @@
+<title>Auditoría Seguridad Radiológica</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root{
+    --bg:#eef2f0; --surface:#ffffff; --surface-2:#e3e9e6; --surface-3:#0f2b27;
+    --border:#ccd7d2; --border-soft:#dde5e1;
+    --text:#122019; --text-2:#445550; --text-mute:#71827c; --on-dark:#eef4f1; --on-dark-mute:#a9c2ba;
+    --accent:#0f766e; --accent-strong:#0b5c56; --accent-soft:#d9efec;
+    --hazard:#b7791f;
+    --good:#1c7a4a; --good-bg:#e0f4e8;
+    --critical:#b23a34; --critical-bg:#fbe8e6;
+    --na:#5c6b66; --na-bg:#e7ece9;
+    --warn:#a8730f; --warn-bg:#fbeed3;
+    --pending:#9aa8a2; --pending-bg:#eef1ef;
+    --radius:14px; --radius-sm:9px;
+    --shadow:0 1px 2px rgba(15,40,35,.06), 0 6px 20px -8px rgba(15,40,35,.16);
+    --font-display:'Archivo',system-ui,sans-serif;
+    --font-body:'Source Sans 3',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0c1613; --surface:#12201c; --surface-2:#182722; --surface-3:#081916;
+      --border:#28372f; --border-soft:#203029;
+      --text:#eaf1ed; --text-2:#bcccc5; --text-mute:#87988f; --on-dark:#eaf1ed; --on-dark-mute:#9fb6ad;
+      --accent:#35b5a5; --accent-strong:#4fcabb; --accent-soft:#123a34;
+      --hazard:#d9a441;
+      --good:#4fbd7c; --good-bg:#123626;
+      --critical:#e6746c; --critical-bg:#3a1c1b;
+      --na:#9db0a8; --na-bg:#1c2925;
+      --warn:#e0ac4c; --warn-bg:#3a2c11;
+      --pending:#728179; --pending-bg:#182420;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -10px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0c1613; --surface:#12201c; --surface-2:#182722; --surface-3:#081916;
+    --border:#28372f; --border-soft:#203029;
+    --text:#eaf1ed; --text-2:#bcccc5; --text-mute:#87988f; --on-dark:#eaf1ed; --on-dark-mute:#9fb6ad;
+    --accent:#35b5a5; --accent-strong:#4fcabb; --accent-soft:#123a34;
+    --hazard:#d9a441;
+    --good:#4fbd7c; --good-bg:#123626;
+    --critical:#e6746c; --critical-bg:#3a1c1b;
+    --na:#9db0a8; --na-bg:#1c2925;
+    --warn:#e0ac4c; --warn-bg:#3a2c11;
+    --pending:#728179; --pending-bg:#182420;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -10px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:15px; line-height:1.5; padding-inline:16px;}
+  h1,h2,h3{font-family:var(--font-display); text-wrap:balance; margin:0;}
+  .mono{font-family:var(--font-mono);}
+  button{font-family:inherit; cursor:pointer;}
+  a{color:var(--accent);}
+  input,textarea{font-family:inherit; font-size:inherit; color:var(--text); background:var(--surface);}
+  ::selection{background:var(--accent-soft);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  .wrap{max-width:920px; margin-inline:auto; padding-block:0 40px;}
+
+  /* Top bar */
+  .topbar{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+    background:var(--surface-3); color:var(--on-dark);
+    margin-inline:-16px; padding:14px 16px; padding-top:calc(14px + env(safe-area-inset-top,0px));
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+    box-shadow:0 2px 12px rgba(0,0,0,.18);
+  }
+  .topbar .brand{display:flex; align-items:center; gap:10px; margin-right:auto;}
+  .topbar .brand svg{flex:none;}
+  .topbar h1{font-size:17px; color:#fff; letter-spacing:.2px;}
+  .topbar .sub{font-size:11.5px; color:var(--on-dark-mute); text-transform:uppercase; letter-spacing:.6px;}
+  .ring-badge{display:flex; align-items:center; gap:8px;}
+  .ring-badge .num{font-family:var(--font-mono); font-weight:600; font-size:15px; color:#fff;}
+  .ring-badge .lbl{font-size:10.5px; color:var(--on-dark-mute); text-transform:uppercase; letter-spacing:.5px;}
+  .actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .btn{
+    border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.06); color:#fff;
+    padding:8px 13px; border-radius:999px; font-size:13px; font-weight:600; display:inline-flex; align-items:center; gap:6px;
+    transition:background .15s;
+  }
+  .btn:hover{background:rgba(255,255,255,.16);}
+  .btn.primary{background:var(--accent); border-color:var(--accent);}
+  .btn.primary:hover{background:var(--accent-strong);}
+  .btn.ghost{background:transparent;}
+
+  /* light-surface buttons (used off the dark topbar) */
+  .btn.on-surface{border-color:var(--border); background:var(--surface); color:var(--text);}
+  .btn.on-surface:hover{background:var(--surface-2);}
+
+  .card{
+    background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:22px; margin-top:20px;
+  }
+  .card > h2{font-size:15px; text-transform:uppercase; letter-spacing:.5px; color:var(--text-2); margin-bottom:4px;}
+  .card .card-desc{font-size:13px; color:var(--text-mute); margin-bottom:18px;}
+
+  /* Header form */
+  .grid-form{display:grid; grid-template-columns:repeat(2,1fr); gap:14px 18px;}
+  .field{display:flex; flex-direction:column; gap:5px;}
+  .field label{font-size:12px; font-weight:600; color:var(--text-2);}
+  .field input[type=text],.field input[type=date]{
+    border:1px solid var(--border); border-radius:var(--radius-sm); padding:9px 11px; font-size:14px;
+  }
+  .field input:focus{border-color:var(--accent);}
+  fieldset{border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 14px; margin-top:16px;}
+  fieldset legend{font-size:12px; font-weight:600; color:var(--text-2); padding-inline:4px;}
+  fieldset .hint{font-size:12px; color:var(--text-mute); margin:2px 0 10px;}
+  .check-row{display:flex; flex-wrap:wrap; gap:10px 18px;}
+  .check-row label{display:flex; align-items:center; gap:7px; font-size:13.5px;}
+  .check-row input{width:16px; height:16px; accent-color:var(--accent);}
+
+  /* Dashboard */
+  .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;}
+  .stat-tile{border:1px solid var(--border-soft); border-radius:var(--radius-sm); padding:12px 14px; background:var(--surface-2);}
+  .stat-tile .n{font-family:var(--font-mono); font-size:22px; font-weight:600; font-variant-numeric:tabular-nums;}
+  .stat-tile .l{font-size:11.5px; color:var(--text-mute); text-transform:uppercase; letter-spacing:.4px; margin-top:2px;}
+  .stat-tile.good .n{color:var(--good);}
+  .stat-tile.critical .n{color:var(--critical);}
+  .stat-tile.na .n{color:var(--na);}
+  .stat-tile.pending .n{color:var(--pending);}
+
+  .dash-main{display:flex; gap:26px; align-items:center; flex-wrap:wrap; margin-bottom:22px;}
+  .ring-wrap{position:relative; width:132px; height:132px; flex:none;}
+  .ring-wrap svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .ring-center{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .ring-center .pct{font-family:var(--font-mono); font-size:28px; font-weight:600;}
+  .ring-center .band{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; padding:2px 9px; border-radius:999px; margin-top:4px;}
+  .dash-copy{flex:1; min-width:220px;}
+  .dash-copy h3{font-size:16px; margin-bottom:6px;}
+  .dash-copy p{font-size:13.5px; color:var(--text-2); margin:0 0 10px;}
+  .progress-track{height:8px; border-radius:999px; background:var(--surface-2); overflow:hidden;}
+  .progress-fill{height:100%; background:var(--accent); border-radius:999px; transition:width .3s;}
+  .progress-label{display:flex; justify-content:space-between; font-size:12px; color:var(--text-mute); margin-top:5px;}
+
+  .section-list{display:flex; flex-direction:column; gap:8px;}
+  .section-row{
+    display:grid; grid-template-columns:22px 1fr 90px 34px; align-items:center; gap:12px;
+    padding:8px 10px; border-radius:var(--radius-sm); text-decoration:none; color:inherit;
+  }
+  .section-row:hover{background:var(--surface-2);}
+  .section-row .idx{font-family:var(--font-mono); font-size:12px; color:var(--text-mute); text-align:right;}
+  .section-row .name{font-size:13.5px; font-weight:600;}
+  .meter{display:flex; height:7px; border-radius:999px; overflow:hidden; background:var(--pending-bg); gap:1.5px;}
+  .meter span{height:100%;}
+  .meter .m-good{background:var(--good);}
+  .meter .m-critical{background:var(--critical);}
+  .meter .m-na{background:var(--na);}
+  .section-row .frac{font-family:var(--font-mono); font-size:11.5px; color:var(--text-mute); text-align:right; white-space:nowrap;}
+
+  /* Sections / items */
+  .toolbar-row{display:flex; justify-content:space-between; align-items:center; gap:10px; margin:26px 0 10px; flex-wrap:wrap;}
+  .toolbar-row h2{font-family:var(--font-display); font-size:19px;}
+  .toolbar-row .mini-actions{display:flex; gap:8px;}
+  .btn.small{padding:6px 11px; font-size:12px;}
+
+  details.section-card{
+    background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius);
+    box-shadow:var(--shadow); margin-top:14px; scroll-margin-top:96px; overflow:hidden;
+  }
+  details.section-card > summary{
+    list-style:none; cursor:pointer; padding:16px 20px; display:flex; align-items:center; gap:14px;
+  }
+  details.section-card > summary::-webkit-details-marker{display:none;}
+  .sum-chevron{width:9px; height:9px; border-right:2px solid var(--text-mute); border-bottom:2px solid var(--text-mute); transform:rotate(-45deg); transition:transform .15s; flex:none;}
+  details[open] > summary .sum-chevron{transform:rotate(45deg);}
+  .sum-num{font-family:var(--font-mono); font-size:12px; color:var(--accent); font-weight:600; background:var(--accent-soft); border-radius:999px; padding:3px 9px; flex:none;}
+  .sum-title{font-family:var(--font-display); font-size:15.5px; font-weight:700; flex:1;}
+  .sum-meta{font-family:var(--font-mono); font-size:11.5px; color:var(--text-mute); white-space:nowrap;}
+  .section-note{margin:0 20px 14px; padding:10px 14px; background:var(--warn-bg); color:var(--warn); border-radius:var(--radius-sm); font-size:12.5px; border-left:3px solid var(--warn);}
+  .items{border-top:1px solid var(--border-soft);}
+
+  .item{
+    padding:16px 20px; border-bottom:1px solid var(--border-soft); border-left:3px solid var(--pending);
+    display:flex; flex-direction:column; gap:10px; break-inside:avoid;
+  }
+  .item:last-child{border-bottom:none;}
+  .item[data-status="cumple"]{border-left-color:var(--good);}
+  .item[data-status="no_cumple"]{border-left-color:var(--critical);}
+  .item[data-status="na"]{border-left-color:var(--na);}
+  .item-main{display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;}
+  .item-num{font-family:var(--font-mono); font-size:12px; color:var(--text-mute); padding-top:2px; flex:none; width:26px;}
+  .item-body{flex:1; min-width:200px;}
+  .item-title{font-size:14.5px; font-weight:600;}
+  .item-ev{font-size:12.5px; color:var(--text-mute); margin-top:3px;}
+  .item-status{display:flex; gap:6px; flex:none;}
+  .pill-wrap{position:relative; display:inline-flex;}
+  .pill-wrap input{position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:pointer;}
+  .pill{
+    pointer-events:none;
+    border:1px solid var(--border); border-radius:999px; padding:6px 12px; font-size:12px; font-weight:600;
+    color:var(--text-2); background:var(--surface); display:inline-block; transition:.12s;
+  }
+  .pill-wrap input:focus-visible + .pill{outline:2px solid var(--accent); outline-offset:1px;}
+  .pill-wrap input:checked + .pill-good{background:var(--good-bg); border-color:var(--good); color:var(--good);}
+  .pill-wrap input:checked + .pill-critical{background:var(--critical-bg); border-color:var(--critical); color:var(--critical);}
+  .pill-wrap input:checked + .pill-na{background:var(--na-bg); border-color:var(--na); color:var(--na);}
+  .item-obs{display:flex; flex-direction:column; gap:4px;}
+  .item-obs label{font-size:11.5px; color:var(--text-mute);}
+  .item-obs textarea{
+    border:1px solid var(--border); border-radius:var(--radius-sm); padding:8px 10px; font-size:13px;
+    resize:vertical; min-height:38px; width:100%;
+  }
+  .item-obs textarea:focus{border-color:var(--accent);}
+
+  .footer-card{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;}
+  .autosave{font-size:12px; color:var(--text-mute);}
+  .autosave strong{color:var(--text-2);}
+
+  .sign-block{display:none;}
+
+  footer.page-foot{margin-top:26px; font-size:12px; color:var(--text-mute); text-align:center; padding-bottom:20px;}
+
+  @media (max-width:640px){
+    .grid-form{grid-template-columns:1fr;}
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+    .dash-main{flex-direction:column; align-items:flex-start;}
+    .section-row{grid-template-columns:18px 1fr 70px 30px;}
+    .topbar{justify-content:flex-start;}
+  }
+
+  @media print{
+    .topbar,.toolbar-row .mini-actions,.footer-card,.no-print{display:none !important;}
+    body{background:#fff; color:#000; padding:0;}
+    .card,details.section-card{box-shadow:none; border:1px solid #999;}
+    a{color:#000;}
+    .item{break-inside:avoid;}
+    .sign-block{display:grid; grid-template-columns:1fr 1fr; gap:28px 40px; margin-top:30px;}
+    .sign-block div{border-top:1px solid #333; padding-top:6px; font-size:12px;}
+  }
+</style>
+
+<div class="topbar">
+  <div class="brand">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="2.4" fill="#fff"/>
+      <g stroke="#fff" stroke-width="1.6">
+        <path d="M12 12 L12 3.2 A8.8 8.8 0 0 1 19.6 7.8 Z" fill="none"/>
+        <path d="M12 12 L4.4 16.4 A8.8 8.8 0 0 1 4.4 7.6 Z" fill="none"/>
+        <path d="M12 12 L19.6 16.4 A8.8 8.8 0 0 1 12 20.8 Z" fill="none"/>
+      </g>
+    </svg>
+    <div>
+      <h1>Auditoría Seguridad Radiológica</h1>
+      <div class="sub">Radiodiagnóstico médico · Radiología intervencionista</div>
+    </div>
+  </div>
+  <div class="ring-badge no-print">
+    <div>
+      <div class="num" id="topbarPct">0%</div>
+      <div class="lbl">Cumplimiento</div>
+    </div>
+  </div>
+  <div class="actions no-print">
+    <button class="btn primary" id="btnPrint" type="button">Generar informe</button>
+    <button class="btn" id="btnExport" type="button">Exportar datos</button>
+    <button class="btn" id="btnImportTrigger" type="button">Importar datos</button>
+    <input type="file" id="fileImport" accept="application/json" hidden>
+    <button class="btn ghost" id="btnReset" type="button">Reiniciar</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="card" aria-labelledby="h-datos">
+    <h2 id="h-datos">Datos de la instalación</h2>
+    <p class="card-desc">Información general que identifica a la instalación auditada. Se incluye en la cabecera del informe.</p>
+    <div class="grid-form">
+      <div class="field"><label for="f-instalacion">Instalación</label><input type="text" id="f-instalacion" placeholder="Nombre de la instalación / servicio de imagen"></div>
+      <div class="field"><label for="f-razonSocial">Razón social</label><input type="text" id="f-razonSocial" placeholder="Razón social registrada"></div>
+      <div class="field"><label for="f-representanteLegal">Representante legal</label><input type="text" id="f-representanteLegal" placeholder="Nombre completo"></div>
+      <div class="field"><label for="f-ruc">RUC</label><input type="text" id="f-ruc" class="mono" inputmode="numeric" maxlength="13" placeholder="1790000000001"></div>
+      <div class="field"><label for="f-ubicacion">Ubicación</label><input type="text" id="f-ubicacion" placeholder="Provincia, cantón, dirección"></div>
+      <div class="field"><label for="f-responsableMedico">Responsable médico</label><input type="text" id="f-responsableMedico" placeholder="Médico responsable de la protección del paciente"></div>
+      <div class="field"><label for="f-osr">Oficial de Seguridad Radiológica (OSR)</label><input type="text" id="f-osr" placeholder="Nombre del OSR, si aplica"></div>
+      <div class="field"><label for="f-responsableRevision">Responsable de la revisión</label><input type="text" id="f-responsableRevision" placeholder="Auditor/a que realiza el check list"></div>
+      <div class="field"><label for="f-fecha">Fecha de revisión</label><input type="date" id="f-fecha"></div>
+      <div class="field"><label for="f-version">Versión del informe</label><input type="text" id="f-version" placeholder="01"></div>
+    </div>
+
+    <fieldset>
+      <legend>Práctica</legend>
+      <p class="hint">Seleccione una o ambas prácticas, según lo que ofrezca la instalación — no todas cuentan con las mismas.</p>
+      <div class="check-row">
+        <label><input type="checkbox" id="p-radiodiagnostico"> Radiodiagnóstico médico</label>
+        <label><input type="checkbox" id="p-intervencionismo"> Radiología intervencionista</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Equipos incluidos</legend>
+      <p class="hint">Marque los equipos generadores de radiación (y RM) presentes en la instalación.</p>
+      <div class="check-row" id="equiposRow"></div>
+    </fieldset>
+  </section>
+
+  <section class="card" aria-labelledby="h-resumen">
+    <h2 id="h-resumen">Resumen de cumplimiento</h2>
+    <p class="card-desc">Se calcula en vivo a partir de las respuestas del check list. Los ítems marcados N.A. no afectan el porcentaje de cumplimiento.</p>
+
+    <div class="dash-main">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 132 132">
+          <circle cx="66" cy="66" r="56" fill="none" stroke="var(--surface-2)" stroke-width="12"/>
+          <circle id="ringFg" cx="66" cy="66" r="56" fill="none" stroke="var(--good)" stroke-width="12" stroke-linecap="round" stroke-dasharray="351.86" stroke-dashoffset="351.86"/>
+        </svg>
+        <div class="ring-center">
+          <div class="pct mono" id="ringPct">0%</div>
+          <div class="band" id="ringBand">Sin evaluar</div>
+        </div>
+      </div>
+      <div class="dash-copy">
+        <h3>Avance de la auditoría</h3>
+        <p id="avanceTxt">0 de 72 ítems evaluados.</p>
+        <div class="progress-track"><div class="progress-fill" id="avanceFill" style="width:0%"></div></div>
+        <div class="progress-label"><span id="avanceLabel">0%</span><span>72 ítems totales</span></div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-tile good"><div class="n" id="stCumple">0</div><div class="l">Cumple</div></div>
+      <div class="stat-tile critical"><div class="n" id="stNoCumple">0</div><div class="l">No cumple</div></div>
+      <div class="stat-tile na"><div class="n" id="stNA">0</div><div class="l">N.A.</div></div>
+      <div class="stat-tile pending"><div class="n" id="stPend">0</div><div class="l">Pendiente</div></div>
+    </div>
+
+    <div class="section-list" id="sectionList"></div>
+  </section>
+
+  <div class="toolbar-row">
+    <h2>Check list por sección</h2>
+    <div class="mini-actions no-print">
+      <button class="btn small on-surface" id="btnExpandAll" type="button">Expandir todo</button>
+      <button class="btn small on-surface" id="btnCollapseAll" type="button">Colapsar todo</button>
+    </div>
+  </div>
+
+  <div id="sections"></div>
+
+  <section class="card footer-card no-print">
+    <div class="autosave" id="autosaveTxt">Los cambios se guardan automáticamente en este navegador.</div>
+    <div class="actions">
+      <button class="btn on-surface" id="btnPrint2" type="button">Generar informe</button>
+      <button class="btn on-surface" id="btnExport2" type="button">Exportar datos (JSON)</button>
+    </div>
+  </section>
+
+  <div class="sign-block">
+    <div>Responsable de la revisión — Firma</div>
+    <div>Representante legal — Firma</div>
+    <div>Oficial de Seguridad Radiológica (OSR) — Firma</div>
+    <div>Fecha</div>
+  </div>
+
+  <footer class="page-foot">
+    Plantilla basada en los requisitos documentales de inspección de seguridad radiológica para radiodiagnóstico médico, radiología intervencionista, RX, TAC, DMO, mamografía y RM.
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var EQUIPOS = ["RX","TAC","DMO","Mamografía","RM","Intervencionismo"];
+
+  var SECTIONS = [
+    {id:1, title:"Carpeta legal e institucional", items:[
+      [1,"Formulario de solicitud de licencia institucional","Formulario lleno, firmado y actualizado."],
+      [2,"RUC de la instalación","RUC con actividad económica relacionada, razón social, dirección y representante legal."],
+      [3,"Plano de la instalación","Plano a escala legible con salas, consola, áreas controladas/supervisadas y áreas adyacentes."],
+      [4,"Declaración del representante legal","Documento donde reconoce ser el máximo responsable de la seguridad radiológica."],
+      [5,"Restricciones para trabajadoras embarazadas","Procedimiento firmado que asegure protección del embrión/feto equivalente a miembros del público."],
+      [6,"Licencia institucional vigente o trámite","Copia de licencia institucional o respaldo del trámite presentado."],
+      [7,"Oficios y comunicaciones con autoridad reguladora","Carpeta cronológica de oficios enviados, recibidos y respuestas oficiales."]
+    ]},
+    {id:2, title:"POE, OSR y médico responsable",
+     note:"Criterio OSR importante: si la instalación cuenta con 4 o más equipos generadores de radiación ionizante y entre ellos existe TAC, angiografía, arco en C, litotriptor o telecomandado, debe disponer de al menos un OSR que controle permanentemente los aspectos de seguridad radiológica.",
+     items:[
+      [8,"Listado actualizado de POE","Nombres completos, cédula, profesión, cargo, función, área, licencia ocupacional y caducidad."],
+      [9,"Licencias ocupacionales tipo A del POE","Copias vigentes de licenciados, médicos y personal que opere equipos generadores de radiación."],
+      [10,"Nombramiento del Oficial de Seguridad Radiológica, si aplica","Designación formal del OSR emitida por representante legal."],
+      [11,"Autorización vigente del OSR, si aplica","Copia de autorización emitida por la autoridad competente."],
+      [12,"Designación del médico responsable de protección del paciente","Documento firmado por representante legal, médico especialista con licencia tipo A vigente."],
+      [13,"Funciones y responsabilidades del personal","Documento individual o matriz firmada por cada POE."],
+      [14,"Registro de ingreso y salida del POE","Oficios o registros internos de altas, bajas y notificación a autoridad cuando corresponda."]
+    ]},
+    {id:3, title:"Dosimetría personal", items:[
+      [15,"Contrato o adquisición del servicio de dosimetría","Documento vigente del proveedor de dosimetría personal de cuerpo entero para el POE."],
+      [16,"Registro de entrega de dosímetros","Firma del POE, fecha de entrega, periodo de uso, código de dosímetro."],
+      [17,"Registro de canje o recolección","Fecha de retiro, nuevo periodo, responsable de entrega/recepción."],
+      [18,"Reportes dosimétricos","Reportes periódicos con recibido individual del POE."],
+      [19,"Revisión técnica por OSR","Firma o sello de revisión de dosis por periodo."],
+      [20,"Investigación de dosis anómalas","Formato de investigación, causa probable y acciones correctivas."],
+      [21,"Uso correcto del dosímetro","Evidencia de capacitación: posición correcta y condiciones de almacenamiento fuera de zona controlada."]
+    ]},
+    {id:4, title:"Vigilancia médica ocupacional", items:[
+      [22,"Certificado médico ocupacional del POE","Certificado que indique aptitud para trabajar con radiaciones ionizantes."],
+      [23,"Exámenes pre-ocupacionales","Evidencia para personal nuevo antes de iniciar actividades."],
+      [24,"Exámenes periódicos anuales","Biometría hemática con plaquetas y otros exámenes según criterio de medicina ocupacional."],
+      [25,"Registro de controles médico-laborales","Cédula, nombres completos, fecha de emisión del certificado y firma responsable."]
+    ]},
+    {id:5, title:"Capacitación y entrenamiento", items:[
+      [26,"Plan anual de capacitación","Cronograma anual firmado por OSR o responsable de la instalación."],
+      [27,"Registro de capacitaciones ejecutadas","Tema, fecha, capacitador, cédula, nombres y firmas de asistentes."],
+      [28,"Certificados de capacitación","Certificados adjuntos por capacitación."],
+      [29,"Capacitación específica por equipo","RX, TAC, DMO, Mamografía, Intervencionismo y RM."],
+      [30,"Capacitación en protección radiológica operacional","Tiempo, distancia, blindaje, colimación, uso de EPR, reducción de repeticiones."],
+      [31,"Capacitación en embarazo y pediatría","Justificación, optimización y medidas especiales de protección."]
+    ]},
+    {id:6, title:"Documentación técnica de equipos", items:[
+      [32,"Manuales técnicos y de usuario","Manuales del fabricante o proveedor, preferentemente en español."],
+      [33,"Especificaciones técnicas","Fichas técnicas de RX, TAC, Mamografía, DMO e intervencionismo."],
+      [34,"Documentos de procedencia de equipos","Facturas, actas de compra, donación, importación o transferencia."],
+      [35,"Inventario de equipos generadores","Tipo, marca, modelo, serie del equipo, marca/modelo/serie de tubo o insert y uso."],
+      [36,"Fotografías de placas de equipos y tubos","Fotos legibles de placas del equipo y del tubo/insert."],
+      [37,"Destino final de equipos fuera de uso","Acta de baja, traslado, venta, chatarrización o cambio de tubo notificado, si aplica."]
+    ]},
+    {id:7, title:"Mantenimiento y control de calidad", items:[
+      [38,"Contrato de mantenimiento preventivo y correctivo","Contrato vigente con empresa autorizada; equipos incluidos, plazo y firmas."],
+      [39,"Mantenimiento preventivo anual mínimo","Informe técnico por equipo, de acuerdo con fabricante."],
+      [40,"Mantenimiento correctivo, si aplica","Reporte de falla, intervención, repuestos y liberación del equipo."],
+      [41,"Control de calidad mínimo","Informe de pruebas técnicas de cada equipo generador de radiación ionizante."],
+      [42,"Pruebas de aceptación o constancia","Para equipo nuevo, reubicado, reparado o con cambio de tubo."],
+      [43,"Registro interno de fallas","Bitácora de fallas, paradas, errores técnicos y acciones correctivas."],
+      [44,"Verificación diaria/semanal por operador","Encendido, calentamiento, consola, accesorios, comunicación y condiciones generales."]
+    ]},
+    {id:8, title:"Procedimientos técnicos, prescripción y consentimiento", items:[
+      [45,"Procedimientos técnicos por estudio","Protocolos firmados conjuntamente por médico especialista y personal operador."],
+      [46,"Prescripciones médicas","Ejemplos con datos personales ofuscados o respaldo del sistema institucional."],
+      [47,"Consentimientos informados","Ejemplos con datos personales ofuscados, cuando aplique por tipo de estudio/procedimiento."],
+      [48,"Justificación de estudios","Documento de justificación para exposición general, embarazadas y pediátricos."],
+      [49,"Protocolos pediátricos","Parámetros optimizados por edad, peso, talla o tamaño corporal."],
+      [50,"Mujeres en edad fértil","Registro de pregunta de embarazo, FUM y consentimiento si corresponde."],
+      [51,"Registro de repetición de imágenes","Motivo: movimiento, posicionamiento, error técnico, artefacto, falla del equipo."]
+    ]},
+    {id:9, title:"Elementos de protección radiológica (EPR)", items:[
+      [52,"Inventario de EPR con fotografías","Delantales, collar tiroideo, lentes plomados, biombo, guantes si aplica."],
+      [53,"Mínimo dos prendas por sala","Al menos dos delantales y dos collarines por sala, según riesgo y práctica."],
+      [54,"Espesor equivalente de plomo","Delantal frontal 0,5-0,7 mm Pb o envolvente 0,25 mm Pb; collar tiroideo 0,5 mm Pb."],
+      [55,"Informe anual de integridad de delantales","Prueba con RX mínimo 60 kVp o método equivalente; periodicidad aproximada anual."],
+      [56,"Identificación o codificación del EPR","Código, ubicación, estado, fecha de revisión y responsable."],
+      [57,"Almacenamiento adecuado","Colgados, sin dobleces, sin peso encima y fuera de condiciones que deterioren el blindaje."]
+    ]},
+    {id:10, title:"Blindajes, radiometría y condiciones físicas", items:[
+      [58,"Memoria técnica de cálculo de blindaje","Oficio de aprobación, si aplica por categoría, TAC, telecomandado o unidad móvil."],
+      [59,"Levantamiento radiométrico","Oficio de recibido o informe vigente que demuestre cumplimiento de límites de dosis."],
+      [60,"Señalización externa","Símbolo internacional de radiación, advertencia de zona y restricción de ingreso."],
+      [61,"Zonas controladas y supervisadas","Rotulación visible y coherente con el plano/riesgo."],
+      [62,"Luz indicadora de exposición","Luz, señal o sistema de advertencia funcional durante exposición, si aplica."],
+      [63,"Visualización del paciente","Paciente visible desde consola durante el estudio."],
+      [64,"Comunicación verbal con paciente","Intercomunicador o medio funcional de comunicación."],
+      [65,"Puertas y barreras íntegras","Puertas plomadas/cerramientos sin daño visible y con cierre funcional."],
+      [66,"Control de acceso","Puertas cerradas durante exposición e ingreso restringido a zonas controladas."]
+    ]},
+    {id:11, title:"Registros operativos y bitácoras internas", items:[
+      [67,"Bitácora diaria por equipo","Registro diario RX, TAC, DMO, Mamografía, Intervencionismo y RM."],
+      [68,"Bitácora de pacientes y parámetros técnicos","Paciente, cédula, examen, proyecciones/posiciones, kV, mA/mAs y observaciones."],
+      [69,"Bitácora de contraste","Tipo, lote, volumen, vía, reacciones adversas y responsable, si aplica."],
+      [70,"Bitácora de eventos, fallas e incidentes","Evento, equipo, acción tomada, responsable y cierre de acción correctiva."],
+      [71,"Bitácora de limpieza y desinfección","Camilla, detectores, bobinas de RM, accesorios y superficies de contacto."],
+      [72,"Bitácora de control de calidad operativo","Pruebas diarias/semanales: fantoma DMO, QC mamografía, calentamiento de tubo, etc."]
+    ]}
+  ];
+
+  var TOTAL_ITEMS = SECTIONS.reduce(function(a,s){return a+s.items.length;},0);
+  // Traffic-light bands for the compliance ring: standard 3-tier audit rating.
+  var BAND_GOOD = 85, BAND_WARN = 60;
+  var STORE_KEY = "auditoria-radiodiagnostico-v1";
+
+  var state = {
+    header:{instalacion:"",razonSocial:"",representanteLegal:"",ruc:"",ubicacion:"",responsableMedico:"",osr:"",responsableRevision:"",fecha:"",version:"01"},
+    practica:{radiodiagnostico:false,intervencionismo:false},
+    equipos:{},
+    items:{}
+  };
+  EQUIPOS.forEach(function(e){ state.equipos[e]=false; });
+  SECTIONS.forEach(function(sec){ sec.items.forEach(function(it){ state.items[it[0]] = {estado:null, obs:""}; }); });
+
+  function loadState(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return false;
+      var saved = JSON.parse(raw);
+      if(saved.header) Object.assign(state.header, saved.header);
+      if(saved.practica) Object.assign(state.practica, saved.practica);
+      if(saved.equipos) Object.assign(state.equipos, saved.equipos);
+      if(saved.items){
+        Object.keys(saved.items).forEach(function(k){
+          if(state.items[k]) state.items[k] = saved.items[k];
+        });
+      }
+      return true;
+    }catch(e){ return false; }
+  }
+  function persist(){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+    var el = document.getElementById("autosaveTxt");
+    if(el){
+      var t = new Date();
+      var hh = String(t.getHours()).padStart(2,"0"), mm = String(t.getMinutes()).padStart(2,"0");
+      el.innerHTML = "Guardado automáticamente en este navegador · <strong>"+hh+":"+mm+"</strong>";
+    }
+  }
+
+  var hadSaved = loadState();
+  if(!hadSaved){
+    var d = new Date();
+    state.header.fecha = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+
+  function esc(s){
+    return String(s==null?"":s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  // ---------- Header form ----------
+  var headerFields = ["instalacion","razonSocial","representanteLegal","ruc","ubicacion","responsableMedico","osr","responsableRevision"];
+  headerFields.forEach(function(key){
+    var el = document.getElementById("f-"+key);
+    el.value = state.header[key];
+    el.addEventListener("input", function(){ state.header[key]=el.value; persist(); });
+  });
+  var fechaEl = document.getElementById("f-fecha");
+  fechaEl.value = state.header.fecha;
+  fechaEl.addEventListener("input", function(){ state.header.fecha = fechaEl.value; persist(); });
+  var versionEl = document.getElementById("f-version");
+  versionEl.value = state.header.version;
+  versionEl.addEventListener("input", function(){ state.header.version = versionEl.value; persist(); });
+
+  var pRadEl = document.getElementById("p-radiodiagnostico");
+  var pInterEl = document.getElementById("p-intervencionismo");
+  pRadEl.checked = state.practica.radiodiagnostico;
+  pInterEl.checked = state.practica.intervencionismo;
+  pRadEl.addEventListener("change", function(){ state.practica.radiodiagnostico = pRadEl.checked; persist(); });
+  pInterEl.addEventListener("change", function(){ state.practica.intervencionismo = pInterEl.checked; persist(); });
+
+  var equiposRow = document.getElementById("equiposRow");
+  EQUIPOS.forEach(function(eq){
+    var id = "eq-"+eq.replace(/[^a-zA-Z]/g,"");
+    var label = document.createElement("label");
+    label.innerHTML = '<input type="checkbox" id="'+id+'"> '+esc(eq);
+    equiposRow.appendChild(label);
+    var input = label.querySelector("input");
+    input.checked = !!state.equipos[eq];
+    input.addEventListener("change", function(){ state.equipos[eq]=input.checked; persist(); });
+  });
+
+  // ---------- Sections & items ----------
+  var sectionsRoot = document.getElementById("sections");
+  SECTIONS.forEach(function(sec){
+    var det = document.createElement("details");
+    det.className = "section-card";
+    det.open = true;
+    det.id = "sec-"+sec.id;
+
+    var summary = document.createElement("summary");
+    summary.innerHTML =
+      '<span class="sum-chevron"></span>'+
+      '<span class="sum-num">'+String(sec.id).padStart(2,"0")+'</span>'+
+      '<span class="sum-title">'+esc(sec.title)+'</span>'+
+      '<span class="sum-meta" data-sec-meta="'+sec.id+'"></span>';
+    det.appendChild(summary);
+
+    if(sec.note){
+      var note = document.createElement("p");
+      note.className = "section-note";
+      note.textContent = sec.note;
+      det.appendChild(note);
+    }
+
+    var itemsWrap = document.createElement("div");
+    itemsWrap.className = "items";
+    sec.items.forEach(function(it){
+      var n = it[0], req = it[1], ev = it[2];
+      var art = document.createElement("article");
+      art.className = "item";
+      art.id = "item-"+n;
+      art.dataset.n = n;
+      art.innerHTML =
+        '<div class="item-main">'+
+          '<div class="item-num mono">#'+String(n).padStart(2,"0")+'</div>'+
+          '<div class="item-body">'+
+            '<h3 class="item-title">'+esc(req)+'</h3>'+
+            '<p class="item-ev">'+esc(ev)+'</p>'+
+          '</div>'+
+          '<div class="item-status" role="radiogroup" aria-label="Cumplimiento ítem '+n+'">'+
+            '<span class="pill-wrap"><input type="radio" name="estado-'+n+'" id="estado-'+n+'-cumple" value="cumple"><label for="estado-'+n+'-cumple" class="pill pill-good">Cumple</label></span>'+
+            '<span class="pill-wrap"><input type="radio" name="estado-'+n+'" id="estado-'+n+'-no_cumple" value="no_cumple"><label for="estado-'+n+'-no_cumple" class="pill pill-critical">No cumple</label></span>'+
+            '<span class="pill-wrap"><input type="radio" name="estado-'+n+'" id="estado-'+n+'-na" value="na"><label for="estado-'+n+'-na" class="pill pill-na">N.A.</label></span>'+
+          '</div>'+
+        '</div>'+
+        '<div class="item-obs">'+
+          '<label for="obs-'+n+'">Observación / motivo de incumplimiento</label>'+
+          '<textarea id="obs-'+n+'" rows="2" placeholder="Ej.: no se cuenta con el documento; en trámite ante el representante legal, fecha estimada de entrega…"></textarea>'+
+        '</div>';
+      itemsWrap.appendChild(art);
+    });
+    det.appendChild(itemsWrap);
+    sectionsRoot.appendChild(det);
+  });
+
+  // Restore item state into the DOM
+  Object.keys(state.items).forEach(function(n){
+    var it = state.items[n];
+    if(it.estado){
+      var radio = document.getElementById("estado-"+n+"-"+it.estado);
+      if(radio) radio.checked = true;
+    }
+    var ta = document.getElementById("obs-"+n);
+    if(ta) ta.value = it.obs || "";
+    var art = document.getElementById("item-"+n);
+    if(art) art.dataset.status = it.estado || "";
+  });
+
+  // Delegated events for item changes
+  sectionsRoot.addEventListener("change", function(ev){
+    var t = ev.target;
+    if(t.matches('.item-status input[type=radio]')){
+      var art = t.closest(".item");
+      var n = art.dataset.n;
+      state.items[n].estado = t.value;
+      art.dataset.status = t.value;
+      persist();
+      renderDashboard();
+    }
+  });
+  sectionsRoot.addEventListener("input", function(ev){
+    var t = ev.target;
+    if(t.tagName === "TEXTAREA"){
+      var art = t.closest(".item");
+      var n = art.dataset.n;
+      state.items[n].obs = t.value;
+      persist();
+    }
+  });
+
+  // ---------- Dashboard ----------
+  var sectionListEl = document.getElementById("sectionList");
+  SECTIONS.forEach(function(sec){
+    var a = document.createElement("a");
+    a.className = "section-row";
+    a.href = "#sec-"+sec.id;
+    a.innerHTML =
+      '<span class="idx mono">'+String(sec.id).padStart(2,"0")+'</span>'+
+      '<span class="name">'+esc(sec.title)+'</span>'+
+      '<span class="meter" data-meter="'+sec.id+'"></span>'+
+      '<span class="frac mono" data-frac="'+sec.id+'"></span>';
+    a.addEventListener("click", function(){
+      var det = document.getElementById("sec-"+sec.id);
+      if(det) det.open = true;
+    });
+    sectionListEl.appendChild(a);
+  });
+
+  function sectionStats(sec){
+    var cumple=0,noCumple=0,na=0,pend=0;
+    sec.items.forEach(function(it){
+      var e = state.items[it[0]].estado;
+      if(e==="cumple") cumple++;
+      else if(e==="no_cumple") noCumple++;
+      else if(e==="na") na++;
+      else pend++;
+    });
+    return {cumple:cumple,noCumple:noCumple,na:na,pend:pend,total:sec.items.length};
+  }
+
+  var ringCircumference = 2*Math.PI*56;
+
+  function renderDashboard(){
+    var totalCumple=0,totalNoCumple=0,totalNA=0,totalPend=0;
+    SECTIONS.forEach(function(sec){
+      var s = sectionStats(sec);
+      totalCumple+=s.cumple; totalNoCumple+=s.noCumple; totalNA+=s.na; totalPend+=s.pend;
+
+      var meter = document.querySelector('[data-meter="'+sec.id+'"]');
+      meter.innerHTML = "";
+      [["m-good",s.cumple],["m-critical",s.noCumple],["m-na",s.na]].forEach(function(pair){
+        if(pair[1]>0){
+          var span = document.createElement("span");
+          span.className = pair[0];
+          span.style.width = (pair[1]/s.total*100)+"%";
+          meter.appendChild(span);
+        }
+      });
+      var evaluated = s.cumple+s.noCumple+s.na;
+      document.querySelector('[data-frac="'+sec.id+'"]').textContent = evaluated+"/"+s.total;
+      document.querySelector('[data-sec-meta="'+sec.id+'"]').textContent =
+        s.cumple+" cumple · "+s.noCumple+" no cumple · "+s.na+" N.A. · "+s.pend+" pendiente";
+    });
+
+    var evaluados = totalCumple+totalNoCumple; // N.A. and pending excluded from the compliance rate
+    var pct = evaluados>0 ? Math.round((totalCumple/evaluados)*100) : 0;
+    var avance = Math.round(((totalCumple+totalNoCumple+totalNA)/TOTAL_ITEMS)*100);
+
+    document.getElementById("stCumple").textContent = totalCumple;
+    document.getElementById("stNoCumple").textContent = totalNoCumple;
+    document.getElementById("stNA").textContent = totalNA;
+    document.getElementById("stPend").textContent = totalPend;
+
+    document.getElementById("avanceTxt").textContent =
+      (totalCumple+totalNoCumple+totalNA)+" de "+TOTAL_ITEMS+" ítems evaluados.";
+    document.getElementById("avanceFill").style.width = avance+"%";
+    document.getElementById("avanceLabel").textContent = avance+"%";
+
+    var band, color, bandBg;
+    if(evaluados===0){ band="Sin evaluar"; color="var(--pending)"; bandBg="var(--pending-bg)"; }
+    else if(pct>=BAND_GOOD){ band="Cumplimiento alto"; color="var(--good)"; bandBg="var(--good-bg)"; }
+    else if(pct>=BAND_WARN){ band="Cumplimiento medio"; color="var(--warn)"; bandBg="var(--warn-bg)"; }
+    else { band="Cumplimiento bajo"; color="var(--critical)"; bandBg="var(--critical-bg)"; }
+
+    var ringFg = document.getElementById("ringFg");
+    ringFg.setAttribute("stroke", color);
+    ringFg.setAttribute("stroke-dashoffset", ringCircumference*(1-pct/100));
+    document.getElementById("ringPct").textContent = pct+"%";
+    var bandEl = document.getElementById("ringBand");
+    bandEl.textContent = band;
+    bandEl.style.color = color;
+    bandEl.style.background = bandBg;
+    document.getElementById("topbarPct").textContent = pct+"%";
+  }
+  renderDashboard();
+
+  // ---------- Toolbar: expand/collapse ----------
+  document.getElementById("btnExpandAll").addEventListener("click", function(){
+    document.querySelectorAll("details.section-card").forEach(function(d){ d.open = true; });
+  });
+  document.getElementById("btnCollapseAll").addEventListener("click", function(){
+    document.querySelectorAll("details.section-card").forEach(function(d){ d.open = false; });
+  });
+
+  // ---------- Print ----------
+  function doPrint(){
+    document.querySelectorAll("details.section-card").forEach(function(d){ d.open = true; });
+    window.print();
+  }
+  document.getElementById("btnPrint").addEventListener("click", doPrint);
+  document.getElementById("btnPrint2").addEventListener("click", doPrint);
+
+  // ---------- Export / Import ----------
+  function fileSafe(s){
+    return String(s||"").trim().toLowerCase()
+      .normalize("NFD").replace(/[̀-ͯ]/g,"")
+      .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || "instalacion";
+  }
+  async function exportData(){
+    var payload = JSON.stringify(state, null, 2);
+    var filename = "auditoria-"+fileSafe(state.header.instalacion)+"-"+(state.header.fecha||"")+".json";
+    try{
+      if(window.claude && typeof window.claude.use === "function"){
+        var downloads = await window.claude.use("downloads");
+        if(downloads){
+          await downloads.save({filename:filename, data:payload});
+          return;
+        }
+      }
+    }catch(e){ /* fall through to browser download */ }
+    var blob = new Blob([payload], {type:"application/json"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+  document.getElementById("btnExport").addEventListener("click", exportData);
+  document.getElementById("btnExport2").addEventListener("click", exportData);
+
+  document.getElementById("btnImportTrigger").addEventListener("click", function(){
+    document.getElementById("fileImport").click();
+  });
+  document.getElementById("fileImport").addEventListener("change", function(ev){
+    var file = ev.target.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(){
+      try{
+        var data = JSON.parse(reader.result);
+        if(data.header) Object.assign(state.header, data.header);
+        if(data.practica) Object.assign(state.practica, data.practica);
+        if(data.equipos) Object.assign(state.equipos, data.equipos);
+        if(data.items){
+          Object.keys(data.items).forEach(function(k){
+            if(state.items[k]) state.items[k] = data.items[k];
+          });
+        }
+        persist();
+        location.reload();
+      }catch(e){
+        alert("El archivo no tiene un formato válido para esta plantilla.");
+      }
+    };
+    reader.readAsText(file);
+    ev.target.value = "";
+  });
+
+  // ---------- Reset ----------
+  document.getElementById("btnReset").addEventListener("click", function(){
+    if(confirm("¿Reiniciar toda la plantilla? Se perderán los datos guardados en este navegador.")){
+      try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+      location.reload();
+    }
+  });
+
+  window.addEventListener("beforeprint", function(){
+    document.querySelectorAll("details.section-card").forEach(function(d){ d.open = true; });
+  });
+})();
+</script>
