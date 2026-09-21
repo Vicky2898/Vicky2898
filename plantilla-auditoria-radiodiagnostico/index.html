@@ -182,12 +182,13 @@
   .item[data-status="cumple"]{border-left-color:var(--good);}
   .item[data-status="no_cumple"]{border-left-color:var(--critical);}
   .item[data-status="na"]{border-left-color:var(--na);}
+  .item[data-status="pendiente"]{border-left-color:var(--warn);}
   .item-main{display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;}
   .item-num{font-family:var(--font-mono); font-size:12px; color:var(--text-mute); padding-top:2px; flex:none; width:26px;}
   .item-body{flex:1; min-width:200px;}
   .item-title{font-size:14.5px; font-weight:600;}
   .item-ev{font-size:12.5px; color:var(--text-mute); margin-top:3px;}
-  .item-status{display:flex; gap:6px; flex:none;}
+  .item-status{display:flex; gap:6px; flex-wrap:wrap; flex:none; max-width:100%;}
   .pill-wrap{position:relative; display:inline-flex;}
   .pill-wrap input{position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:pointer;}
   .pill{
@@ -198,7 +199,9 @@
   .pill-wrap input:focus-visible + .pill{outline:2px solid var(--accent); outline-offset:1px;}
   .pill-wrap input:checked + .pill-good{background:var(--good-bg); border-color:var(--good); color:var(--good);}
   .pill-wrap input:checked + .pill-critical{background:var(--critical-bg); border-color:var(--critical); color:var(--critical);}
+  .pill-wrap input:checked + .pill-pending{background:var(--warn-bg); border-color:var(--warn); color:var(--warn);}
   .pill-wrap input:checked + .pill-na{background:var(--na-bg); border-color:var(--na); color:var(--na);}
+  .item-obs-row{display:grid; grid-template-columns:2fr 1fr; gap:12px;}
   .item-obs{display:flex; flex-direction:column; gap:4px;}
   .item-obs label{font-size:11.5px; color:var(--text-mute);}
   .item-obs textarea{
@@ -206,6 +209,12 @@
     resize:vertical; min-height:38px; width:100%;
   }
   .item-obs textarea:focus{border-color:var(--accent);}
+  .item-resp{display:flex; flex-direction:column; gap:4px;}
+  .item-resp label{font-size:11.5px; color:var(--text-mute);}
+  .item-resp input{
+    border:1px solid var(--border); border-radius:var(--radius-sm); padding:8px 10px; font-size:13px; width:100%;
+  }
+  .item-resp input:focus{border-color:var(--accent);}
 
   .footer-card{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;}
   .autosave{font-size:12px; color:var(--text-mute);}
@@ -221,6 +230,8 @@
     .dash-main{flex-direction:column; align-items:flex-start;}
     .section-row{grid-template-columns:18px 1fr 70px 30px;}
     .topbar{justify-content:flex-start;}
+    .item-obs-row{grid-template-columns:1fr;}
+    .pill{padding:6px 10px; font-size:11.5px;}
   }
 
   @media print{
@@ -484,7 +495,7 @@
     items:{}
   };
   EQUIPOS.forEach(function(e){ state.equipos[e]=false; });
-  SECTIONS.forEach(function(sec){ sec.items.forEach(function(it){ state.items[it[0]] = {estado:null, obs:""}; }); });
+  SECTIONS.forEach(function(sec){ sec.items.forEach(function(it){ state.items[it[0]] = {estado:null, obs:"", resp:""}; }); });
 
   function loadState(){
     try{
@@ -600,12 +611,19 @@
           '<div class="item-status" role="radiogroup" aria-label="Cumplimiento ítem '+n+'">'+
             '<span class="pill-wrap"><input type="radio" name="estado-'+n+'" id="estado-'+n+'-cumple" value="cumple"><label for="estado-'+n+'-cumple" class="pill pill-good">Cumple</label></span>'+
             '<span class="pill-wrap"><input type="radio" name="estado-'+n+'" id="estado-'+n+'-no_cumple" value="no_cumple"><label for="estado-'+n+'-no_cumple" class="pill pill-critical">No cumple</label></span>'+
+            '<span class="pill-wrap"><input type="radio" name="estado-'+n+'" id="estado-'+n+'-pendiente" value="pendiente"><label for="estado-'+n+'-pendiente" class="pill pill-pending">Pendiente</label></span>'+
             '<span class="pill-wrap"><input type="radio" name="estado-'+n+'" id="estado-'+n+'-na" value="na"><label for="estado-'+n+'-na" class="pill pill-na">N.A.</label></span>'+
           '</div>'+
         '</div>'+
-        '<div class="item-obs">'+
-          '<label for="obs-'+n+'">Observación / motivo de incumplimiento</label>'+
-          '<textarea id="obs-'+n+'" rows="2" placeholder="Ej.: no se cuenta con el documento; en trámite ante el representante legal, fecha estimada de entrega…"></textarea>'+
+        '<div class="item-obs-row">'+
+          '<div class="item-obs">'+
+            '<label for="obs-'+n+'">Observación / motivo de incumplimiento</label>'+
+            '<textarea id="obs-'+n+'" data-field="obs" rows="2" placeholder="Ej.: no se cuenta con el documento; en trámite ante el representante legal, fecha estimada de entrega…"></textarea>'+
+          '</div>'+
+          '<div class="item-resp">'+
+            '<label for="resp-'+n+'">Responsable / en trámite con</label>'+
+            '<input type="text" id="resp-'+n+'" data-field="resp" placeholder="Ej.: Representante legal, OSR, proveedor…">'+
+          '</div>'+
         '</div>';
       itemsWrap.appendChild(art);
     });
@@ -622,6 +640,8 @@
     }
     var ta = document.getElementById("obs-"+n);
     if(ta) ta.value = it.obs || "";
+    var respInput = document.getElementById("resp-"+n);
+    if(respInput) respInput.value = it.resp || "";
     var art = document.getElementById("item-"+n);
     if(art) art.dataset.status = it.estado || "";
   });
@@ -640,10 +660,11 @@
   });
   sectionsRoot.addEventListener("input", function(ev){
     var t = ev.target;
-    if(t.tagName === "TEXTAREA"){
+    var field = t.dataset.field;
+    if(field === "obs" || field === "resp"){
       var art = t.closest(".item");
       var n = art.dataset.n;
-      state.items[n].obs = t.value;
+      state.items[n][field] = t.value;
       persist();
     }
   });

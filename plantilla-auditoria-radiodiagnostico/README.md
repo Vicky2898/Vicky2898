@@ -8,8 +8,8 @@ No requiere instalación ni servidor: se abre directamente en el navegador (dobl
 
 - **Datos de la instalación**: razón social, representante legal, RUC, ubicación, responsable médico, OSR, etc.
 - **Práctica y equipos**: casillas para marcar qué práctica (radiodiagnóstico y/o intervencionismo) y qué equipos tiene la instalación, ya que no todas cuentan con lo mismo.
-- **Checklist de 72 ítems en 11 secciones** (carpeta legal, POE/OSR, dosimetría, vigilancia médica, capacitación, documentación técnica, mantenimiento, procedimientos/consentimientos, EPR, blindajes/radiometría, registros operativos). Cada ítem se marca como **Cumple / No cumple / N.A.**
-- **Observación por ítem**: campo de texto para registrar el motivo del incumplimiento (por ejemplo, si falta el documento 4 — declaración del representante legal — se anota por qué no se pudo presentar).
+- **Checklist de 72 ítems en 11 secciones** (carpeta legal, POE/OSR, dosimetría, vigilancia médica, capacitación, documentación técnica, mantenimiento, procedimientos/consentimientos, EPR, blindajes/radiometría, registros operativos). Cada ítem se marca como **Cumple / No cumple / Pendiente / N.A.**
+- **Observación y responsable por ítem**: un campo para registrar el motivo del incumplimiento (por ejemplo, si falta el documento 4 — declaración del representante legal — se anota por qué no se pudo presentar) y otro para indicar quién tiene a cargo el trámite pendiente.
 - **Cálculo automático del % de cumplimiento** (excluye los ítems marcados N.A.), con panel resumen, avance de la auditoría y desglose por sección.
 - **Generar informe**: botón de impresión con una vista lista para PDF, incluyendo bloque de firmas.
 - **Exportar / importar datos (JSON)**: para guardar la auditoría de una instalación y retomarla después, o auditar varias instalaciones por separado.
