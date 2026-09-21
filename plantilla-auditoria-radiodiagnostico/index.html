@@ -114,6 +114,15 @@
   .equip-group-label{font-size:11px; font-weight:700; color:var(--text-mute); text-transform:uppercase; letter-spacing:.5px; margin:12px 0 8px;}
   .equip-group-label:first-of-type{margin-top:2px;}
   .equip-note{margin-top:12px; padding-top:10px; border-top:1px dashed var(--border);}
+  .seal-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+  .seal-preview{
+    width:76px; height:76px; flex:none; border:1px dashed var(--border); border-radius:var(--radius-sm);
+    display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--surface-2);
+  }
+  .seal-preview img{max-width:100%; max-height:100%; object-fit:contain;}
+  .seal-empty{font-size:10.5px; color:var(--text-mute); text-align:center; padding:4px;}
+  .seal-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .seal-actions label.btn{cursor:pointer;}
 
   /* Dashboard */
   .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;}
@@ -337,6 +346,19 @@
       <div class="equip-group-label">Intervencionismo</div>
       <div class="check-row" id="equiposRowInter"></div>
       <p class="hint equip-note">El telecomandado se clasifica habitualmente como radiodiagnóstico (fluoroscopia diagnóstica/contrastada); se incluye aquí porque, junto con TAC, angiógrafo, arco en C y litotriptor, el checklist lo agrupa como equipo de alta complejidad que exige contar con OSR permanente (ver nota de la sección 2).</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Sello institucional</legend>
+      <p class="hint">Opcional. Se incluye en el encabezado y junto a la firma del representante legal del informe generado.</p>
+      <div class="seal-row">
+        <div class="seal-preview" id="sealPreview"><span class="seal-empty">Sin sello</span></div>
+        <div class="seal-actions">
+          <label class="btn on-surface small" for="f-sello">Cargar sello</label>
+          <input type="file" id="f-sello" accept="image/png,image/jpeg" hidden>
+          <button class="btn ghost small on-surface" id="btnRemoveSello" type="button">Quitar</button>
+        </div>
+      </div>
     </fieldset>
   </section>
 
@@ -920,7 +942,8 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     header:{dirigidoA:"",tipoInstalacion:"",razonSocial:"",representanteLegal:"",ruc:"",ubicacion:"",responsableMedico:"",osr:"",responsableRevision:"",fecha:"",version:"01"},
     practica:{radiodiagnostico:false,intervencionismo:false},
     equipos:{},
-    items:{}
+    items:{},
+    sello:{dataUrl:"", w:0, h:0}
   };
   EQUIPOS.forEach(function(e){ state.equipos[e]=false; });
   SECTIONS.forEach(function(sec){ sec.items.forEach(function(it){ state.items[it[0]] = {estado:null, obs:"", resp:""}; }); });
@@ -933,6 +956,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       if(saved.header) Object.assign(state.header, saved.header);
       if(saved.practica) Object.assign(state.practica, saved.practica);
       if(saved.equipos) Object.assign(state.equipos, saved.equipos);
+      if(saved.sello) state.sello = saved.sello;
       if(saved.items){
         Object.keys(saved.items).forEach(function(k){
           if(state.items[k]) state.items[k] = saved.items[k];
@@ -1022,6 +1046,55 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   var equiposRowInter = document.getElementById("equiposRowInter");
   EQUIPOS_DIAG.forEach(function(eq){ renderEquipoCheckbox(eq, equiposRowDiag); });
   EQUIPOS_INTER.forEach(function(eq){ renderEquipoCheckbox(eq, equiposRowInter); });
+
+  // ---------- Institutional seal ----------
+  var sealPreviewEl = document.getElementById("sealPreview");
+  function renderSealPreview(){
+    sealPreviewEl.innerHTML = (state.sello && state.sello.dataUrl)
+      ? '<img src="'+state.sello.dataUrl+'" alt="Sello institucional">'
+      : '<span class="seal-empty">Sin sello</span>';
+  }
+  renderSealPreview();
+
+  function resizeImageFile(file, maxDim){
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onload = function(){
+        var img = new Image();
+        img.onload = function(){
+          var w = img.naturalWidth, h = img.naturalHeight;
+          var scale = Math.min(1, maxDim/Math.max(w,h));
+          var outW = Math.max(1, Math.round(w*scale)), outH = Math.max(1, Math.round(h*scale));
+          var canvas = document.createElement("canvas");
+          canvas.width = outW; canvas.height = outH;
+          canvas.getContext("2d").drawImage(img, 0, 0, outW, outH);
+          resolve({dataUrl: canvas.toDataURL("image/png"), w: outW, h: outH});
+        };
+        img.onerror = function(){ reject(new Error("El archivo no es una imagen válida.")); };
+        img.src = reader.result;
+      };
+      reader.onerror = function(){ reject(new Error("No se pudo leer el archivo.")); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById("f-sello").addEventListener("change", function(ev){
+    var file = ev.target.files[0];
+    ev.target.value = "";
+    if(!file) return;
+    resizeImageFile(file, 500).then(function(result){
+      state.sello = result;
+      renderSealPreview();
+      persist();
+    }).catch(function(err){
+      alert("No se pudo cargar el sello: "+err.message);
+    });
+  });
+  document.getElementById("btnRemoveSello").addEventListener("click", function(){
+    state.sello = {dataUrl:"", w:0, h:0};
+    renderSealPreview();
+    persist();
+  });
 
   // ---------- Sections & items ----------
   var sectionsRoot = document.getElementById("sections");
@@ -1227,8 +1300,10 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   var REPORT_CSS =
     ":root{color-scheme:light;}"+
     "body{font-family:'Segoe UI',Arial,sans-serif;color:#13201d;background:#fff;max-width:900px;margin:32px auto;padding:0 24px;line-height:1.5;}"+
+    ".r-head{display:flex; align-items:flex-start; justify-content:space-between; gap:16px;}"+
     "h1{font-size:22px;margin:0 0 4px;}"+
     ".r-sub{color:#5b6b66;font-size:13px;margin:0 0 24px;text-transform:uppercase;letter-spacing:.5px;}"+
+    ".r-seal{width:64px;height:64px;object-fit:contain;flex:none;}"+
     ".r-info{border-collapse:collapse;width:100%;margin-bottom:28px;font-size:13px;}"+
     ".r-info th{text-align:left;color:#5b6b66;font-weight:600;padding:5px 12px 5px 0;white-space:nowrap;vertical-align:top;width:230px;}"+
     ".r-info td{padding:5px 0;border-bottom:1px solid #e4e9e7;}"+
@@ -1369,8 +1444,11 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       '<title>Informe de auditoría — '+esc(state.header.razonSocial||"Instalación")+'</title>'+
       '<style>'+REPORT_CSS+'</style></head><body>'+
       '<header class="r-head">'+
-        '<h1>Informe de auditoría de seguridad radiológica</h1>'+
-        '<p class="r-sub">Radiodiagnóstico médico · Radiología intervencionista</p>'+
+        '<div>'+
+          '<h1>Informe de auditoría de seguridad radiológica</h1>'+
+          '<p class="r-sub">Radiodiagnóstico médico · Radiología intervencionista</p>'+
+        '</div>'+
+        (state.sello && state.sello.dataUrl ? '<img class="r-seal" src="'+state.sello.dataUrl+'" alt="Sello institucional">' : '')+
       '</header>'+
       '<table class="r-info">'+headerRowsHtml+'</table>'+
       '<section class="r-summary">'+
@@ -1426,24 +1504,52 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     var doc = new jsPDFCtor({unit:"mm", format:"a4"});
     var pageW = doc.internal.pageSize.getWidth();
     var pageH = doc.internal.pageSize.getHeight();
-    var marginX = 16, marginTop = 18, marginBottom = 14;
+    var marginX = 16, marginTop = 18, marginBottom = 16;
     var contentW = pageW - marginX*2;
     var y = marginTop;
 
-    var INK = [19,32,26], MUTE = [90,100,96], FAINT = [160,172,167];
+    var INK = [19,32,26], MUTE = [95,107,102], FAINT = [150,163,157];
+    var HEADBG = hexToRgb("#0f2b27"), ACCENT = hexToRgb("#0f766e"), BORDER = [221,229,225];
+    var STATUS_FILL = {
+      cumple: hexToRgb("#1c7a4a"), no_cumple: hexToRgb("#b23a34"),
+      na: hexToRgb("#5c6b66"), pendiente: hexToRgb("#a8730f")
+    };
 
+    function tint(rgb, amt){
+      return [rgb[0]+(255-rgb[0])*amt, rgb[1]+(255-rgb[1])*amt, rgb[2]+(255-rgb[2])*amt].map(Math.round);
+    }
+
+    var sello = (state.sello && state.sello.dataUrl) ? state.sello : null;
+    function sealBox(maxW, maxH){
+      if(!sello) return null;
+      var ratio = (sello.w && sello.h) ? sello.w/sello.h : 1;
+      var w = maxW, h = w/ratio;
+      if(h > maxH){ h = maxH; w = h*ratio; }
+      return {w:w, h:h};
+    }
+    function drawSeal(box, x, cy){
+      if(!box) return;
+      try{ doc.addImage(sello.dataUrl, "PNG", x, cy-box.h/2, box.w, box.h); }catch(e){ /* ignore malformed image */ }
+    }
+
+    function drawTopBar(){
+      doc.setFillColor(ACCENT[0],ACCENT[1],ACCENT[2]);
+      doc.rect(0, 0, pageW, 2.4, "F");
+    }
     function ensureSpace(h){
       if(y + h > pageH - marginBottom){
         doc.addPage();
+        drawTopBar();
         y = marginTop;
       }
     }
-    function hr(gapAfter){
+    function hr(gapAfter, color){
       ensureSpace(2);
-      doc.setDrawColor(220,225,222);
-      doc.setLineWidth(0.2);
+      var c = color || BORDER;
+      doc.setDrawColor(c[0],c[1],c[2]);
+      doc.setLineWidth(0.25);
       doc.line(marginX, y, marginX+contentW, y);
-      y += gapAfter;
+      y += gapAfter===undefined ? 4 : gapAfter;
     }
     function heading(str, size, color, spaceAfter){
       ensureSpace(size*0.5+spaceAfter);
@@ -1454,7 +1560,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       y += size*0.42 + spaceAfter;
     }
     function paragraph(str, x, width, size, color){
-      var lineH = size*0.42+1.6;
+      var lineH = size*0.42+1.7;
       doc.setFont("helvetica","normal");
       doc.setFontSize(size);
       doc.setTextColor(color[0],color[1],color[2]);
@@ -1464,137 +1570,209 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         y += lineH;
       });
     }
-    function headerRow(label, value){
-      var labelStr = label+":";
-      doc.setFont("helvetica","bold"); doc.setFontSize(9);
-      var labelW = doc.getTextWidth(labelStr);
-      doc.setFont("helvetica","normal"); doc.setFontSize(9.5);
-      var valueLines = doc.splitTextToSize(value || "—", contentW - labelW - 3);
-      var lineH = 5;
-      ensureSpace(lineH*valueLines.length);
-      doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
-      doc.text(labelStr, marginX, y, {baseline:"top"});
-      doc.setFont("helvetica","normal"); doc.setFontSize(9.5); doc.setTextColor(INK[0],INK[1],INK[2]);
-      valueLines.forEach(function(line, i){
-        doc.text(line, marginX+labelW+3, y+i*lineH, {baseline:"top"});
-      });
-      y += lineH*valueLines.length;
+    function sectionBadge(num, title){
+      var d = 7.4;
+      ensureSpace(d+3);
+      doc.setFillColor(ACCENT[0],ACCENT[1],ACCENT[2]);
+      doc.circle(marginX+d/2, y+d/2, d/2, "F");
+      doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.setTextColor(255,255,255);
+      doc.text(num, marginX+d/2, y+d/2+0.3, {align:"center", baseline:"middle"});
+      doc.setFont("helvetica","bold"); doc.setFontSize(12.5); doc.setTextColor(INK[0],INK[1],INK[2]);
+      doc.text(title, marginX+d+4, y+d/2+0.3, {baseline:"middle"});
+      y += d+3;
+    }
+    function statusBadge(rightX, topY, label, rgb){
+      doc.setFont("helvetica","bold"); doc.setFontSize(7.6);
+      var w = doc.getTextWidth(label)+6.5;
+      doc.setFillColor(rgb[0],rgb[1],rgb[2]);
+      doc.roundedRect(rightX-w, topY, w, 5.6, 2.4, 2.4, "F");
+      doc.setTextColor(255,255,255);
+      doc.text(label, rightX-w/2, topY+2.9, {align:"center", baseline:"middle"});
+      return w;
+    }
+    function drawSignCard(x, cy, w, h, role, name, fecha, sealHere){
+      doc.setDrawColor(BORDER[0],BORDER[1],BORDER[2]); doc.setLineWidth(0.3);
+      doc.roundedRect(x, cy, w, h, 1.8, 1.8, "S");
+      doc.setFillColor(ACCENT[0],ACCENT[1],ACCENT[2]);
+      doc.roundedRect(x, cy, 1.3, h, 0.6, 0.6, "F");
+      var textW = (sealHere ? w*0.6 : w) - 9;
+      doc.setFont("helvetica","bold"); doc.setFontSize(7.6); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+      doc.text(doc.splitTextToSize(role.toUpperCase(), textW), x+5, cy+4, {baseline:"top"});
+      doc.setDrawColor(INK[0],INK[1],INK[2]); doc.setLineWidth(0.25);
+      doc.line(x+5, cy+20, x+5+textW, cy+20);
+      doc.setFont("helvetica","normal"); doc.setFontSize(6.8); doc.setTextColor(FAINT[0],FAINT[1],FAINT[2]);
+      doc.text("Firma", x+5, cy+21, {baseline:"top"});
+      doc.setFont("helvetica","normal"); doc.setFontSize(8.3); doc.setTextColor(INK[0],INK[1],INK[2]);
+      doc.text("Nombre: "+(name || "________________"), x+5, cy+25.5, {baseline:"top"});
+      doc.text("Fecha: "+(fecha || "________________"), x+5, cy+30, {baseline:"top"});
+      if(sealHere){
+        var box = sealBox(w*0.3, h-10);
+        if(box) drawSeal(box, x+w-box.w-5, cy+h/2);
+      }
     }
 
     var data = computeReportData();
 
-    heading("Informe de auditoría de seguridad radiológica", 16, INK, 2);
-    doc.setFont("helvetica","normal"); doc.setFontSize(9.5); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
-    doc.text("RADIODIAGNÓSTICO MÉDICO · RADIOLOGÍA INTERVENCIONISTA", marginX, y, {baseline:"top"});
-    y += 8;
-    hr(6);
+    // ---- Cover header band (page 1) ----
+    drawTopBar();
+    var bandTop = 2.4, bandH = 34;
+    doc.setFillColor(HEADBG[0],HEADBG[1],HEADBG[2]);
+    doc.rect(0, bandTop, pageW, bandH, "F");
+    var sBox = sealBox(20, 20);
+    var titleAvailW = contentW - (sBox ? sBox.w+8 : 0);
+    doc.setFont("helvetica","bold"); doc.setFontSize(16.5);
+    var titleLines = doc.splitTextToSize("Informe de auditoría de seguridad radiológica", titleAvailW);
+    var titleLineH = 6.6;
+    var titleBlockH = titleLines.length*titleLineH;
+    var titleStartY = bandTop + Math.max(5, (bandH-titleBlockH-9)/2);
+    doc.setTextColor(255,255,255);
+    titleLines.forEach(function(l,i){ doc.text(l, marginX, titleStartY+i*titleLineH, {baseline:"top"}); });
+    doc.setFont("helvetica","normal"); doc.setFontSize(8.3); doc.setTextColor(175,196,189);
+    doc.text("RADIODIAGNÓSTICO MÉDICO  ·  RADIOLOGÍA INTERVENCIONISTA", marginX, titleStartY+titleBlockH+3.5, {baseline:"top"});
+    if(sBox) drawSeal(sBox, pageW-marginX-sBox.w, bandTop+bandH/2);
+    y = bandTop+bandH+9;
 
-    data.headerRows.forEach(function(r){ headerRow(r[0], r[1]); });
-    y += 4;
-    hr(6);
+    // ---- Ficha técnica (header info) ----
+    ensureSpace(95);
+    var padCard = 6, colW = contentW/2, lineH = 4.5;
+    var boxTop = y;
+    y += padCard;
+    for(var i=0;i<data.headerRows.length;i+=2){
+      var pair = [data.headerRows[i], data.headerRows[i+1] || null];
+      doc.setFont("helvetica","normal"); doc.setFontSize(9.2);
+      var linesArr = pair.map(function(r){ return r ? doc.splitTextToSize(r[1] || "—", colW-padCard-4) : []; });
+      var maxLines = Math.max(linesArr[0].length||1, linesArr[1].length||1);
+      var rowH = 4+maxLines*lineH+3.2;
+      pair.forEach(function(r, ci){
+        if(!r) return;
+        var cx = marginX+padCard+ci*colW;
+        doc.setFont("helvetica","bold"); doc.setFontSize(7); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+        doc.text(r[0].toUpperCase(), cx, y, {baseline:"top"});
+        doc.setFont("helvetica","normal"); doc.setFontSize(9.2); doc.setTextColor(INK[0],INK[1],INK[2]);
+        linesArr[ci].forEach(function(l,li){ doc.text(l, cx, y+4+li*lineH, {baseline:"top"}); });
+      });
+      y += rowH;
+    }
+    y += padCard-3.2;
+    doc.setDrawColor(BORDER[0],BORDER[1],BORDER[2]); doc.setLineWidth(0.3);
+    doc.roundedRect(marginX, boxTop, contentW, y-boxTop, 2, 2, "S");
+    y += 9;
 
-    heading("Resumen de cumplimiento", 12, INK, 3);
+    // ---- Summary ----
+    heading("Resumen de cumplimiento", 12.5, INK, 4);
     var stats = [
-      ["Cumple", data.totalCumple, hexToRgb("#1c7a4a")],
-      ["No cumple", data.totalNoCumple, hexToRgb("#b23a34")],
-      ["N.A.", data.totalNA, hexToRgb("#5c6b66")],
-      ["Pendiente / sin revisar", data.totalOtros, hexToRgb("#a8730f")]
+      ["Cumple", data.totalCumple, STATUS_FILL.cumple],
+      ["No cumple", data.totalNoCumple, STATUS_FILL.no_cumple],
+      ["N.A.", data.totalNA, STATUS_FILL.na],
+      ["Pendiente / sin revisar", data.totalOtros, STATUS_FILL.pendiente]
     ];
-    ensureSpace(20);
+    ensureSpace(21);
     var tileGap = 4, tileW = (contentW - tileGap*3)/4;
     stats.forEach(function(s, i){
       var x = marginX + i*(tileW+tileGap);
-      doc.setDrawColor(221,229,225); doc.setLineWidth(0.2);
-      doc.roundedRect(x, y, tileW, 18, 1.5, 1.5, "S");
-      doc.setFont("helvetica","bold"); doc.setFontSize(15); doc.setTextColor(s[2][0],s[2][1],s[2][2]);
-      doc.text(String(s[1]), x+4, y+4, {baseline:"top"});
-      doc.setFont("helvetica","normal"); doc.setFontSize(7);
-      doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
-      doc.text(doc.splitTextToSize(s[0], tileW-8), x+4, y+13, {baseline:"top"});
+      var light = tint(s[2], 0.92);
+      doc.setFillColor(light[0],light[1],light[2]);
+      doc.setDrawColor(s[2][0],s[2][1],s[2][2]); doc.setLineWidth(0.35);
+      doc.roundedRect(x, y, tileW, 19, 1.8, 1.8, "FD");
+      doc.setFont("helvetica","bold"); doc.setFontSize(16); doc.setTextColor(s[2][0],s[2][1],s[2][2]);
+      doc.text(String(s[1]), x+4, y+5, {baseline:"top"});
+      doc.setFont("helvetica","bold"); doc.setFontSize(6.6); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
+      doc.text(doc.splitTextToSize(s[0].toUpperCase(), tileW-8), x+4, y+13.5, {baseline:"top"});
     });
-    y += 24;
-    paragraph(
-      "% de cumplimiento: "+data.pct+"% (sobre "+data.evaluados+" ítems evaluados; excluye N.A. y pendientes)   ·   Avance de la auditoría: "+data.avance+"% ("+(data.totalCumple+data.totalNoCumple+data.totalNA)+" de "+TOTAL_ITEMS+" ítems evaluados)",
-      marginX, contentW, 9.5, INK
-    );
-    y += 4;
+    y += 25;
 
+    var band = data.pct>=BAND_GOOD ? STATUS_FILL.cumple : (data.pct>=BAND_WARN ? STATUS_FILL.pendiente : STATUS_FILL.no_cumple);
+    doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.setTextColor(INK[0],INK[1],INK[2]);
+    doc.text("% de cumplimiento", marginX, y, {baseline:"top"});
+    doc.setTextColor(band[0],band[1],band[2]);
+    doc.text(data.pct+"%", marginX+contentW, y, {baseline:"top", align:"right"});
+    y += 5.2;
+    var barH = 3.2;
+    doc.setFillColor(233,237,235);
+    doc.roundedRect(marginX, y, contentW, barH, 1.6, 1.6, "F");
+    if(data.pct>0){
+      doc.setFillColor(band[0],band[1],band[2]);
+      doc.roundedRect(marginX, y, Math.max(barH, contentW*data.pct/100), barH, 1.6, 1.6, "F");
+    }
+    y += barH+5;
+    paragraph(
+      "Calculado sobre "+data.evaluados+" ítems evaluados (excluye N.A. y pendientes)   ·   Avance de la auditoría: "+data.avance+"% ("+(data.totalCumple+data.totalNoCumple+data.totalNA)+" de "+TOTAL_ITEMS+" ítems)",
+      marginX, contentW, 8.6, MUTE
+    );
+    y += 5;
+
+    // ---- Sections ----
     data.sectionsData.forEach(function(sec){
-      ensureSpace(16);
-      heading(String(sec.id).padStart(2,"0")+". "+sec.title, 12.5, INK, 2);
+      ensureSpace(20);
+      sectionBadge(String(sec.id).padStart(2,"0"), sec.title);
       hr(4);
       if(sec.note){
-        var noteLines = doc.splitTextToSize(sec.note, contentW-8);
-        var noteH = noteLines.length*4.4+4;
+        var noteLines = doc.splitTextToSize(sec.note, contentW-10);
+        var noteH = noteLines.length*4.3+5;
         ensureSpace(noteH);
         doc.setFillColor(251,238,211);
-        doc.rect(marginX, y, contentW, noteH, "F");
-        doc.setDrawColor(168,115,15); doc.setLineWidth(0.8);
-        doc.line(marginX, y, marginX, y+noteH);
-        doc.setFont("helvetica","normal"); doc.setFontSize(8.5); doc.setTextColor(122,86,16);
-        noteLines.forEach(function(l,i){ doc.text(l, marginX+4, y+3+i*4.4, {baseline:"top"}); });
-        y += noteH+3;
+        doc.roundedRect(marginX, y, contentW, noteH, 1.5, 1.5, "F");
+        doc.setFillColor(168,115,15);
+        doc.rect(marginX, y, 1.3, noteH, "F");
+        doc.setFont("helvetica","normal"); doc.setFontSize(8.4); doc.setTextColor(122,86,16);
+        noteLines.forEach(function(l,i){ doc.text(l, marginX+5, y+3.3+i*4.3, {baseline:"top"}); });
+        y += noteH+3.5;
       }
       sec.items.forEach(function(it){
-        var titleLines = doc.splitTextToSize(it.req, contentW-30);
-        var evLines = doc.splitTextToSize(it.ev, contentW-9);
-        var obsLines = it.obs ? doc.splitTextToSize("Observación: "+it.obs, contentW-9) : [];
-        var respLines = it.resp ? doc.splitTextToSize("Responsable / en trámite con: "+it.resp, contentW-9) : [];
-        var blockH = titleLines.length*4.6 + evLines.length*3.8 + obsLines.length*3.8 + respLines.length*3.8 + 6;
+        var textX = marginX+6;
+        var titleLines = doc.splitTextToSize(it.req, contentW-6-9-27);
+        var evLines = doc.splitTextToSize(it.ev, contentW-6-9-3);
+        var obsLines = it.obs ? doc.splitTextToSize("Observación: "+it.obs, contentW-6-9-3) : [];
+        var respLines = it.resp ? doc.splitTextToSize("Responsable / en trámite con: "+it.resp, contentW-6-9-3) : [];
+        var blockH = titleLines.length*4.6 + evLines.length*3.8 + obsLines.length*3.8 + respLines.length*3.8 + 6.5;
         ensureSpace(blockH);
-        doc.setFont("helvetica","bold"); doc.setFontSize(9.5); doc.setTextColor(INK[0],INK[1],INK[2]);
-        doc.text("#"+String(it.n).padStart(2,"0"), marginX, y, {baseline:"top"});
-        titleLines.forEach(function(l,i){ doc.text(l, marginX+9, y+i*4.6, {baseline:"top"}); });
-        var rgb = hexToRgb(it.color);
-        doc.setDrawColor(rgb[0],rgb[1],rgb[2]); doc.setLineWidth(0.3);
-        doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.setTextColor(rgb[0],rgb[1],rgb[2]);
-        var badgeW = doc.getTextWidth(it.label)+6;
-        doc.roundedRect(marginX+contentW-badgeW, y, badgeW, 5.5, 2, 2, "S");
-        doc.text(it.label, marginX+contentW-badgeW+3, y+1.2, {baseline:"top"});
+        var blockStartY = y;
+        doc.setFont("helvetica","bold"); doc.setFontSize(9.4); doc.setTextColor(INK[0],INK[1],INK[2]);
+        doc.text("#"+String(it.n).padStart(2,"0"), textX, y, {baseline:"top"});
+        titleLines.forEach(function(l,i){ doc.text(l, textX+9, y+i*4.6, {baseline:"top"}); });
+        var rgb = STATUS_FILL[it.estado] || hexToRgb("#9aa8a2");
+        statusBadge(marginX+contentW, y-0.3, it.label, rgb);
         y += titleLines.length*4.6;
         doc.setFont("helvetica","normal"); doc.setFontSize(8.5); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
-        evLines.forEach(function(l){ doc.text(l, marginX+9, y, {baseline:"top"}); y += 3.8; });
+        evLines.forEach(function(l){ doc.text(l, textX+9, y, {baseline:"top"}); y += 3.8; });
         if(obsLines.length){
           doc.setTextColor(60,70,66);
-          obsLines.forEach(function(l){ doc.text(l, marginX+9, y, {baseline:"top"}); y += 3.8; });
+          obsLines.forEach(function(l){ doc.text(l, textX+9, y, {baseline:"top"}); y += 3.8; });
         }
         if(respLines.length){
           doc.setTextColor(60,70,66);
-          respLines.forEach(function(l){ doc.text(l, marginX+9, y, {baseline:"top"}); y += 3.8; });
+          respLines.forEach(function(l){ doc.text(l, textX+9, y, {baseline:"top"}); y += 3.8; });
         }
-        y += 2.5;
-        doc.setDrawColor(232,236,233); doc.setLineWidth(0.15);
+        y += 2.7;
+        doc.setFillColor(rgb[0],rgb[1],rgb[2]);
+        doc.rect(marginX, blockStartY-0.6, 1.1, (y-3.2)-(blockStartY-0.6), "F");
+        doc.setDrawColor(234,238,236); doc.setLineWidth(0.15);
         doc.line(marginX, y, marginX+contentW, y);
         y += 3;
       });
       y += 3;
     });
 
-    ensureSpace(78);
-    heading("Firmas", 12, INK, 4);
+    // ---- Signatures ----
+    ensureSpace(82);
+    heading("Firmas", 12.5, INK, 5);
     var cardGap = 6, cardW = (contentW-cardGap)/2, cardH = 34;
     data.signers.forEach(function(s, i){
       var col = i%2, row = Math.floor(i/2);
       if(col===0) ensureSpace(cardH+(row>0?cardGap:0));
       var x = marginX + col*(cardW+cardGap);
       var cy = y + row*(cardH+cardGap);
-      doc.setDrawColor(221,229,225); doc.setLineWidth(0.25);
-      doc.roundedRect(x, cy, cardW, cardH, 1.5, 1.5, "S");
-      doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
-      doc.text(doc.splitTextToSize(s[0].toUpperCase(), cardW-8), x+4, cy+4, {baseline:"top"});
-      doc.setDrawColor(19,32,26); doc.setLineWidth(0.25);
-      doc.line(x+4, cy+20, x+cardW-4, cy+20);
-      doc.setFont("helvetica","normal"); doc.setFontSize(7); doc.setTextColor(FAINT[0],FAINT[1],FAINT[2]);
-      doc.text("Firma", x+4, cy+21, {baseline:"top"});
-      doc.setFont("helvetica","normal"); doc.setFontSize(8.5); doc.setTextColor(INK[0],INK[1],INK[2]);
-      doc.text("Nombre: "+(s[1] || "_______________________"), x+4, cy+25.5, {baseline:"top"});
-      doc.text("Fecha: "+(state.header.fecha || "_______________________"), x+4, cy+30, {baseline:"top"});
+      var isLegal = s[0]==="Representante legal";
+      drawSignCard(x, cy, cardW, cardH, s[0], s[1], state.header.fecha, isLegal && sello);
     });
     y += Math.ceil(data.signers.length/2)*(cardH+cardGap);
 
+    // ---- Footer (every page) ----
     var totalPages = doc.internal.getNumberOfPages();
     for(var p=1; p<=totalPages; p++){
       doc.setPage(p);
+      doc.setDrawColor(234,238,236); doc.setLineWidth(0.2);
+      doc.line(marginX, pageH-12, pageW-marginX, pageH-12);
       doc.setFont("helvetica","normal"); doc.setFontSize(8); doc.setTextColor(FAINT[0],FAINT[1],FAINT[2]);
       doc.text(state.header.razonSocial || "Informe de auditoría", marginX, pageH-8, {baseline:"top"});
       doc.text("Página "+p+" de "+totalPages, pageW/2, pageH-8, {baseline:"top", align:"center"});
@@ -1671,6 +1849,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         if(data.header) Object.assign(state.header, data.header);
         if(data.practica) Object.assign(state.practica, data.practica);
         if(data.equipos) Object.assign(state.equipos, data.equipos);
+        if(data.sello) state.sello = data.sello;
         if(data.items){
           Object.keys(data.items).forEach(function(k){
             if(state.items[k]) state.items[k] = data.items[k];
