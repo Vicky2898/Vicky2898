@@ -268,6 +268,7 @@
   </div>
   <div class="actions no-print">
     <button class="btn primary" id="btnPrint" type="button">Generar informe</button>
+    <button class="btn" id="btnDownloadReport" type="button">Descargar informe (HTML)</button>
     <button class="btn" id="btnExport" type="button">Exportar datos</button>
     <button class="btn" id="btnImportTrigger" type="button">Importar datos</button>
     <input type="file" id="fileImport" accept="application/json" hidden>
@@ -360,9 +361,11 @@
     <div class="autosave" id="autosaveTxt">Los cambios se guardan automáticamente en este navegador.</div>
     <div class="actions">
       <button class="btn on-surface" id="btnPrint2" type="button">Generar informe</button>
+      <button class="btn on-surface" id="btnDownloadReport2" type="button">Descargar informe (HTML)</button>
       <button class="btn on-surface" id="btnExport2" type="button">Exportar datos (JSON)</button>
     </div>
   </section>
+  <p class="hint no-print" style="text-align:center; margin-top:10px;">¿"Generar informe" no abre el diálogo de impresión? Usa <strong>"Descargar informe (HTML)"</strong>: se guarda un archivo listo para abrir en el navegador e imprimir/guardar como PDF desde ahí.</p>
 
   <div class="sign-block">
     <div>Responsable de la revisión — Firma</div>
@@ -770,6 +773,150 @@
   }
   document.getElementById("btnPrint").addEventListener("click", doPrint);
   document.getElementById("btnPrint2").addEventListener("click", doPrint);
+
+  // ---------- Downloadable report snapshot ----------
+  // window.print() can be silently blocked inside a sandboxed iframe (e.g. an
+  // embedded artifact preview). This builds a standalone HTML report from the
+  // current state so it always works: open the downloaded file in a normal
+  // browser tab and print/save as PDF from there.
+  var ESTADO_LABELS = {cumple:"Cumple", no_cumple:"No cumple", na:"N.A.", pendiente:"Pendiente"};
+  var ESTADO_COLORS = {cumple:"#1c7a4a", no_cumple:"#b23a34", na:"#5c6b66", pendiente:"#a8730f"};
+  var REPORT_CSS =
+    "body{font-family:'Segoe UI',Arial,sans-serif;color:#13201d;max-width:900px;margin:32px auto;padding:0 24px;line-height:1.5;}"+
+    "h1{font-size:22px;margin:0 0 4px;}"+
+    ".r-sub{color:#5b6b66;font-size:13px;margin:0 0 24px;text-transform:uppercase;letter-spacing:.5px;}"+
+    ".r-info{border-collapse:collapse;width:100%;margin-bottom:28px;font-size:13px;}"+
+    ".r-info th{text-align:left;color:#5b6b66;font-weight:600;padding:5px 12px 5px 0;white-space:nowrap;vertical-align:top;width:230px;}"+
+    ".r-info td{padding:5px 0;border-bottom:1px solid #e4e9e7;}"+
+    ".r-summary{margin-bottom:28px;}"+
+    ".r-summary h2{font-size:15px;text-transform:uppercase;letter-spacing:.4px;color:#45524d;margin:0 0 12px;}"+
+    ".r-stats{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;}"+
+    ".r-stat{border:1px solid #dde5e1;border-radius:10px;padding:10px 16px;min-width:110px;}"+
+    ".r-stat .v{display:block;font-size:22px;font-weight:700;}"+
+    ".r-stat .l{display:block;font-size:11px;color:#71827c;text-transform:uppercase;letter-spacing:.4px;}"+
+    ".r-section{margin-bottom:26px;break-inside:avoid-page;}"+
+    ".r-section h2{font-size:15px;border-bottom:2px solid #13201d;padding-bottom:6px;margin:0 0 10px;}"+
+    ".r-note{background:#fbeed3;border-left:3px solid #a8730f;color:#7a5610;padding:8px 12px;font-size:12.5px;border-radius:6px;margin:0 0 12px;}"+
+    ".r-item{border-bottom:1px solid #e4e9e7;padding:10px 0;break-inside:avoid;}"+
+    ".r-item-top{display:flex;align-items:baseline;gap:10px;}"+
+    ".r-n{font-family:Consolas,monospace;font-size:11px;color:#71827c;width:28px;flex:none;}"+
+    ".r-title{font-weight:600;font-size:13.5px;flex:1;}"+
+    ".r-badge{border:1px solid;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700;flex:none;white-space:nowrap;}"+
+    ".r-ev{font-size:12px;color:#5b6b66;margin:3px 0 0 38px;}"+
+    ".r-obs,.r-resp{font-size:12px;margin:4px 0 0 38px;}"+
+    ".r-obs strong,.r-resp strong{color:#45524d;}"+
+    ".r-sign{display:grid;grid-template-columns:1fr 1fr;gap:30px 40px;margin-top:40px;}"+
+    ".r-sign div{border-top:1px solid #333;padding-top:6px;font-size:12px;}"+
+    ".r-foot{margin-top:30px;font-size:11px;color:#9aa8a2;text-align:center;}"+
+    "@media print{body{margin:0;padding:16px;}}"+
+    "@page{margin:18mm 14mm;}";
+
+  function buildPrintableSnapshot(){
+    var totalCumple=0,totalNoCumple=0,totalNA=0,totalOtros=0;
+    var sectionsHtml = SECTIONS.map(function(sec){
+      var rows = sec.items.map(function(it){
+        var n=it[0], req=it[1], ev=it[2];
+        var data = state.items[n] || {};
+        var estado = data.estado;
+        if(estado==="cumple") totalCumple++;
+        else if(estado==="no_cumple") totalNoCumple++;
+        else if(estado==="na") totalNA++;
+        else totalOtros++;
+        var label = ESTADO_LABELS[estado] || "Sin revisar";
+        var color = ESTADO_COLORS[estado] || "#9aa8a2";
+        var extra = "";
+        if(data.obs) extra += '<div class="r-obs"><strong>Observación:</strong> '+esc(data.obs)+'</div>';
+        if(data.resp) extra += '<div class="r-resp"><strong>Responsable / en trámite con:</strong> '+esc(data.resp)+'</div>';
+        return '<div class="r-item">'+
+          '<div class="r-item-top">'+
+            '<span class="r-n">#'+String(n).padStart(2,"0")+'</span>'+
+            '<span class="r-title">'+esc(req)+'</span>'+
+            '<span class="r-badge" style="color:'+color+';border-color:'+color+'">'+esc(label)+'</span>'+
+          '</div>'+
+          '<div class="r-ev">'+esc(ev)+'</div>'+
+          extra+
+        '</div>';
+      }).join("");
+      return '<section class="r-section"><h2>'+String(sec.id).padStart(2,"0")+'. '+esc(sec.title)+'</h2>'+
+        (sec.note ? '<p class="r-note">'+esc(sec.note)+'</p>' : '')+
+        rows+
+      '</section>';
+    }).join("");
+
+    var evaluados = totalCumple+totalNoCumple;
+    var pct = evaluados>0 ? Math.round((totalCumple/evaluados)*100) : 0;
+    var avance = Math.round(((totalCumple+totalNoCumple+totalNA)/TOTAL_ITEMS)*100);
+
+    var practicas = [];
+    if(state.practica.radiodiagnostico) practicas.push("Radiodiagnóstico médico");
+    if(state.practica.intervencionismo) practicas.push("Radiología intervencionista");
+    var equiposSel = EQUIPOS.filter(function(e){ return state.equipos[e]; });
+
+    var headerRows = [
+      ["Instalación", state.header.instalacion],
+      ["Razón social", state.header.razonSocial],
+      ["Representante legal", state.header.representanteLegal],
+      ["RUC", state.header.ruc],
+      ["Ubicación", state.header.ubicacion],
+      ["Responsable médico", state.header.responsableMedico],
+      ["Oficial de Seguridad Radiológica (OSR)", state.header.osr],
+      ["Responsable de la revisión", state.header.responsableRevision],
+      ["Fecha de revisión", state.header.fecha],
+      ["Versión del informe", state.header.version],
+      ["Práctica", practicas.join(" · ") || "—"],
+      ["Equipos incluidos", equiposSel.join(", ") || "—"]
+    ].map(function(r){ return '<tr><th>'+esc(r[0])+'</th><td>'+esc(r[1]||"—")+'</td></tr>'; }).join("");
+
+    return '<!doctype html><html lang="es"><head><meta charset="utf-8">'+
+      '<title>Informe de auditoría — '+esc(state.header.instalacion||"Instalación")+'</title>'+
+      '<style>'+REPORT_CSS+'</style></head><body>'+
+      '<header class="r-head">'+
+        '<h1>Informe de auditoría de seguridad radiológica</h1>'+
+        '<p class="r-sub">Radiodiagnóstico médico · Radiología intervencionista</p>'+
+      '</header>'+
+      '<table class="r-info">'+headerRows+'</table>'+
+      '<section class="r-summary">'+
+        '<h2>Resumen de cumplimiento</h2>'+
+        '<div class="r-stats">'+
+          '<div class="r-stat"><span class="v" style="color:#1c7a4a">'+totalCumple+'</span><span class="l">Cumple</span></div>'+
+          '<div class="r-stat"><span class="v" style="color:#b23a34">'+totalNoCumple+'</span><span class="l">No cumple</span></div>'+
+          '<div class="r-stat"><span class="v" style="color:#5c6b66">'+totalNA+'</span><span class="l">N.A.</span></div>'+
+          '<div class="r-stat"><span class="v" style="color:#a8730f">'+totalOtros+'</span><span class="l">Pendiente / sin revisar</span></div>'+
+        '</div>'+
+        '<p><strong>% de cumplimiento:</strong> '+pct+'% (sobre '+evaluados+' ítems evaluados; excluye N.A. y pendientes) · <strong>Avance de la auditoría:</strong> '+avance+'% ('+(totalCumple+totalNoCumple+totalNA)+' de '+TOTAL_ITEMS+' ítems evaluados)</p>'+
+      '</section>'+
+      sectionsHtml+
+      '<section class="r-sign">'+
+        '<div>Responsable de la revisión — Firma</div>'+
+        '<div>Representante legal — Firma</div>'+
+        '<div>Oficial de Seguridad Radiológica (OSR) — Firma</div>'+
+        '<div>Fecha</div>'+
+      '</section>'+
+      '<p class="r-foot">Generado el '+esc(new Date().toLocaleString("es-EC"))+' · Plantilla de auditoría de seguridad radiológica.</p>'+
+      '</body></html>';
+  }
+
+  async function downloadReportSnapshot(){
+    var html = buildPrintableSnapshot();
+    var filename = "informe-"+fileSafe(state.header.instalacion)+"-"+(state.header.fecha||"")+".html";
+    try{
+      if(window.claude && typeof window.claude.use === "function"){
+        var downloads = await window.claude.use("downloads");
+        if(downloads){
+          await downloads.save({filename:filename, data:html});
+          return;
+        }
+      }
+    }catch(e){ /* fall through to browser download */ }
+    var blob = new Blob([html], {type:"text/html"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+  document.getElementById("btnDownloadReport").addEventListener("click", downloadReportSnapshot);
+  document.getElementById("btnDownloadReport2").addEventListener("click", downloadReportSnapshot);
 
   // ---------- Export / Import ----------
   function fileSafe(s){
