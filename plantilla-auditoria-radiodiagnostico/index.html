@@ -1351,25 +1351,38 @@ window.__PDF_FONTS__ = {
     ".r-ev{font-size:14px;color:#5b6b66;margin:5px 0 0 46px;}"+
     ".r-obs,.r-resp{font-size:14px;margin:6px 0 0 46px;}"+
     ".r-obs strong,.r-resp strong{color:#45524d;}"+
-    ".r-sign{display:grid;grid-template-columns:1fr 1fr;gap:22px 32px;margin-top:46px;}"+
-    ".r-sign-card{border:1px solid #dde5e1;border-radius:12px;padding:19px 21px;break-inside:avoid;}"+
+    ".r-final{margin-top:46px;}"+
+    ".r-final>h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;margin:0 0 16px;}"+
+    ".r-sign-card{border:1px solid #dde5e1;border-radius:12px;padding:20px 24px;break-inside:avoid;display:flex;align-items:center;justify-content:space-between;gap:20px;}"+
+    ".r-sign-card-main{flex:1;min-width:220px;}"+
     ".r-sign-role{font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;color:#71827c;font-weight:700;margin-bottom:28px;}"+
-    ".r-sign-space{height:50px;border-bottom:1px solid #13201d;}"+
+    ".r-sign-space{height:50px;border-bottom:1px solid #13201d;max-width:420px;}"+
     ".r-sign-label{font-size:11.5px;color:#9aa8a2;margin-top:5px;}"+
     ".r-sign-meta{font-size:14.5px;margin-top:14px;color:#333;}"+
     ".r-sign-meta b{color:#5b6b66;font-weight:600;}"+
     ".r-sign-meta .blank{display:inline-block;min-width:135px;border-bottom:1px solid #ccd7d2;}"+
+    ".r-sign-seal{width:78px;height:78px;object-fit:contain;flex:none;}"+
+    ".r-control{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid #dde5e1;border-radius:12px;overflow:hidden;}"+
+    ".r-control-col{padding:22px 16px;text-align:center;border-left:1px solid #dde5e1;}"+
+    ".r-control-col:first-child{border-left:none;}"+
+    ".r-check{width:36px;height:36px;border-radius:50%;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;margin:0 auto 12px;}"+
+    ".r-control-label{font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#0f766e;margin-bottom:9px;}"+
+    ".r-control-role{font-size:13.5px;color:#5b6b66;margin-bottom:5px;}"+
+    ".r-control-name{font-size:14.5px;font-weight:700;color:#13201d;}"+
     ".r-foot{margin-top:36px;font-size:13px;color:#9aa8a2;text-align:center;}"+
     "@media print{body{margin:0;padding:18px;}}"+
     "@page{margin:18mm 14mm;}";
 
-  function buildReportSignCard(role, name, fecha){
+  function buildReportSignCard(role, name, fecha, sealDataUrl){
     return '<div class="r-sign-card">'+
-      '<div class="r-sign-role">'+esc(role)+'</div>'+
-      '<div class="r-sign-space"></div>'+
-      '<div class="r-sign-label">Firma</div>'+
-      '<div class="r-sign-meta"><b>Nombre:</b> '+(name ? esc(name) : '<span class="blank">&nbsp;</span>')+'</div>'+
-      '<div class="r-sign-meta"><b>Fecha:</b> '+(fecha ? esc(fecha) : '<span class="blank">&nbsp;</span>')+'</div>'+
+      '<div class="r-sign-card-main">'+
+        '<div class="r-sign-role">'+esc(role)+'</div>'+
+        '<div class="r-sign-space"></div>'+
+        '<div class="r-sign-label">Firma</div>'+
+        '<div class="r-sign-meta"><b>Nombre:</b> '+(name ? esc(name) : '<span class="blank">&nbsp;</span>')+'</div>'+
+        '<div class="r-sign-meta"><b>Fecha:</b> '+(fecha ? esc(fecha) : '<span class="blank">&nbsp;</span>')+'</div>'+
+      '</div>'+
+      (sealDataUrl ? '<img class="r-sign-seal" src="'+sealDataUrl+'" alt="Sello institucional">' : '')+
     '</div>';
   }
 
@@ -1421,15 +1434,8 @@ window.__PDF_FONTS__ = {
       ["Equipos incluidos", equiposSel.join(", ")]
     ];
 
-    var signers = [
-      ["Responsable de la revisión", state.header.responsableRevision],
-      ["Representante legal", state.header.representanteLegal],
-      ["Médico radiólogo / imagenólogo del área", state.header.responsableMedico],
-      ["Oficial de Seguridad Radiológica (OSR)", state.header.osr]
-    ];
-
     return {
-      headerRows: headerRows, sectionsData: sectionsData, signers: signers,
+      headerRows: headerRows, sectionsData: sectionsData,
       totalCumple: totalCumple, totalNoCumple: totalNoCumple, totalNA: totalNA, totalOtros: totalOtros,
       evaluados: evaluados, pct: pct, avance: avance
     };
@@ -1463,8 +1469,23 @@ window.__PDF_FONTS__ = {
       return '<tr><th>'+esc(r[0])+'</th><td>'+esc(r[1]||"—")+'</td></tr>';
     }).join("");
 
-    var signHtml = data.signers.map(function(s){
-      return buildReportSignCard(s[0], s[1], state.header.fecha);
+    // Signature: OSR only (typically the one who compiles the audit and
+    // reports to the institution's authorities), plus a document
+    // elaborado/revisado/aprobado control block — same as the PDF.
+    var sello = (state.sello && state.sello.dataUrl) ? state.sello.dataUrl : null;
+    var signHtml = buildReportSignCard("Oficial de Seguridad Radiológica (OSR)", state.header.osr, state.header.fecha, sello);
+    var controlItems = [
+      {label:"Elaborado por", role:"Oficial de Seguridad Radiológica (OSR)", name: state.header.osr},
+      {label:"Revisado por", role:"Dirigido a", name: state.header.dirigidoA},
+      {label:"Aprobado por", role:"Representante legal", name: state.header.representanteLegal}
+    ];
+    var controlHtml = controlItems.map(function(it){
+      return '<div class="r-control-col">'+
+        '<div class="r-check">&#10003;</div>'+
+        '<div class="r-control-label">'+esc(it.label)+'</div>'+
+        '<div class="r-control-role">'+esc(it.role)+'</div>'+
+        '<div class="r-control-name">'+esc(it.name || "—")+'</div>'+
+      '</div>';
     }).join("");
 
     // Compliance ring: same math as the on-screen dashboard ring, computed
@@ -1519,7 +1540,8 @@ window.__PDF_FONTS__ = {
         '</div>'+
       '</section>'+
       sectionsHtml+
-      '<section class="r-sign">'+signHtml+'</section>'+
+      '<section class="r-final"><h2>Firma</h2>'+signHtml+'</section>'+
+      '<section class="r-final"><h2>Elaboración, revisión y aprobación</h2><div class="r-control">'+controlHtml+'</div></section>'+
       '<p class="r-foot">Generado el '+esc(new Date().toLocaleString("es-EC"))+' · Plantilla de auditoría de seguridad radiológica.</p>'+
       '</body></html>';
   }
@@ -1634,17 +1656,6 @@ window.__PDF_FONTS__ = {
       doc.text(str, marginX, y, {baseline:"top"});
       y += size*0.42 + spaceAfter;
     }
-    function paragraph(str, x, width, size, color){
-      var lineH = size*0.44+2;
-      doc.setFont(FAMILY_BODY,"normal");
-      doc.setFontSize(size);
-      doc.setTextColor(color[0],color[1],color[2]);
-      doc.splitTextToSize(str, width).forEach(function(line){
-        ensureSpace(lineH);
-        doc.text(line, x, y, {baseline:"top"});
-        y += lineH;
-      });
-    }
     function sectionBadge(num, title){
       var d = 9.2;
       ensureSpace(d+4);
@@ -1734,7 +1745,7 @@ window.__PDF_FONTS__ = {
 
     // ---- Ficha técnica (header info) ----
     ensureSpace(105);
-    var padCard = 7, colW = contentW/2, lineH = 5.4;
+    var padCard = 7, colW = contentW/2, lineH = 4.9;
     var boxTop = y;
     y += padCard;
     for(var i=0;i<data.headerRows.length;i+=2){
@@ -1792,7 +1803,7 @@ window.__PDF_FONTS__ = {
     sty += 8;
     doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(10); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
     doc.splitTextToSize((data.totalCumple+data.totalNoCumple+data.totalNA)+" de "+TOTAL_ITEMS+" ítems evaluados ("+data.avance+"%). El % de cumplimiento se calcula sobre "+data.evaluados+" ítems evaluados; excluye N.A. y pendientes.", sumTextW)
-      .forEach(function(l){ doc.text(l, sumTextX, sty, {baseline:"top"}); sty += 5; });
+      .forEach(function(l){ doc.text(l, sumTextX, sty, {baseline:"top"}); sty += 4.6; });
     sty += 3;
     var barH2 = 4;
     doc.setFillColor(233,237,235);
@@ -1831,14 +1842,14 @@ window.__PDF_FONTS__ = {
       hr(5);
       if(sec.note){
         var noteLines = doc.splitTextToSize(sec.note, contentW-12);
-        var noteH = noteLines.length*4.9+5.5;
+        var noteH = noteLines.length*4.3+5;
         ensureSpace(noteH);
         doc.setFillColor(251,238,211);
         doc.roundedRect(marginX, y, contentW, noteH, 1.8, 1.8, "F");
         doc.setFillColor(168,115,15);
         doc.rect(marginX, y, 1.5, noteH, "F");
         doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.6); doc.setTextColor(122,86,16);
-        noteLines.forEach(function(l,i){ doc.text(l, marginX+6, y+3.7+i*4.9, {baseline:"top"}); });
+        noteLines.forEach(function(l,i){ doc.text(l, marginX+6, y+3.4+i*4.3, {baseline:"top"}); });
         y += noteH+4;
       }
       sec.items.forEach(function(it){
@@ -1847,16 +1858,16 @@ window.__PDF_FONTS__ = {
         var evLines = doc.splitTextToSize(it.ev, contentW-7-11-4);
         var obsLines = it.obs ? doc.splitTextToSize("Observación: "+it.obs, contentW-7-11-4) : [];
         var respLines = it.resp ? doc.splitTextToSize("Responsable / en trámite con: "+it.resp, contentW-7-11-4) : [];
-        var blockH = titleLines.length*5.4 + evLines.length*4.4 + obsLines.length*4.4 + respLines.length*4.4 + 8;
+        var blockH = titleLines.length*4.9 + evLines.length*4.4 + obsLines.length*4.4 + respLines.length*4.4 + 8;
         ensureSpace(blockH);
         var blockStartY = y;
         doc.setFont(FAMILY_MONO,"bold"); doc.setFontSize(9.6); doc.setTextColor(INK[0],INK[1],INK[2]);
         doc.text("#"+String(it.n).padStart(2,"0"), textX, y+0.4, {baseline:"top"});
         doc.setFont(FAMILY_BODY,"bold"); doc.setFontSize(11);
-        titleLines.forEach(function(l,i){ doc.text(l, textX+11, y+i*5.4, {baseline:"top"}); });
+        titleLines.forEach(function(l,i){ doc.text(l, textX+11, y+i*4.9, {baseline:"top"}); });
         var rgb = STATUS_FILL[it.estado] || hexToRgb("#9aa8a2");
         statusBadge(marginX+contentW, y-0.5, it.label, rgb);
-        y += titleLines.length*5.4+0.8;
+        y += titleLines.length*4.9+0.8;
         doc.setFont(FAMILY_BODY,"normal"); doc.setFontSize(9.6); doc.setTextColor(MUTE[0],MUTE[1],MUTE[2]);
         evLines.forEach(function(l){ doc.text(l, textX+11, y, {baseline:"top"}); y += 4.4; });
         if(obsLines.length){
