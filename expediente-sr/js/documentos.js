@@ -52,12 +52,28 @@ const NOTE = (text) => ({ t: 'note', text });
 const SP = () => ({ t: 'space' });
 const PB = () => ({ t: 'pb' });
 
-const GRUPOS = ['Oficios', 'Declaraciones y nombramientos', 'Planes y procedimientos', 'Informes y listados', 'Registros', 'Formatos y rótulos'];
+const GRUPOS = ['Oficios', 'Declaraciones y nombramientos', 'Planes y procedimientos', 'Bitácoras y control del POE', 'Informes y listados', 'Registros', 'Formatos y rótulos'];
+
+/* Completa los datos de cada persona del POE (nombre completo, licencia = cédula, autorización OSR) */
+function personaPOE(p, practica) {
+  const nombre = [p.apellidos, p.nombres].filter(x => x && x.trim()).join(' ').trim() || (p.nombre || '').trim();
+  const cat = p.categoria || (p.autOsr ? 'osr' : 'tecnologo');
+  return Object.assign({}, p, {
+    nombre,
+    categoria: cat,
+    funcion: p.cargo || p.funcion || '',
+    licencia: p.licencia || p.cedula || '',
+    autOsr: cat === 'osr' ? (p.codigo || p.autOsr || '') : (p.autOsr || ''),
+    area: p.area || DOS_AREA[practica] || '6',
+    tipoDos: p.tipoDos || DOS_TIPO,
+    cargoDos: p.cargoDos || DOS_CARGO[cat] || '15'
+  });
+}
 
 function crearContexto(S) {
   const P = PRACTICAS[S.practica];
   const I = S.inst, R = S.resp, V = S.serv, O = S.oficio, M = S.meta;
-  const poe = S.poe.filter(p => (p.nombre || '').trim());
+  const poe = S.poe.map(p => personaPOE(p, S.practica)).filter(p => p.nombre);
   const eq = S.equipos.filter(e => (e.tipo || e.marca || e.serie));
   const BAJA = /baja|Vendido|Donado|Trasladado|Devuelto/i;
   const eqAct = eq.filter(e => !BAJA.test(e.estado || ''));
@@ -65,20 +81,24 @@ function crearContexto(S) {
   const epp = S.epp.filter(e => (e.tipo || e.codigo));
   const fecha = M.fechaEmision || hoyISO();
   const anio = M.anioPlan || (parseFecha(fecha) || new Date()).getFullYear();
-  const pref = (M.prefijo || 'SR').trim();
+  const pref = (M.siglas || M.prefijo || 'SR').trim();
   const rolOSR = R.osrAplica ? 'Oficial de Seguridad Radiológica' : 'Responsable de protección radiológica';
   const tiposPresentes = eqAct.map(e => e.tipo || '').join(' | ');
   const tiene = (re) => re.test(tiposPresentes);
+  const autoridad = (O.autoridad || 'Ministerio de Ambiente y Energía').trim();
 
+  /* Representante legal: persona natural, o persona jurídica que actúa mediante su representante */
+  const repTop = I.repEmpresa ? I.repEmpresa : '';
+  const repNombre = I.repEmpresa ? `Rep.: ${ph(I.repLegal, 'Nombre del representante')}` : ph(I.repLegal, 'Representante legal');
   const firmas = {
-    rep: { name: ph(I.repLegal, 'Representante legal'), role: [I.repCargo || 'Gerente General', 'Representante legal'].filter(Boolean).join('\n'), ced: I.repCedula, sello: true },
-    osr: { name: ph(R.osrNombre, R.osrAplica ? 'Nombre del OSR' : 'Nombre del responsable'), role: rolOSR, ced: R.osrCedula },
-    med: { name: ph(R.medNombre, 'Nombre del ' + P.profResp), role: P.tituloResp, ced: R.medCedula }
+    rep: { top: repTop, name: repNombre, role: I.repEmpresa ? 'Representante Legal / Licenciatario' : [I.repCargo || 'Gerente General', 'Representante Legal / Licenciatario'].join('\n'), ced: I.repCedula, sello: true },
+    osr: { top: R.osrProfesion ? R.osrProfesion.toUpperCase() : '', name: [R.osrTitulo, ph(R.osrNombre, R.osrAplica ? 'Nombre del OSR' : 'Nombre del responsable')].filter(Boolean).join(' '), role: R.osrAplica && R.osrAut ? `${rolOSR}\nAutorización OSR: ${R.osrAut}` : rolOSR, ced: R.osrCedula },
+    med: { name: [R.medTitulo, ph(R.medNombre, 'Nombre del ' + P.profResp)].filter(Boolean).join(' '), role: P.tituloResp, ced: R.medCedula }
   };
   /* Si el representante legal es también responsable (consultorios), no repetir firmas idénticas */
-  const mismaPersona = (a, b) => a.name && b.name && a.name.replace(/\W/g, '').toLowerCase() === b.name.replace(/\W/g, '').toLowerCase();
+  const mismaPersona = (a, b) => a.name && b.name && a.name.replace(/^Rep\.: /, '').replace(/\W/g, '').toLowerCase().endsWith(b.name.replace(/^Rep\.: /, '').replace(/\W/g, '').toLowerCase().slice(-12));
 
-  return { S, P, I, R, V, O, M, poe, eq, eqAct, eqBaja, epp, fecha, anio, pref, rolOSR, tiene, firmas, mismaPersona };
+  return { S, P, I, R, V, O, M, poe, eq, eqAct, eqBaja, epp, fecha, anio, pref, rolOSR, tiene, firmas, mismaPersona, autoridad };
 }
 
 function aprobaciones(c) {
@@ -99,8 +119,8 @@ function destinatarioMEM(c) {
     ph(c.O.tecnicoTitulo, 'Título'),
     ph(c.O.tecnicoNombre, 'Nombre del técnico'),
     ph(c.O.tecnicoCargo, 'Cargo'),
-    'Dirección de Licenciamiento y Protección Radiológica',
-    'MINISTERIO DE ENERGÍA Y MINAS',
+    c.O.direccionMEM || 'Dirección de Licenciamiento y Protección Radiológica',
+    c.autoridad.toUpperCase(),
     'En su despacho.'
   ]);
 }
@@ -203,29 +223,6 @@ function docOficioBaja(c) {
 }
 
 /* ---------------------------------------------------- DECLARACIONES Y NOMBRAMIENTOS */
-
-function docDeclaracionMaxima(c) {
-  const { I, P } = c;
-  const blocks = [
-    Ps('DECLARACIÓN DE RESPONSABILIDAD SOBRE LA SEGURIDAD RADIOLÓGICA', { align: 'c', bold: true }),
-    SP(),
-    Ps(`Yo, **${ph(I.repLegal, 'Nombre del representante legal')}**, con cédula de ciudadanía N.º ${ph(I.repCedula, 'Cédula')}, en mi calidad de ${ph(I.repCargo, 'Cargo')} y representante legal de **${ph(I.razonSocial, 'Razón social')}**, con RUC ${ph(I.ruc, 'RUC')}, declaro de forma expresa que asumo la condición de **Máximo Responsable por la Seguridad Radiológica** de la instalación ubicada en ${ubicacion(c)}, donde se desarrolla la práctica de ${P.corto}. Lo hago conforme al artículo 17, literal d) del ${REGLAMENTO}.`, { align: 'j' }),
-    Ps('En consecuencia, me comprometo a:', { align: 'j' }),
-    L([
-      `Destinar los recursos humanos, técnicos y económicos para que la práctica se desarrolle según el Reglamento de Seguridad Radiológica y la ${NORMA_LARGA}.`,
-      'Mantener vigentes la licencia institucional y las licencias ocupacionales de todo el personal ocupacionalmente expuesto (POE).',
-      'Proveer el servicio de dosimetría personal y la vigilancia médica anual del POE.',
-      'Contratar el mantenimiento preventivo y correctivo y el control de calidad de los equipos con empresas que tengan licencia vigente para la práctica.',
-      'Notificar por escrito a la Autoridad Reguladora el ingreso y la salida del POE, así como la compra, venta, donación, traslado, cambio de tubo o baja de cualquier equipo.',
-      'Comunicar de inmediato a la Autoridad Reguladora cualquier incidente o accidente radiológico.',
-      'Facilitar el ingreso y el trabajo de los inspectores de seguridad radiológica y entregar la información que requieran.'
-    ], true),
-    Ps(`Las funciones operativas que delego en ${c.R.osrAplica ? 'el Oficial de Seguridad Radiológica' : 'el responsable de protección radiológica'} y en el ${P.profResp} no me eximen de la responsabilidad que me corresponde como representante legal.`, { align: 'j' }),
-    Ps(`Para constancia, firmo en ${ph(I.ciudad, 'Ciudad')}, el ${fLarga(c.fecha)}.`, { align: 'j' }),
-    SIGN([c.firmas.rep])
-  ];
-  return { code: `${c.pref}-DC-01`, title: 'Declaración de Máximo Responsable de la Seguridad Radiológica', kind: 'carta', blocks };
-}
 
 function docEmbrion(c) {
   const { I, P, S } = c;
@@ -423,7 +420,7 @@ function docPlanCapacitacion(c) {
       'Aprovechamiento: trabajadores que aprueban la evaluación / trabajadores evaluados × 100. Meta: mayor o igual a 90 %.'
     ]),
     H('7. Registros'),
-    Ps(`La asistencia se registra en el formato ${c.pref}-RG-09 (Registro de capacitaciones). Los certificados y evaluaciones se archivan junto con el registro.`, { align: 'j' }),
+    Ps(`La asistencia se registra en el formato ${codigoDoc(c, 'REG-CAP')} (Registro de capacitaciones). Los certificados y evaluaciones se archivan junto con el registro.`, { align: 'j' }),
     aprobaciones(c)
   ];
   return { code: `${c.pref}-PL-01`, title: `Plan anual de capacitación y entrenamiento ${c.anio}`, kind: 'sgc', blocks };
@@ -725,15 +722,224 @@ function docInformeDelantales(c) {
   return { code: `${c.pref}-IN-01`, title: 'Informe de integridad del blindaje de prendas de protección', kind: 'sgc', landscape: true, blocks };
 }
 
-function docNominaPOE(c) {
-  const filas = c.poe.map((p, i) => [String(i + 1), p.nombre, p.cedula || '', p.profesion || '', p.funcion || '', p.licencia || '', fCorta(p.licCad), estadoVigencia(p.licCad), p.autOsr || (p.esOsr ? 'Sí' : '—')]);
-  const blocks = [
-    Ps(`Nómina del personal ocupacionalmente expuesto de la práctica de ${c.P.corto}, actualizada al ${fLarga(c.fecha)}.`, { align: 'j' }),
-    T(['N.º', 'Apellidos y nombres', 'Cédula', 'Profesión', 'Función', 'Licencia N.º', 'Caducidad', 'Estado', 'Autorización OSR'], filas.length ? filas : [['1', '', '', '', '', '', '', '', '']], { small: true }),
-    Ps('Todo ingreso o salida de personal será comunicado por escrito a la Autoridad Reguladora, conforme al artículo 9 del Reglamento de Seguridad Radiológica.', { align: 'j' }),
-    SIGN([c.firmas.osr, c.firmas.rep])
+function docDeclaracionMaxima(c) {
+  const { I, P, R } = c;
+  const esOdont = c.S.practica === 'odontologico';
+  const repTexto = I.repEmpresa
+    ? `Yo, **${ph(I.repLegal, 'Nombre del representante')}**, con cédula/pasaporte N.° **${ph(I.repCedula, 'Cédula')}**, en calidad de representante de **${I.repEmpresa}**, entidad que consta como Representante Legal de **${ph(I.razonSocial, 'Razón social')}**${I.nombreComercial ? `, vinculada a la identificación institucional **${I.nombreComercial}**` : ''}, declaro de manera libre, expresa y formal que reconozco que el Representante Legal / Licenciatario es el **máximo responsable de la protección y seguridad radiológica** de la instalación descrita en este documento.`
+    : `Yo, **${ph(I.repLegal, 'Nombre del representante legal')}**, con cédula/pasaporte N.° **${ph(I.repCedula, 'Cédula')}**, en calidad de ${ph(I.repCargo, 'Cargo')} y Representante Legal de **${ph(I.razonSocial, 'Razón social')}**${I.nombreComercial ? ` (${I.nombreComercial})` : ''}, declaro de manera libre, expresa y formal que reconozco que el Representante Legal / Licenciatario es el **máximo responsable de la protección y seguridad radiológica** de la instalación descrita en este documento.`;
+  const datos = [
+    ['Razón social', ph(I.razonSocial, 'Razón social')],
+    ['RUC', ph(I.ruc, 'RUC')],
+    ['Identificación visual / nombre comercial', I.nombreComercial || 'No registra'],
+    ['Número de establecimiento', I.establecimiento || '[N.º de establecimiento en el RUC]'],
+    ['Tipo de establecimiento / estado', I.tipoEstab || '[Oficina / Abierto]'],
+    ['Actividad económica relacionada', I.actividad || '[Código CIIU y descripción, p. ej. Q869021 - Actividades de laboratorios de radiología (Rayos X) y otros centros de diagnóstico por imagen]'],
+    ['Ubicación geográfica', `Provincia: ${ph(I.provincia, 'Provincia')}; Cantón: ${ph(I.ciudad, 'Cantón')}${I.parroquia ? '; Parroquia: ' + I.parroquia : ''}`],
+    ['Dirección', ph(I.direccion, 'Dirección')],
+    ...(I.referencia ? [['Referencia', I.referencia]] : []),
+    ['Área / práctica solicitada', `${P.nombre} / equipos generadores de radiación ionizante`],
+    ['Licencia institucional', I.licencia ? `${I.licencia}${I.licenciaCad ? ', vigente hasta el ' + fLarga(I.licenciaCad) : ''}` : 'En trámite'],
+    ...(I.repEmpresa ? [['Representante Legal según RUC', I.repEmpresa], [`Representante de ${I.repEmpresa}`, ph(I.repLegal, 'Nombre')]] : [['Representante Legal', ph(I.repLegal, 'Nombre')]]),
+    ['Cédula / pasaporte', ph(I.repCedula, 'Cédula')],
+    ['Cargo / profesión', I.repProfesion || I.repCargo || '[Cargo]'],
+    ['Teléfono', I.repTelefono || I.telefono || '[Teléfono]'],
+    ['Correo electrónico', I.repCorreo || I.correo || '[Correo]']
   ];
-  return { code: `${c.pref}-LS-01`, title: 'Nómina del personal ocupacionalmente expuesto', kind: 'sgc', landscape: true, blocks };
+  const compromisos = [
+    ['Responsabilidad principal', 'Asumir la responsabilidad máxima de la protección radiológica de la instalación y garantizar que toda actividad con radiaciones ionizantes se realice bajo condiciones seguras, justificadas, optimizadas y controladas.'],
+    ['Operación segura y controlada', 'Demostrar ante la Autoridad Reguladora que la operación de los equipos generadores de radiación ionizante se realiza conforme a la normativa nacional vigente, las Normas Básicas de Seguridad del OIEA y el principio ALARA.'],
+    ['Licenciamiento y autorizaciones', 'Garantizar que la instalación opere únicamente dentro del alcance autorizado y que los equipos, áreas, personal y procedimientos correspondan a lo declarado y licenciado.'],
+    ['Personal autorizado', 'Asegurar que el personal asociado a la práctica cuente con Licencia Personal Tipo A vigente, capacitación, entrenamiento, aptitud médica y autorización interna para operar o participar en actividades con exposición ocupacional.'],
+    ['Oficial de Seguridad Radiológica', 'Nombrar o mantener designado un Oficial de Seguridad Radiológica, cuando aplique, y facilitar los recursos necesarios para la vigilancia continua de la protección radiológica.'],
+    ['Recursos técnicos y financieros', 'Proveer recursos para dosimetría personal, elementos de protección radiológica, señalización, mantenimiento preventivo y correctivo, control de calidad, levantamientos radiométricos y adecuaciones de blindaje cuando correspondan.'],
+    ['Capacitación anual', 'Asegurar la elaboración, ejecución y archivo del plan anual de capacitación y entrenamiento en seguridad radiológica, disponible para inspección por la Autoridad Reguladora.'],
+    ['Protección del paciente', `Garantizar que ningún paciente sea sometido a exposiciones radiológicas sin prescripción ${esOdont ? 'odontológica' : 'médica'} documentada; asignar la responsabilidad de protección del paciente a ${esOdont ? 'un odontólogo con licencia vigente' : 'un médico especialista'} y reforzar la justificación en pacientes pediátricos, mujeres embarazadas o con posibilidad de embarazo.`],
+    ['Dosimetría y vigilancia médica', 'Proveer vigilancia dosimétrica ocupacional al POE, permitir el acceso individual a sus registros de dosis, investigar lecturas inusuales o superiores al nivel de investigación y garantizar la vigilancia médica ocupacional inicial y periódica.'],
+    ['Registros e informes', 'Implementar y mantener disponible un sistema de registro y archivo físico y/o digital de toda la documentación generada en el servicio: licencias, autorizaciones, capacitaciones, dosimetría, control de calidad, mantenimiento, inspecciones, incidentes, acciones correctivas y funciones del personal.'],
+    ['Notificación a la Autoridad Reguladora', 'Informar por escrito cualquier incidente, accidente, situación de riesgo radiológico, modificación relevante, cambio de representante legal, cese de OSR o suspensión temporal o definitiva de operación de equipos dentro de los plazos establecidos.'],
+    ['Acciones correctivas', 'Disponer acciones correctivas inmediatas ante incumplimientos, fallas de equipo, desviaciones del programa de protección radiológica, dosis anómalas o condiciones que puedan comprometer la seguridad de pacientes, POE o público.']
+  ].map((r, i) => [{ t: String(i + 1), align: 'c', bold: true }, { t: r[0], bold: true, align: 'c' }, r[1]]);
+  const f = parseFecha(c.fecha) || new Date();
+  const blocks = [
+    H('1. Base legal y objeto del documento'),
+    Ps(`En cumplimiento del Decreto Supremo Nro. 3640 - Reglamento de Seguridad Radiológica, Art. 17 literal d), y de la Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario, expedida mediante Acuerdo Ministerial **MERNNR-MERNNR-2022-0011-AM**, se emite la presente declaración expresa para reconocer formalmente la responsabilidad máxima del Representante Legal en materia de protección radiológica de la instalación.`, { align: 'j' }),
+    Ps('La Norma Técnica establece que el titular de la Licencia Institucional tipo C debe ser el máximo responsable de la protección radiológica de la instalación, demostrar operación segura y controlada de los equipos generadores de radiación ionizante, asegurar personal autorizado, vigilancia dosimétrica, capacitación, justificación de exposiciones y disponibilidad de registros e informes.', { align: 'j' }),
+    T(['Norma / documento', 'Referencia', 'Aplicación en esta declaración'], [
+      ['Decreto Supremo Nro. 3640 - Reglamento de Seguridad Radiológica', { t: 'Art. 17 literal d)', align: 'c' }, 'Sustenta la declaración expresa del Representante Legal como máximo responsable de la seguridad radiológica de la instalación.'],
+      ['Acuerdo Ministerial MERNNR-MERNNR-2022-0011-AM - Norma Técnica', { t: 'Art. 5.1 literales a, b, c, d, j, k, l, m, o, p, q, r, s y t', align: 'c' }, 'Define obligaciones del titular de la licencia institucional tipo C para operar equipos generadores de radiación ionizante de forma segura y controlada.'],
+      ['Acuerdo Ministerial MERNNR-MERNNR-2022-0011-AM - Norma Técnica', { t: 'Art. 12', align: 'c' }, 'Obliga al licenciatario a implementar y mantener disponible el sistema de registros e informes de la práctica.'],
+      ['Normas Básicas de Seguridad del OIEA / principio ALARA', { t: 'Aplicación técnica complementaria', align: 'c' }, 'Refuerza justificación, optimización y limitación de dosis para proteger al paciente, POE, acompañantes y público.']
+    ], { widths: [32, 28, 40], small: true }),
+    H('2. Datos de la instalación'),
+    KV(datos),
+    H('3. Declaración expresa de responsabilidad'),
+    Ps(repTexto, { align: 'j' }),
+    Ps(`Esta responsabilidad comprende la protección radiológica de pacientes, personal ocupacionalmente expuesto (POE), acompañantes, trabajadores no expuestos y público, así como el cumplimiento de la normativa ecuatoriana vigente, las condiciones de la Licencia Institucional tipo C y las disposiciones de la Autoridad Reguladora.`, { align: 'j' }),
+    H('4. Compromisos del Representante Legal / Licenciatario'),
+    T(['N.°', 'Compromiso', 'Declaración operativa'], compromisos, { widths: [7, 25, 68], small: true }),
+    H('5. Disponibilidad y custodia documental'),
+    Ps('La presente declaración formará parte del archivo maestro de seguridad radiológica de la instalación y deberá mantenerse disponible, legible, vigente y trazable para inspecciones internas, auditorías o requerimientos de la Autoridad Reguladora. En caso de cambio de Representante Legal, cambio de alcance de la práctica o modificación relevante de la instalación, deberá emitirse una actualización documental.', { align: 'j' }),
+    H('6. Firmas de conformidad'),
+    Ps(`En constancia de aceptación expresa de responsabilidad y aprobación institucional, se suscribe el presente documento en la ciudad de ${ph(I.ciudad, 'Ciudad')}, a los ${String(f.getDate()).padStart(2, '0')} días del mes de ${MESES[f.getMonth()]} de ${f.getFullYear()}.`, { align: 'j' }),
+    SIGN([
+      { ...c.firmas.rep, label: 'Representante Legal / Licenciatario', role: 'Firma y aceptación expresa' },
+      { ...c.firmas.osr, label: c.rolOSR, role: (R.osrAplica && R.osrAut ? `Autorización OSR: ${R.osrAut}\n` : '') + 'Revisión técnica / archivo PR' }
+    ])
+  ];
+  return { title: 'Declaración expresa de responsabilidad del Representante Legal', subtitle: 'Máximo responsable de la protección y seguridad radiológica de la instalación', kind: 'sgc', blocks };
+}
+
+function cabeceraInstitucion(c) {
+  const I = c.I;
+  return KV([
+    ['Institución', ph(I.razonSocial, 'Razón social')],
+    ['Nombre comercial', I.nombreComercial || 'No registra'],
+    ['RUC', ph(I.ruc, 'RUC')],
+    ['Representante legal', I.repEmpresa ? `${I.repEmpresa} (Rep.: ${ph(I.repLegal, 'Nombre')})` : ph(I.repLegal, 'Representante legal')],
+    ['Práctica', c.P.nombre],
+    ['Dirección', ph(I.direccion, 'Dirección')],
+    ['Provincia / ciudad', `${ph(I.provincia, 'Provincia')} / ${ph(I.ciudad, 'Ciudad')}`],
+    ['Teléfono', ph(I.telefono, 'Teléfono')]
+  ]);
+}
+
+function colorVigencia(iso) {
+  const e = estadoVigencia(iso);
+  return e === 'Caducada' ? 'F8CBAD' : (e === 'Por caducar' ? 'FFE699' : null);
+}
+
+function docBitacoraPOE(c) {
+  const blocks = [cabeceraInstitucion(c)];
+  const tipoLic = (cat) => cat === 'osr' ? 'AUTORIZACIÓN DE OFICIAL DE SEGURIDAD RADIOLÓGICA' : 'LICENCIA OCUPACIONAL DE SEGURIDAD RADIOLÓGICA PROFESIONAL - TIPO A';
+  CATEGORIAS_POE.forEach(cat => {
+    const gente = c.poe.filter(p => p.categoria === cat.id);
+    if (!gente.length) return;
+    blocks.push(H(cat.t.toUpperCase() + ':'));
+    blocks.push(KV([['Tipo de licencia', tipoLic(cat.id)]]));
+    blocks.push(T(['Nombre', 'Cédula', 'Licencia N.°', 'Código', 'Ren.', 'Act.', 'Expedición', 'Expira', 'Profesión', 'Cargo', 'Campo de aplicación', 'Observación'],
+      gente.map(p => [p.nombre, p.cedula || '', p.licencia || '', p.codigo || p.autOsr || '', { t: p.ren || '0', align: 'c' }, { t: p.act || '0', align: 'c' }, fCorta(p.expedicion), { t: fCorta(p.licCad) || p.licCadTxt || '', fill: colorVigencia(p.licCad) }, p.profesion || '', p.funcion || '', p.campo || c.P.nombre, p.observacion || '']),
+      { widths: [13, 7.5, 7.5, 6, 4, 4, 7, 7, 11, 9, 10, 14], small: true }));
+  });
+  if (!c.poe.length) blocks.push(Ps('[Registre el personal en la sección Personal expuesto.]'));
+  blocks.push(KV([['Fecha de actualización', fLarga(c.fecha)]]));
+  blocks.push(NOTE('Celdas en rojo: licencia caducada. Celdas en amarillo: caduca en 90 días o menos. Todo ingreso o salida de personal se comunica por escrito a la Autoridad Reguladora (Art. 9 del Reglamento de Seguridad Radiológica).'));
+  blocks.push(SIGN([c.firmas.osr]));
+  return { title: 'Bitácora de POE', kind: 'sgc', landscape: true, blocks };
+}
+
+function docChecklistPOE(c) {
+  const fillCat = Object.fromEntries(CATEGORIAS_POE.map(x => [x.id, x.fill]));
+  const naranja = 'F4B183';
+  const filas = c.poe.map(p => [
+    { t: p.nombre.toUpperCase(), fill: fillCat[p.categoria] || null, bold: true },
+    ...DOCS_POE.map(d => {
+      const v = (p.docs || {})[d.k] || '';
+      return { t: v, align: 'c', bold: true, fill: /No posee|Falta/i.test(v) ? naranja : null };
+    })
+  ]);
+  const blocks = [
+    KV([['Centro médico', ph(c.I.razonSocial, 'Razón social') + (c.I.nombreComercial ? ` (${c.I.nombreComercial})` : '')], ['Área', c.P.mayus]]),
+    T(['Apellidos y nombres', ...DOCS_POE.map(d => d.t)], filas.length ? filas : [['', ...DOCS_POE.map(() => '')]], { widths: [16, 6, 6, 5, 7, 7, 8, 8, 8, 10, 10, 9], small: true }),
+    { t: 'legend', items: [
+      { t: 'NA = No aplica    X = Sí posee' },
+      { t: 'Sin color: licenciados, tecnólogos o su equivalente' },
+      { t: 'Naranja: falta de documentos', fill: naranja },
+      { t: 'Celeste: médico imagenólogo responsable del Departamento de Imagen', fill: fillCat.medico },
+      { t: 'Verde: Oficial de Seguridad Radiológica', fill: fillCat.osr }
+    ] },
+    SIGN([{ ...c.firmas.osr, label: 'Realizado por', role: `${c.rolOSR}\n${fCorta(c.fecha)}` }, { ...c.firmas.med, label: 'Revisado por' }])
+  ];
+  return { title: 'Check list de documentos del POE', kind: 'sgc', landscape: true, blocks };
+}
+
+function sumarMeses(d, m) { const r = new Date(d); r.setMonth(r.getMonth() + m); return r; }
+function isoDe(d) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
+
+function periodosRecambio(c) {
+  const paso = /bimestral/i.test(c.V.dosPeriodo || '') ? 2 : (/trimestral/i.test(c.V.dosPeriodo || '') ? 3 : 1);
+  const ini = parseFecha(c.V.dosInicio), fin = parseFecha(c.V.dosVigencia);
+  if (!ini) return { paso, lista: Array.from({ length: 12 / paso }, () => ['', '']) };
+  const meses = fin ? Math.max(1, Math.round((fin - ini) / (30.44 * 86400000))) : 12;
+  const n = Math.min(12, Math.max(1, Math.round(meses / paso)));
+  const lista = [];
+  for (let k = 0; k < n; k++) {
+    const d = sumarMeses(ini, k * paso), h = sumarMeses(ini, (k + 1) * paso); h.setDate(h.getDate() - 1);
+    lista.push([fCorta(isoDe(d)), fCorta(isoDe(h))]);
+  }
+  return { paso, lista };
+}
+
+function docRecambio(c) {
+  const { lista } = periodosRecambio(c);
+  const n = lista.length;
+  const resto = 55 / (2 * n);
+  const filas = (c.poe.length ? c.poe : [{}, {}, {}]).map((p, i) => [
+    { t: String(i + 1), align: 'c' }, p.apellidos || p.nombre || '', p.nombres || '', p.cedula || '',
+    { t: p.area || '', align: 'c' }, { t: p.tipoDos || '', align: 'c' }, { t: p.cargoDos || '', align: 'c' },
+    ...lista.flatMap(() => ['', ''])
+  ]);
+  const blancos = Array.from({ length: 3 }, (_, i) => [{ t: String(filas.length + i + 1), align: 'c' }, '', '', '', '', '', '', ...lista.flatMap(() => ['', ''])]);
+  const blocks = [
+    KV([
+      ['Institución', ph(c.I.razonSocial, 'Razón social')],
+      ['Dirección', ph(c.I.direccion, 'Dirección')],
+      ['Servicio de dosimetría', `${ph(c.V.dosEmpresa, 'Empresa')} · ${c.V.dosTipo || ''} · lectura ${String(c.V.dosPeriodo || 'mensual').toLowerCase()}`],
+      ['Fecha inicio / fin de contrato', `${c.V.dosInicio ? fCorta(c.V.dosInicio) : '[inicio]'} / ${c.V.dosVigencia ? fCorta(c.V.dosVigencia) : '[fin]'}`],
+      ['Responsable', c.firmas.osr.name]
+    ]),
+    T(['N.°', 'Apellidos', 'Nombres', 'Documento (C.I. / pasaporte)', 'Área', 'Tipo de dosímetro', 'Cargo o función', ...lista.flatMap(p => [p[0] || 'Desde', p[1] || 'Hasta'])],
+      [...filas, ...blancos],
+      {
+        widths: [3, 10, 10, 8, 4, 5, 5, ...lista.flatMap(() => [resto, resto])], small: true, tall: true,
+        pre: [
+          [{ t: '', s: 7 }, { t: 'FECHAS DE RECAMBIO', s: 2 * n }],
+          [{ t: '', s: 7 }, ...lista.map((_, i) => ({ t: String(i + 1), s: 2 }))],
+          [{ t: '', s: 7 }, ...lista.flatMap(() => [{ t: 'DESDE' }, { t: 'HASTA' }])]
+        ]
+      }),
+    NOTE('Área, tipo de dosímetro y cargo se registran con los códigos del catálogo del servicio de dosimetría. Cada trabajador firma en la casilla del periodo al recibir su dosímetro nuevo y entregar el anterior.'),
+    SIGN([{ ...c.firmas.osr, role: 'RESPONSABLE' }])
+  ];
+  return { title: 'Recambio de dosímetros personales', kind: 'sgc', landscape: true, blocks };
+}
+
+function docBitacoraEquipos(c) {
+  const filas = c.eq.map((e, i) => [{ t: String(i + 1), align: 'c' }, e.tipo || '', e.marca || 'NR', e.tuboMarca || 'NR', e.modelo || 'NR', e.tuboModelo || 'NR', e.serie || 'NR', e.tuboSerie || 'NR', { t: e.anio || '', align: 'c' }, { t: e.anioTubo || '', align: 'c' }, { t: e.anioInst || '', align: 'c' }]);
+  const blocks = [
+    cabeceraInstitucion(c),
+    T(['N.°', 'Tipo de equipo', 'Equipo', 'Tubo', 'Equipo', 'Tubo', 'Equipo', 'Tubo', 'Equipo', 'Tubo', 'Año de instalación'],
+      filas.length ? filas : [['1', '', '', '', '', '', '', '', '', '', '']],
+      { widths: [4, 15, 10, 10, 10, 10, 10, 10, 7, 7, 7], small: true, pre: [[{ t: '', s: 2 }, { t: 'MARCA', s: 2 }, { t: 'MODELO', s: 2 }, { t: 'SERIE', s: 2 }, { t: 'AÑO DE FABRIC.', s: 2 }, { t: '' }]] }),
+    NOTE('NR: no registra en la placa de identificación.'),
+    SIGN([c.firmas.osr])
+  ];
+  return { title: 'Bitácora de equipos', kind: 'sgc', landscape: true, blocks };
+}
+
+function docLicenciaInst(c) {
+  const { I } = c;
+  const autorizados = c.eqAct.filter(e => e.enLicencia !== 'No');
+  const validez = (() => { const a = parseFecha(I.licenciaExp), b = parseFecha(I.licenciaCad); return a && b ? `${Math.round((b - a) / (365.25 * 86400000))} años` : '4 años'; })();
+  const blocks = [
+    Ps('LICENCIA INSTITUCIONAL - OPERACIÓN - C', { align: 'c', bold: true }),
+    KV([
+      ['Código', ph(I.licencia, 'Código de licencia')],
+      ['Validez', validez],
+      ['Fecha de expedición', I.licenciaExp ? fCorta(I.licenciaExp) : '[fecha]'],
+      ['Fecha de expiración', I.licenciaCad ? `${fCorta(I.licenciaCad)} (${estadoVigencia(I.licenciaCad).toLowerCase()})` : '[fecha]']
+    ]),
+    cabeceraInstitucion(c),
+    Ps('Esta instalación está **AUTORIZADA** para el uso de:'),
+    T(['Equipos generadores de radiación ionizante', 'Campo', 'kV máximo', 'mA máximo'], [['Rayos X', c.P.mayus, { t: I.kvMax ? I.kvMax + ' kV' : '', align: 'c' }, { t: I.maMax || '', align: 'c' }]], { widths: [34, 34, 16, 16], small: true }),
+    Ps(`El servicio de ${c.P.corto} de ${ph(I.nombreComercial || I.razonSocial, 'Institución')} está autorizado para dar servicio con los siguientes equipos:`, { align: 'j' }),
+    T(['N.°', 'Tipo', 'Equipo', 'Tubo', 'Equipo', 'Tubo', 'Equipo', 'Tubo'],
+      (autorizados.length ? autorizados : [{}]).map((e, i) => [{ t: String(i + 1), align: 'c' }, e.tipo || '', e.marca || '', e.tuboMarca || '', e.modelo || '', e.tuboModelo || '', e.serie || '', e.tuboSerie || '']),
+      { widths: [5, 19, 12, 12, 13, 13, 13, 13], small: true, pre: [[{ t: '', s: 2 }, { t: 'MARCA', s: 2 }, { t: 'MODELO', s: 2 }, { t: 'SERIE', s: 2 }]] }),
+    NOTE('Transcripción de la licencia institucional vigente para control interno. Los equipos que no constan en la licencia deben regularizarse ante la Autoridad Reguladora antes de su uso.'),
+    SIGN([c.firmas.osr])
+  ];
+  return { title: 'Bitácora de licencia institucional', kind: 'sgc', blocks };
 }
 
 function filasEquipos(c, lista) {
@@ -752,7 +958,11 @@ function docListadoEquipos(c) {
 
 function codigoDoc(c, id) {
   const d = DOCS.find(x => x.id === id);
-  return d ? `${c.pref}-${d.cod}` : '';
+  if (!d) return '';
+  const tpl = (c.M.plantilla || '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}').toUpperCase();
+  return tpl.replace(/\{TIPO\}/g, d.tipo).replace(/\{SIGLAS\}/g, (c.M.siglas || '').trim().toUpperCase())
+    .replace(/\{PRAC\}/g, PRAC_COD[c.S.practica]).replace(/\{AÑO\}/g, c.anio).replace(/\{N\}/g, '01')
+    .replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
 }
 
 function listaDocumentosGenerados(c) {
@@ -964,37 +1174,44 @@ function docRotulos(c) {
 /* ---------------------------------------------------- REGISTRO DE DOCUMENTOS */
 
 const DOCS = [
-  { id: 'OF-RESP', cod: 'OF-01', grupo: 'Oficios', aplica: () => true, build: docOficioRespuesta, nota: 'Respuesta al oficio de notificación' },
-  { id: 'OF-DISP', cod: 'OF-02', grupo: 'Oficios', aplica: (c) => c.S.disp.some(d => d.nc), build: docOficioDisposiciones, nota: 'Respuesta al informe de inspección' },
-  { id: 'OF-BAJA', cod: 'OF-03', grupo: 'Oficios', aplica: (c) => c.eqBaja.length > 0, build: docOficioBaja, nota: 'Requisito II.9' },
-  { id: 'DEC-MAX', cod: 'DC-01', grupo: 'Declaraciones y nombramientos', aplica: () => true, build: docDeclaracionMaxima, nota: 'Requisito I.4' },
-  { id: 'NOM-OSR', cod: 'DC-02', grupo: 'Declaraciones y nombramientos', aplica: (c) => !!c.R.osrAplica, build: docNombramientoOSR, nota: 'Requisito I.7' },
-  { id: 'DES-MED', cod: 'DC-03', grupo: 'Declaraciones y nombramientos', aplica: () => true, build: docDesignacionMedico, nota: 'Requisito I.8' },
-  { id: 'DEC-EMB', cod: 'PR-01', grupo: 'Planes y procedimientos', aplica: () => true, build: docEmbrion, nota: 'Requisito I.5' },
-  { id: 'FUN-RESP', cod: 'PR-02', grupo: 'Planes y procedimientos', aplica: () => true, build: docFunciones, nota: 'Requisito I.12' },
-  { id: 'PLAN-CAP', cod: 'PL-01', grupo: 'Planes y procedimientos', aplica: () => true, build: docPlanCapacitacion, nota: 'Requisito I.11' },
-  { id: 'PROC-TEC', cod: 'PR-03', grupo: 'Planes y procedimientos', aplica: () => true, build: docProcTecnicos, nota: 'Requisito I.15' },
-  { id: 'PROC-PRES', cod: 'PR-04', grupo: 'Planes y procedimientos', aplica: () => true, build: docPrescripcion, nota: 'Requisito I.16' },
-  { id: 'PROC-JUST', cod: 'PR-05', grupo: 'Planes y procedimientos', aplica: () => true, build: docJustificacion, nota: 'Requisito I.33' },
-  { id: 'PROC-DOS', cod: 'PR-06', grupo: 'Planes y procedimientos', aplica: () => true, build: docDosimetria, nota: 'Disposiciones de dosimetría' },
-  { id: 'PROC-SEG', cod: 'PR-07', grupo: 'Planes y procedimientos', aplica: (c) => c.S.practica === 'intervencionista', build: docSeguimientoPaciente, nota: 'Propio de intervencionismo' },
-  { id: 'INF-DEL', cod: 'IN-01', grupo: 'Informes y listados', aplica: () => true, build: docInformeDelantales, nota: 'Requisito I.18' },
-  { id: 'NOM-POE', cod: 'LS-01', grupo: 'Informes y listados', aplica: () => true, build: docNominaPOE, nota: 'Requisito I.13' },
-  { id: 'LIST-EQ', cod: 'LS-02', grupo: 'Informes y listados', aplica: () => true, build: docListadoEquipos, nota: 'Requisito II.8' },
-  { id: 'LISTA-M', cod: 'LM-01', grupo: 'Informes y listados', aplica: () => true, build: docListaMaestra, nota: 'Requisito II.1' },
-  { id: 'MATRIZ', cod: 'LS-03', grupo: 'Informes y listados', aplica: () => true, build: docMatriz, nota: 'Control interno' },
-  { id: 'REG-LIC', cod: 'RG-01', grupo: 'Registros', aplica: () => true, build: docRegLicencias, nota: 'Requisito I.22' },
-  { id: 'REG-OSR', cod: 'RG-02', grupo: 'Registros', aplica: (c) => !!c.R.osrAplica, build: docRegOSR, nota: 'Requisito I.23' },
-  { id: 'REG-EQ', cod: 'RG-03', grupo: 'Registros', aplica: () => true, build: docRegEquipos, nota: 'Requisito I.24' },
-  { id: 'REG-EPP', cod: 'RG-04', grupo: 'Registros', aplica: () => true, build: docRegEpp, nota: 'Requisito I.25' },
-  { id: 'REG-DOS', cod: 'RG-05', grupo: 'Registros', aplica: () => true, build: docRegDosimetria, nota: 'Requisito I.26' },
-  { id: 'REG-MED', cod: 'RG-06', grupo: 'Registros', aplica: () => true, build: docRegMedico, nota: 'Requisito I.27' },
-  { id: 'REG-INC', cod: 'RG-07', grupo: 'Registros', aplica: () => true, build: docRegIncidentes, nota: 'Requisito I.28' },
-  { id: 'REG-INSP', cod: 'RG-08', grupo: 'Registros', aplica: () => true, build: docRegInspecciones, nota: 'Requisito I.29' },
-  { id: 'REG-CAP', cod: 'RG-09', grupo: 'Registros', aplica: () => true, build: docRegCapacitacion, nota: 'Requisito I.30' },
-  { id: 'CONS-INF', cod: 'FO-01', grupo: 'Formatos y rótulos', aplica: () => true, build: docConsentimiento, nota: 'Requisito I.17' },
-  { id: 'ROTULOS', cod: 'FO-02', grupo: 'Formatos y rótulos', aplica: () => true, build: docRotulos, nota: 'Requisitos II.2 y II.3' }
+  { id: 'OF-RESP', tipo: 'OF-ENT', grupo: 'Oficios', aplica: () => true, build: docOficioRespuesta, nota: 'Respuesta al oficio de notificación' },
+  { id: 'OF-DISP', tipo: 'OF-DSP', grupo: 'Oficios', aplica: (c) => c.S.disp.some(d => d.nc), build: docOficioDisposiciones, nota: 'Respuesta al informe de inspección' },
+  { id: 'OF-BAJA', tipo: 'OF-BAJ', grupo: 'Oficios', aplica: (c) => c.eqBaja.length > 0, build: docOficioBaja, nota: 'Requisito II.9' },
+  { id: 'DEC-MAX', tipo: 'DCL-RL', grupo: 'Declaraciones y nombramientos', aplica: () => true, build: docDeclaracionMaxima, nota: 'Requisito I.4' },
+  { id: 'NOM-OSR', tipo: 'NOM-OSR', grupo: 'Declaraciones y nombramientos', aplica: (c) => !!c.R.osrAplica, build: docNombramientoOSR, nota: 'Requisito I.7' },
+  { id: 'DES-MED', tipo: 'DES-RPP', grupo: 'Declaraciones y nombramientos', aplica: () => true, build: docDesignacionMedico, nota: 'Requisito I.8' },
+  { id: 'DEC-EMB', tipo: 'PRO-EMB', grupo: 'Planes y procedimientos', aplica: () => true, build: docEmbrion, nota: 'Requisito I.5' },
+  { id: 'FUN-RESP', tipo: 'MAT-FUN', grupo: 'Planes y procedimientos', aplica: () => true, build: docFunciones, nota: 'Requisito I.12' },
+  { id: 'PLAN-CAP', tipo: 'PLN-CAP', grupo: 'Planes y procedimientos', aplica: () => true, build: docPlanCapacitacion, nota: 'Requisito I.11' },
+  { id: 'PROC-TEC', tipo: 'PRO-TEC', grupo: 'Planes y procedimientos', aplica: () => true, build: docProcTecnicos, nota: 'Requisito I.15' },
+  { id: 'PROC-PRES', tipo: 'PRO-PRE', grupo: 'Planes y procedimientos', aplica: () => true, build: docPrescripcion, nota: 'Requisito I.16' },
+  { id: 'PROC-JUST', tipo: 'PRO-JUS', grupo: 'Planes y procedimientos', aplica: () => true, build: docJustificacion, nota: 'Requisito I.33' },
+  { id: 'PROC-DOS', tipo: 'PRO-DOS', grupo: 'Planes y procedimientos', aplica: () => true, build: docDosimetria, nota: 'Disposiciones de dosimetría' },
+  { id: 'PROC-SEG', tipo: 'PRO-SEG', grupo: 'Planes y procedimientos', aplica: (c) => c.S.practica === 'intervencionista', build: docSeguimientoPaciente, nota: 'Propio de intervencionismo' },
+  { id: 'INF-DEL', tipo: 'INF-EPP', grupo: 'Informes y listados', aplica: () => true, build: docInformeDelantales, nota: 'Requisito I.18' },
+  { id: 'NOM-POE', tipo: 'BT-POE', grupo: 'Bitácoras y control del POE', aplica: () => true, build: docBitacoraPOE, nota: 'Requisito I.13' },
+  { id: 'CHL-POE', tipo: 'CHL', grupo: 'Bitácoras y control del POE', aplica: () => true, build: docChecklistPOE, nota: 'Control interno de expedientes del POE' },
+  { id: 'REC-DOS', tipo: 'RCB-DOS', grupo: 'Bitácoras y control del POE', aplica: () => true, build: docRecambio, nota: 'Requisitos I.9 y I.26' },
+  { id: 'BT-EQ', tipo: 'BT-EQ', grupo: 'Bitácoras y control del POE', aplica: () => true, build: docBitacoraEquipos, nota: 'Requisito I.24' },
+  { id: 'BT-LIC', tipo: 'BT-LIC', grupo: 'Bitácoras y control del POE', aplica: () => true, build: docLicenciaInst, nota: 'Requisito I.22' },
+  { id: 'LIST-EQ', tipo: 'LST-EQ', grupo: 'Informes y listados', aplica: () => true, build: docListadoEquipos, nota: 'Requisito II.8' },
+  { id: 'LISTA-M', tipo: 'LM-DOC', grupo: 'Informes y listados', aplica: () => true, build: docListaMaestra, nota: 'Requisito II.1' },
+  { id: 'MATRIZ', tipo: 'MTZ-REQ', grupo: 'Informes y listados', aplica: () => true, build: docMatriz, nota: 'Control interno' },
+  { id: 'REG-LIC', tipo: 'REG-LIC', grupo: 'Registros', aplica: () => true, build: docRegLicencias, nota: 'Requisito I.22' },
+  { id: 'REG-OSR', tipo: 'REG-OSR', grupo: 'Registros', aplica: (c) => !!c.R.osrAplica, build: docRegOSR, nota: 'Requisito I.23' },
+  { id: 'REG-EQ', tipo: 'REG-EQ', grupo: 'Registros', aplica: () => true, build: docRegEquipos, nota: 'Requisito I.24' },
+  { id: 'REG-EPP', tipo: 'REG-EPP', grupo: 'Registros', aplica: () => true, build: docRegEpp, nota: 'Requisito I.25' },
+  { id: 'REG-DOS', tipo: 'REG-DOS', grupo: 'Registros', aplica: () => true, build: docRegDosimetria, nota: 'Requisito I.26' },
+  { id: 'REG-MED', tipo: 'REG-MED', grupo: 'Registros', aplica: () => true, build: docRegMedico, nota: 'Requisito I.27' },
+  { id: 'REG-INC', tipo: 'REG-INC', grupo: 'Registros', aplica: () => true, build: docRegIncidentes, nota: 'Requisito I.28' },
+  { id: 'REG-INSP', tipo: 'REG-INS', grupo: 'Registros', aplica: () => true, build: docRegInspecciones, nota: 'Requisito I.29' },
+  { id: 'REG-CAP', tipo: 'REG-CAP', grupo: 'Registros', aplica: () => true, build: docRegCapacitacion, nota: 'Requisito I.30' },
+  { id: 'CONS-INF', tipo: 'FOR-CI', grupo: 'Formatos y rótulos', aplica: () => true, build: docConsentimiento, nota: 'Requisito I.17' },
+  { id: 'ROTULOS', tipo: 'ROT-SEN', grupo: 'Formatos y rótulos', aplica: () => true, build: docRotulos, nota: 'Requisitos II.2 y II.3' }
 ];
+
+/* El código de cada documento sale de la plantilla de codificación del expediente */
+DOCS.forEach(d => { const f = d.build; d.build = (c) => Object.assign(f(c), { code: codigoDoc(c, d.id) }); });
 
 /* Alertas técnicas que una OSR revisaría antes de enviar */
 function revisarExpediente(c) {
@@ -1004,7 +1221,10 @@ function revisarExpediente(c) {
   if (I.licenciaCad && ev !== 'Vigente') a.push({ nivel: ev === 'Caducada' ? 'alta' : 'media', txt: `Licencia institucional ${ev.toLowerCase()} (${fCorta(I.licenciaCad)}).` });
   c.poe.forEach(p => {
     const e = estadoVigencia(p.licCad);
-    if (!p.licencia) a.push({ nivel: 'media', txt: `${p.nombre}: falta el número de licencia ocupacional.` });
+    const falt = DOCS_POE.filter(d => /No posee|Falta/i.test((p.docs || {})[d.k] || '')).map(d => d.t.toLowerCase());
+    if (falt.length) a.push({ nivel: 'media', txt: `${p.nombre}: falta ${falt.join(', ')}.` });
+    if (/por revisar/i.test(p.observacion || '')) a.push({ nivel: 'media', txt: `${p.nombre}: la fecha de expiración de la licencia en su bitácora no es válida; corríjala.` });
+    if (!p.codigo && !p.licencia) a.push({ nivel: 'media', txt: `${p.nombre}: falta el número de licencia ocupacional.` });
     else if (e === 'Caducada' || e === 'Por caducar') a.push({ nivel: e === 'Caducada' ? 'alta' : 'media', txt: `${p.nombre}: licencia ocupacional ${e.toLowerCase()} (${fCorta(p.licCad)}).` });
     const dm = diasHasta(p.certMed);
     if (!p.certMed) a.push({ nivel: 'media', txt: `${p.nombre}: sin fecha de certificado médico.` });

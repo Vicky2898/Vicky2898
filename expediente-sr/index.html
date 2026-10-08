@@ -14,11 +14,12 @@
   <div class="top-in">
     <div class="marca">
       <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14.5" fill="var(--signal)"/><path fill="#111" d="M17.1 18.64L21.25 25.83A12.5 12.5 0 0 1 8.75 25.83L12.9 18.64A4.2 4.2 0 0 0 17.1 18.64ZM10.8 15.0L2.5 15.0A12.5 12.5 0 0 1 8.75 4.17L12.9 11.36A4.2 4.2 0 0 0 10.8 15.0ZM17.1 11.36L21.25 4.17A12.5 12.5 0 0 1 27.5 15.0L19.2 15.0A4.2 4.2 0 0 0 17.1 11.36Z"/><circle cx="15" cy="15" r="2.8" fill="#111"/></svg>
-      <div><h1>Expediente de Seguridad Radiológica</h1><small>Respuesta a la inspección del Ministerio de Energía y Minas</small></div>
+      <div><h1>Expediente de Seguridad Radiológica</h1><small>Documentación para la inspección de la Autoridad Reguladora</small></div>
     </div>
     <div class="exp-bar">
       <label for="expediente" class="mono" style="color:var(--ink-2)">Expediente</label>
       <select id="expediente"></select>
+      <label class="btn"><input type="file" id="importar-xlsx" accept=".xlsx" multiple hidden>Importar bitácoras (Excel)</label>
       <button class="btn sec" id="btn-nuevo">Nuevo</button>
       <button class="btn sec" id="btn-duplicar" title="Copia los datos de la institución para otra práctica">Duplicar para otra práctica</button>
       <button class="btn link" id="btn-respaldo">Respaldo</button>
@@ -30,6 +31,7 @@
 </header>
 
 <div class="banner" id="banner-ejemplo" hidden><div><span><b>Datos de ejemplo.</b> La institución, las personas y los números que ve son ficticios, solo para mostrar cómo quedan los documentos.</span><button class="btn" id="btn-nuevo-2" onclick="document.getElementById('btn-nuevo').click()">Empezar expediente propio</button></div></div>
+<div class="banner importar" id="panel-import" hidden></div>
 <div class="banner confirmar" id="confirmar" hidden><div><span>¿Eliminar este expediente de este navegador? Si no tiene un respaldo, no podrá recuperarlo.</span><button class="btn peligro" id="btn-borrar-si">Eliminar</button><button class="btn sec" id="btn-borrar-no">Cancelar</button></div></div>
 
 <div class="app">
@@ -52,6 +54,7 @@
 <script src="js/practicas.js"></script>
 <script src="js/documentos.js"></script>
 <script src="js/render.js"></script>
+<script src="js/importar.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

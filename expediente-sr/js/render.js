@@ -1,6 +1,7 @@
-/* Dibuja los documentos en cuatro salidas: vista previa HTML, Word (.docx), PDF y Excel (.xlsx). */
+/* Dibuja los documentos en cuatro salidas: vista previa HTML, Word (.docx), PDF y Excel (.xlsx).
+   Dos estilos de encabezado: «ficha» (logo, título y tabla de control en la primera página)
+   y «control» (tabla de control repetida en cada página). */
 
-const COLOR_ENCABEZADO = 'DCE6EE';
 const COLOR_TEXTO = '1F2A33';
 
 /* ---------- utilidades comunes ---------- */
@@ -19,9 +20,21 @@ function segmentos(text) {
   return out;
 }
 const plano = (t) => String(t == null ? '' : t).replace(/\*\*/g, '');
+/* Una celda puede ser texto o { t, fill, bold, align } */
+const cTxt = (x) => (x && typeof x === 'object') ? (x.t == null ? '' : x.t) : (x == null ? '' : x);
+const cFill = (x) => (x && typeof x === 'object' && x.fill) ? x.fill.replace('#', '') : null;
+const cBold = (x) => !!(x && typeof x === 'object' && x.bold);
 
 function richHTML(text) {
   return segmentos(text).map(s => s.bold ? `<strong>${esc(s.text)}</strong>` : esc(s.text)).join('').replace(/\n/g, '<br>');
+}
+function hexRGB(h) { h = (h || '1F4E79').replace('#', ''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) || 0); }
+function rgbHex(a) { return a.map(v => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase(); }
+function tinte(h, f) { return rgbHex(hexRGB(h).map(v => v + (255 - v) * f)); }
+
+function estilo(c) {
+  const col = (c.M.color || '1F4E79').replace('#', '').toUpperCase();
+  return { col, claro: tinte(col, 0.86), muyClaro: tinte(col, 0.93), ficha: (c.M.estilo || 'ficha') === 'ficha' };
 }
 
 let _trebol = null;
@@ -30,12 +43,10 @@ function trebolPNG() {
   const S = 600, cv = document.createElement('canvas');
   cv.width = S; cv.height = S;
   const g = cv.getContext('2d');
-  /* Triángulo de advertencia amarillo con borde negro */
   const m = 30, top = 40, base = S - 50;
   g.lineJoin = 'round';
   g.beginPath(); g.moveTo(S / 2, top); g.lineTo(S - m, base); g.lineTo(m, base); g.closePath();
   g.fillStyle = '#FFD200'; g.fill(); g.lineWidth = 34; g.strokeStyle = '#111111'; g.stroke();
-  /* Trébol */
   const cx = S / 2, cy = base - (base - top) / 3 + 6, r0 = 22;
   g.fillStyle = '#111111';
   g.beginPath(); g.arc(cx, cy, r0, 0, Math.PI * 2); g.fill();
@@ -54,10 +65,23 @@ function encabezadoInfo(doc, c) {
     code: doc.code,
     version: c.M.version || '01',
     fecha: fCorta(c.fecha),
-    title: doc.title
+    title: doc.title,
+    subtitle: doc.subtitle || ''
   };
 }
-
+/* Tabla de control de la ficha (estilo de declaración) */
+function filasFicha(doc, c) {
+  const e = encabezadoInfo(doc, c);
+  return [
+    ['Código', e.code, 'Versión', e.version],
+    ['Fecha de emisión', fLarga(c.fecha), 'Práctica', c.P.nombre],
+    ['Elaborado por', c.rolOSR, 'Aprobado por', 'Representante Legal / Licenciatario']
+  ];
+}
+function pieSgc(doc, c) {
+  const inst = [c.I.nombreComercial, c.I.razonSocial].filter(Boolean).join(' / ');
+  return `${doc.title} | ${inst}`;
+}
 function pieCarta(c) {
   return [c.I.direccion, c.I.ciudad, c.I.telefono ? 'Telf. ' + c.I.telefono : '', c.I.correo].filter(Boolean).join(' · ');
 }
@@ -65,27 +89,37 @@ function pieCarta(c) {
 /* ================================================================ HTML */
 
 function renderHTML(doc, c) {
-  const e = encabezadoInfo(doc, c);
+  const e = encabezadoInfo(doc, c), st = estilo(c);
   const logo = c.I.logo ? `<img class="d-logo" src="${c.I.logo.data}" alt="Logo">` : '<div class="d-logo d-logo-vacio">LOGO</div>';
   let head = '';
-  if (doc.kind === 'sgc') {
+  if (doc.kind === 'sgc' && st.ficha) {
+    head = `<div class="d-ficha">${logo}<div class="d-ficha-t" style="color:#${st.col}">${esc(e.title.toUpperCase())}</div>${e.subtitle ? `<div class="d-ficha-s">${esc(e.subtitle)}</div>` : ''}
+      <table class="d-t d-fichat"><tbody>${filasFicha(doc, c).map(r => `<tr><th style="background:#${st.claro}">${esc(r[0])}</th><td>${esc(r[1])}</td><th style="background:#${st.claro}">${esc(r[2])}</th><td>${esc(r[3])}</td></tr>`).join('')}</tbody></table></div>`;
+  } else if (doc.kind === 'sgc') {
     head = `<table class="d-head"><tr>
       <td class="d-head-logo" rowspan="2">${logo}</td>
       <td class="d-head-inst">${esc(e.inst)}</td>
       <td class="d-head-meta">Código: <b>${esc(e.code)}</b></td></tr>
-      <tr><td class="d-head-title">${esc(e.title.toUpperCase())}</td>
+      <tr><td class="d-head-title" style="background:#${st.muyClaro}">${esc(e.title.toUpperCase())}</td>
       <td class="d-head-meta">Versión: ${esc(e.version)}<br>Fecha: ${esc(e.fecha)}</td></tr></table>`;
   } else if (doc.kind === 'carta') {
-    head = `<div class="d-carta-head">${logo}<div><b>${esc(e.inst)}</b>${e.comercial ? `<br><span>${esc(e.comercial)}</span>` : ''}</div></div>`;
+    head = `<div class="d-carta-head" style="border-color:#${st.col}">${logo}<div><b>${esc(e.inst)}</b>${e.comercial ? `<br><span>${esc(e.comercial)}</span>` : ''}</div></div>`;
   }
-  const body = doc.blocks.map(b => blockHTML(b, c)).join('');
-  const pie = doc.kind === 'carta' ? `<div class="d-pie">${esc(pieCarta(c))}</div>` : '';
+  const body = doc.blocks.map(b => blockHTML(b, c, st)).join('');
+  const pie = doc.kind === 'carta' ? `<div class="d-pie">${esc(pieCarta(c))}</div>` : (doc.kind === 'sgc' ? `<div class="d-pie">${esc(pieSgc(doc, c))} | Página 1</div>` : '');
   return `<div class="d-page ${doc.landscape ? 'd-land' : ''} d-${doc.kind}">${head}<div class="d-body">${body}</div>${pie}</div>`;
 }
 
-function blockHTML(b, c) {
+function celdaHTML(x, tag = 'td') {
+  const f = cFill(x);
+  const style = f ? ` style="background:#${f}"` : '';
+  const t = richHTML(cTxt(x));
+  return `<${tag}${style}${x && x.align === 'c' ? ' class="a-c"' : ''}>${cBold(x) ? `<b>${t}</b>` : t}</${tag}>`;
+}
+
+function blockHTML(b, c, st) {
   switch (b.t) {
-    case 'h': return `<h4 class="d-h">${esc(b.text)}</h4>`;
+    case 'h': return `<h4 class="d-h" style="color:#${st.col}">${esc(b.text)}</h4>`;
     case 'p': return `<p class="d-p ${b.align ? 'a-' + b.align : ''} ${b.bold ? 'd-b' : ''}">${richHTML(b.text)}</p>`;
     case 'note': return `<p class="d-note">${richHTML(b.text)}</p>`;
     case 'lines': return `<p class="d-p d-lines">${b.items.map(esc).join('<br>')}</p>`;
@@ -97,16 +131,20 @@ function blockHTML(b, c) {
     }
     case 'table': {
       const cols = b.widths ? `<colgroup>${b.widths.map(w => `<col style="width:${w}%">`).join('')}</colgroup>` : '';
-      return `<div class="d-tw"><table class="d-t ${b.small ? 'd-small' : ''} ${b.tall ? 'd-tall' : ''}">${cols}<thead><tr>${b.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r => `<tr>${r.map(x => `<td>${richHTML(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+      const th = `style="background:#${st.col};color:#fff"`;
+      const pre = (b.pre || []).map(r => `<tr>${r.map(x => `<th colspan="${x.s || 1}" ${x.t ? th : 'class="d-th-vacio"'}>${esc(x.t || '')}</th>`).join('')}</tr>`).join('');
+      return `<div class="d-tw"><table class="d-t ${b.small ? 'd-small' : ''} ${b.tall ? 'd-tall' : ''}">${cols}<thead>${pre}<tr>${b.head.map(h => `<th ${th}>${esc(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r => `<tr>${r.map(x => celdaHTML(x)).join('')}</tr>`).join('')}</tbody></table></div>`;
     }
     case 'kv':
-      return `<div class="d-tw"><table class="d-t d-kv ${b.tall ? 'd-tall' : ''}"><tbody>${b.rows.map(r => `<tr><th>${esc(r[0])}</th><td>${richHTML(r[1])}</td></tr>`).join('')}</tbody></table></div>`;
+      return `<div class="d-tw"><table class="d-t d-kv ${b.tall ? 'd-tall' : ''}"><tbody>${b.rows.map(r => `<tr><th style="background:#${st.claro}">${esc(r[0])}</th><td>${richHTML(r[1])}</td></tr>`).join('')}</tbody></table></div>`;
     case 'sign':
-      return `<div class="d-sign">${b.items.map(s => `<div class="d-sig">${s.label ? `<div class="d-sig-l">${esc(s.label)}:</div>` : ''}<div class="d-sig-space">${s.sello && c.I.sello ? `<img src="${c.I.sello.data}" alt="Sello">` : ''}</div><div class="d-sig-line"></div><div class="d-sig-n">${esc(s.name || '')}</div><div class="d-sig-r">${esc(s.role || '').replace(/\n/g, '<br>')}</div>${s.ced ? `<div class="d-sig-r">C.I. ${esc(s.ced)}</div>` : ''}</div>`).join('')}</div>`;
+      return `<div class="d-sign">${b.items.map(s => `<div class="d-sig">${s.label ? `<div class="d-sig-l">${esc(s.label)}:</div>` : ''}<div class="d-sig-space">${s.sello && c.I.sello ? `<img src="${c.I.sello.data}" alt="Sello">` : ''}</div><div class="d-sig-line"></div>${s.top ? `<div class="d-sig-n">${esc(s.top)}</div>` : ''}<div class="${s.top ? 'd-sig-r' : 'd-sig-n'}">${esc(s.name || '')}</div><div class="d-sig-r">${esc(s.role || '').replace(/\n/g, '<br>')}</div>${s.ced ? `<div class="d-sig-r">C.I. ${esc(s.ced)}</div>` : ''}</div>`).join('')}</div>`;
     case 'big':
       return `<div class="d-big"><div>${esc(b.text).replace(/\n/g, '<br>')}</div>${b.sub ? `<small>${esc(b.sub)}</small>` : ''}</div>`;
     case 'trebol':
       return `<div class="d-trebol"><img src="${trebolPNG().data}" alt="Símbolo de radiación"></div>`;
+    case 'legend':
+      return `<div class="d-legend"><b>Leyenda:</b>${b.items.map(i => `<div>${i.fill ? `<span class="d-sw" style="background:#${i.fill}"></span>` : ''}${esc(i.t)}</div>`).join('')}</div>`;
     default: return '';
   }
 }
@@ -125,6 +163,7 @@ function imgDims(img, maxW, maxH) {
 async function buildDocx(doc, c) {
   const D = window.docx;
   const { Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, ImageRun, Header, Footer, PageNumber, BorderStyle, ShadingType, PageBreak, PageOrientation, VerticalAlign, TableLayoutType } = D;
+  const st = estilo(c);
   const W = anchoContenidoTwips(doc.landscape);
   const e = encabezadoInfo(doc, c);
   const borde = { style: BorderStyle.SINGLE, size: 4, color: '7A8894' };
@@ -142,15 +181,16 @@ async function buildDocx(doc, c) {
     return out;
   };
   const al = (a) => ({ j: AlignmentType.JUSTIFIED, c: AlignmentType.CENTER, r: AlignmentType.RIGHT, l: AlignmentType.LEFT })[a] || AlignmentType.LEFT;
-  const par = (text, o = {}) => new Paragraph({ children: runs(text, o), alignment: al(o.align), spacing: { after: o.after == null ? 120 : o.after, line: 276 } });
+  const par = (text, o = {}) => new Paragraph({ children: runs(text, o), alignment: al(o.align), spacing: { after: o.after == null ? 120 : o.after, line: 276 }, keepNext: o.keepNext });
 
   const celda = (content, wTw, o = {}) => new TableCell({
-    children: Array.isArray(content) ? content : [par(content, { size: o.size, bold: o.bold, after: 0, align: o.align })],
+    children: Array.isArray(content) ? content : [par(content, { size: o.size, bold: o.bold, after: 0, align: o.align, color: o.color })],
     width: { size: wTw, type: WidthType.DXA },
     shading: o.fill ? { type: ShadingType.CLEAR, color: 'auto', fill: o.fill } : undefined,
     margins: { top: 50, bottom: 50, left: 80, right: 80 },
     verticalAlign: o.valign || VerticalAlign.TOP,
     rowSpan: o.rowSpan,
+    columnSpan: o.span,
     borders: o.borders || bordes
   });
 
@@ -159,8 +199,12 @@ async function buildDocx(doc, c) {
     const ws = (widths || Array(n).fill(100 / n)).map(p => Math.round(W * p / 100));
     const size = o.small ? 16 : 18;
     const trs = [];
-    if (head) trs.push(new TableRow({ tableHeader: true, children: head.map((h, i) => celda(h, ws[i], { bold: true, fill: COLOR_ENCABEZADO, size })) }));
-    rows.forEach(r => trs.push(new TableRow({ height: o.tall ? { value: 420, rule: 'atLeast' } : undefined, children: r.map((x, i) => celda(x, ws[i], { size, bold: o.kv && i === 0, fill: o.kv && i === 0 ? 'EEF2F5' : undefined })) })));
+    (o.pre || []).forEach(r => {
+      let k = 0;
+      trs.push(new TableRow({ tableHeader: true, children: r.map(x => { const s = x.s || 1; const w = ws.slice(k, k + s).reduce((a, b) => a + b, 0); k += s; return celda(x.t || '', w, { bold: true, align: 'c', fill: x.t ? st.col : undefined, color: 'FFFFFF', size, span: s > 1 ? s : undefined, valign: VerticalAlign.CENTER }); }) }));
+    });
+    if (head) trs.push(new TableRow({ tableHeader: true, children: head.map((h, i) => celda(h, ws[i], { bold: true, fill: st.col, color: 'FFFFFF', size, align: 'c', valign: VerticalAlign.CENTER })) }));
+    rows.forEach(r => trs.push(new TableRow({ height: o.tall ? { value: 420, rule: 'atLeast' } : undefined, children: r.map((x, i) => celda(plano(cTxt(x)), ws[i], { size, bold: (o.kv && i === 0) || cBold(x), fill: cFill(x) || (o.kv && i % 2 === 0 ? st.claro : undefined), align: x && x.align })) })));
     return new Table({ rows: trs, width: { size: W, type: WidthType.DXA }, columnWidths: ws, layout: TableLayoutType.FIXED });
   };
 
@@ -173,18 +217,25 @@ async function buildDocx(doc, c) {
       kids.push(new Paragraph({ children: [], spacing: { before: 700 } }));
     }
     kids.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '______________________________', size: 18 })], spacing: { after: 0 } }));
-    if (s.name) kids.push(par(s.name, { bold: true, size: 18, align: 'c', after: 0 }));
+    if (s.top) kids.push(par(s.top, { bold: true, size: 18, align: 'c', after: 0 }));
+    if (s.name) kids.push(par(s.name, { bold: !s.top, size: 18, align: 'c', after: 0 }));
     kids.push(par(s.role || '', { size: 16, align: 'c', after: 0 }));
     if (s.ced) kids.push(par('C.I. ' + s.ced, { size: 16, align: 'c', after: 0 }));
     return celda(kids, wTw, { borders: sinBordes });
   };
 
   const children = [];
+  if (doc.kind === 'sgc' && st.ficha) {
+    children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 40 }, children: [new TextRun({ text: e.title.toUpperCase(), bold: true, size: 30, color: st.col })] }));
+    if (e.subtitle) children.push(par(e.subtitle, { align: 'c', italics: true, size: 18, color: '4A5560' }));
+    children.push(tabla(null, filasFicha(doc, c), [20, 30, 20, 30], { kv: true }));
+    children.push(new Paragraph({ children: [], spacing: { after: 120 } }));
+  }
   doc.blocks.forEach((b, bi) => {
     const sig = doc.blocks[bi + 1];
     switch (b.t) {
-      case 'p': if (sig && sig.t === 'sign') { children.push(new Paragraph({ children: runs(b.text, { bold: b.bold }), alignment: al(b.align), keepNext: true, keepLines: true, spacing: { after: 120, line: 276 } })); break; } children.push(par(b.text, { align: b.align, bold: b.bold })); break;
-      case 'h': children.push(new Paragraph({ children: [new TextRun({ text: b.text, bold: true, size: 21, color: '1D4E6E' })], spacing: { before: 200, after: 100 }, keepNext: true })); break;
+      case 'p': children.push(par(b.text, { align: b.align, bold: b.bold, keepNext: !!(sig && sig.t === 'sign') })); break;
+      case 'h': children.push(new Paragraph({ children: [new TextRun({ text: b.text, bold: true, size: 22, color: st.col })], spacing: { before: 220, after: 100 }, keepNext: true })); break;
       case 'note': children.push(par(b.text, { italics: true, size: 16, color: '4A5560' })); break;
       case 'lines': children.push(par(b.items.join('\n'), { after: 120 })); break;
       case 'space': children.push(new Paragraph({ children: [] })); break;
@@ -196,7 +247,12 @@ async function buildDocx(doc, c) {
         })));
         break;
       case 'table': children.push(tabla(b.head, b.rows, b.widths, b)); children.push(new Paragraph({ children: [], spacing: { after: 60 } })); break;
-      case 'kv': children.push(tabla(null, b.rows, [38, 62], { kv: true, tall: b.tall })); children.push(new Paragraph({ children: [], spacing: { after: 60 } })); break;
+      case 'kv': children.push(tabla(null, b.rows.map(r => [r[0], r[1]]), [38, 62], { kv: true, tall: b.tall })); children.push(new Paragraph({ children: [], spacing: { after: 60 } })); break;
+      case 'legend':
+        children.push(par('Leyenda:', { bold: true, size: 16, after: 40 }));
+        b.items.forEach(i => children.push(new Paragraph({ spacing: { after: 20 }, children: [...(i.fill ? [new TextRun({ text: '     ', shading: { type: ShadingType.CLEAR, color: 'auto', fill: i.fill } }), new TextRun({ text: '  ' })] : []), new TextRun({ text: i.t, size: 16 })] })));
+        children.push(new Paragraph({ children: [] }));
+        break;
       case 'sign': {
         const porFila = Math.min(3, b.items.length) || 1;
         for (let i = 0; i < b.items.length; i += porFila) {
@@ -223,8 +279,10 @@ async function buildDocx(doc, c) {
 
   /* Encabezado */
   const headerKids = [];
-  if (doc.kind === 'sgc') {
-    const w1 = Math.round(W * 0.18), w3 = Math.round(W * 0.24), w2 = W - w1 - w3;
+  if (doc.kind === 'sgc' && st.ficha) {
+    if (c.I.logo) headerKids.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [new ImageRun({ data: c.I.logo.data, transformation: imgDims(c.I.logo, 130, 50) })] }));
+  } else if (doc.kind === 'sgc') {
+    const w1 = Math.round(W * 0.18), w3 = Math.round(W * 0.26), w2 = W - w1 - w3;
     const logoCell = c.I.logo
       ? [new Paragraph({ alignment: AlignmentType.CENTER, children: [new ImageRun({ data: c.I.logo.data, transformation: imgDims(c.I.logo, 90, 52) })] })]
       : [new Paragraph({ children: [] })];
@@ -232,7 +290,7 @@ async function buildDocx(doc, c) {
       width: { size: W, type: WidthType.DXA }, columnWidths: [w1, w2, w3], layout: TableLayoutType.FIXED,
       rows: [
         new TableRow({ children: [celda(logoCell, w1, { rowSpan: 2, valign: VerticalAlign.CENTER }), celda(e.inst, w2, { bold: true, align: 'c', size: 20, valign: VerticalAlign.CENTER }), celda('Código: ' + e.code, w3, { size: 16 })] }),
-        new TableRow({ children: [celda(e.title.toUpperCase(), w2, { bold: true, align: 'c', size: 18, fill: 'F2F5F8', valign: VerticalAlign.CENTER }), celda([par(`Versión: ${e.version}`, { size: 16, after: 0 }), par(`Fecha: ${e.fecha}`, { size: 16, after: 0 }), new Paragraph({ children: [new TextRun({ size: 16, children: ['Página ', PageNumber.CURRENT, ' de ', PageNumber.TOTAL_PAGES] })] })], w3)] })
+        new TableRow({ children: [celda(e.title.toUpperCase(), w2, { bold: true, align: 'c', size: 18, fill: st.muyClaro, valign: VerticalAlign.CENTER }), celda([par(`Versión: ${e.version}`, { size: 16, after: 0 }), par(`Fecha: ${e.fecha}`, { size: 16, after: 0 }), new Paragraph({ children: [new TextRun({ size: 16, children: ['Página ', PageNumber.CURRENT, ' de ', PageNumber.TOTAL_PAGES] })] })], w3)] })
       ]
     }));
     headerKids.push(new Paragraph({ children: [] }));
@@ -240,11 +298,17 @@ async function buildDocx(doc, c) {
     const kids = [];
     if (c.I.logo) kids.push(new ImageRun({ data: c.I.logo.data, transformation: imgDims(c.I.logo, 120, 55) }));
     headerKids.push(new Paragraph({ children: kids }));
-    headerKids.push(par(e.inst + (e.comercial ? '\n' + e.comercial : ''), { bold: false, size: 16, color: '4A5560', after: 0 }));
+    headerKids.push(par(e.inst + (e.comercial ? '\n' + e.comercial : ''), { size: 16, color: '4A5560', after: 0 }));
   }
   const footerKids = [];
-  if (doc.kind === 'carta') footerKids.push(par(pieCarta(c), { size: 14, align: 'c', color: '4A5560', after: 0 }));
-  if (doc.kind !== 'sgc') footerKids.push(new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ size: 14, color: '4A5560', children: ['', PageNumber.CURRENT, '/', PageNumber.TOTAL_PAGES] })] }));
+  if (doc.kind === 'carta') {
+    footerKids.push(par(pieCarta(c), { size: 14, align: 'c', color: '4A5560', after: 0 }));
+    footerKids.push(new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ size: 14, color: '4A5560', children: [PageNumber.CURRENT, '/', PageNumber.TOTAL_PAGES] })] }));
+  } else if (doc.kind === 'sgc') {
+    footerKids.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ size: 14, color: '4A5560', italics: true, children: [pieSgc(doc, c) + ' | Página ', PageNumber.CURRENT, ' de ', PageNumber.TOTAL_PAGES] })] }));
+  } else {
+    footerKids.push(new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ size: 14, color: '4A5560', children: [e.code + ' · ', PageNumber.CURRENT, '/', PageNumber.TOTAL_PAGES] })] }));
+  }
 
   const d = new D.Document({
     creator: c.I.razonSocial || '',
@@ -253,7 +317,7 @@ async function buildDocx(doc, c) {
     sections: [{
       properties: { page: { size: { width: 11906, height: 16838, orientation: doc.landscape ? PageOrientation.LANDSCAPE : PageOrientation.PORTRAIT }, margin: { top: 1134, bottom: 1000, left: 1134, right: 1134, header: 450, footer: 400 } } },
       headers: { default: new Header({ children: headerKids.length ? headerKids : [new Paragraph({ children: [] })] }) },
-      footers: { default: new Footer({ children: footerKids.length ? footerKids : [new Paragraph({ children: [] })] }) },
+      footers: { default: new Footer({ children: footerKids }) },
       children
     }]
   });
@@ -264,11 +328,14 @@ async function buildDocx(doc, c) {
 
 function buildPDF(doc, c) {
   const { jsPDF } = window.jspdf;
+  const st = estilo(c);
+  const COL = hexRGB(st.col), CLARO = hexRGB(st.claro);
   const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: doc.landscape ? 'l' : 'p' });
   const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
   const ML = 20, MR = 20;
-  const TOP = doc.kind === 'sgc' ? 42 : (doc.kind === 'carta' ? 34 : 20);
-  const BOT = doc.kind === 'carta' ? 22 : 16;
+  const ficha = doc.kind === 'sgc' && st.ficha;
+  const TOP = doc.kind === 'sgc' ? (ficha ? (c.I.logo ? 30 : 18) : 42) : (doc.kind === 'carta' ? 34 : 20);
+  const BOT = doc.kind === 'rotulo' ? 16 : 20;
   const CW = PW - ML - MR;
   const FS = 10, LH = 4.9;
   let y = TOP;
@@ -279,10 +346,10 @@ function buildPDF(doc, c) {
   const nueva = () => { pdf.addPage(); y = TOP; };
   const espacio = (h) => { if (y + h > PH - BOT) nueva(); };
 
-  /* Párrafo con negritas y justificado, dibujado palabra por palabra */
   function rich(text, x, ancho, o = {}) {
     const size = o.size || FS, lh = o.lh || LH * size / FS;
     pdf.setFontSize(size);
+    if (o.color) pdf.setTextColor(...o.color);
     const palabras = [];
     String(text == null ? '' : text).split('\n').forEach((ln, li, arr) => {
       segmentos(ln).forEach(s => s.text.split(/(\s+)/).forEach(w => { if (w && !/^\s+$/.test(w)) palabras.push({ w, b: s.bold || o.bold, it: o.italic }); }));
@@ -314,6 +381,7 @@ function buildPDF(doc, c) {
     });
     if (linea.length) dibujar(true);
     pdf.setFont('helvetica', 'normal');
+    pdf.setTextColor(31, 42, 51);
   }
 
   function tabla(head, rows, widths, o = {}) {
@@ -321,15 +389,25 @@ function buildPDF(doc, c) {
     const ws = widths || Array(n).fill(100 / n);
     const colStyles = {};
     ws.forEach((w, i) => { colStyles[i] = { cellWidth: CW * w / 100 }; });
-    if (o.kv) { colStyles[0].fontStyle = 'bold'; colStyles[0].fillColor = [238, 242, 245]; }
+    if (o.kv) [0, 2].forEach(i => { if (colStyles[i]) { colStyles[i].fontStyle = 'bold'; colStyles[i].fillColor = CLARO; } });
+    const headRows = [];
+    (o.pre || []).forEach(r => headRows.push(r.map(x => ({ content: x.t || '', colSpan: x.s || 1, styles: x.t ? { halign: 'center' } : { fillColor: [255, 255, 255] } }))));
+    if (head) headRows.push(head);
     pdf.autoTable({
       startY: y,
-      head: head ? [head] : undefined,
-      body: rows.map(r => r.map(plano)),
+      head: headRows.length ? headRows : undefined,
+      body: rows.map(r => r.map(x => {
+        const f = cFill(x);
+        const styles = {};
+        if (f) styles.fillColor = hexRGB(f);
+        if (cBold(x)) styles.fontStyle = 'bold';
+        if (x && x.align === 'c') styles.halign = 'center';
+        return { content: plano(cTxt(x)), styles };
+      })),
       margin: { left: ML, right: MR, top: TOP, bottom: BOT },
       theme: 'grid',
       styles: { font: 'helvetica', fontSize: o.small ? 7.5 : 8.5, cellPadding: 1.4, textColor: [31, 42, 51], lineColor: [122, 136, 148], lineWidth: 0.2, valign: 'top', overflow: 'linebreak', minCellHeight: o.tall ? 7.5 : 0 },
-      headStyles: { fillColor: [220, 230, 238], textColor: [20, 40, 55], fontStyle: 'bold', valign: 'middle' },
+      headStyles: { fillColor: COL, textColor: [255, 255, 255], fontStyle: 'bold', valign: 'middle', halign: 'center' },
       columnStyles: colStyles,
       rowPageBreak: 'avoid'
     });
@@ -341,7 +419,7 @@ function buildPDF(doc, c) {
     for (let i = 0; i < items.length; i += porFila) {
       const grupo = items.slice(i, i + porFila);
       const colW = CW / porFila;
-      const alto = 38 + Math.max(...grupo.map(s => (s.role || '').split('\n').length)) * 4;
+      const alto = 30 + Math.max(...grupo.map(s => (s.role || '').split('\n').length + (s.top ? 1 : 0) + (s.ced ? 1 : 0))) * 3.8;
       espacio(alto);
       grupo.forEach((s, k) => {
         const x0 = ML + k * colW, cx = x0 + colW / 2;
@@ -349,14 +427,15 @@ function buildPDF(doc, c) {
         if (s.label) { pdf.setFont('helvetica', 'bold'); pdf.setFontSize(8); pdf.text(s.label + ':', x0 + 3, yy + 3); }
         if (s.sello && c.I.sello) {
           const d = imgDims(c.I.sello, 32, 22);
-          pdf.addImage(c.I.sello.data, 'PNG', cx - d.width / 2, yy + 4, d.width, d.height);
+          pdf.addImage(c.I.sello.data, 'PNG', cx - d.width / 2, yy + 2, d.width, d.height);
         }
-        yy += 24;
+        yy += 20;
         pdf.setDrawColor(40, 40, 40); pdf.setLineWidth(0.3);
         pdf.line(cx - colW * 0.38, yy, cx + colW * 0.38, yy);
         yy += 4;
         pdf.setFontSize(8.5);
-        if (s.name) { pdf.setFont('helvetica', 'bold'); pdf.splitTextToSize(s.name, colW - 6).forEach(l => { pdf.text(l, cx, yy, { align: 'center' }); yy += 3.8; }); }
+        if (s.top) { pdf.setFont('helvetica', 'bold'); pdf.splitTextToSize(s.top, colW - 6).forEach(l => { pdf.text(l, cx, yy, { align: 'center' }); yy += 3.8; }); }
+        if (s.name) { pdf.setFont('helvetica', s.top ? 'normal' : 'bold'); pdf.splitTextToSize(s.name, colW - 6).forEach(l => { pdf.text(l, cx, yy, { align: 'center' }); yy += 3.8; }); }
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.8);
         (s.role || '').split('\n').forEach(r => pdf.splitTextToSize(r, colW - 6).forEach(l => { pdf.text(l, cx, yy, { align: 'center' }); yy += 3.5; }));
         if (s.ced) pdf.text('C.I. ' + s.ced, cx, yy, { align: 'center' });
@@ -366,11 +445,21 @@ function buildPDF(doc, c) {
     pdf.setFontSize(FS); pdf.setFont('helvetica', 'normal');
   }
 
+  if (ficha) {
+    pdf.setFont('helvetica', 'bold'); pdf.setFontSize(15); pdf.setTextColor(...COL);
+    pdf.splitTextToSize(e.title.toUpperCase(), CW).forEach(l => { pdf.text(l, PW / 2, y + 5, { align: 'center' }); y += 7; });
+    pdf.setTextColor(31, 42, 51);
+    if (e.subtitle) { y += 1; rich(e.subtitle, ML, CW, { align: 'c', italic: true, size: 9, color: [74, 85, 96] }); }
+    y += 3;
+    tabla(null, filasFicha(doc, c), [20, 30, 20, 30], { kv: true, small: true });
+    y += 2;
+  }
+
   doc.blocks.forEach((b, bi) => {
     const sig = doc.blocks[bi + 1];
-    if (b.t === 'p' && sig && sig.t === 'sign') espacio(LH * 2 + 42);
+    if ((b.t === 'p' || b.t === 'note') && sig && sig.t === 'sign') espacio(LH * 2 + 40);
     switch (b.t) {
-      case 'h': espacio(26); y += 2; rich(b.text, ML, CW, { bold: true, size: 10.5 }); y += 1.2; break;
+      case 'h': espacio(26); y += 2; rich(b.text, ML, CW, { bold: true, size: 10.5, color: COL }); y += 1.2; break;
       case 'p': rich(b.text, ML, CW, { align: b.align, bold: b.bold }); y += 2.2; break;
       case 'note': rich(b.text, ML, CW, { size: 8, italic: true, align: 'j' }); y += 2; break;
       case 'lines': b.items.forEach(t => rich(t, ML, CW, {})); y += 2; break;
@@ -387,7 +476,19 @@ function buildPDF(doc, c) {
         y += 1.5;
         break;
       case 'table': tabla(b.head, b.rows, b.widths, b); break;
-      case 'kv': tabla(null, b.rows, [38, 62], { kv: true, tall: b.tall }); break;
+      case 'kv': tabla(null, b.rows.map(r => [r[0], r[1]]), [38, 62], { kv: true, tall: b.tall }); break;
+      case 'legend': {
+        espacio(6 + b.items.length * 4.5);
+        pdf.setFont('helvetica', 'bold'); pdf.setFontSize(8); pdf.text('Leyenda:', ML, y + 3); y += 5;
+        pdf.setFont('helvetica', 'normal');
+        b.items.forEach(i => {
+          let x = ML;
+          if (i.fill) { pdf.setFillColor(...hexRGB(i.fill)); pdf.rect(ML, y, 6, 3, 'F'); x += 8; }
+          pdf.text(i.t, x, y + 2.6); y += 4.5;
+        });
+        y += 2; pdf.setFontSize(FS);
+        break;
+      }
       case 'sign': y += 2; firmas(b.items); break;
       case 'big': {
         pdf.setFont('helvetica', 'bold');
@@ -415,8 +516,10 @@ function buildPDF(doc, c) {
   for (let i = 1; i <= total; i++) {
     pdf.setPage(i);
     pdf.setDrawColor(122, 136, 148); pdf.setLineWidth(0.25); pdf.setTextColor(31, 42, 51);
-    if (doc.kind === 'sgc') {
-      const y0 = 12, h = 24, w1 = CW * 0.18, w3 = CW * 0.24, w2 = CW - w1 - w3;
+    if (ficha) {
+      if (c.I.logo) { const d = imgDims(c.I.logo, 45, 16); pdf.addImage(c.I.logo.data, 'PNG', PW / 2 - d.width / 2, 9, d.width, d.height); }
+    } else if (doc.kind === 'sgc') {
+      const y0 = 12, h = 24, w1 = CW * 0.18, w3 = CW * 0.26, w2 = CW - w1 - w3;
       pdf.rect(ML, y0, CW, h);
       pdf.line(ML + w1, y0, ML + w1, y0 + h);
       pdf.line(ML + w1 + w2, y0, ML + w1 + w2, y0 + h);
@@ -428,9 +531,9 @@ function buildPDF(doc, c) {
       pdf.setFontSize(8.5);
       const lt = pdf.splitTextToSize(e.title.toUpperCase(), w2 - 4).slice(0, 2);
       lt.forEach((l, k) => pdf.text(l, ML + w1 + w2 / 2, y0 + h / 2 + 5 + k * 3.8 + (lt.length === 1 ? 2 : 0), { align: 'center' }));
-      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.8);
+      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
       const xm = ML + w1 + w2 + 2;
-      pdf.text(`Código: ${e.code}`, xm, y0 + 4.5);
+      pdf.text(pdf.splitTextToSize(`Código: ${e.code}`, w3 - 3)[0], xm, y0 + 4.5);
       pdf.text(`Versión: ${e.version}`, xm, y0 + 9);
       pdf.text(`Fecha: ${e.fecha}`, xm, y0 + h / 2 + 4.5);
       pdf.text(`Página ${i} de ${total}`, xm, y0 + h / 2 + 9);
@@ -439,13 +542,18 @@ function buildPDF(doc, c) {
       if (c.I.logo) { const d = imgDims(c.I.logo, 40, 16); pdf.addImage(c.I.logo.data, 'PNG', ML, 10, d.width, d.height); x = ML + d.width + 4; }
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.text(pdf.splitTextToSize(e.inst, PW - MR - x)[0], PW - MR, 15, { align: 'right' });
       if (e.comercial) { pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.text(e.comercial, PW - MR, 19, { align: 'right' }); }
-      pdf.line(ML, 28, PW - MR, 28);
-      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(74, 85, 96);
+      pdf.setDrawColor(...COL); pdf.line(ML, 28, PW - MR, 28);
+    }
+    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.2); pdf.setTextColor(74, 85, 96); pdf.setDrawColor(122, 136, 148);
+    if (doc.kind === 'carta') {
       pdf.line(ML, PH - 16, PW - MR, PH - 16);
       pdf.splitTextToSize(pieCarta(c), CW - 20).slice(0, 2).forEach((l, k) => pdf.text(l, PW / 2, PH - 12 + k * 3.5, { align: 'center' }));
       pdf.text(`${i}/${total}`, PW - MR, PH - 12, { align: 'right' });
+    } else if (doc.kind === 'sgc') {
+      pdf.setFont('helvetica', 'italic');
+      const t = pdf.splitTextToSize(`${pieSgc(doc, c)} | Página ${i} de ${total}`, CW)[0];
+      pdf.text(t, PW / 2, PH - 10, { align: 'center' });
     } else {
-      pdf.setFontSize(7.5); pdf.setTextColor(74, 85, 96);
       pdf.text(`${e.code} · ${i}/${total}`, PW - MR, PH - 8, { align: 'right' });
     }
   }
@@ -455,7 +563,8 @@ function buildPDF(doc, c) {
 /* ================================================================ EXCEL */
 
 function agregarHojaExcel(wb, doc, c, usados) {
-  let nombre = doc.code.slice(0, 31);
+  const st = estilo(c);
+  let nombre = doc.code.replace(/[\\/*?:[\]]/g, '-').slice(0, 31);
   let k = 2;
   while (usados.has(nombre)) nombre = (doc.code.slice(0, 27) + '_' + k++);
   usados.add(nombre);
@@ -466,39 +575,35 @@ function agregarHojaExcel(wb, doc, c, usados) {
   const anchoTotal = doc.landscape ? 150 : 100;
   const base = tablas.find(t => t.head.length === nCols);
   const pct = base && base.widths ? base.widths : null;
-  for (let i = 1; i <= nCols; i++) {
-    let w = pct ? anchoTotal * pct[i - 1] / 100 : anchoTotal / nCols;
-    if (base && !pct && /^N\.º$/.test(base.head[i - 1])) w = 6;
-    ws.getColumn(i).width = Math.max(6, Math.round(w));
-  }
+  for (let i = 1; i <= nCols; i++) ws.getColumn(i).width = Math.max(6, Math.round(pct ? anchoTotal * pct[i - 1] / 100 : anchoTotal / nCols));
   if (base && !pct) {
-    const fijo = base.head.filter(h => /^N\.º$/.test(h)).length;
+    const fijo = base.head.filter(h => /^N\.?º?°?$/.test(h)).length;
     const resto = (anchoTotal - fijo * 6) / (nCols - fijo || 1);
-    base.head.forEach((h, i) => { if (!/^N\.º$/.test(h)) ws.getColumn(i + 1).width = Math.max(8, Math.round(resto)); });
+    base.head.forEach((h, i) => { ws.getColumn(i + 1).width = /^N\.?º?°?$/.test(h) ? 6 : Math.max(8, Math.round(resto)); });
   }
   const anchoCol = (i) => ws.getColumn(i).width || 10;
   const anchoRango = (a, b) => { let s = 0; for (let i = a; i <= b; i++) s += anchoCol(i); return s; };
   const borde = { style: 'thin', color: { argb: 'FF7A8894' } };
   const bordes = { top: borde, left: borde, bottom: borde, right: borde };
   const alto = (texto, ancho, base = 15) => Math.max(base, Math.ceil(String(texto || '').length / Math.max(1, ancho * 1.1)) * 13 + 4);
+  const relleno = (hex) => ({ type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF' + hex } });
   const e = encabezadoInfo(doc, c);
   let r = 1;
 
-  /* Encabezado */
   if (doc.kind !== 'rotulo') {
     ws.mergeCells(1, 1, 3, 1);
     ws.mergeCells(1, 2, 1, nCols - 1); ws.mergeCells(2, 2, 2, nCols - 1); ws.mergeCells(3, 2, 3, nCols - 1);
     const c1 = ws.getCell(1, 2); c1.value = e.inst; c1.font = { bold: true, size: 12 }; c1.alignment = { horizontal: 'center', vertical: 'middle' };
-    const c2 = ws.getCell(2, 2); c2.value = e.title.toUpperCase(); c2.font = { bold: true, size: 11 }; c2.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    const c2 = ws.getCell(2, 2); c2.value = e.title.toUpperCase(); c2.font = { bold: true, size: 12, color: { argb: 'FF' + st.col } }; c2.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     const c3 = ws.getCell(3, 2); c3.value = c.P.nombre; c3.alignment = { horizontal: 'center' }; c3.font = { italic: true, size: 9 };
     ws.getCell(1, nCols).value = 'Código: ' + e.code;
     ws.getCell(2, nCols).value = 'Versión: ' + e.version;
     ws.getCell(3, nCols).value = 'Fecha: ' + e.fecha;
-    for (let rr = 1; rr <= 3; rr++) for (let cc = 1; cc <= nCols; cc++) { ws.getCell(rr, cc).border = bordes; if (cc === nCols) ws.getCell(rr, cc).font = { size: 9 }; }
-    ws.getRow(1).height = 22; ws.getRow(2).height = 30; ws.getRow(3).height = 16;
+    for (let rr = 1; rr <= 3; rr++) for (let cc = 1; cc <= nCols; cc++) { ws.getCell(rr, cc).border = bordes; if (cc === nCols) { ws.getCell(rr, cc).font = { size: 9 }; ws.getCell(rr, cc).alignment = { wrapText: true, vertical: 'middle' }; } }
+    ws.getRow(1).height = 24; ws.getRow(2).height = 30; ws.getRow(3).height = 16;
     if (c.I.logo) {
       const id = wb.addImage({ base64: c.I.logo.data, extension: 'png' });
-      const d = imgDims(c.I.logo, Math.max(40, anchoCol(1) * 7 - 6), 60);
+      const d = imgDims(c.I.logo, Math.max(40, anchoCol(1) * 7 - 6), 62);
       ws.addImage(id, { tl: { col: 0.1, row: 0.15 }, ext: { width: d.width, height: d.height } });
     }
     r = 5;
@@ -509,51 +614,73 @@ function agregarHojaExcel(wb, doc, c, usados) {
     cell.value = plano(texto);
     cell.alignment = { wrapText: true, vertical: 'top', horizontal: o.align || 'left' };
     cell.font = { bold: !!o.bold, italic: !!o.italic, size: o.size || 10, color: o.color ? { argb: o.color } : undefined };
-    if (o.fill) cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: o.fill } };
+    if (o.fill) cell.fill = relleno(o.fill);
     ws.getRow(r).height = o.height || alto(plano(texto), anchoRango(1, nCols), 15);
     r++;
   };
 
   doc.blocks.forEach(b => {
     switch (b.t) {
-      case 'h': r++; filaTexto(b.text, { bold: true, fill: 'FFE8EEF3', color: 'FF1D4E6E' }); break;
+      case 'h': r++; filaTexto(b.text, { bold: true, fill: st.muyClaro, color: 'FF' + st.col }); break;
       case 'p': filaTexto(b.text, { bold: b.bold, align: b.align === 'c' ? 'center' : (b.align === 'r' ? 'right' : 'left') }); break;
       case 'note': filaTexto(b.text, { italic: true, size: 9 }); break;
       case 'lines': b.items.forEach(t => filaTexto(t, { height: 15 })); break;
       case 'space': r++; break;
       case 'pb': r += 2; break;
       case 'list': b.items.forEach((it, i) => filaTexto(`${b.ordered ? (i + 1) + '.' : '•'} ${it}`)); break;
+      case 'legend':
+        filaTexto('Leyenda:', { bold: true, size: 9 });
+        b.items.forEach(i => { if (i.fill) ws.getCell(r, 1).fill = relleno(i.fill); const cc = ws.getCell(r, 2); ws.mergeCells(r, 2, r, nCols); cc.value = i.t; cc.font = { size: 9 }; r++; });
+        r++;
+        break;
       case 'big': r++; filaTexto(b.text, { bold: true, size: 20, align: 'center', height: 30 * (b.text.split('\n').length + 1) }); if (b.sub) filaTexto(b.sub, { align: 'center' }); r++; break;
       case 'trebol': filaTexto('[Símbolo internacional de radiación ionizante]', { align: 'center', italic: true }); break;
       case 'kv':
-        b.rows.forEach(([k, v]) => {
+        b.rows.forEach(([kk, v]) => {
           ws.mergeCells(r, 1, r, 2); ws.mergeCells(r, 3, r, nCols);
           const a = ws.getCell(r, 1), bb = ws.getCell(r, 3);
-          a.value = k; a.font = { bold: true, size: 10 }; a.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFEEF2F5' } };
+          a.value = kk; a.font = { bold: true, size: 10 }; a.fill = relleno(st.claro);
           bb.value = plano(v);
           a.alignment = bb.alignment = { wrapText: true, vertical: 'top' };
           for (let cc = 1; cc <= nCols; cc++) ws.getCell(r, cc).border = bordes;
-          ws.getRow(r).height = Math.max(b.tall ? 24 : 15, alto(v, anchoRango(3, nCols)), alto(k, anchoRango(1, 2)));
+          ws.getRow(r).height = Math.max(b.tall ? 24 : 15, alto(v, anchoRango(3, nCols)), alto(kk, anchoRango(1, 2)));
           r++;
         });
         r++;
         break;
       case 'table': {
         const n = b.head.length;
-        /* Si la tabla tiene menos columnas que la hoja, la última celda ocupa el resto */
         const ultimo = (i) => (i === n - 1 && n < nCols) ? nCols : i + 1;
+        (b.pre || []).forEach(row => {
+          let col = 1;
+          row.forEach(x => {
+            const s = x.s || 1, fin = col + s - 1 === n && n < nCols ? nCols : col + s - 1;
+            if (fin > col) ws.mergeCells(r, col, r, fin);
+            const cell = ws.getCell(r, col);
+            cell.value = x.t || '';
+            cell.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+            cell.font = { bold: true, size: 9, color: { argb: 'FFFFFFFF' } };
+            if (x.t) cell.fill = relleno(st.col);
+            for (let cc = col; cc <= fin; cc++) ws.getCell(r, cc).border = bordes;
+            col = fin + 1;
+          });
+          ws.getRow(r).height = 18;
+          r++;
+        });
         const escribir = (vals, esHead) => {
           let hmax = esHead ? 20 : (b.tall ? 22 : 15);
           vals.forEach((v, i) => {
             const col = i + 1, fin = ultimo(i);
             if (fin > col) ws.mergeCells(r, col, r, fin);
             const cell = ws.getCell(r, col);
-            cell.value = plano(v);
-            cell.alignment = { wrapText: true, vertical: esHead ? 'middle' : 'top', horizontal: esHead ? 'center' : 'left' };
-            cell.font = { bold: esHead, size: 9 };
-            if (esHead) cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF' + COLOR_ENCABEZADO } };
+            const txt = plano(cTxt(v));
+            cell.value = txt;
+            cell.alignment = { wrapText: true, vertical: esHead ? 'middle' : 'top', horizontal: esHead || (v && v.align === 'c') ? 'center' : 'left' };
+            cell.font = { bold: esHead || cBold(v), size: 9, color: esHead ? { argb: 'FFFFFFFF' } : undefined };
+            const f = esHead ? st.col : cFill(v);
+            if (f) cell.fill = relleno(f);
             for (let cc = col; cc <= fin; cc++) ws.getCell(r, cc).border = bordes;
-            hmax = Math.max(hmax, alto(plano(v), anchoRango(col, fin)));
+            hmax = Math.max(hmax, alto(txt, anchoRango(col, fin)));
           });
           ws.getRow(r).height = hmax;
           r++;
@@ -566,18 +693,19 @@ function agregarHojaExcel(wb, doc, c, usados) {
       case 'sign': {
         r++;
         const por = Math.min(3, b.items.length) || 1;
-        const span = Math.floor(nCols / por);
+        const span = Math.max(1, Math.floor(nCols / por));
         for (let i = 0; i < b.items.length; i += por) {
           const grupo = b.items.slice(i, i + por);
-          const filas = [g => g.label ? g.label + ':' : '', () => '', () => '', () => '______________________', g => g.name || '', g => (g.role || '').replace(/\n/g, ' – '), g => g.ced ? 'C.I. ' + g.ced : ''];
+          const filas = [g => g.label ? g.label + ':' : '', () => '', () => '', () => '______________________', g => g.top || '', g => g.name || '', g => (g.role || '').replace(/\n/g, ' – '), g => g.ced ? 'C.I. ' + g.ced : ''];
           filas.forEach((fn, fi) => {
-            grupo.forEach((g, k) => {
-              const c0 = 1 + k * span, c1 = k === por - 1 ? nCols : c0 + span - 1;
+            if (fi === 4 && !grupo.some(g => g.top)) return;
+            grupo.forEach((g, kk) => {
+              const c0 = 1 + kk * span, c1 = kk === por - 1 ? nCols : c0 + span - 1;
               if (c1 > c0) ws.mergeCells(r, c0, r, c1);
               const cell = ws.getCell(r, c0);
               cell.value = fn(g);
               cell.alignment = { horizontal: 'center', wrapText: true };
-              cell.font = { bold: fi === 4 || fi === 0, size: 9 };
+              cell.font = { bold: fi === 0 || fi === 4 || (fi === 5 && !g.top), size: 9 };
             });
             r++;
           });
@@ -587,7 +715,7 @@ function agregarHojaExcel(wb, doc, c, usados) {
       }
     }
   });
-  ws.headerFooter.oddFooter = `&L${e.code}&RPágina &P de &N`;
+  ws.headerFooter.oddFooter = `&L${e.code}&C${pieSgc(doc, c).replace(/&/g, '&&')}&RPágina &P de &N`;
   return ws;
 }
 

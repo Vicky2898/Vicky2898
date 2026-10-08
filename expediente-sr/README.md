@@ -8,6 +8,17 @@ Prácticas incluidas:
 - Radiología intervencionista
 - Radiodiagnóstico odontológico
 
+## Importar sus bitácoras de Excel
+
+El botón **Importar bitácoras (Excel)** lee directamente los formatos de la OSR y llena los expedientes:
+
+- *BITÁCORA DE EQUIPOS* (equipo y tubo: marca, modelo, serie, año de fabricación e instalación)
+- *LICENCIA INSTITUCIONAL - OPERACIÓN - C* (código, fechas, kV y mA máximos, equipos autorizados)
+- *BITÁCORA DE POE* (médicos, tecnólogos y OSR con licencia, código, renovaciones, fechas y observaciones)
+- *RECAMBIO DE DOSÍMETROS PERSONALES* (apellidos, nombres, códigos de área, tipo y cargo, fechas de contrato y periodicidad)
+
+Se agrupa por RUC, práctica y sede (según el nombre de la hoja). Antes de importar se elige si cada grupo va al expediente abierto o a uno nuevo. Lo que ya está lleno no se sobrescribe; equipos y personas se unen por serie y por cédula.
+
 ## Cómo se usa
 
 1. Abra `index.html` en Chrome, Edge o Firefox. Necesita internet la primera vez para cargar las librerías de exportación.
@@ -45,7 +56,9 @@ Los datos se guardan en el navegador. Use **Respaldo** para descargar el expedie
 | FO-01 | Consentimiento informado | I.17 |
 | FO-02 | Rótulos de señalización para imprimir | II.2 y II.3 |
 
-El prefijo de los códigos (por defecto `SR`) se cambia en *Responsables y servicios → Codificación de documentos*.
+Los códigos siguen la plantilla `{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}` (por ejemplo `BT-POE-QCA2-RM-PR-OSR-2026-01`), que se cambia en *Responsables y servicios → Codificación de documentos*, junto con el estilo de encabezado (ficha o tabla de control) y el color institucional.
+
+Formatos propios de la OSR incluidos: bitácora de POE, bitácora de equipos, bitácora de licencia institucional, recambio de dosímetros por periodos y check list de documentos del POE con colores (celeste: médico responsable, verde: OSR, naranja: falta de documentos).
 
 ## Revisión automática
 

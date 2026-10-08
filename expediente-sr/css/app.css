@@ -201,6 +201,30 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .d-trebol img { width: 200px; }
 .d-rotulo { padding-top: 24px; }
 
+/* Ficha (estilo de declaración) */
+.d-ficha { text-align: center; margin-bottom: 16px; font-family: var(--f-ui); }
+.d-ficha .d-logo { max-height: 60px; max-width: 160px; }
+.d-ficha-t { font-weight: 800; font-size: 19px; letter-spacing: .02em; margin-top: 6px; text-wrap: balance; }
+.d-ficha-s { font-style: italic; font-size: 12px; color: #4A5560; margin-bottom: 8px; }
+.d-fichat { text-align: left; margin-top: 8px; }
+.d-fichat th { width: 20%; font-weight: 700; }
+.d-th-vacio { background: transparent; border-left-color: transparent !important; border-top-color: transparent !important; }
+.d-t td.a-c { text-align: center; }
+.d-legend { font-family: var(--f-ui); font-size: 11px; border: 1px solid #7A8894; padding: 6px 10px; margin: 0 0 12px; display: inline-flex; flex-direction: column; gap: 3px; }
+.d-sw { display: inline-block; width: 18px; height: 10px; margin-right: 6px; vertical-align: middle; border: 1px solid #999; }
+.tabla-ed td.ro { white-space: nowrap; font-weight: 600; padding: 8px; color: var(--ink-2); }
+.subtabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+.subtab { border: 1px solid var(--line); background: var(--surface); padding: 6px 12px; border-radius: var(--r); cursor: pointer; color: var(--ink-2); font-weight: 600; }
+.subtab.on { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.perfil { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-top: 10px; }
+.perfil small { color: var(--ink-2); }
+.campo input.color { padding: 2px; height: 34px; }
+.importar > div { background: var(--surface); flex-direction: column; align-items: stretch; }
+.imp-head { display: flex; flex-direction: column; gap: 2px; }
+.imp-head span { color: var(--ink-2); }
+.importar td small { color: var(--ink-2); }
+.imp-acc { display: flex; gap: 8px; flex-wrap: wrap; }
+
 /* Avisos y estados */
 #aviso { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 10px 16px; border-radius: var(--r); box-shadow: 0 6px 20px rgba(0,0,0,.2); z-index: 50; max-width: min(560px, calc(100vw - 32px)); }
 #aviso.err { background: var(--bad); color: #fff; }

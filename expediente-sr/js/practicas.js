@@ -446,11 +446,11 @@ const REQUISITOS = [
   { id: 'I-19', txt: 'Contrato de mantenimiento preventivo y correctivo con empresa licenciada', ext: true },
   { id: 'I-20', txt: 'Informe de mantenimiento y control de calidad de cada equipo', ext: true },
   { id: 'I-21', txt: 'Documentos de procedencia de los equipos', ext: true },
-  { id: 'I-22', txt: 'Registro de licencias institucional y ocupacionales', doc: ['REG-LIC'] },
+  { id: 'I-22', txt: 'Registro de licencias institucional y ocupacionales', doc: ['REG-LIC', 'BT-LIC'] },
   { id: 'I-23', txt: 'Registro de autorizaciones de OSR (en caso de aplicar)', doc: ['REG-OSR'], cond: true },
-  { id: 'I-24', txt: 'Registro de inventario de equipos generadores de radiación ionizante', doc: ['REG-EQ'] },
+  { id: 'I-24', txt: 'Registro de inventario de equipos generadores de radiación ionizante', doc: ['REG-EQ', 'BT-EQ'] },
   { id: 'I-25', txt: 'Registro de inventario de elementos de protección radiológica con fotografías', doc: ['REG-EPP'] },
-  { id: 'I-26', txt: 'Registro de reportes de dosimetría personal con recibido', doc: ['REG-DOS'] },
+  { id: 'I-26', txt: 'Registro de reportes de dosimetría personal con recibido', doc: ['REG-DOS', 'REC-DOS'] },
   { id: 'I-27', txt: 'Registro de controles médico laborales del POE', doc: ['REG-MED'] },
   { id: 'I-28', txt: 'Registro de incidentes y accidentes radiológicos', doc: ['REG-INC'] },
   { id: 'I-29', txt: 'Registro de inspecciones de seguridad radiológica', doc: ['REG-INSP'] },
@@ -468,3 +468,38 @@ const REQUISITOS = [
   { id: 'II-8', txt: 'Listado de equipos con fotografías de las placas', doc: ['LIST-EQ'], ext: true },
   { id: 'II-9', txt: 'Destino final de equipos dados de baja, vendidos o trasladados (en caso de aplicar)', doc: ['OF-BAJA'], cond: true }
 ];
+
+/* Código corto de práctica para la codificación de documentos */
+const PRAC_COD = { medico: 'RM', intervencionista: 'RI', odontologico: 'RO' };
+
+/* Categorías del POE, como se agrupan en la bitácora de POE */
+const CATEGORIAS_POE = [
+  { id: 'medico', t: 'Médicos radiólogos / especialistas', fill: 'BDD7EE' },
+  { id: 'tecnologo', t: 'Licenciados en radiología / tecnólogos', fill: '' },
+  { id: 'odontologo', t: 'Odontólogos', fill: '' },
+  { id: 'osr', t: 'Oficial de Seguridad Radiológica', fill: 'C6E0B4' },
+  { id: 'otro', t: 'Otro personal expuesto', fill: '' }
+];
+const CATEGORIA_POR_NOMBRE = Object.fromEntries(CATEGORIAS_POE.map(x => [x.t, x.id]));
+
+/* Columnas del check list de documentos del POE */
+const DOCS_POE = [
+  { k: 'ci', t: 'Copia C. I.' },
+  { k: 'ci18', t: 'Copia C. I. <18' },
+  { k: 'cv', t: 'CV' },
+  { k: 't3', t: 'Título 3° N.' },
+  { k: 't4', t: 'Título 4° N.' },
+  { k: 'senescyt', t: 'Registro SENESCYT' },
+  { k: 'acess', t: 'Registro ACESS' },
+  { k: 'lic', t: 'Licencia' },
+  { k: 'certs', t: 'Certificados profesionales' },
+  { k: 'dosAnt', t: 'Reportes dosimétricos anteriores' },
+  { k: 'med', t: 'Exámenes y certificado médico' }
+];
+const VALORES_DOC_POE = ['X', 'N/A', 'No posee', 'Falta'];
+
+/* Códigos del servicio de dosimetría usados en el recambio (área, tipo de dosímetro, cargo).
+   Valores por defecto tomados de los formatos de recambio de la OSR; se pueden cambiar por persona. */
+const DOS_AREA = { medico: '6', intervencionista: '6', odontologico: '8' };
+const DOS_TIPO = '7';
+const DOS_CARGO = { medico: '10', tecnologo: '15', osr: '1', odontologo: '12', otro: '15' };
