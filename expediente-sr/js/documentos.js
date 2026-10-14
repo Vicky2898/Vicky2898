@@ -529,15 +529,17 @@ const COLORES_SALA = ['BDD7EE', 'F8CBAD', 'FFE699', 'C6E0B4', 'D9D2E9', 'F4B183'
 function docPlanCapacitacion(c) {
   const lista = cronogramaActual(c);
   const capacitador = (x) => x.capacitador || [c.R.osrTitulo, c.R.osrNombre].filter(Boolean).join(' ') || c.rolOSR;
-  const filas = lista.map((x, i) => [{ t: String(i + 1), align: 'c' }, { t: fCorta(x.fecha), align: 'c' }, x.tema, { t: x.horaIni || '', align: 'c' }, { t: x.horaFin || '', align: 'c' }, { t: String(horasEntre(x.horaIni, x.horaFin) || ''), align: 'c' }, x.dirigido || 'POE', x.obs || '']);
+  const filas = lista.map((x, i) => [{ t: String(i + 1), align: 'c' }, { t: fCorta(x.fecha), align: 'c' }, x.tema, { t: x.horaIni || '', align: 'c' }, { t: x.horaFin || '', align: 'c' }, { t: String(horasEntre(x.horaIni, x.horaFin) || ''), align: 'c' }, x.dirigido || 'POE', x.materiales || 'Medios digitales / conferencias', x.obs || '']);
   const total = lista.reduce((a, x) => a + (horasEntre(x.horaIni, x.horaFin) || 0), 0);
   const di = datosInstitucion(c), dr = datosResponsable(c);
   const blocks = [
     Ps(`La planificación se realiza con base en el Anexo III, numeral 17 de la Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario, que fija como temática mínima la protección radiológica del POE y del paciente, el uso correcto del dosímetro personal y de los elementos de protección radiológica, y los trámites de licencia personal e institucional.`, { align: 'j' }),
     { t: 'kv4', rows: di.map((r, i) => [r[0], r[1], dr[i][0], dr[i][1]]) },
-    T(['N.°', 'Fecha', 'Tema', 'Hora inicio', 'Hora fin', 'Carga horaria', 'Dirigido a', 'Observaciones'],
-      [...filas, [{ t: '', align: 'c' }, '', { t: 'Carga horaria total', bold: true }, '', '', { t: String(total), align: 'c', bold: true }, '', '']],
-      { widths: [4, 9, 31, 8, 8, 8, 14, 18], small: true }),
+    Ps(`**Participantes:** ${c.M.capParticipantes || 'Personal ocupacionalmente expuesto (POE), personal administrativo, representante legal y personal de servicios varios.'}`, { align: 'j' }),
+    Ps(`**Objetivo general:** ${c.M.capObjetivo || `Instruir y actualizar al personal ocupacionalmente expuesto y no expuesto sobre los fundamentos de la protección radiológica, los efectos de la radiación ionizante, las magnitudes y unidades de radiación y la exposición ocupacional, para que el uso de radiaciones ionizantes en la práctica de ${c.P.corto} sea lo más seguro y eficaz posible.`}`, { align: 'j' }),
+    T(['N.°', 'Fecha', 'Tema', 'Hora inicio', 'Hora fin', 'Carga horaria', 'Dirigido a', 'Técnica / materiales', 'Observaciones'],
+      [...filas, [{ t: '', align: 'c' }, '', { t: 'Carga horaria total', bold: true }, '', '', { t: String(total), align: 'c', bold: true }, '', '', '']],
+      { widths: [4, 8, 27, 7, 7, 7, 13, 12, 15], small: true }),
     Ps('**Observaciones generales:**'),
     L([
       'El plan de capacitación deberá estar disponible en todo momento para la Autoridad Reguladora durante las inspecciones (Norma Técnica, Art. 5 num. 5.1 lit. j).',
@@ -545,7 +547,7 @@ function docPlanCapacitacion(c) {
       'Se entregará material de apoyo digital y certificado de asistencia al finalizar cada sesión.',
       'El personal que ingrese durante el año recibirá una inducción en protección radiológica antes de iniciar sus actividades (Anexo III, num. 18).'
     ], true),
-    SIGN([{ ...c.firmas.rep, role: 'Representante Legal' }, { ...c.firmas.osr, role: 'Responsable' }])
+    SIGN([{ ...c.firmas.rep, role: `Representante Legal${c.I.nombreComercial ? ' – ' + c.I.nombreComercial : ''}` }, { ...c.firmas.osr, role: `Responsable${c.R.osrLicencia || c.R.osrCedula ? ' – Autorización N.°: ' + (c.R.osrLicencia || c.R.osrCedula) : ''}` }])
   ];
   return { title: `Plan de capacitación anual y entrenamiento en seguridad radiológica ${c.anio}`, kind: 'sgc', landscape: true, blocks };
 }
@@ -1425,7 +1427,14 @@ const DOCS = [
 ];
 
 /* El código de cada documento sale de la plantilla de codificación del expediente */
-DOCS.forEach(d => { const f = d.build; d.build = (c) => Object.assign(f(c), { code: codigoDoc(c, d.id) }); });
+function envolverCodigo(d) { if (d._env) return; const f = d.build; d.build = (c) => Object.assign(f(c), { code: codigoDoc(c, d.id) }); d._env = true; }
+DOCS.forEach(envolverCodigo);
+/* Agrega un documento después de otro ya registrado */
+function registrarDoc(d, despuesDe) {
+  envolverCodigo(d);
+  const i = DOCS.findIndex(x => x.id === despuesDe);
+  if (i >= 0) DOCS.splice(i + 1, 0, d); else DOCS.push(d);
+}
 
 /* Alertas técnicas que una OSR revisaría antes de enviar */
 function revisarExpediente(c) {

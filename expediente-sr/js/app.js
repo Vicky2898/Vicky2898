@@ -9,10 +9,10 @@ function estadoVacio(practica = 'medico') {
     ejemplo: false,
     inst: { razonSocial: '', nombreComercial: '', sede: '', ruc: '', establecimiento: '', tipoEstab: '', actividad: '', licencia: '', licenciaExp: '', licenciaCad: '', kvMax: '', maMax: '', repEmpresa: '', repLegal: '', repCedula: '', repCargo: 'Gerente General', repProfesion: '', repTelefono: '', repCorreo: '', direccion: '', parroquia: '', referencia: '', ciudad: '', provincia: '', codPostal: '', telefono: '', correo: '', logo: null, sello: null },
     resp: Object.assign({ osrAplica: practica === 'intervencionista', osrTitulo: '', osrNombre: '', osrProfesion: '', osrCedula: '', osrRuc: '', osrDireccion: '', osrAut: '', osrAutCad: '', osrLicencia: '', osrTelefono: '', osrCorreo: '', medTitulo: '', medNombre: '', medCedula: '', medEspecialidad: '', medLicencia: '', medLicCad: '' }, (typeof BD !== 'undefined' && BD.perfil) || {}),
-    serv: { informeDirigido: '', invHoja: '1', invFecha: '', invDepto: '', invAdmin: '', obsEpp: '', dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
+    serv: { dosPerDesde: '', dosPerHasta: '', dosCiclo: '', dosReporte: '', dosFechaReporte: '', dosFechaInterp: '', medOcupNombre: '', medOcupRegistro: '', levFecha: '', levInstTipo: 'Cámara de ionización', levInstMarca: '', levInstModelo: '', levInstSerie: '', levInstRango: '', levInstCal: '', levInstLab: '', levInstCert: '', informeDirigido: '', invHoja: '1', invFecha: '', invDepto: '', invAdmin: '', obsEpp: '', dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
     oficio: { autoridad: 'Ministerio de Ambiente y Energía', direccionMEM: 'Dirección de Licenciamiento y Protección Radiológica', numero: '', fecha: '', tramite: '', tecnicoTitulo: 'Especialista', tecnicoNombre: '', tecnicoCargo: 'Técnico de Licenciamiento y Protección Radiológica', numResp: '', numDisp: '', numBaja: '', informeNum: '', informeFecha: '', plazo: '90' },
-    meta: { siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
-    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], check: {}
+    meta: { restriccionPOE: '6', restriccionPublico: '1', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
+    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], levantamientos: [], levPuntos: [], check: {}
   };
 }
 
@@ -48,6 +48,16 @@ function estadoEjemplo() {
   ];
   s.facturas = [{ fecha: '2023-08-31', numero: '001-002-000000001', proveedor: 'Proveedor Ejemplo', producto: 'Mandil plomado + collarín plomado + protectores gonadales', subtotal: '825,00', iva: '99,00', total: '924,00' }];
   s.serv.informeDirigido = 'Dr. Nombre Ejemplo';
+  Object.assign(s.serv, { dosPerDesde: '2026-06-05', dosPerHasta: '2026-08-04', dosCiclo: '1', dosReporte: 'DC-000', dosFechaReporte: '2026-08-20', dosFechaInterp: '2026-08-27', medOcupNombre: 'Dr. Médico Ocupacional Ejemplo', medOcupRegistro: '0000000000', levFecha: '2026-03-15', levInstMarca: 'Fluke Biomedical', levInstModelo: '451P', levInstSerie: '0000', levInstRango: '0 – 50 mSv/h', levInstCal: '2025-11-10', levInstLab: 'Laboratorio de calibración ejemplo', levInstCert: 'CAL-0000' });
+  s.poe.forEach((p, i) => Object.assign(p, { dosisPeriodo: ['0,214', '0,105', '0,000'][i], dosisAnual: ['0,410', '0,230', '0,050'][i], dosisTotal: ['0,410', '0,230', '0,050'][i], telefono: '099 000 000' + i, correo: `poe${i + 1}@ejemplo.ec`, fechaNac: ['1985-04-12', '1992-09-30', '1990-01-15'][i] }));
+  s.levantamientos = [{ sala: 'Sala 1 - Rayos X', serie: '0000A1', kv: '80', ma: '200', tiempo: '0,1', mas: '20', campo: '35 × 43 cm', direccion: 'Vertical hacia la mesa', maniqui: 'Agua, 20 cm', fondo: '0,1', pacientes: '150', masPaciente: '20', plano: null }];
+  s.levPuntos = [
+    { sala: 'Sala 1 - Rayos X', punto: 'A', descripcion: 'Consola de mando, detrás de la barrera', distancia: '2,5', barrera: 'Consola', zona: 'Supervisada', u: '1', t: '1', lectura: '0,05', unidad: 'µSv', obs: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso a la sala', distancia: '3,0', barrera: 'Puerta', zona: 'Supervisada', u: '1', t: '1/8', lectura: '0,20', unidad: 'µSv', obs: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'C', descripcion: 'Pared hacia la sala de espera', distancia: '2,8', barrera: 'Secundaria', zona: 'Libre', u: '1', t: '1/5', lectura: '0,10', unidad: 'µSv', obs: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'D', descripcion: 'Ventana plomada de la consola', distancia: '2,5', barrera: 'Ventana', zona: 'Supervisada', u: '1', t: '1', lectura: '0,08', unidad: 'µSv', obs: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'E', descripcion: 'Pared detrás del bucky mural (pasillo)', distancia: '2,0', barrera: 'Primaria', zona: 'Libre', u: '0,25', t: '1/20', lectura: '0,60', unidad: 'µSv', obs: '' }
+  ];
   s.serv.obsEpp = 'Se reemplazó un mandil de la Sala 1 por roturas en el anterior.';
   return s;
 }
@@ -76,7 +86,7 @@ function normalizar(s) {
     if (!p.cargo && p.funcion) p.cargo = p.funcion;
   });
   ['inst', 'resp', 'serv', 'oficio', 'meta'].forEach(k => { s[k] = Object.assign({}, base[k], s[k] || {}); });
-  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
+  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas', 'levantamientos', 'levPuntos'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
   s.epp.forEach(e => { if (e.kv && !e.kv1) e.kv1 = e.kv; if (e.mas && !e.ma1) e.ma1 = e.mas; });
   if (!s.check) s.check = {};
 }
@@ -202,7 +212,9 @@ const F_SERV = [
   { k: 'serv.mantEmpresa', l: 'Empresa de mantenimiento', span: 2 },
   { k: 'serv.mantLicencia', l: 'Licencia de la empresa' },
   { k: 'serv.mantVigencia', l: 'Vigencia del contrato', type: 'date' },
-  { k: 'serv.labMedico', l: 'Centro de salud ocupacional', span: 2 }
+  { k: 'serv.labMedico', l: 'Centro de salud ocupacional', span: 2 },
+  { k: 'serv.medOcupNombre', l: 'Médico ocupacional' },
+  { k: 'serv.medOcupRegistro', l: 'Registro profesional (MSP)' }
 ];
 const F_META = [
   { k: 'meta.siglas', l: 'Siglas de la institución', ph: 'QCA2', help: 'Se usan en los códigos de documento' },
@@ -251,7 +263,10 @@ function colsPOE() {
     { k: 'act', l: 'Act.', w: 55 },
     { k: 'expedicion', l: 'Expedición', type: 'date', w: 140 },
     { k: 'licCad', l: 'Expira', type: 'date', w: 140 },
-    { k: 'observacion', l: 'Observación / trámite', type: 'textarea', w: 240 }
+    { k: 'observacion', l: 'Observación / trámite', type: 'textarea', w: 240 },
+    { k: 'fechaNac', l: 'Fecha de nacimiento', type: 'date', w: 140 },
+    { k: 'telefono', l: 'Teléfono', w: 110 },
+    { k: 'correo', l: 'Correo', w: 180 }
   ];
 }
 function colsPOEDos() {
@@ -261,7 +276,10 @@ function colsPOEDos() {
     { k: 'dosimetro', l: 'Código del dosímetro', w: 120 },
     { k: 'area', l: 'Área (código)', w: 90, ph: DOS_AREA[S().practica] },
     { k: 'tipoDos', l: 'Tipo de dosímetro (código)', w: 110, ph: DOS_TIPO },
-    { k: 'cargoDos', l: 'Cargo (código)', w: 90, ph: '10 / 15 / 1' }
+    { k: 'cargoDos', l: 'Cargo (código)', w: 90, ph: '10 / 15 / 1' },
+    { k: 'dosisPeriodo', l: 'Dosis del periodo Hp(10) mSv', w: 110 },
+    { k: 'dosisAnual', l: 'Acumulada anual mSv', w: 110 },
+    { k: 'dosisTotal', l: 'Acumulada total mSv', w: 110 }
   ];
 }
 function colsPOEDocs() {
@@ -334,6 +352,7 @@ const COLS_CAP = [
   { k: 'horaIni', l: 'Hora inicio', type: 'time', w: 100 },
   { k: 'horaFin', l: 'Hora fin', type: 'time', w: 100 },
   { k: 'dirigido', l: 'Dirigido a', w: 190 },
+  { k: 'materiales', l: 'Técnica / materiales', w: 170, ph: 'Medios digitales / conferencias' },
   { k: 'obs', l: 'Observaciones', w: 200 },
   { k: 'capacitador', l: 'Capacitador', w: 170, ph: 'OSR' }
 ];
@@ -403,6 +422,8 @@ const SECCIONES = [
   { id: 'equipos', t: 'Equipos' },
   { id: 'prendas', t: 'Prendas de protección' },
   { id: 'capacitacion', t: 'Capacitación' },
+  { id: 'levantamiento', t: 'Levantamiento radiométrico' },
+  { id: 'manual', t: 'Manual de seguridad' },
   { id: 'oficio', t: 'Oficio de la Autoridad' },
   { id: 'verificacion', t: 'Lista de verificación' },
   { id: 'documentos', t: 'Documentos' }
@@ -416,7 +437,7 @@ let seleccion = null;
 function contadores() {
   const s = S();
   return {
-    poe: s.poe.length, equipos: s.equipos.length, prendas: s.epp.length, capacitacion: s.capacitaciones.filter(x => x.tema).length || '',
+    poe: s.poe.length, equipos: s.equipos.length, prendas: s.epp.length, capacitacion: s.capacitaciones.filter(x => x.tema).length || '', levantamiento: s.levPuntos.filter(x => x.punto).length || '',
     oficio: s.disp.filter(d => d.nc).length || '',
     documentos: DOCS.filter(d => d.aplica(crearContexto(s))).length
   };
@@ -470,7 +491,7 @@ function renderSeccion() {
       h = `<h2>Personal ocupacionalmente expuesto</h2><p class="lead">Con estos datos se arman la bitácora de POE, el check list de documentos, el recambio de dosímetros y los registros de licencias, dosimetría, controles médicos y capacitación. La licencia N.º es la cédula; el código es el que asigna la Autoridad (Q-, LOA, G-).</p>
         <div class="subtabs" role="tablist">${[['datos', 'Datos y licencia'], ['dos', 'Dosimetría y salud'], ['docs', 'Check list de documentos']].map(([k, t]) => `<button role="tab" class="subtab ${subPOE === k ? 'on' : ''}" data-sub="${k}" aria-selected="${subPOE === k}">${t}</button>`).join('')}</div>
         ${tablaEditable('poe', subPOE === 'dos' ? colsPOEDos() : subPOE === 'docs' ? colsPOEDocs() : colsPOE(), s.poe, 'Agregar persona')}
-        ${subPOE === 'docs' ? '<p class="lead">X = sí posee · N/A = no aplica · No posee / Falta se marcan en naranja en el check list.</p>' : ''}${subPOE === 'dos' ? '<p class="lead">Los códigos de área, tipo de dosímetro y cargo son los del catálogo de su servicio de dosimetría. Si los deja vacíos se usan los de sus formatos: área 6 (médico) u 8 (odontológico), tipo 7, cargo 10 médico, 15 tecnólogo, 1 OSR, 12 odontólogo.</p>' : ''}`;
+        ${subPOE === 'docs' ? '<p class="lead">X = sí posee · N/A = no aplica · No posee / Falta se marcan en naranja en el check list.</p>' : ''}${subPOE === 'dos' ? `<h3>Periodo dosimétrico que se interpreta</h3>${grupoCampos([{ k: 'serv.dosPerDesde', l: 'Periodo desde', type: 'date' }, { k: 'serv.dosPerHasta', l: 'Periodo hasta', type: 'date' }, { k: 'serv.dosCiclo', l: 'Ciclo N.º' }, { k: 'serv.dosReporte', l: 'Código del reporte', ph: 'DC-008' }, { k: 'serv.dosFechaReporte', l: 'Fecha del reporte', type: 'date' }, { k: 'serv.dosFechaInterp', l: 'Fecha de interpretación', type: 'date' }, { k: 'meta.restriccionPOE', l: 'Restricción institucional (mSv/año)' }])}` : ''}${subPOE === 'dos' ? '<p class="lead">Los códigos de área, tipo de dosímetro y cargo son los del catálogo de su servicio de dosimetría. Si los deja vacíos se usan los de sus formatos: área 6 (médico) u 8 (odontológico), tipo 7, cargo 10 médico, 15 tecnólogo, 1 OSR, 12 odontólogo.</p>' : ''}`;
       break;
     case 'equipos':
       h = `<h2>Equipos generadores de radiación ionizante</h2><p class="lead">Copie los datos de las placas del equipo y del tubo. Escriba NR cuando la placa no registre el dato. Los equipos marcados como dados de baja, vendidos o trasladados generan el oficio de destino final.</p>
@@ -490,12 +511,53 @@ function renderSeccion() {
       if (sub === 'fact') h += `<p class="lead">Las facturas forman el resumen del inventario; si sube el escaneo, se adjunta como anexo.</p>${tablaEditable('facturas', COLS_FACT, s.facturas, 'Agregar factura')}`;
       break;
     }
+    case 'levantamiento': {
+      const c = crearContexto(s);
+      const salas = s.levantamientos.map(l => l.sala).filter(Boolean);
+      const colsLev = [
+        { k: 'sala', l: 'Sala', w: 150 },
+        { k: 'serie', l: 'Equipo (serie)', type: 'select', opts: c.eq.map(e => e.serie).filter(Boolean), w: 150 },
+        { k: 'kv', l: 'kVp', w: 60 }, { k: 'ma', l: 'mA', w: 60 }, { k: 'tiempo', l: 'Tiempo (s)', w: 80 }, { k: 'mas', l: 'mAs', w: 70, ph: 'auto' },
+        { k: 'campo', l: 'Tamaño de campo', w: 120, ph: '35 × 43 cm' }, { k: 'direccion', l: 'Dirección del haz', w: 140, ph: 'Vertical hacia la mesa' },
+        { k: 'maniqui', l: 'Maniquí / dispersor', w: 140, ph: 'Agua 20 cm' }, { k: 'fondo', l: 'Fondo (µSv/h)', w: 90 },
+        { k: 'pacientes', l: 'Pacientes / semana', w: 90 }, { k: 'masPaciente', l: 'mAs por paciente', w: 90, ph: '20' },
+        { k: 'plano', l: 'Croquis con puntos', type: 'img', w: 160 }
+      ];
+      const colsPun = [
+        { k: 'sala', l: 'Sala', type: 'select', opts: salas, w: 140 },
+        { k: 'punto', l: 'Punto', w: 60, ph: 'A' }, { k: 'descripcion', l: 'Descripción', w: 210, ph: 'Puerta de acceso, consola, pared hacia…' },
+        { k: 'distancia', l: 'Distancia (m)', w: 80 },
+        { k: 'barrera', l: 'Barrera', type: 'select', opts: ['Primaria', 'Secundaria', 'Puerta', 'Ventana', 'Consola'], w: 120 },
+        { k: 'zona', l: 'Zona', type: 'select', opts: ['Controlada', 'Supervisada', 'Libre'], w: 120 },
+        { k: 'u', l: 'U', w: 60, ph: '1' }, { k: 't', l: 'T', type: 'select', opts: T_OPCIONES, w: 80 },
+        { k: 'lectura', l: 'Lectura', w: 80 }, { k: 'unidad', l: 'Unidad', type: 'select', opts: ['µSv', 'µSv/h'], w: 90 },
+        { k: 'obs', l: 'Observaciones', w: 160 }
+      ];
+      const res = s.levPuntos.filter(p => p.punto).map(p => { const lev = s.levantamientos.find(l => l.sala === p.sala); const r = lev ? calcularPunto(lev, p, c) : {}; return `<tr><td>${esc(p.sala || '')}</td><td>${esc(p.punto)}</td><td>${r.dDisparo == null ? '—' : num2(r.dDisparo, 3)}</td><td>${r.anual == null ? '—' : num2(r.anual, 3)}</td><td>${r.criterio == null ? '—' : num2(r.criterio, 1)}</td><td class="${r.cumple === false ? 'alerta-txt' : ''}">${r.cumple == null ? 'Faltan datos' : (r.cumple ? 'Cumple' : 'No cumple')}</td></tr>`; }).join('');
+      h = `<h2>Levantamiento radiométrico</h2><p class="lead">Alimenta el informe del Anexo VII. Registre la técnica usada en cada sala y las lecturas en cada punto; la dosis anual se calcula con la carga de trabajo, el factor de uso (U) y el de ocupación (T) del NCRP 147.</p>
+        <h3>Instrumento de medición</h3>${grupoCampos([{ k: 'serv.levInstTipo', l: 'Tipo de detector', type: 'select', opts: ['Cámara de ionización', 'Geiger-Müller', 'Centelleador', 'Detector de estado sólido'] }, { k: 'serv.levInstMarca', l: 'Marca' }, { k: 'serv.levInstModelo', l: 'Modelo' }, { k: 'serv.levInstSerie', l: 'Serie' }, { k: 'serv.levInstRango', l: 'Rango' }, { k: 'serv.levInstCal', l: 'Última calibración', type: 'date' }, { k: 'serv.levInstLab', l: 'Laboratorio de calibración' }, { k: 'serv.levInstCert', l: 'N.º de certificado' }, { k: 'serv.levFecha', l: 'Fecha del levantamiento', type: 'date' }, { k: 'meta.restriccionPOE', l: 'Criterio zona controlada (mSv/año)' }, { k: 'meta.restriccionPublico', l: 'Criterio zonas supervisada y libre (mSv/año)' }])}
+        <h3>Salas y técnica utilizada</h3>${tablaEditable('levantamientos', colsLev, s.levantamientos, 'Agregar sala')}
+        <h3>Puntos de medición</h3>${salas.length ? tablaEditable('levPuntos', colsPun, s.levPuntos, 'Agregar punto') : '<p class="lead">Primero agregue una sala.</p>'}
+        ${res ? `<h3>Resultado calculado</h3><div class="tabla-ed"><table><thead><tr><th>Sala</th><th>Punto</th><th>Dosis por disparo (µSv)</th><th>Dosis anual (mSv)</th><th>Criterio</th><th>Resultado</th></tr></thead><tbody>${res}</tbody></table></div>` : ''}`;
+      break;
+    }
+    case 'manual': {
+      h = `<h2>Manual de Seguridad Radiológica</h2><p class="lead">Estructura completa del Anexo V de la Norma Técnica (obligatorio para categoría 1 y 2: angiografía y hemodinamia; útil como manual interno en las demás). El manual se arma con los datos del expediente y cita los códigos de sus demás documentos. Lo que deje vacío se redacta automáticamente.</p>
+        ${grupoCampos([{ k: 'meta.manualFecha', l: 'Fecha de presentación', type: 'date' }, { k: 'meta.manualRevision', l: 'N.º de revisión', ph: '01' }, { k: 'meta.restriccionPOE', l: 'Restricción de dosis POE (mSv/año)' }, { k: 'meta.restriccionPublico', l: 'Restricción público (mSv/año)' },
+          { k: 'meta.manualJustificacion', l: '5. Justificación de la práctica', type: 'textarea', span: 4 },
+          { k: 'meta.manualUbicacion', l: '6. Ubicación dentro de la instalación', type: 'textarea', span: 4 },
+          { k: 'meta.manualFlujo', l: '8. Flujo tecnológico (pacientes y POE)', type: 'textarea', span: 4 },
+          { k: 'meta.zonasSupervisadas', l: '10. Zonas supervisadas', type: 'textarea', span: 2 }, { k: 'meta.zonasLibres', l: '10. Zonas libres', type: 'textarea', span: 2 },
+          { k: 'meta.manualPolitica', l: '11.2. Política de seguridad radiológica', type: 'textarea', span: 4 }])}`;
+      break;
+    }
     case 'capacitacion': {
       const c = crearContexto(s);
       const vacio = !s.capacitaciones.filter(x => x.tema).length;
       h = `<h2>Plan de capacitación ${esc(String(c.anio))}</h2><p class="lead">Base: Anexo III, numeral 17 de la Norma Técnica (protección del POE y del paciente, dosímetro personal, elementos de protección y trámites de licencias). ${vacio ? 'Mientras esta tabla esté vacía, los documentos usan la propuesta automática.' : ''}</p>
         <div class="perfil"><button class="btn sec" id="btn-cap-proponer">${vacio ? 'Cargar propuesta para editar' : 'Reemplazar por la propuesta'}</button><small>La propuesta tiene ${cronogramaPropuesto(c).length} sesiones de 2 horas, de marzo a diciembre.</small></div>
-        ${tablaEditable('capacitaciones', COLS_CAP, s.capacitaciones, 'Agregar capacitación')}`;
+        ${tablaEditable('capacitaciones', COLS_CAP, s.capacitaciones, 'Agregar capacitación')}
+        <h3>Encabezado del plan</h3>${grupoCampos([{ k: 'meta.capParticipantes', l: 'Participantes', type: 'textarea', span: 2, ph: 'Personal ocupacionalmente expuesto (POE), personal administrativo, representante legal y personal de servicios varios.' }, { k: 'meta.capObjetivo', l: 'Objetivo general', type: 'textarea', span: 2, ph: 'Se genera uno según la práctica si lo deja vacío.' }])}`;
       break;
     }
     case 'oficio':
@@ -690,6 +752,8 @@ function filaVacia(t) {
   if (t === 'equipos') return { tipo: '', marca: '', modelo: '', serie: '', tuboMarca: '', tuboModelo: '', tuboSerie: '', anio: '', anioTubo: '', anioInst: '', enLicencia: 'Sí', sala: '', uso: '', estado: 'Funcionando', mantFecha: '' };
   if (t === 'epp') { const n = S().epp.length + 1; return { codigo: 'EPR-' + String(n).padStart(2, '0'), tipo: '', espesor: '0,5', marca: '', talla: '', sala: '', cantidad: '1', factura: '', proveedor: '', fechaCaducidad: '', estado: 'Bueno', cubierta: '', sujeciones: '', costuras: '', estetica: '', kv1: '60', ma1: '', kv2: '65', ma2: '', defectos: 'Ninguno', resultado: 'Apta' }; }
   if (t === 'facturas') return { fecha: '', numero: '', proveedor: '', producto: '', subtotal: '', iva: '', total: '', img: null };
+  if (t === 'levantamientos') return { sala: '', serie: '', kv: '', ma: '', tiempo: '', mas: '', campo: '', direccion: '', maniqui: '', fondo: '0,1', pacientes: '', masPaciente: '20', plano: null };
+  if (t === 'levPuntos') { const s0 = S(); const sala = (s0.levantamientos[0] || {}).sala || ''; const n = s0.levPuntos.filter(p => p.sala === sala).length; return { sala, punto: String.fromCharCode(65 + n), descripcion: '', distancia: '', barrera: 'Secundaria', zona: 'Supervisada', u: '1', t: '1', lectura: '', unidad: 'µSv', obs: '' }; }
   if (t === 'capacitaciones') return { fecha: '', tema: '', horaIni: '09:00', horaFin: '11:00', dirigido: 'POE', obs: '', capacitador: '' };
   return { nc: '', accion: '', anexo: '' };
 }
@@ -712,6 +776,7 @@ function alCambiar(e) {
     if (t.dataset.c.startsWith('docs.') && !fila.docs) fila.docs = {};
     const col = t.dataset.c === 'categoria' ? CATEGORIA_POR_NOMBRE[t.value] || t.value : t.value;
     setPath(fila, t.dataset.c, col); quitarEjemplo(); guardar();
+    if (e.type === 'change' && /levPuntos|levantamientos/.test(t.dataset.t) && t.type !== 'file') { renderSeccion(); return; }
     if (e.type === 'change' && t.tagName === 'SELECT') { renderNav(); if (t.dataset.c === 'estado') renderSeccion(); }
     return;
   }
@@ -785,7 +850,7 @@ async function alArchivo(e) {
   if (t.dataset.imgt && t.files[0]) {
     try {
       const fila = S()[t.dataset.imgt][+t.dataset.i];
-      fila[t.dataset.c] = await leerFoto(t.files[0], t.dataset.imgt === 'facturas' ? 1400 : 800);
+      fila[t.dataset.c] = await leerFoto(t.files[0], /facturas|levantamientos/.test(t.dataset.imgt) ? 1400 : 800);
       quitarEjemplo(); guardar(); renderSeccion(); aviso('Imagen cargada.');
     } catch (err) { aviso(err.message, true); }
     return;

@@ -70,6 +70,14 @@ Antes de descargar, la sección Documentos muestra observaciones como licencias 
 - **Informe de integridad del blindaje del EPR** con las cuatro pruebas (fecha de expiración, evaluación funcional, inspección del blindaje con atenuación e integridad, valoración estética), tabla de tomas radiográficas con las imágenes cargadas, conclusiones calculadas y recomendaciones.
 - **Inventario de EPR** con código interno, descripción, factura/proveedor, cantidad y ubicación coloreada por sala, observaciones, resumen de facturas y anexo con los escaneos.
 
+## Manual, levantamiento y vigilancia del POE
+
+- **Manual de Seguridad Radiológica** con la estructura completa del Anexo V (carátula, datos generales, antecedentes, objetivo, justificación, ubicación, instalaciones y equipos, flujo, elementos de seguridad, zonas, sistema de gestión, evaluación de la seguridad con matriz de riesgo, exposición ocupacional, del público y médica, emergencias con seis casos y clausura). Cita los códigos de los demás documentos del expediente.
+- **Informe de levantamiento radiométrico** según el Anexo VII: instrumento y calibración, técnica por sala, croquis, puntos de medición y cálculo de la dosis anual H = (D / mAs) × W × U × T × 50, comparado con la restricción del POE (zona controlada) y del público.
+- **Informe de interpretación dosimétrica** por trabajador (límite legal, restricción institucional, nivel de investigación por periodo) con constancia de información al POE.
+- **Certificado de aptitud médica laboral**, prellenado para el médico ocupacional.
+- **Registro de asistencia** a capacitaciones con el formato de la OSR.
+
 ## Base normativa
 
 - Reglamento de Seguridad Radiológica, Decreto Supremo N.º 3640 (R.O. 891, 8 de agosto de 1979).
