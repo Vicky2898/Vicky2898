@@ -377,6 +377,23 @@ async function buildDocx(doc, c) {
 
 /* ================================================================ PDF */
 
+/* La fuente estándar del PDF no tiene letras griegas: en párrafos se dibujan con la fuente Symbol
+   y en tablas se escriben con su nombre. */
+const GRIEGO_SYM = { 'α': 'a', 'β': 'b', 'γ': 'g', 'κ': 'k', 'Σ': 'S', 'ρ': 'r', '≤': '\u00A3', '≥': '\u00B3', '→': '\u00AE' };
+const GRIEGO_TXT = { 'α': 'alfa', 'β': 'beta', 'γ': 'gamma', 'κ': 'kappa', 'Σ': 'suma', 'ρ': 'rho', '≤': '<=', '≥': '>=', '⁻': '-', '−': '-', '₀': '0', '→': '->' };
+const pdfSeguro = (t) => typeof t === 'string' ? t.replace(/[αβγκΣρ≤≥⁻−₀→]/g, ch => GRIEGO_TXT[ch]) : t;
+function griegoEnPartes(w) {
+  w = w.replace(/[⁻−]/g, '-').replace(/₀/g, '0');
+  const out = [];
+  for (const ch of w) {
+    const sym = ch in GRIEGO_SYM;
+    const last = out[out.length - 1];
+    if (last && last.sym === sym) last.w += sym ? GRIEGO_SYM[ch] : ch;
+    else out.push({ w: sym ? GRIEGO_SYM[ch] : ch, sym });
+  }
+  return out.length ? out : [{ w, sym: false }];
+}
+
 function buildPDF(doc, c) {
   const { jsPDF } = window.jspdf;
   const st = estilo(c);
@@ -408,17 +425,17 @@ function buildPDF(doc, c) {
         s.text.split(/(\s+)/).forEach((w, wi) => {
           if (!w) return;
           if (/^\s+$/.test(w)) { pegar = false; return; }
-          const parte = { w, b: s.bold || o.bold, it: o.italic };
+          const trozos = griegoEnPartes(w).map(q => ({ w: q.w, sym: q.sym, b: s.bold || o.bold, it: o.italic }));
           const prev = palabras[palabras.length - 1];
-          if (wi === 0 && pegar && prev && !prev.br) (prev.partes || (prev.partes = [{ w: prev.w, b: prev.b, it: prev.it }])).push(parte);
-          else palabras.push(parte);
+          if (wi === 0 && pegar && prev && !prev.br) (prev.partes || (prev.partes = [{ w: prev.w, b: prev.b, it: prev.it, sym: prev.sym }])).push(...trozos);
+          else palabras.push(trozos.length === 1 ? trozos[0] : { w: trozos.map(q => q.w).join(''), partes: trozos });
           pegar = true;
         });
         pegar = !/\s$/.test(s.text);
       });
       if (li < arr.length - 1) palabras.push({ br: true });
     });
-    const fuente = (p) => pdf.setFont('helvetica', p.b ? (p.it ? 'bolditalic' : 'bold') : (p.it ? 'italic' : 'normal'));
+    const fuente = (p) => p.sym ? pdf.setFont('symbol', 'normal') : pdf.setFont('helvetica', p.b ? (p.it ? 'bolditalic' : 'bold') : (p.it ? 'italic' : 'normal'));
     const medir = (p) => p.partes ? p.partes.reduce((a, q) => { fuente(q); return a + pdf.getTextWidth(q.w); }, 0) : (fuente(p), pdf.getTextWidth(p.w));
     fuente({});
     const esp = pdf.getTextWidth(' ');
@@ -455,7 +472,7 @@ function buildPDF(doc, c) {
     if (o.kv) [0, 2].forEach(i => { if (colStyles[i]) { colStyles[i].fontStyle = 'bold'; colStyles[i].fillColor = CLARO; } });
     const headRows = [];
     (o.pre || []).forEach(r => headRows.push(r.map(x => ({ content: x.t || '', colSpan: x.s || 1, styles: x.t ? { halign: 'center' } : { fillColor: [255, 255, 255] } }))));
-    if (head) headRows.push(head);
+    if (head) headRows.push(head.map(pdfSeguro));
     pdf.autoTable({
       startY: y,
       head: headRows.length ? headRows : undefined,
@@ -466,7 +483,7 @@ function buildPDF(doc, c) {
         if (f) styles.fillColor = hexRGB(f);
         if (cBold(x)) styles.fontStyle = 'bold';
         if (x && x.align === 'c') styles.halign = 'center';
-        return { content: plano(cTxt(x)), styles };
+        return { content: pdfSeguro(plano(cTxt(x))), styles };
       })),
       margin: { left: ML, right: MR, top: TOP, bottom: BOT },
       theme: 'grid',
@@ -528,6 +545,7 @@ function buildPDF(doc, c) {
   doc.blocks.forEach((b, bi) => {
     const sig = doc.blocks[bi + 1];
     if ((b.t === 'p' || b.t === 'note') && sig && sig.t === 'sign') espacio(LH * 2 + 40);
+    if (b.t === 'p' && b.bold && String(b.text || '').length < 120) espacio(LH * 4);
     if (b.t === 'p' && sig && sig.t === 'table' && sig.head && String(b.text || '').length < 700) espacio(LH * Math.ceil(String(b.text || '').length / 140 + 1) + 28);
     switch (b.t) {
       case 'h': espacio(26); y += 2; rich(b.text, ML, CW, { bold: true, size: 10.5, color: COL }); y += 1.2; break;

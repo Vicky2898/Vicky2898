@@ -11,8 +11,8 @@ function estadoVacio(practica = 'medico') {
     resp: Object.assign({ osrAplica: practica === 'intervencionista', osrTitulo: '', osrNombre: '', osrProfesion: '', osrCedula: '', osrRuc: '', osrDireccion: '', osrAut: '', osrAutCad: '', osrLicencia: '', osrTelefono: '', osrCorreo: '', medTitulo: '', medNombre: '', medCedula: '', medEspecialidad: '', medLicencia: '', medLicCad: '' }, (typeof BD !== 'undefined' && BD.perfil) || {}),
     serv: { dosPerDesde: '', dosPerHasta: '', dosCiclo: '', dosReporte: '', dosFechaReporte: '', dosFechaInterp: '', medOcupNombre: '', medOcupRegistro: '', levFecha: '', levInstTipo: 'Cámara de ionización', levInstMarca: '', levInstModelo: '', levInstSerie: '', levInstRango: '', levInstCal: '', levInstLab: '', levInstCert: '', informeDirigido: '', invHoja: '1', invFecha: '', invDepto: '', invAdmin: '', obsEpp: '', dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
     oficio: { autoridad: 'Ministerio de Ambiente y Energía', direccionMEM: 'Dirección de Licenciamiento y Protección Radiológica', numero: '', fecha: '', tramite: '', tecnicoTitulo: 'Especialista', tecnicoNombre: '', tecnicoCargo: 'Técnico de Licenciamiento y Protección Radiológica', numResp: '', numDisp: '', numBaja: '', informeNum: '', informeFecha: '', plazo: '90' },
-    meta: { restriccionPOE: '6', restriccionPublico: '1', levCriterio: 'ARCAL XX (protocolo ARCAL XLIX)', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
-    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], levantamientos: [], levPuntos: [], levFuga: [], check: {}
+    meta: { restriccionPOE: '6', restriccionPublico: '1', levCriterio: 'ARCAL XX (protocolo ARCAL XLIX)', blFecha: '', blRevision: '01', blPc: '0,1', blPnc: '0,02', blDensConcreto: '2,35', blDensLadrillo: '1,8', blLadrilloNota: '', blFormatoPlano: 'A3', blMateriales: '', blElementos: '', blObjetivo: '', blJustificacion: '', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
+    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], levantamientos: [], levPuntos: [], levFuga: [], blSalas: [], blParams: [], blBarreras: [], check: {}
   };
 }
 
@@ -62,6 +62,17 @@ function estadoEjemplo() {
     { sala: 'Sala 1 - Rayos X', punto: 'Lado ánodo', kv: '125', ie: '2', imax: '4', distancia: '1', lectura: '0,15', obs: '' },
     { sala: 'Sala 1 - Rayos X', punto: 'Lado cátodo', kv: '125', ie: '2', imax: '4', distancia: '1', lectura: '0,09', obs: '' }
   ];
+  s.blSalas = [{ sala: 'Sala 1 - Rayos X', serie: '0000A1', modalidad: 'Radiografía general', categoria: '3', ubicacion: 'Planta baja, área de imagenología', kvMax: '150', maMax: '1000', n: '150', plano: null, intTiempos: '' }];
+  s.blParams = [
+    { nombre: 'Sala de radiografía – piso (primaria)', k: '', aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: '', preCo: '', fuente: 'NCRP 147' },
+    { nombre: 'Sala de radiografía – secundaria', k: '', aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: '', preCo: '', fuente: 'NCRP 147' }
+  ];
+  s.blBarreras = [
+    { sala: 'Sala 1 - Rayos X', punto: 'A', descripcion: 'Pared hacia la consola de mando', tipo: 'Secundaria', param: 'Sala de radiografía – secundaria', d: '2,5', u: '', t: '1', zona: 'ZC', material: 'Ladrillo', existente: '150', plomoAdic: '1' },
+    { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso (pasillo)', tipo: 'Secundaria', param: 'Sala de radiografía – secundaria', d: '3,0', u: '', t: '1/5', zona: 'ZNC', material: 'Puerta plomada', existente: '2', plomoAdic: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'C', descripcion: 'Pared hacia la sala de espera', tipo: 'Secundaria', param: 'Sala de radiografía – secundaria', d: '2,8', u: '', t: '1/5', zona: 'ZNC', material: 'Ladrillo', existente: '150', plomoAdic: '2' },
+    { sala: 'Sala 1 - Rayos X', punto: 'D', descripcion: 'Piso (losa hacia el subsuelo)', tipo: 'Primaria', param: 'Sala de radiografía – piso (primaria)', d: '1,7', u: '1', t: '1/20', zona: 'ZNC', material: 'Concreto', existente: '200', plomoAdic: '' }
+  ];
   s.serv.obsEpp = 'Se reemplazó un mandil de la Sala 1 por roturas en el anterior.';
   return s;
 }
@@ -90,7 +101,7 @@ function normalizar(s) {
     if (!p.cargo && p.funcion) p.cargo = p.funcion;
   });
   ['inst', 'resp', 'serv', 'oficio', 'meta'].forEach(k => { s[k] = Object.assign({}, base[k], s[k] || {}); });
-  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas', 'levantamientos', 'levPuntos', 'levFuga'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
+  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas', 'levantamientos', 'levPuntos', 'levFuga', 'blSalas', 'blParams', 'blBarreras'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
   s.epp.forEach(e => { if (e.kv && !e.kv1) e.kv1 = e.kv; if (e.mas && !e.ma1) e.ma1 = e.mas; });
   if (!s.check) s.check = {};
 }
@@ -427,6 +438,7 @@ const SECCIONES = [
   { id: 'prendas', t: 'Prendas de protección' },
   { id: 'capacitacion', t: 'Capacitación' },
   { id: 'levantamiento', t: 'Levantamiento radiométrico' },
+  { id: 'blindaje', t: 'Memoria de blindaje' },
   { id: 'manual', t: 'Manual de seguridad' },
   { id: 'oficio', t: 'Oficio de la Autoridad' },
   { id: 'verificacion', t: 'Lista de verificación' },
@@ -441,7 +453,7 @@ let seleccion = null;
 function contadores() {
   const s = S();
   return {
-    poe: s.poe.length, equipos: s.equipos.length, prendas: s.epp.length, capacitacion: s.capacitaciones.filter(x => x.tema).length || '', levantamiento: s.levPuntos.filter(x => x.punto).length || '',
+    poe: s.poe.length, equipos: s.equipos.length, prendas: s.epp.length, capacitacion: s.capacitaciones.filter(x => x.tema).length || '', levantamiento: s.levPuntos.filter(x => x.punto).length || '', blindaje: s.blBarreras.filter(x => x.punto).length || '',
     oficio: s.disp.filter(d => d.nc).length || '',
     documentos: DOCS.filter(d => d.aplica(crearContexto(s))).length
   };
@@ -560,6 +572,57 @@ function renderSeccion() {
         ${res ? `<h3>Resultado calculado</h3><div class="tabla-ed"><table><thead><tr><th>Sala</th><th>Punto</th><th>µSv/mA·min</th><th>mSv/semana</th><th>mSv/año</th><th>Criterio (mSv/año)</th><th>Resultado</th></tr></thead><tbody>${res}</tbody></table></div>` : ''}
         <h3>Radiación de fuga de la coraza (prueba 2)</h3><p class="lead">Colimador cerrado y bloqueado con plomo; mida a 1 m del foco en las zonas de mayor ennegrecimiento. LR = Lo × If / Ie, corregida al cuadrado de la distancia si no midió a 1 m. Tolerancia: 1 mGy/h (0,25 mGy/h en intraoral).</p>${salas.length ? tablaEditable('levFuga', colsFuga, s.levFuga, 'Agregar medición de fuga') : ''}
         ${resF ? `<div class="tabla-ed"><table><thead><tr><th>Sala</th><th>Zona</th><th>LR a 1 m (mGy/h)</th><th>Tolerancia</th><th>Resultado</th></tr></thead><tbody>${resF}</tbody></table></div>` : ''}`;
+      break;
+    }
+    case 'blindaje': {
+      const c = crearContexto(s);
+      const salasBl = s.blSalas.map(x => x.sala).filter(Boolean);
+      const esTC = (r) => /tomo/i.test(r.modalidad || '');
+      const colsSala = [
+        { k: 'sala', l: 'Sala', w: 150 },
+        { k: 'serie', l: 'Equipo (serie)', type: 'select', opts: c.eq.map(e => e.serie).filter(Boolean), w: 140 },
+        { k: 'modalidad', l: 'Tipo de sala', type: 'select', opts: ['Radiografía general', 'Radiografía de tórax', 'Radiografía y fluoroscopia (R&F)', 'Angiografía / hemodinamia', 'Mamografía', 'Tomografía computarizada', 'Odontológica', 'Unidad móvil', 'Telecomandado'], w: 190 },
+        { k: 'categoria', l: 'Categoría', w: 70, ph: '1, 2, 3' }, { k: 'ubicacion', l: 'Ubicación en la institución', w: 180 },
+        { k: 'kvMax', l: 'kV máx.', w: 70 }, { k: 'maMax', l: 'mA máx.', w: 70 }, { k: 'n', l: 'N: pacientes / semana', w: 100 },
+        { k: 'ctNctdiCab', l: 'TC nCTDI100 cabeza', w: 90, when: esTC }, { k: 'ctNctdiCue', l: 'TC nCTDI100 cuerpo', w: 90, when: esTC },
+        { k: 'ctMasCab', l: 'TC mAs cabeza', w: 80, when: esTC }, { k: 'ctMasCue', l: 'TC mAs cuerpo', w: 80, when: esTC },
+        { k: 'ctDlpCab', l: 'TC DLP cabeza (mGy·cm)', w: 100, when: esTC }, { k: 'ctDlpCue', l: 'TC DLP cuerpo (mGy·cm)', w: 100, when: esTC },
+        { k: 'ctNCab', l: 'TC estudios cabeza / sem', w: 100, when: esTC }, { k: 'ctNCue', l: 'TC estudios cuerpo / sem', w: 100, when: esTC },
+        { k: 'ctKappaCab', l: 'κ cabeza (cm⁻¹)', w: 90, when: esTC }, { k: 'ctKappaCue', l: 'κ cuerpo (cm⁻¹)', w: 90, when: esTC },
+        { k: 'intTiempos', l: 'Intervencionismo: tipo: minutos (una por línea)', type: 'textarea', w: 220 },
+        { k: 'plano', l: 'Plano con barreras', type: 'img', w: 160 }
+      ];
+      const colsPar = [
+        { k: 'nombre', l: 'Conjunto (tipo de sala y barrera)', w: 220 }, { k: 'k', l: 'K (mGy/paciente a 1 m)', w: 110 },
+        { k: 'aPb', l: 'Plomo α (mm⁻¹)', w: 80 }, { k: 'bPb', l: 'Plomo β (mm⁻¹)', w: 80 }, { k: 'gPb', l: 'Plomo γ', w: 80 },
+        { k: 'aCo', l: 'Concreto α (mm⁻¹)', w: 90 }, { k: 'bCo', l: 'Concreto β (mm⁻¹)', w: 90 }, { k: 'gCo', l: 'Concreto γ', w: 80 },
+        { k: 'prePb', l: 'Preblindaje (mm Pb)', w: 90 }, { k: 'preCo', l: 'Preblindaje (mm concreto)', w: 100 },
+        { k: 'fuente', l: 'Tabla de origen', w: 150 }
+      ];
+      const nombresPar = s.blParams.map(p => p.nombre).filter(Boolean);
+      const colsBar = [
+        { k: 'sala', l: 'Sala', type: 'select', opts: salasBl, w: 140 },
+        { k: 'punto', l: 'Punto', w: 60, ph: 'A' }, { k: 'descripcion', l: 'Descripción del punto de cálculo', w: 210 },
+        { k: 'tipo', l: 'Barrera', type: 'select', opts: ['Primaria', 'Secundaria'], w: 110 },
+        { k: 'param', l: 'Parámetros NCRP 147', type: 'select', opts: nombresPar, w: 200 },
+        { k: 'd', l: 'Distancia isocentro–punto (m)', w: 100 },
+        { k: 'u', l: 'U', w: 60, ph: '1', when: r => /primaria/i.test(r.tipo || '') }, { k: 't', l: 'T', type: 'select', opts: T_OPCIONES, w: 80 },
+        { k: 'zona', l: 'Zona', type: 'select', opts: BL_ZONAS, w: 80 },
+        { k: 'material', l: 'Material existente', type: 'select', opts: BL_MATERIALES, w: 160 },
+        { k: 'existente', l: 'Espesor existente (mm)', w: 90 }, { k: 'plomoAdic', l: 'Plomo adicional (mm)', w: 90 }
+      ];
+      const resBl = s.blBarreras.filter(b => b.punto).map(b => { const r = calcularBarrera(c, b); return `<tr><td>${esc(b.sala || '')}</td><td>${esc(b.punto)}</td><td>${r.B == null ? '—' : r.B.toExponential(2)}</td><td>${mm(r.xPb, 2)}</td><td>${mm(r.xCo)}</td><td>${mm(r.xLad)}</td><td class="${r.cumple === false ? 'alerta-txt' : ''}">${r.cumple == null ? 'Faltan datos' : (r.cumple ? 'Cumple' : 'No cumple')}</td></tr>`; }).join('');
+      const faltanPar = s.blParams.some(p => p.nombre && !(nivel(p.k) && nivel(p.aPb) && nivel(p.gPb)));
+      h = `<h2>Memoria de cálculo de blindaje</h2><p class="lead">Anexo VI de la Norma Técnica (categoría 1 y 2, unidades móviles, telecomandados y tomografía). Método del NCRP 147: B = P·d² / (K·U·N·T) y espesor con la ecuación de Archer. Los valores de K, α, β y γ se copian de las tablas del NCRP 147 en la tabla de parámetros.</p>
+        ${faltanPar ? '<p class="lead alerta-txt">Hay conjuntos de parámetros sin K o sin α y γ: complete los valores del NCRP 147 para que se calculen los espesores.</p>' : ''}
+        <h3>Datos de la memoria</h3>${grupoCampos([{ k: 'meta.blFecha', l: 'Fecha de presentación', type: 'date' }, { k: 'meta.blRevision', l: 'N.º de revisión', ph: '01' }, { k: 'meta.blPc', l: 'P zona controlada (mGy/semana)', ph: '0,1' }, { k: 'meta.blPnc', l: 'P zona no controlada (mGy/semana)', ph: '0,02' },
+          { k: 'meta.blDensConcreto', l: 'Densidad del concreto (g/cm³)', ph: '2,35' }, { k: 'meta.blDensLadrillo', l: 'Densidad del ladrillo (g/cm³)', ph: '1,8' }, { k: 'meta.blFormatoPlano', l: 'Formato del plano', type: 'select', opts: ['A3', 'A1'] }, { k: 'meta.blLadrilloNota', l: 'Nota sobre el ladrillo (tipo, interpolación)', span: 1 },
+          { k: 'meta.blMateriales', l: 'Materiales de construcción y acabados', type: 'textarea', span: 2 }, { k: 'meta.blElementos', l: 'Elementos de control de acceso y señalización', type: 'textarea', span: 2 },
+          { k: 'meta.blObjetivo', l: '2. Objetivo (opcional)', type: 'textarea', span: 2 }, { k: 'meta.blJustificacion', l: '3. Justificación (opcional)', type: 'textarea', span: 2 }])}
+        <h3>Salas</h3>${tablaEditable('blSalas', colsSala, s.blSalas, 'Agregar sala')}
+        <h3>Parámetros del NCRP 147</h3><p class="lead">Un conjunto por tipo de sala y barrera (por ejemplo, «Sala de radiografía – piso (primaria)», «Sala de radiografía – secundaria»). K es el kerma sin blindaje por paciente a 1 m; α, β y γ son los parámetros de ajuste de la transmisión para plomo y concreto. El preblindaje (mesa, rejilla, receptor) solo se descuenta en barreras primarias.</p>${tablaEditable('blParams', colsPar, s.blParams, 'Agregar conjunto de parámetros')}
+        <h3>Barreras</h3>${salasBl.length ? tablaEditable('blBarreras', colsBar, s.blBarreras, 'Agregar barrera') : '<p class="lead">Primero agregue una sala.</p>'}
+        ${resBl ? `<h3>Resultado calculado</h3><div class="tabla-ed"><table><thead><tr><th>Sala</th><th>Punto</th><th>B requerida</th><th>Plomo (mm)</th><th>Concreto (mm)</th><th>Ladrillo (mm)</th><th>Barrera existente</th></tr></thead><tbody>${resBl}</tbody></table></div>` : ''}`;
       break;
     }
     case 'manual': {
@@ -774,6 +837,9 @@ function filaVacia(t) {
   if (t === 'epp') { const n = S().epp.length + 1; return { codigo: 'EPR-' + String(n).padStart(2, '0'), tipo: '', espesor: '0,5', marca: '', talla: '', sala: '', cantidad: '1', factura: '', proveedor: '', fechaCaducidad: '', estado: 'Bueno', cubierta: '', sujeciones: '', costuras: '', estetica: '', kv1: '60', ma1: '', kv2: '65', ma2: '', defectos: 'Ninguno', resultado: 'Apta' }; }
   if (t === 'facturas') return { fecha: '', numero: '', proveedor: '', producto: '', subtotal: '', iva: '', total: '', img: null };
   if (t === 'levantamientos') return { sala: '', serie: '', modalidad: '', kv: '', ma: '', tiempo: '', mas: '', campo: '', direccion: '', maniqui: '', fondo: '0,1', fc: '1', fconv: '1', nr: '', masPaciente: '', w: '', plano: null };
+  if (t === 'blSalas') return { sala: (S().levantamientos[0] || {}).sala || '', serie: '', modalidad: '', categoria: '', ubicacion: '', kvMax: '', maMax: '', n: '', plano: null, intTiempos: '' };
+  if (t === 'blParams') return { nombre: '', k: '', aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: '', preCo: '', fuente: 'NCRP 147' };
+  if (t === 'blBarreras') { const s0 = S(); const sala = (s0.blSalas[0] || {}).sala || ''; const n = s0.blBarreras.filter(b => b.sala === sala).length; return { sala, punto: String.fromCharCode(65 + n), descripcion: '', tipo: 'Secundaria', param: '', d: '', u: '', t: '1', zona: 'ZNC', material: 'Ladrillo', existente: '', plomoAdic: '' }; }
   if (t === 'levFuga') { const sala = (S().levantamientos[0] || {}).sala || ''; return { sala, punto: '', kv: '', ie: '', imax: '', distancia: '1', lectura: '', obs: '' }; }
   if (t === 'levPuntos') { const s0 = S(); const sala = (s0.levantamientos[0] || {}).sala || ''; const n = s0.levPuntos.filter(p => p.sala === sala).length; return { sala, punto: String.fromCharCode(65 + n), descripcion: '', distancia: '', barrera: 'Secundaria', zona: 'Supervisada', u: '1', t: '1', lectura: '', unidad: 'µSv', disparos: '1', obs: '' }; }
   if (t === 'capacitaciones') return { fecha: '', tema: '', horaIni: '09:00', horaFin: '11:00', dirigido: 'POE', obs: '', capacitador: '' };
@@ -785,13 +851,30 @@ function quitarEjemplo() {
   if (s.ejemplo) { s.ejemplo = false; document.getElementById('banner-ejemplo').hidden = true; }
 }
 
+/* Vuelve a dibujar la sección para actualizar los cálculos sin perder el campo al que pasó el usuario */
+let recalculoPendiente = false;
+function recalcularSeccion() {
+  if (recalculoPendiente) return;
+  recalculoPendiente = true;
+  setTimeout(() => {
+    recalculoPendiente = false;
+    const a = document.activeElement;
+    const sel = a && a.dataset && (a.dataset.t ? `[data-t="${a.dataset.t}"][data-i="${a.dataset.i}"][data-c="${a.dataset.c}"]` : (a.dataset.k ? `[data-k="${a.dataset.k}"]` : null));
+    const pos = a && typeof a.selectionStart === 'number' ? a.selectionStart : null;
+    const scroll = window.scrollY;
+    renderSeccion();
+    window.scrollTo(0, scroll);
+    if (sel) { const n = document.querySelector(sel); if (n) { n.focus({ preventScroll: true }); if (pos != null && n.setSelectionRange) try { n.setSelectionRange(pos, pos); } catch (_) {} } }
+  }, 0);
+}
+
 function alCambiar(e) {
   const t = e.target;
   const s = S();
   if (t.dataset.k) {
     setPath(s, t.dataset.k, t.value); quitarEjemplo(); guardar();
     if (/razonSocial|nombreComercial/.test(t.dataset.k)) renderExpedientes();
-    if (e.type === 'change' && t.dataset.k === 'meta.levCriterio') renderSeccion();
+    if (e.type === 'change' && /meta\.(levCriterio|blP|blDens)/.test(t.dataset.k)) recalcularSeccion();
     return;
   }
   if (t.dataset.t) {
@@ -799,7 +882,7 @@ function alCambiar(e) {
     if (t.dataset.c.startsWith('docs.') && !fila.docs) fila.docs = {};
     const col = t.dataset.c === 'categoria' ? CATEGORIA_POR_NOMBRE[t.value] || t.value : t.value;
     setPath(fila, t.dataset.c, col); quitarEjemplo(); guardar();
-    if (e.type === 'change' && /levPuntos|levantamientos|levFuga/.test(t.dataset.t) && t.type !== 'file') { renderSeccion(); return; }
+    if (e.type === 'change' && /levPuntos|levantamientos|levFuga|^bl/.test(t.dataset.t) && t.type !== 'file') { recalcularSeccion(); return; }
     if (e.type === 'change' && t.tagName === 'SELECT') { renderNav(); if (t.dataset.c === 'estado') renderSeccion(); }
     return;
   }
