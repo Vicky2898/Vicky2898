@@ -403,11 +403,23 @@ function buildPDF(doc, c) {
     if (o.color) pdf.setTextColor(...o.color);
     const palabras = [];
     String(text == null ? '' : text).split('\n').forEach((ln, li, arr) => {
-      segmentos(ln).forEach(s => s.text.split(/(\s+)/).forEach(w => { if (w && !/^\s+$/.test(w)) palabras.push({ w, b: s.bold || o.bold, it: o.italic }); }));
+      let pegar = false;
+      segmentos(ln).forEach(s => {
+        s.text.split(/(\s+)/).forEach((w, wi) => {
+          if (!w) return;
+          if (/^\s+$/.test(w)) { pegar = false; return; }
+          const parte = { w, b: s.bold || o.bold, it: o.italic };
+          const prev = palabras[palabras.length - 1];
+          if (wi === 0 && pegar && prev && !prev.br) (prev.partes || (prev.partes = [{ w: prev.w, b: prev.b, it: prev.it }])).push(parte);
+          else palabras.push(parte);
+          pegar = true;
+        });
+        pegar = !/\s$/.test(s.text);
+      });
       if (li < arr.length - 1) palabras.push({ br: true });
     });
     const fuente = (p) => pdf.setFont('helvetica', p.b ? (p.it ? 'bolditalic' : 'bold') : (p.it ? 'italic' : 'normal'));
-    const medir = (p) => { fuente(p); return pdf.getTextWidth(p.w); };
+    const medir = (p) => p.partes ? p.partes.reduce((a, q) => { fuente(q); return a + pdf.getTextWidth(q.w); }, 0) : (fuente(p), pdf.getTextWidth(p.w));
     fuente({});
     const esp = pdf.getTextWidth(' ');
     let linea = [], ancholinea = 0;
@@ -419,7 +431,7 @@ function buildPDF(doc, c) {
       if (o.align === 'j' && !ultima && huecos > 0) sep = (ancho - total) / huecos;
       else if (o.align === 'c') xx = x + (ancho - total - esp * huecos) / 2;
       else if (o.align === 'r') xx = x + ancho - total - esp * huecos;
-      linea.forEach(p => { fuente(p); pdf.text(p.w, xx, y + lh * 0.75); xx += p.ancho + sep; });
+      linea.forEach(p => { let x2 = xx; (p.partes || [p]).forEach(q => { fuente(q); pdf.text(q.w, x2, y + lh * 0.75); x2 += pdf.getTextWidth(q.w); }); xx += p.ancho + sep; });
       y += lh;
       linea = []; ancholinea = 0;
     };
@@ -516,6 +528,7 @@ function buildPDF(doc, c) {
   doc.blocks.forEach((b, bi) => {
     const sig = doc.blocks[bi + 1];
     if ((b.t === 'p' || b.t === 'note') && sig && sig.t === 'sign') espacio(LH * 2 + 40);
+    if (b.t === 'p' && sig && sig.t === 'table' && sig.head && String(b.text || '').length < 700) espacio(LH * Math.ceil(String(b.text || '').length / 140 + 1) + 28);
     switch (b.t) {
       case 'h': espacio(26); y += 2; rich(b.text, ML, CW, { bold: true, size: 10.5, color: COL }); y += 1.2; break;
       case 'p': rich(b.text, ML, CW, { align: b.align, bold: b.bold }); y += 2.2; break;
@@ -533,7 +546,7 @@ function buildPDF(doc, c) {
         });
         y += 1.5;
         break;
-      case 'table': tabla(b.head, b.rows, b.widths, b); break;
+      case 'table': if (b.head) espacio(28); tabla(b.head, b.rows, b.widths, b); break;
       case 'kv': tabla(null, b.rows.map(r => [r[0], r[1]]), [38, 62], { kv: true, tall: b.tall }); break;
       case 'kv4': tabla(null, b.rows.map(r => [r[0], r[1], r[2] || '', r[3] || '']), [20, 30, 20, 30], { kv: true, small: true }); break;
       case 'img': {

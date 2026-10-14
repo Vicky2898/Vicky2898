@@ -200,7 +200,7 @@ function docManual(c) {
       ['13.12.6. Dosis que sobrepasan el nivel de investigación', `${fmt(['INF-DOS'])} y anexos de investigación`]
     ], { widths: [45, 55], small: true }),
     H('14. Exposición del público'),
-    Ps(`14.1. **Programa de monitoreo del área.** El levantamiento radiométrico (${fmt(['LEV-RAD'])}) se realiza cada año y después de cualquier cambio de equipo o de la instalación, en puntos ubicados en la consola, puertas, ventanas y áreas colindantes. Los resultados se comparan con la restricción de ${num2(restriccionPublico(c), 1)} mSv/año para el público.`, { align: 'j' }),
+    Ps(`14.1. **Programa de monitoreo del área.** El levantamiento radiométrico (${fmt(['LEV-RAD'])}) se realiza con el método del protocolo ARCAL XLIX en la aceptación de cada sala, al menos cada cuatro años y después de cualquier cambio de equipo o de la instalación, en puntos ubicados en la consola, puertas, ventanas y áreas colindantes. Los resultados se comparan con ${criterioARCAL(c) ? 'los niveles de restricción de 5,0 mSv/año en área controlada y 0,5 mSv/año en áreas libres' : `la restricción de ${num2(restriccionPublico(c), 1)} mSv/año para el público`}.`, { align: 'j' }),
     Ps('14.2. **Protección de familiares, personas próximas y voluntarios.** Solo ingresa a la sala un acompañante cuando el paciente no puede colaborar. El operador le entrega delantal y collarín, le indica dónde ubicarse fuera del haz directo y le explica la exposición. No puede ser una persona gestante ni menor de 18 años, y su participación se registra en la hoja del estudio.', { align: 'j' }),
     H('15. Exposición médica'),
     Ps(interv
@@ -255,34 +255,100 @@ function docManual(c) {
   return { title: 'Manual de Seguridad Radiológica', subtitle: `Práctica de ${P.corto} – Anexo V de la Norma Técnica`, kind: 'sgc', blocks };
 }
 
-/* ================================================================ LEVANTAMIENTO RADIOMÉTRICO (ANEXO VII) */
+/* ================================================================ LEVANTAMIENTO RADIOMÉTRICO (ANEXO VII, ARCAL XLIX) */
 
-const T_OPCIONES = ['1', '1/2', '1/5', '1/8', '1/20', '1/40'];
-const fraccion = (v) => { const s = String(v || '').trim(); if (s.includes('/')) { const [a, b] = s.split('/').map(Number); return b ? a / b : null; } return nivel(s); };
+// Factores de ocupación: ARCAL XLIX (1, 1/4, 1/16, 1/32) y NCRP 147 (1, 1/2, 1/5, 1/8, 1/20, 1/40)
+const T_OPCIONES = ['1', '1/2', '1/4', '1/5', '1/8', '1/16', '1/20', '1/32', '1/40'];
+const T_ARCAL = [['Integral', 'Consultorio, recepción, sala de comando', '1'], ['Parcial', 'Espera, vestidor, circulación interna', '1/4'], ['Eventual', 'Circulación externa, baños, escaleras', '1/16'], ['Esporádica', 'Jardines cercados, casa de máquinas', '1/32']];
+const fraccion = (v) => { const s = String(v || '').trim(); if (s.includes('/')) { const [a, b] = s.split('/').map(x => nivel(x)); return b ? a / b : null; } return nivel(s); };
+
+// Parámetros de cada protocolo del ARCAL XLIX (TP-002 a TP-006)
+const MODALIDADES_LEV = {
+  'Radiografía general': { tp: 'TP-002', dist: '15 cm', u: 'U = 0,7 para el piso y 0,3 para la pared del bucky mural en el haz primario; 1 en barreras secundarias', simulador: 'Simulador de tórax de un adulto típico, fijado al bucky mural o sobre la mesa', param: 'tensión más alta usada en los exámenes de rutina, control automático de exposición (CAE) desactivado, tiempo igual o superior a 1 s con la menor corriente disponible en modo tasa (o el mAs más alto que permita el generador en modo de dosis integrada) y el campo más amplio del colimador', haz: 'Primero se midió el haz primario sin simulador, dirigido a cada barrera donde puede haber receptor de imagen, con la distancia foco-película más usada; luego la radiación dispersa con el simulador en la mesa y en el bucky mural, en cada dirección de uso clínico del tubo.', fuga: 1 },
+  'Radiografía portátil': { tp: 'TP-002', dist: '15 cm', u: 'U = 1 en las áreas donde se usa el equipo (solo radiación dispersa fuera del haz)', simulador: 'Simulador de tórax de un adulto típico', param: 'tensión más alta de rutina, CAE desactivado, tiempo igual o superior a 1 s y el campo más amplio del colimador', haz: 'Se midió la radiación dispersa alrededor de la cama del paciente, a la distancia que ocupan el operador y las personas de las camas vecinas.', fuga: 1 },
+  'Radiografía intraoral': { tp: 'TP-003', dist: '15 cm', u: 'U = 1, porque solo hay radiación dispersa', simulador: 'Simulador de cabeza en la posición usual del paciente, con el localizador en contacto', param: 'mayor técnica usada en los exámenes de rutina y tiempo igual o superior a 1 s en modo tasa', haz: 'Se midió la radiación dispersa con el tubo en posición frontal y en las oblicuas derecha e izquierda respecto del paciente.', fuga: 0.25 },
+  'Panorámica / cefalométrica': { tp: 'TP-003 (por analogía)', dist: '15 cm', u: 'U = 1, porque fuera del receptor solo llega radiación dispersa', simulador: 'Simulador de cabeza en el cefalostato', param: 'mayor técnica de rutina (adulto) con el ciclo completo de exposición', haz: 'Se midió la radiación dispersa durante el ciclo completo de rotación, en los puntos del operador y de las áreas vecinas.', fuga: 1 },
+  'Mamografía': { tp: 'TP-004', dist: '15 cm', u: 'U = 1, porque solo hay radiación dispersa', simulador: 'Simulador de mama de 4,5 cm con el compresor en contacto', param: 'exposición sin CAE, tiempo de 1 s y el mayor kV disponible para rutina', haz: 'Se midió con el tubo en proyección cráneo-caudal y en las oblicuas laterales derecha e izquierda.', fuga: 1 },
+  'Fluoroscopia / intervencionismo': { tp: 'TP-005', dist: '30 cm', u: 'U = 1, porque solo hay radiación dispersa', simulador: 'Simulador de tórax entre el tubo y el intensificador o detector, a 45 cm de distancia foco-superficie', param: 'modo manual, tiempo igual o superior a 10 s, corriente de 1 a 5 mA y el campo más amplio permitido', haz: 'Se midió la radiación dispersa en cada dirección de uso clínico del tubo. En el interior de la sala, en la posición del personal, se midió con y sin las barreras de protección, anotando la distancia al centro del simulador.', fuga: 1 },
+  'Tomografía computarizada': { tp: 'TP-006', dist: '15 cm', u: 'U = 1, porque solo hay radiación secundaria', simulador: 'Simulador de abdomen equivalente a agua de unos 30 cm de diámetro', param: 'barrido de abdomen con la tensión más alta y el espesor de corte más amplio usados en rutina', haz: 'Se midió la radiación secundaria durante el barrido en cada punto, ajustando la escala del instrumento cuando fue necesario.', fuga: 1, wTipico: 5000 }
+};
+const MODALIDADES_LEV_OPC = Object.keys(MODALIDADES_LEV);
+const ZONAS_LEV = ['Controlada', 'Supervisada', 'Libre', 'Interior de la sala (sobre el delantal)'];
+const criterioARCAL = (c) => !/institu/i.test(c.M.levCriterio || '');
+
+function modalidadLev(lev, c) {
+  if (lev.modalidad && MODALIDADES_LEV[lev.modalidad]) return lev.modalidad;
+  const e = (c.eq || []).find(x => x.serie && x.serie === lev.serie) || {};
+  const t = (e.tipo || '').toLowerCase();
+  if (/tomo|tc\b/.test(t)) return 'Tomografía computarizada';
+  if (/mamo/.test(t)) return 'Mamografía';
+  if (/fluoro|arco|angio|hemod|interv/.test(t)) return 'Fluoroscopia / intervencionismo';
+  if (/intra|periap/.test(t)) return 'Radiografía intraoral';
+  if (/panor|cefal|cbct|cone/.test(t)) return 'Panorámica / cefalométrica';
+  if (/port/.test(t)) return 'Radiografía portátil';
+  if (c.S.practica === 'odontologico') return 'Radiografía intraoral';
+  if (c.S.practica === 'intervencionista') return 'Fluoroscopia / intervencionismo';
+  return 'Radiografía general';
+}
+
+// Carga de trabajo semanal W en mA·min/semana (ARCAL: W = NR × It / 60)
+function cargaLev(lev, c) {
+  const manual = nivel(lev.w);
+  const nr = nivel(lev.nr ?? lev.pacientes), it = nivel(lev.masPaciente);
+  if (manual) return { W: manual, origen: 'declarada' };
+  if (nr && it) return { W: nr * it / 60, origen: 'calculada', nr, it };
+  const mod = MODALIDADES_LEV[modalidadLev(lev, c)];
+  if (mod.wTipico) return { W: mod.wTipico, origen: 'típica' };
+  return { W: null, origen: '' };
+}
+
+function criterioZona(zona, c) {
+  const z = zona || '';
+  if (/delantal|interior/i.test(z)) return { anual: 50, texto: 'sobre el delantal (ARCAL XLIX, TP-005)' };
+  if (/Controlada/i.test(z)) return criterioARCAL(c) ? { anual: 5, texto: 'área controlada (ARCAL XX)' } : { anual: restriccionPOE(c), texto: 'restricción institucional del POE' };
+  return criterioARCAL(c) ? { anual: 0.5, texto: 'área libre (ARCAL XX)' } : { anual: restriccionPublico(c), texto: 'restricción para el público' };
+}
 
 function calcularPunto(lev, p, c) {
   const mAs = nivel(lev.mas) || ((nivel(lev.ma) || 0) * (nivel(lev.tiempo) || 0)) || null;
-  const t = nivel(lev.tiempo);
+  const mA = nivel(lev.ma), t = nivel(lev.tiempo);
+  const fc = nivel(lev.fc) || 1, fconv = nivel(lev.fconv) || 1;
   const lectura = nivel(p.lectura);
+  const disparos = nivel(p.disparos) || 1;
   const fondo = nivel(lev.fondo) || 0;
-  let dDisparo = null;
+  const tasa = /h/.test(p.unidad || '');
+  // dosis por unidad de carga (µSv por mA·min)
+  let porCarga = null, neta = null;
   if (lectura != null) {
-    if (/h/.test(p.unidad || '')) dDisparo = t ? Math.max(0, (lectura - fondo) * t / 3600) : null;
-    else dDisparo = Math.max(0, lectura - (t ? fondo * t / 3600 : 0));
+    if (tasa) { neta = Math.max(0, lectura - fondo) * fc * fconv; porCarga = mA ? neta / 60 / mA : null; }
+    else { neta = Math.max(0, lectura / disparos - (t ? fondo * t / 3600 : 0)) * fc * fconv; porCarga = mAs ? neta / (mAs / 60) : null; }
   }
-  const W = (nivel(lev.pacientes) || 0) * (nivel(lev.masPaciente) || 0);
+  const { W } = cargaLev(lev, c);
   const U = fraccion(p.u) ?? 1, T = fraccion(p.t) ?? 1;
-  const semanal = (dDisparo != null && mAs && W) ? dDisparo / mAs * W * U * T / 1000 : null;
+  const semanal = (porCarga != null && W) ? porCarga * W * U * T / 1000 : null;
   const anual = semanal != null ? semanal * 50 : null;
-  const controlada = /Controlada/i.test(p.zona || '');
-  const criterio = controlada ? restriccionPOE(c) : restriccionPublico(c);
-  return { dDisparo, semanal, anual, criterio, cumple: anual == null ? null : anual <= criterio, W, mAs, U, T };
+  const cr = criterioZona(p.zona, c);
+  const cumple = anual == null ? null : anual <= cr.anual;
+  // capas hemirreductoras adicionales: m = 1,44 ln(R)
+  const chr = cumple === false ? 1.44 * Math.log(anual / cr.anual) : null;
+  return { neta, porCarga, semanal, anual, criterio: cr.anual, criterioTexto: cr.texto, cumple, chr, W, mAs, U, T, tasa };
+}
+
+function calcularFuga(f, lev, c) {
+  const lo = nivel(f.lectura), d = nivel(f.distancia) || 1;
+  const ie = nivel(f.ie), imax = nivel(f.imax);
+  if (lo == null) return { lr: null };
+  const corr = (ie && imax) ? imax / ie : 1;
+  const lr = lo * corr * d * d;
+  const tol = (MODALIDADES_LEV[modalidadLev(lev || {}, c)] || {}).fuga || 1;
+  return { lr, tol, cumple: lr <= tol, corr };
 }
 
 function docLevantamiento(c) {
   const { I, R } = c;
   const levs = (c.S.levantamientos || []).filter(l => l.sala);
   const V = c.V;
+  const arcal = criterioARCAL(c);
   const blocks = [
     H('1. Datos generales'),
     Ps('1.1. Datos de la instalación', { bold: true }),
@@ -307,7 +373,9 @@ function docLevantamiento(c) {
       ['Teléfono', R.osrTelefono || '[Teléfono]']
     ]),
     H('2. Objetivo del levantamiento radiométrico'),
-    Ps('Medir las tasas de dosis en las barreras y áreas colindantes de las salas de rayos X para detectar posibles fugas o debilidades del blindaje estructural, y verificar que las dosis estimadas para el personal ocupacionalmente expuesto y el público no superen las restricciones y límites establecidos (Norma Técnica, Art. 3, definición de levantamiento radiométrico; num. 6.1.4 lit. d).', { align: 'j' }),
+    Ps('Medir los niveles de radiación en las barreras y áreas colindantes de las salas de rayos X para detectar posibles fugas o debilidades del blindaje estructural, y verificar que las dosis estimadas para el personal ocupacionalmente expuesto y el público no superen las restricciones y límites establecidos (Norma Técnica, Art. 3, definición de levantamiento radiométrico; num. 6.1.4 lit. d).', { align: 'j' }),
+    Ps('2.1. Metodología', { bold: true }),
+    Ps('Se aplicó el protocolo de levantamiento radiométrico (prueba 1) y de radiación de fuga (prueba 2) del Protocolo de Control de Calidad en Radiodiagnóstico ARCAL XLIX, en la versión correspondiente a cada modalidad. En el croquis de cada sala se identificaron con letras mayúsculas los puntos dentro y fuera de la sala donde pueden permanecer trabajadores o miembros del público. La cámara de ionización se colocó detrás de cada barrera, a unos 15 cm (30 cm en fluoroscopia), y en cada punto se registró el mayor valor obtenido tras repetir la medición en un punto adyacente.', { align: 'j' }),
     H('7. Instrumentación utilizada y calibración'),
     KV([
       ['Tipo de detector', V.levInstTipo || 'Cámara de ionización'],
@@ -320,51 +388,86 @@ function docLevantamiento(c) {
     ...(V.levInstCal && diasHasta(V.levInstCal) < -365 ? [NOTE('La calibración del instrumento tiene más de un año; conviene recalibrarlo antes del próximo levantamiento.')] : [])
   ];
   if (!levs.length) blocks.push(Ps('[Registre al menos una sala en la sección Levantamiento radiométrico.]'));
-  const resumen = [];
+  const resumen = [], resumenFuga = [];
   levs.forEach((lev, k) => {
     const e = c.eq.find(x => x.serie && x.serie === lev.serie) || {};
+    const modNombre = modalidadLev(lev, c), mod = MODALIDADES_LEV[modNombre];
     const puntos = (c.S.levPuntos || []).filter(p => p.sala === lev.sala && (p.punto || p.descripcion));
+    const fugas = (c.S.levFuga || []).filter(f => f.sala === lev.sala && (f.lectura || f.punto));
     const n = k + 1;
     blocks.push(PB(), H(`Sala ${n}: ${lev.sala}`));
     blocks.push(Ps(`3. Descripción del equipo`, { bold: true }));
     blocks.push(KV([
-      ['Tipo', e.tipo || '[tipo]'],
+      ['Tipo / modalidad', `${e.tipo || '[tipo]'} (${modNombre})`],
       ['Energía / valores máximos', `${lev.kvMax || I.kvMax || '[kV máx]'} kV; ${lev.maMax || I.maMax || '[mA máx]'} mA`],
       ['Uso', e.uso || '[uso]']
     ]));
     blocks.push(Ps(`4. Plano a escala de la instalación`, { bold: true }));
     if (lev.plano) blocks.push({ t: 'img', img: lev.plano, maxH: 150, caption: `Croquis de la sala ${lev.sala} con los puntos de medición, zonas y flujo de pacientes y POE` });
-    else blocks.push(Ps('El plano a escala de la instalación y sus alrededores, con el equipo, la consola, los detalles estructurales de las paredes, la ocupación de las salas adyacentes, la delimitación de zonas y el flujo de pacientes y POE, se adjunta como anexo.', { align: 'j' }));
+    else blocks.push(Ps('El plano a escala de la instalación y sus alrededores, con el generador, el tubo, la mesa, la consola, puertas y ventanas, los detalles estructurales de las paredes, el tipo de área colindante, la delimitación de zonas y el flujo de pacientes y POE, se adjunta como anexo.', { align: 'j' }));
     blocks.push(Ps(`5. Identificación del equipo`, { bold: true }));
     blocks.push(T(['', 'Marca', 'Modelo', 'Serie'], [[{ t: 'Equipo', bold: true }, e.marca || 'NR', e.modelo || 'NR', e.serie || lev.serie || 'NR'], [{ t: 'Tubo', bold: true }, e.tuboMarca || 'NR', e.tuboModelo || 'NR', e.tuboSerie || 'NR']], { widths: [16, 28, 28, 28], small: true }));
-    const W = (nivel(lev.pacientes) || 0) * (nivel(lev.masPaciente) || 0);
-    blocks.push(Ps(`6. Carga de trabajo y factores de uso`, { bold: true }));
-    blocks.push(Ps(`Carga de trabajo máxima estimada: **${lev.pacientes || '[n]'} pacientes por semana** con un promedio de **${lev.masPaciente || '[n]'} mAs por paciente**, es decir W = ${W ? num2(W, 0) : '[W]'} mAs/semana (${W ? num2(W / 60, 1) : '[ ]'} mA·min/semana). Los factores de uso (U) de las barreras hacia donde puede dirigirse el haz primario y los factores de ocupación (T) de las áreas colindantes se tomaron del NCRP 147 y constan en la tabla de resultados.`, { align: 'j' }));
+    const carga = cargaLev(lev, c);
+    blocks.push(Ps(`6. Carga de trabajo y factores de uso y ocupación`, { bold: true }));
+    let txtW;
+    if (carga.origen === 'calculada') txtW = `La carga de trabajo semanal se estimó para las condiciones máximas de rutina con W = NR × It / 60, donde NR = **${num2(carga.nr, 0)} radiografías por semana** e It = **${num2(carga.it, 1)} mAs promedio por radiografía**, de modo que W = **${num2(carga.W, 1)} mA·min/semana**.`;
+    else if (carga.origen === 'declarada') txtW = `La carga de trabajo semanal para las condiciones máximas de rutina es W = **${num2(carga.W, 1)} mA·min/semana**${nivel(lev.nr ?? lev.pacientes) ? `, correspondiente a unos ${lev.nr || lev.pacientes} estudios por semana` : ''}.`;
+    else if (carga.origen === 'típica') txtW = `Se usó la carga de trabajo típica que propone el protocolo para tomografía, W = **${num2(carga.W, 0)} mA·min/semana**, por no contar con el registro de exámenes y técnicas de la semana de mayor actividad.`;
+    else txtW = 'Carga de trabajo semanal W = [NR × It / 60] mA·min/semana.';
+    blocks.push(Ps(`${txtW} ${mod.u}. Los factores de ocupación (T) responden a la estimación realista de la permanencia de las personas más expuestas en cada área; a modo de orientación se usó la tabla del protocolo:`, { align: 'j' }));
+    blocks.push(T(['Ocupación', 'Local', 'T'], T_ARCAL.map(r => [r[0], r[1], { t: r[2], align: 'c' }]), { widths: [20, 65, 15], small: true }));
     blocks.push(Ps(`8. Factores de operación utilizados`, { bold: true }));
-    blocks.push({ t: 'kv4', rows: [['Tensión', `${lev.kv || '[kV]'} kVp`, 'Corriente', `${lev.ma || '[mA]'} mA`], ['Tiempo', `${lev.tiempo || '[s]'} s`, 'Producto', `${lev.mas || (nivel(lev.ma) && nivel(lev.tiempo) ? num2(nivel(lev.ma) * nivel(lev.tiempo), 1) : '[mAs]')} mAs`], ['Dirección del haz', lev.direccion || '[dirección]', 'Tamaño de campo', lev.campo || '[campo]'], ['Maniquí / dispersor', lev.maniqui || '[maniquí]', 'Fondo ambiental', `${lev.fondo || '[ ]'} µSv/h`]] });
+    blocks.push(Ps(`Según el protocolo ${mod.tp} del ARCAL XLIX se usaron los siguientes parámetros: ${mod.param}. ${mod.haz}`, { align: 'j' }));
+    blocks.push({ t: 'kv4', rows: [
+      ['Tensión', `${lev.kv || '[kV]'} kVp`, 'Corriente', `${lev.ma || '[mA]'} mA`],
+      ['Tiempo', `${lev.tiempo || '[s]'} s`, 'Producto', `${lev.mas || (nivel(lev.ma) && nivel(lev.tiempo) ? num2(nivel(lev.ma) * nivel(lev.tiempo), 1) : '[mAs]')} mAs`],
+      ['Dirección del haz', lev.direccion || '[dirección]', 'Tamaño de campo', lev.campo || '[campo]'],
+      ['Simulador', lev.maniqui || mod.simulador, 'Fondo ambiental', `${lev.fondo || '[ ]'} µSv/h`],
+      ['Factor de calibración (Fc)', lev.fc || '1', 'Factor de conversión', lev.fconv || '1'],
+      ['Distancia de la cámara a la barrera', mod.dist, 'Modalidad (protocolo)', `${modNombre} (${mod.tp})`]
+    ] });
     const filas = puntos.map(p => {
       const r = calcularPunto(lev, p, c);
       resumen.push({ sala: lev.sala, p, r });
-      return [{ t: p.punto || '', align: 'c', bold: true }, p.descripcion || '', { t: p.distancia || '', align: 'c' }, p.barrera || '', { t: p.zona || '', align: 'c' }, { t: `${p.u || '1'} / ${p.t || '1'}`, align: 'c' }, { t: r.dDisparo == null ? '—' : num2(r.dDisparo, 3), align: 'c' }, { t: r.anual == null ? '—' : num2(r.anual, 3), align: 'c' }, { t: num2(r.criterio, 1), align: 'c' }, { t: r.cumple == null ? '—' : (r.cumple ? 'Sí' : 'No'), align: 'c', bold: true, fill: r.cumple == null ? null : (r.cumple ? 'C6E0B4' : 'F8CBAD') }, p.obs || ''];
+      const obs = [p.obs, r.chr != null ? `Requiere ${num2(Math.max(r.chr, 0.1), 1)} CHR adicionales` : ''].filter(Boolean).join('. ');
+      return [{ t: p.punto || '', align: 'c', bold: true }, p.descripcion || '', { t: [p.barrera, p.distancia ? p.distancia + ' m' : ''].filter(Boolean).join(', '), align: 'c' }, { t: p.zona || '', align: 'c' }, { t: `${p.u || '1'} / ${p.t || '1'}`, align: 'c' }, { t: p.lectura ? `${p.lectura} ${p.unidad || 'µSv'}${nivel(p.disparos) > 1 ? ` (${p.disparos} disp.)` : ''}` : '—', align: 'c' }, { t: r.porCarga == null ? '—' : num2(r.porCarga, 3), align: 'c' }, { t: r.semanal == null ? '—' : num2(r.semanal, 4), align: 'c' }, { t: r.anual == null ? '—' : num2(r.anual, 3), align: 'c' }, { t: num2(r.criterio, r.criterio < 1 ? 2 : 1), align: 'c' }, { t: r.cumple == null ? '—' : (r.cumple ? 'S' : 'N'), align: 'c', bold: true, fill: r.cumple == null ? null : (r.cumple ? 'C6E0B4' : 'F8CBAD') }, obs];
     });
     blocks.push(Ps(`9 y 10. Lecturas y estimación de equivalentes de dosis ambiente`, { bold: true }));
-    blocks.push(Ps('La dosis medida es la lectura neta por exposición en el punto, descontado el fondo. La dosis calculada anual se obtiene como H = (D / mAs de la técnica) × W × U × T × 50 semanas, y se compara con la restricción para el POE en zonas controladas y con la restricción para el público en las demás.', { align: 'j' }));
-    blocks.push(T(['Punto', 'Descripción del punto de medición', 'Distancia (m)', 'Barrera', 'Zona', 'U / T', 'Dosis medida (µSv por disparo)', 'Dosis calculada (mSv/año)', 'Criterio (mSv/año)', 'Cumple', 'Observaciones'], filas.length ? filas : [['', '', '', '', '', '', '', '', '', '', '']], { widths: [6, 19, 7, 10, 9, 7, 10, 10, 8, 6, 8], small: true }));
+    blocks.push(Ps(`Para cada punto la mayor lectura, descontado el fondo, se multiplicó por el factor de calibración del instrumento (Fc) y por el factor de conversión a la magnitud de interés; el resultado se expresó por unidad de carga (µSv/mA·min) considerando ${/h/.test((puntos[0] || {}).unidad || '') ? 'la corriente' : 'el mAs'} de la técnica, y se multiplicó por W × U × T para obtener la dosis semanal. La dosis anual se obtuvo multiplicando por 50 semanas. Cuando la lectura integrada corresponde a varios disparos, se dividió por su número.`, { align: 'j' }));
+    blocks.push(T(['Punto', 'Descripción del punto de medición', 'Barrera, distancia', 'Zona', 'U / T', 'Lectura', 'µSv/ mA·min', 'mSv/ semana', 'mSv/ año', 'Criterio (mSv/año)', 'Acepta (S/N)', 'Observaciones'], filas.length ? filas : [['', '', '', '', '', '', '', '', '', '', '', '']], { widths: [5, 17, 9, 9, 6, 9, 7, 7, 7, 7, 6, 11], small: true }));
+    if (fugas.length) {
+      const filasF = fugas.map(f => {
+        const r = calcularFuga(f, lev, c);
+        resumenFuga.push({ sala: lev.sala, f, r });
+        return [{ t: f.punto || '', align: 'c', bold: true }, { t: f.kv || lev.kvMax || '', align: 'c' }, { t: f.ie || '', align: 'c' }, { t: f.imax || '', align: 'c' }, { t: f.distancia || '1', align: 'c' }, { t: f.lectura || '—', align: 'c' }, { t: r.lr == null ? '—' : num2(r.lr, 3), align: 'c' }, { t: r.lr == null ? '—' : num2(r.tol, 2), align: 'c' }, { t: r.lr == null ? '—' : (r.cumple ? 'S' : 'N'), align: 'c', bold: true, fill: r.lr == null ? null : (r.cumple ? 'C6E0B4' : 'F8CBAD') }, f.obs || ''];
+      });
+      blocks.push(Ps(`10.1. Radiación de fuga de la coraza del tubo`, { bold: true }));
+      blocks.push(Ps(`Con el colimador cerrado y bloqueado con una lámina de plomo, se cubrió la coraza con chasis o películas para localizar las zonas de mayor ennegrecimiento y, en la dirección de cada una, se midió con la cámara de ionización a 1 m del foco con el máximo kVp. La lectura (Lo, en mGy/h) se corrigió a la corriente máxima que el tubo soporta durante una hora de forma continua con LR = Lo × If / Ie${fugas.some(f => nivel(f.distancia) && nivel(f.distancia) !== 1) ? ', y por la ley del inverso del cuadrado de la distancia cuando la medición no se hizo a 1 m' : ''}. Tolerancia: ${num2(mod.fuga, 2)} mGy/h a 1 m del foco, promediado en un área no mayor de 100 cm².`, { align: 'j' }));
+      blocks.push(T(['Zona de la coraza', 'kVp', 'Ie (mA)', 'If (mA)', 'Distancia (m)', 'Lo (mGy/h)', 'LR a 1 m (mGy/h)', 'Tolerancia (mGy/h)', 'Acepta (S/N)', 'Observaciones'], filasF, { widths: [14, 7, 8, 8, 8, 9, 10, 10, 8, 18], small: true }));
+    }
   });
   const noCumplen = resumen.filter(x => x.r.cumple === false);
   const sinDato = resumen.filter(x => x.r.cumple == null);
+  const fugaMal = resumenFuga.filter(x => x.r.lr != null && !x.r.cumple);
   const maxAnual = Math.max(0, ...resumen.map(x => x.r.anual || 0));
+  const criterios = arcal
+    ? 'Criterios aplicados (niveles de restricción del ARCAL XX que adopta el protocolo ARCAL XLIX): 0,10 mSv/semana o 5,0 mSv/año en área controlada, y 0,01 mSv/semana o 0,5 mSv/año en áreas supervisadas y libres, más exigentes que los límites de dosis de la Norma Técnica (num. 5.2 lit. a: 20 mSv/año para el POE y 1 mSv/año para el público).'
+    : `Criterios aplicados: ${num2(restriccionPOE(c), 1)} mSv/año en zona controlada (restricción institucional para el POE, inferior al límite de 20 mSv/año) y ${num2(restriccionPublico(c), 1)} mSv/año en zonas supervisadas y libres (límite de dosis del público, Norma Técnica num. 5.2 lit. a).`;
   blocks.push(
     H('11. Conclusiones y recomendaciones'),
     L([
       resumen.length
         ? (noCumplen.length
-          ? `En ${noCumplen.length} ${noCumplen.length === 1 ? 'punto' : 'puntos'} (${noCumplen.map(x => `${x.sala}: ${x.p.punto}`).join(', ')}) la dosis anual estimada supera el criterio aplicable. Se debe reforzar el blindaje de esas barreras o restringir la ocupación, y repetir el levantamiento después de la intervención.`
+          ? `En ${noCumplen.length} ${noCumplen.length === 1 ? 'punto' : 'puntos'} (${noCumplen.map(x => `${x.sala}: ${x.p.punto}`).join(', ')}) la dosis anual estimada supera el criterio aplicable. Se recomienda agregar blindaje (el número de capas hemirreductoras adicionales, m = 1,44 ln R, consta en la tabla), reducir la ocupación o cambiar la posición del equipo, y repetir el levantamiento después de la intervención.`
           : `En los ${resumen.length - sinDato.length} puntos evaluados la dosis anual estimada no supera el criterio aplicable; el máximo estimado fue ${num2(maxAnual, 3)} mSv/año. El blindaje estructural es adecuado para la carga de trabajo declarada.`)
         : '[Registre los puntos de medición.]',
       ...(sinDato.length ? [`${sinDato.length} ${sinDato.length === 1 ? 'punto no tiene' : 'puntos no tienen'} datos suficientes para el cálculo (lectura, técnica o carga de trabajo).`] : []),
-      `Criterios aplicados: ${num2(restriccionPOE(c), 1)} mSv/año en zona controlada (restricción institucional para el POE, inferior al límite de 20 mSv/año) y ${num2(restriccionPublico(c), 1)} mSv/año en zonas supervisadas y libres (límite de dosis del público, Norma Técnica num. 5.2 lit. a).`,
-      'Repetir el levantamiento cada año y siempre que se modifique la instalación, se cambie el equipo o el tubo, o aumente de forma significativa la carga de trabajo.',
+      ...(resumenFuga.length ? [fugaMal.length
+        ? `La radiación de fuga supera la tolerancia en ${fugaMal.map(x => `${x.sala} (${x.f.punto || 'coraza'})`).join(', ')}. Se debe suspender el uso clínico del equipo y contactar al fabricante o al servicio técnico hasta reemplazar el conjunto coraza-tubo.`
+        : `La radiación de fuga de la coraza está dentro de la tolerancia en todos los puntos evaluados.`] : []),
+      criterios,
+      ...(resumen.some(x => /delantal|interior/i.test(x.p.zona || '')) ? ['En el interior de la sala, en la posición del personal, la dosis sobre el delantal no debe superar 1,0 mSv/semana o 50 mSv/año (ARCAL XLIX, TP-005).'] : []),
+      'Repetir el levantamiento en la aceptación de cada sala, al menos cada cuatro años y después de cualquier modificación que afecte la protección radiológica (cambio de equipo o de tubo, obras en las barreras, cambio de uso de las áreas colindantes o aumento significativo de la carga de trabajo), o con la frecuencia que disponga la Autoridad Reguladora.',
       'Mantener la señalización, la luz roja y las puertas cerradas durante las exposiciones.'
     ]),
     H('12. Responsable del levantamiento'),
@@ -373,11 +476,12 @@ function docLevantamiento(c) {
     L([
       'Ministerio de Energía y Recursos Naturales No Renovables. Acuerdo Ministerial MERNNR-MERNNR-2022-0011-AM, Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario. Registro Oficial, Cuarto Suplemento N.º 11, 25 de febrero de 2022.',
       'Reglamento de Seguridad Radiológica, Decreto Supremo N.º 3640. Registro Oficial N.º 891, 8 de agosto de 1979.',
+      'ARCAL XLIX / OIEA. Protocolos de Control de Calidad en Radiodiagnóstico (TP-002 Radiografía general, TP-003 Radiografía intraoral, TP-004 Mamografía, TP-005 Fluoroscopia, TP-006 Tomografía computarizada), Revisión 1. Implementación de las Normas Básicas de Seguridad en la Práctica Médica.',
       'National Council on Radiation Protection and Measurements. NCRP Report No. 147: Structural Shielding Design for Medical X-Ray Imaging Facilities. Bethesda, 2004.',
       'Organismo Internacional de Energía Atómica. Protección radiológica y seguridad de las fuentes de radiación: Normas básicas internacionales de seguridad. Colección de Normas de Seguridad N.º GSR Part 3. Viena, 2016.'
     ])
   );
-  return { title: 'Informe de levantamiento radiométrico', subtitle: 'Contenido según el Anexo VII de la Norma Técnica', kind: 'sgc', landscape: true, blocks };
+  return { title: 'Informe de levantamiento radiométrico', subtitle: 'Contenido según el Anexo VII de la Norma Técnica; método ARCAL XLIX', kind: 'sgc', landscape: true, blocks };
 }
 
 /* ================================================================ INTERPRETACIÓN DOSIMÉTRICA */

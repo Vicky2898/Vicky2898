@@ -11,8 +11,8 @@ function estadoVacio(practica = 'medico') {
     resp: Object.assign({ osrAplica: practica === 'intervencionista', osrTitulo: '', osrNombre: '', osrProfesion: '', osrCedula: '', osrRuc: '', osrDireccion: '', osrAut: '', osrAutCad: '', osrLicencia: '', osrTelefono: '', osrCorreo: '', medTitulo: '', medNombre: '', medCedula: '', medEspecialidad: '', medLicencia: '', medLicCad: '' }, (typeof BD !== 'undefined' && BD.perfil) || {}),
     serv: { dosPerDesde: '', dosPerHasta: '', dosCiclo: '', dosReporte: '', dosFechaReporte: '', dosFechaInterp: '', medOcupNombre: '', medOcupRegistro: '', levFecha: '', levInstTipo: 'Cámara de ionización', levInstMarca: '', levInstModelo: '', levInstSerie: '', levInstRango: '', levInstCal: '', levInstLab: '', levInstCert: '', informeDirigido: '', invHoja: '1', invFecha: '', invDepto: '', invAdmin: '', obsEpp: '', dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
     oficio: { autoridad: 'Ministerio de Ambiente y Energía', direccionMEM: 'Dirección de Licenciamiento y Protección Radiológica', numero: '', fecha: '', tramite: '', tecnicoTitulo: 'Especialista', tecnicoNombre: '', tecnicoCargo: 'Técnico de Licenciamiento y Protección Radiológica', numResp: '', numDisp: '', numBaja: '', informeNum: '', informeFecha: '', plazo: '90' },
-    meta: { restriccionPOE: '6', restriccionPublico: '1', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
-    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], levantamientos: [], levPuntos: [], check: {}
+    meta: { restriccionPOE: '6', restriccionPublico: '1', levCriterio: 'ARCAL XX (protocolo ARCAL XLIX)', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
+    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], levantamientos: [], levPuntos: [], levFuga: [], check: {}
   };
 }
 
@@ -50,13 +50,17 @@ function estadoEjemplo() {
   s.serv.informeDirigido = 'Dr. Nombre Ejemplo';
   Object.assign(s.serv, { dosPerDesde: '2026-06-05', dosPerHasta: '2026-08-04', dosCiclo: '1', dosReporte: 'DC-000', dosFechaReporte: '2026-08-20', dosFechaInterp: '2026-08-27', medOcupNombre: 'Dr. Médico Ocupacional Ejemplo', medOcupRegistro: '0000000000', levFecha: '2026-03-15', levInstMarca: 'Fluke Biomedical', levInstModelo: '451P', levInstSerie: '0000', levInstRango: '0 – 50 mSv/h', levInstCal: '2025-11-10', levInstLab: 'Laboratorio de calibración ejemplo', levInstCert: 'CAL-0000' });
   s.poe.forEach((p, i) => Object.assign(p, { dosisPeriodo: ['0,214', '0,105', '0,000'][i], dosisAnual: ['0,410', '0,230', '0,050'][i], dosisTotal: ['0,410', '0,230', '0,050'][i], telefono: '099 000 000' + i, correo: `poe${i + 1}@ejemplo.ec`, fechaNac: ['1985-04-12', '1992-09-30', '1990-01-15'][i] }));
-  s.levantamientos = [{ sala: 'Sala 1 - Rayos X', serie: '0000A1', kv: '80', ma: '200', tiempo: '0,1', mas: '20', campo: '35 × 43 cm', direccion: 'Vertical hacia la mesa', maniqui: 'Agua, 20 cm', fondo: '0,1', pacientes: '150', masPaciente: '20', plano: null }];
+  s.levantamientos = [{ sala: 'Sala 1 - Rayos X', serie: '0000A1', modalidad: 'Radiografía general', kv: '100', ma: '200', tiempo: '0,1', mas: '20', campo: '35 × 43 cm', direccion: 'Vertical hacia la mesa', maniqui: 'Simulador de tórax', fondo: '0,1', fc: '1,02', fconv: '1', nr: '150', masPaciente: '20', w: '', plano: null }];
   s.levPuntos = [
     { sala: 'Sala 1 - Rayos X', punto: 'A', descripcion: 'Consola de mando, detrás de la barrera', distancia: '2,5', barrera: 'Consola', zona: 'Supervisada', u: '1', t: '1', lectura: '0,05', unidad: 'µSv', obs: '' },
-    { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso a la sala', distancia: '3,0', barrera: 'Puerta', zona: 'Supervisada', u: '1', t: '1/8', lectura: '0,20', unidad: 'µSv', obs: '' },
-    { sala: 'Sala 1 - Rayos X', punto: 'C', descripcion: 'Pared hacia la sala de espera', distancia: '2,8', barrera: 'Secundaria', zona: 'Libre', u: '1', t: '1/5', lectura: '0,10', unidad: 'µSv', obs: '' },
-    { sala: 'Sala 1 - Rayos X', punto: 'D', descripcion: 'Ventana plomada de la consola', distancia: '2,5', barrera: 'Ventana', zona: 'Supervisada', u: '1', t: '1', lectura: '0,08', unidad: 'µSv', obs: '' },
-    { sala: 'Sala 1 - Rayos X', punto: 'E', descripcion: 'Pared detrás del bucky mural (pasillo)', distancia: '2,0', barrera: 'Primaria', zona: 'Libre', u: '0,25', t: '1/20', lectura: '0,60', unidad: 'µSv', obs: '' }
+    { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso a la sala', distancia: '3,0', barrera: 'Puerta', zona: 'Supervisada', u: '1', t: '1/4', lectura: '0,20', unidad: 'µSv', obs: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'C', descripcion: 'Pared hacia la sala de espera', distancia: '2,8', barrera: 'Secundaria', zona: 'Libre', u: '1', t: '1/4', lectura: '0,10', unidad: 'µSv', obs: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'D', descripcion: 'Ventana plomada de la consola', distancia: '2,5', barrera: 'Ventana', zona: 'Supervisada', u: '1', t: '1', lectura: '0,04', unidad: 'µSv', obs: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'E', descripcion: 'Pared detrás del bucky mural (pasillo)', distancia: '2,0', barrera: 'Primaria', zona: 'Libre', u: '0,3', t: '1/16', lectura: '0,60', unidad: 'µSv', obs: '' }
+  ];
+  s.levFuga = [
+    { sala: 'Sala 1 - Rayos X', punto: 'Lado ánodo', kv: '125', ie: '2', imax: '4', distancia: '1', lectura: '0,15', obs: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'Lado cátodo', kv: '125', ie: '2', imax: '4', distancia: '1', lectura: '0,09', obs: '' }
   ];
   s.serv.obsEpp = 'Se reemplazó un mandil de la Sala 1 por roturas en el anterior.';
   return s;
@@ -86,7 +90,7 @@ function normalizar(s) {
     if (!p.cargo && p.funcion) p.cargo = p.funcion;
   });
   ['inst', 'resp', 'serv', 'oficio', 'meta'].forEach(k => { s[k] = Object.assign({}, base[k], s[k] || {}); });
-  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas', 'levantamientos', 'levPuntos'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
+  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas', 'levantamientos', 'levPuntos', 'levFuga'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
   s.epp.forEach(e => { if (e.kv && !e.kv1) e.kv1 = e.kv; if (e.mas && !e.ma1) e.ma1 = e.mas; });
   if (!s.check) s.check = {};
 }
@@ -517,28 +521,45 @@ function renderSeccion() {
       const colsLev = [
         { k: 'sala', l: 'Sala', w: 150 },
         { k: 'serie', l: 'Equipo (serie)', type: 'select', opts: c.eq.map(e => e.serie).filter(Boolean), w: 150 },
+        { k: 'modalidad', l: 'Modalidad (protocolo ARCAL)', type: 'select', opts: MODALIDADES_LEV_OPC, w: 190 },
         { k: 'kv', l: 'kVp', w: 60 }, { k: 'ma', l: 'mA', w: 60 }, { k: 'tiempo', l: 'Tiempo (s)', w: 80 }, { k: 'mas', l: 'mAs', w: 70, ph: 'auto' },
         { k: 'campo', l: 'Tamaño de campo', w: 120, ph: '35 × 43 cm' }, { k: 'direccion', l: 'Dirección del haz', w: 140, ph: 'Vertical hacia la mesa' },
-        { k: 'maniqui', l: 'Maniquí / dispersor', w: 140, ph: 'Agua 20 cm' }, { k: 'fondo', l: 'Fondo (µSv/h)', w: 90 },
-        { k: 'pacientes', l: 'Pacientes / semana', w: 90 }, { k: 'masPaciente', l: 'mAs por paciente', w: 90, ph: '20' },
+        { k: 'maniqui', l: 'Simulador', w: 140, ph: 'según el protocolo' }, { k: 'fondo', l: 'Fondo (µSv/h)', w: 90 },
+        { k: 'fc', l: 'Factor de calibración (Fc)', w: 100, ph: '1' }, { k: 'fconv', l: 'Factor de conversión', w: 100, ph: '1' },
+        { k: 'nr', l: 'NR (radiografías / semana)', w: 110 }, { k: 'masPaciente', l: 'It (mAs promedio)', w: 100 },
+        { k: 'w', l: 'W declarada (mA·min/sem)', w: 120, ph: 'NR × It / 60' },
         { k: 'plano', l: 'Croquis con puntos', type: 'img', w: 160 }
       ];
       const colsPun = [
         { k: 'sala', l: 'Sala', type: 'select', opts: salas, w: 140 },
         { k: 'punto', l: 'Punto', w: 60, ph: 'A' }, { k: 'descripcion', l: 'Descripción', w: 210, ph: 'Puerta de acceso, consola, pared hacia…' },
         { k: 'distancia', l: 'Distancia (m)', w: 80 },
-        { k: 'barrera', l: 'Barrera', type: 'select', opts: ['Primaria', 'Secundaria', 'Puerta', 'Ventana', 'Consola'], w: 120 },
-        { k: 'zona', l: 'Zona', type: 'select', opts: ['Controlada', 'Supervisada', 'Libre'], w: 120 },
+        { k: 'barrera', l: 'Barrera', type: 'select', opts: ['Primaria', 'Secundaria', 'Puerta', 'Ventana', 'Consola', 'Biombo'], w: 120 },
+        { k: 'zona', l: 'Zona', type: 'select', opts: ZONAS_LEV, w: 150 },
         { k: 'u', l: 'U', w: 60, ph: '1' }, { k: 't', l: 'T', type: 'select', opts: T_OPCIONES, w: 80 },
-        { k: 'lectura', l: 'Lectura', w: 80 }, { k: 'unidad', l: 'Unidad', type: 'select', opts: ['µSv', 'µSv/h'], w: 90 },
+        { k: 'lectura', l: 'Mayor lectura', w: 80 }, { k: 'unidad', l: 'Unidad', type: 'select', opts: ['µSv', 'µSv/h', 'µGy', 'µGy/h'], w: 90 },
+        { k: 'disparos', l: 'N.º disparos integrados', w: 90, ph: '1' },
         { k: 'obs', l: 'Observaciones', w: 160 }
       ];
-      const res = s.levPuntos.filter(p => p.punto).map(p => { const lev = s.levantamientos.find(l => l.sala === p.sala); const r = lev ? calcularPunto(lev, p, c) : {}; return `<tr><td>${esc(p.sala || '')}</td><td>${esc(p.punto)}</td><td>${r.dDisparo == null ? '—' : num2(r.dDisparo, 3)}</td><td>${r.anual == null ? '—' : num2(r.anual, 3)}</td><td>${r.criterio == null ? '—' : num2(r.criterio, 1)}</td><td class="${r.cumple === false ? 'alerta-txt' : ''}">${r.cumple == null ? 'Faltan datos' : (r.cumple ? 'Cumple' : 'No cumple')}</td></tr>`; }).join('');
-      h = `<h2>Levantamiento radiométrico</h2><p class="lead">Alimenta el informe del Anexo VII. Registre la técnica usada en cada sala y las lecturas en cada punto; la dosis anual se calcula con la carga de trabajo, el factor de uso (U) y el de ocupación (T) del NCRP 147.</p>
-        <h3>Instrumento de medición</h3>${grupoCampos([{ k: 'serv.levInstTipo', l: 'Tipo de detector', type: 'select', opts: ['Cámara de ionización', 'Geiger-Müller', 'Centelleador', 'Detector de estado sólido'] }, { k: 'serv.levInstMarca', l: 'Marca' }, { k: 'serv.levInstModelo', l: 'Modelo' }, { k: 'serv.levInstSerie', l: 'Serie' }, { k: 'serv.levInstRango', l: 'Rango' }, { k: 'serv.levInstCal', l: 'Última calibración', type: 'date' }, { k: 'serv.levInstLab', l: 'Laboratorio de calibración' }, { k: 'serv.levInstCert', l: 'N.º de certificado' }, { k: 'serv.levFecha', l: 'Fecha del levantamiento', type: 'date' }, { k: 'meta.restriccionPOE', l: 'Criterio zona controlada (mSv/año)' }, { k: 'meta.restriccionPublico', l: 'Criterio zonas supervisada y libre (mSv/año)' }])}
-        <h3>Salas y técnica utilizada</h3>${tablaEditable('levantamientos', colsLev, s.levantamientos, 'Agregar sala')}
-        <h3>Puntos de medición</h3>${salas.length ? tablaEditable('levPuntos', colsPun, s.levPuntos, 'Agregar punto') : '<p class="lead">Primero agregue una sala.</p>'}
-        ${res ? `<h3>Resultado calculado</h3><div class="tabla-ed"><table><thead><tr><th>Sala</th><th>Punto</th><th>Dosis por disparo (µSv)</th><th>Dosis anual (mSv)</th><th>Criterio</th><th>Resultado</th></tr></thead><tbody>${res}</tbody></table></div>` : ''}`;
+      const colsFuga = [
+        { k: 'sala', l: 'Sala', type: 'select', opts: salas, w: 140 },
+        { k: 'punto', l: 'Zona de la coraza', w: 140, ph: 'Lado ánodo' }, { k: 'kv', l: 'kVp', w: 60 },
+        { k: 'ie', l: 'Ie: mA usada', w: 80 }, { k: 'imax', l: 'If: mA máx. continua', w: 100 },
+        { k: 'distancia', l: 'Distancia al foco (m)', w: 90, ph: '1' }, { k: 'lectura', l: 'Lo (mGy/h)', w: 90 },
+        { k: 'obs', l: 'Observaciones', w: 160 }
+      ];
+      const res = s.levPuntos.filter(p => p.punto).map(p => { const lev = s.levantamientos.find(l => l.sala === p.sala); const r = lev ? calcularPunto(lev, p, c) : {}; return `<tr><td>${esc(p.sala || '')}</td><td>${esc(p.punto)}</td><td>${r.porCarga == null ? '—' : num2(r.porCarga, 3)}</td><td>${r.semanal == null ? '—' : num2(r.semanal, 4)}</td><td>${r.anual == null ? '—' : num2(r.anual, 3)}</td><td>${r.criterio == null ? '—' : num2(r.criterio, 2)}</td><td class="${r.cumple === false ? 'alerta-txt' : ''}">${r.cumple == null ? 'Faltan datos' : (r.cumple ? 'Cumple' : `No cumple: ${num2(Math.max(r.chr, 0.1), 1)} CHR adicionales`)}</td></tr>`; }).join('');
+      const resF = (s.levFuga || []).filter(f => f.lectura).map(f => { const lev = s.levantamientos.find(l => l.sala === f.sala); const r = calcularFuga(f, lev, c); return `<tr><td>${esc(f.sala || '')}</td><td>${esc(f.punto || '')}</td><td>${num2(r.lr, 3)}</td><td>${num2(r.tol, 2)}</td><td class="${r.cumple ? '' : 'alerta-txt'}">${r.cumple ? 'Cumple' : 'No cumple'}</td></tr>`; }).join('');
+      const cargas = s.levantamientos.filter(l => l.sala).map(l => { const w = cargaLev(l, c); return `${esc(l.sala)}: ${modalidadLev(l, c)}, W = ${w.W ? num2(w.W, 1) + ' mA·min/semana' + (w.origen === 'típica' ? ' (valor típico de TC)' : '') : 'faltan NR e It'}`; }).join(' · ');
+      h = `<h2>Levantamiento radiométrico</h2><p class="lead">Alimenta el informe del Anexo VII con el método del protocolo ARCAL XLIX (prueba 1, levantamiento; prueba 2, radiación de fuga). Para cada punto: lectura × Fc × factor de conversión, llevada a µSv/mA·min con el mAs (o la corriente, si mide en tasa), multiplicada por W × U × T y por 50 semanas.</p>
+        <h3>Instrumento de medición y criterio</h3>${grupoCampos([{ k: 'serv.levInstTipo', l: 'Tipo de detector', type: 'select', opts: ['Cámara de ionización', 'Geiger-Müller', 'Centelleador', 'Detector de estado sólido'] }, { k: 'serv.levInstMarca', l: 'Marca' }, { k: 'serv.levInstModelo', l: 'Modelo' }, { k: 'serv.levInstSerie', l: 'Serie' }, { k: 'serv.levInstRango', l: 'Rango' }, { k: 'serv.levInstCal', l: 'Última calibración', type: 'date' }, { k: 'serv.levInstLab', l: 'Laboratorio de calibración' }, { k: 'serv.levInstCert', l: 'N.º de certificado' }, { k: 'serv.levFecha', l: 'Fecha del levantamiento', type: 'date' }, { k: 'meta.levCriterio', l: 'Criterio de aceptación', type: 'select', span: 2, opts: ['ARCAL XX (protocolo ARCAL XLIX)', 'Restricciones institucionales'] }, ...(criterioARCAL(c) ? [] : [{ k: 'meta.restriccionPOE', l: 'Zona controlada (mSv/año)' }, { k: 'meta.restriccionPublico', l: 'Supervisada y libre (mSv/año)' }])])}
+        <p class="lead">${criterioARCAL(c) ? 'ARCAL XX: área controlada 0,10 mSv/semana (5,0 mSv/año); áreas supervisada y libre 0,01 mSv/semana (0,5 mSv/año); interior de la sala en fluoroscopia, sobre el delantal, 1,0 mSv/semana (50 mSv/año).' : 'Se comparan con la restricción del POE en zona controlada y con la del público en las demás.'}</p>
+        <h3>Salas y técnica utilizada</h3><p class="lead">Use los parámetros del protocolo de cada modalidad: radiografía general, kV más alto de rutina sin CAE, ≥ 1 s y campo máximo; intraoral, mayor técnica de rutina; mamografía, sin CAE, 1 s y kV máximo; fluoroscopia, modo manual ≥ 10 s con 1 a 5 mA; TC, barrido de abdomen con el kV y el corte más amplios (W típica 5000 mA·min/semana). Si llena la W declarada, reemplaza a NR × It / 60.</p>${tablaEditable('levantamientos', colsLev, s.levantamientos, 'Agregar sala')}
+        ${cargas ? `<p class="lead">${cargas}</p>` : ''}
+        <h3>Puntos de medición</h3><p class="lead">Cámara a unos 15 cm detrás de la barrera (30 cm en fluoroscopia). U = 0,7 piso y 0,3 bucky mural en el haz primario de radiografía general; U = 1 en barreras secundarias y en intraoral, mamografía, fluoroscopia y TC. T orientativo: 1 consultorio, recepción o comando; 1/4 espera, vestidor o circulación interna; 1/16 circulación externa, baños o escaleras; 1/32 jardines o casa de máquinas.</p>${salas.length ? tablaEditable('levPuntos', colsPun, s.levPuntos, 'Agregar punto') : '<p class="lead">Primero agregue una sala.</p>'}
+        ${res ? `<h3>Resultado calculado</h3><div class="tabla-ed"><table><thead><tr><th>Sala</th><th>Punto</th><th>µSv/mA·min</th><th>mSv/semana</th><th>mSv/año</th><th>Criterio (mSv/año)</th><th>Resultado</th></tr></thead><tbody>${res}</tbody></table></div>` : ''}
+        <h3>Radiación de fuga de la coraza (prueba 2)</h3><p class="lead">Colimador cerrado y bloqueado con plomo; mida a 1 m del foco en las zonas de mayor ennegrecimiento. LR = Lo × If / Ie, corregida al cuadrado de la distancia si no midió a 1 m. Tolerancia: 1 mGy/h (0,25 mGy/h en intraoral).</p>${salas.length ? tablaEditable('levFuga', colsFuga, s.levFuga, 'Agregar medición de fuga') : ''}
+        ${resF ? `<div class="tabla-ed"><table><thead><tr><th>Sala</th><th>Zona</th><th>LR a 1 m (mGy/h)</th><th>Tolerancia</th><th>Resultado</th></tr></thead><tbody>${resF}</tbody></table></div>` : ''}`;
       break;
     }
     case 'manual': {
@@ -752,8 +773,9 @@ function filaVacia(t) {
   if (t === 'equipos') return { tipo: '', marca: '', modelo: '', serie: '', tuboMarca: '', tuboModelo: '', tuboSerie: '', anio: '', anioTubo: '', anioInst: '', enLicencia: 'Sí', sala: '', uso: '', estado: 'Funcionando', mantFecha: '' };
   if (t === 'epp') { const n = S().epp.length + 1; return { codigo: 'EPR-' + String(n).padStart(2, '0'), tipo: '', espesor: '0,5', marca: '', talla: '', sala: '', cantidad: '1', factura: '', proveedor: '', fechaCaducidad: '', estado: 'Bueno', cubierta: '', sujeciones: '', costuras: '', estetica: '', kv1: '60', ma1: '', kv2: '65', ma2: '', defectos: 'Ninguno', resultado: 'Apta' }; }
   if (t === 'facturas') return { fecha: '', numero: '', proveedor: '', producto: '', subtotal: '', iva: '', total: '', img: null };
-  if (t === 'levantamientos') return { sala: '', serie: '', kv: '', ma: '', tiempo: '', mas: '', campo: '', direccion: '', maniqui: '', fondo: '0,1', pacientes: '', masPaciente: '20', plano: null };
-  if (t === 'levPuntos') { const s0 = S(); const sala = (s0.levantamientos[0] || {}).sala || ''; const n = s0.levPuntos.filter(p => p.sala === sala).length; return { sala, punto: String.fromCharCode(65 + n), descripcion: '', distancia: '', barrera: 'Secundaria', zona: 'Supervisada', u: '1', t: '1', lectura: '', unidad: 'µSv', obs: '' }; }
+  if (t === 'levantamientos') return { sala: '', serie: '', modalidad: '', kv: '', ma: '', tiempo: '', mas: '', campo: '', direccion: '', maniqui: '', fondo: '0,1', fc: '1', fconv: '1', nr: '', masPaciente: '', w: '', plano: null };
+  if (t === 'levFuga') { const sala = (S().levantamientos[0] || {}).sala || ''; return { sala, punto: '', kv: '', ie: '', imax: '', distancia: '1', lectura: '', obs: '' }; }
+  if (t === 'levPuntos') { const s0 = S(); const sala = (s0.levantamientos[0] || {}).sala || ''; const n = s0.levPuntos.filter(p => p.sala === sala).length; return { sala, punto: String.fromCharCode(65 + n), descripcion: '', distancia: '', barrera: 'Secundaria', zona: 'Supervisada', u: '1', t: '1', lectura: '', unidad: 'µSv', disparos: '1', obs: '' }; }
   if (t === 'capacitaciones') return { fecha: '', tema: '', horaIni: '09:00', horaFin: '11:00', dirigido: 'POE', obs: '', capacitador: '' };
   return { nc: '', accion: '', anexo: '' };
 }
@@ -769,6 +791,7 @@ function alCambiar(e) {
   if (t.dataset.k) {
     setPath(s, t.dataset.k, t.value); quitarEjemplo(); guardar();
     if (/razonSocial|nombreComercial/.test(t.dataset.k)) renderExpedientes();
+    if (e.type === 'change' && t.dataset.k === 'meta.levCriterio') renderSeccion();
     return;
   }
   if (t.dataset.t) {
@@ -776,7 +799,7 @@ function alCambiar(e) {
     if (t.dataset.c.startsWith('docs.') && !fila.docs) fila.docs = {};
     const col = t.dataset.c === 'categoria' ? CATEGORIA_POR_NOMBRE[t.value] || t.value : t.value;
     setPath(fila, t.dataset.c, col); quitarEjemplo(); guardar();
-    if (e.type === 'change' && /levPuntos|levantamientos/.test(t.dataset.t) && t.type !== 'file') { renderSeccion(); return; }
+    if (e.type === 'change' && /levPuntos|levantamientos|levFuga/.test(t.dataset.t) && t.type !== 'file') { renderSeccion(); return; }
     if (e.type === 'change' && t.tagName === 'SELECT') { renderNav(); if (t.dataset.c === 'estado') renderSeccion(); }
     return;
   }
