@@ -11,7 +11,7 @@ function estadoVacio(practica = 'medico') {
     resp: Object.assign({ osrAplica: practica === 'intervencionista', osrTitulo: '', osrNombre: '', osrProfesion: '', osrCedula: '', osrRuc: '', osrDireccion: '', osrAut: '', osrAutCad: '', osrLicencia: '', osrTelefono: '', osrCorreo: '', medTitulo: '', medNombre: '', medCedula: '', medEspecialidad: '', medLicencia: '', medLicCad: '' }, (typeof BD !== 'undefined' && BD.perfil) || {}),
     serv: { dosPerDesde: '', dosPerHasta: '', dosCiclo: '', dosReporte: '', dosFechaReporte: '', dosFechaInterp: '', medOcupNombre: '', medOcupRegistro: '', levFecha: '', levInstTipo: 'Cámara de ionización', levInstMarca: '', levInstModelo: '', levInstSerie: '', levInstRango: '', levInstCal: '', levInstLab: '', levInstCert: '', informeDirigido: '', invHoja: '1', invFecha: '', invDepto: '', invAdmin: '', obsEpp: '', dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
     oficio: { autoridad: 'Ministerio de Ambiente y Energía', direccionMEM: 'Dirección de Licenciamiento y Protección Radiológica', numero: '', fecha: '', tramite: '', tecnicoTitulo: 'Especialista', tecnicoNombre: '', tecnicoCargo: 'Técnico de Licenciamiento y Protección Radiológica', numResp: '', numDisp: '', numBaja: '', informeNum: '', informeFecha: '', plazo: '90' },
-    meta: { restriccionPOE: '6', restriccionPublico: '1', levCriterio: 'ARCAL XX (protocolo ARCAL XLIX)', blFecha: '', blRevision: '01', blPc: '0,1', blPnc: '0,02', blDensConcreto: '2,35', blDensLadrillo: '1,8', blLadrilloNota: '', blFormatoPlano: 'A3', blMateriales: '', blElementos: '', blObjetivo: '', blJustificacion: '', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
+    meta: { restriccionPOE: '6', restriccionPublico: '1', levCriterio: 'ARCAL XX (protocolo ARCAL XLIX)', blFecha: '', blRevision: '01', blPc: '0,1', blPnc: '0,02', blDensConcreto: '2,4', blDensLadrillo: '1,8', blLadrilloNota: '', blFormatoPlano: 'A3', blMateriales: '', blElementos: '', blObjetivo: '', blJustificacion: '', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
     poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], levantamientos: [], levPuntos: [], levFuga: [], blSalas: [], blParams: [], blBarreras: [], check: {}
   };
 }
@@ -63,15 +63,12 @@ function estadoEjemplo() {
     { sala: 'Sala 1 - Rayos X', punto: 'Lado cátodo', kv: '125', ie: '2', imax: '4', distancia: '1', lectura: '0,09', obs: '' }
   ];
   s.blSalas = [{ sala: 'Sala 1 - Rayos X', serie: '0000A1', modalidad: 'Radiografía general', categoria: '3', ubicacion: 'Planta baja, área de imagenología', kvMax: '150', maMax: '1000', n: '150', plano: null, intTiempos: '' }];
-  s.blParams = [
-    { nombre: 'Sala de radiografía – piso (primaria)', k: '', aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: '', preCo: '', fuente: 'NCRP 147' },
-    { nombre: 'Sala de radiografía – secundaria', k: '', aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: '', preCo: '', fuente: 'NCRP 147' }
-  ];
+  s.blParams = [NCRP147_BIB[0], NCRP147_BIB[5]].map(x => ({ nombre: x.nombre, k: x.k, wnorm: x.wnorm, aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: x.prePb || '', preCo: x.preCo || '', fuente: x.fuente }));
   s.blBarreras = [
-    { sala: 'Sala 1 - Rayos X', punto: 'A', descripcion: 'Pared hacia la consola de mando', tipo: 'Secundaria', param: 'Sala de radiografía – secundaria', d: '2,5', u: '', t: '1', zona: 'ZC', material: 'Ladrillo', existente: '150', plomoAdic: '1' },
-    { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso (pasillo)', tipo: 'Secundaria', param: 'Sala de radiografía – secundaria', d: '3,0', u: '', t: '1/5', zona: 'ZNC', material: 'Puerta plomada', existente: '2', plomoAdic: '' },
-    { sala: 'Sala 1 - Rayos X', punto: 'C', descripcion: 'Pared hacia la sala de espera', tipo: 'Secundaria', param: 'Sala de radiografía – secundaria', d: '2,8', u: '', t: '1/5', zona: 'ZNC', material: 'Ladrillo', existente: '150', plomoAdic: '2' },
-    { sala: 'Sala 1 - Rayos X', punto: 'D', descripcion: 'Piso (losa hacia el subsuelo)', tipo: 'Primaria', param: 'Sala de radiografía – piso (primaria)', d: '1,7', u: '1', t: '1/20', zona: 'ZNC', material: 'Concreto', existente: '200', plomoAdic: '' }
+    { sala: 'Sala 1 - Rayos X', punto: 'A', descripcion: 'Pared hacia la consola de mando', tipo: 'Secundaria', param: NCRP147_BIB[5].nombre, d: '2,5', u: '', t: '1', zona: 'ZC', material: 'Ladrillo', existente: '150', plomoAdic: '1' },
+    { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso (pasillo)', tipo: 'Secundaria', param: NCRP147_BIB[5].nombre, d: '3,0', u: '', t: '1/5', zona: 'ZNC', material: 'Puerta plomada', existente: '2', plomoAdic: '' },
+    { sala: 'Sala 1 - Rayos X', punto: 'C', descripcion: 'Pared hacia la sala de espera', tipo: 'Secundaria', param: NCRP147_BIB[5].nombre, d: '2,8', u: '', t: '1/5', zona: 'ZNC', material: 'Ladrillo', existente: '150', plomoAdic: '2' },
+    { sala: 'Sala 1 - Rayos X', punto: 'D', descripcion: 'Piso (losa hacia el subsuelo)', tipo: 'Primaria', param: NCRP147_BIB[0].nombre, d: '1,7', u: '0,89', t: '1/20', zona: 'ZNC', material: 'Concreto', existente: '200', plomoAdic: '' }
   ];
   s.serv.obsEpp = 'Se reemplazó un mandil de la Sala 1 por roturas en el anterior.';
   return s;
@@ -583,7 +580,7 @@ function renderSeccion() {
         { k: 'serie', l: 'Equipo (serie)', type: 'select', opts: c.eq.map(e => e.serie).filter(Boolean), w: 140 },
         { k: 'modalidad', l: 'Tipo de sala', type: 'select', opts: ['Radiografía general', 'Radiografía de tórax', 'Radiografía y fluoroscopia (R&F)', 'Angiografía / hemodinamia', 'Mamografía', 'Tomografía computarizada', 'Odontológica', 'Unidad móvil', 'Telecomandado'], w: 190 },
         { k: 'categoria', l: 'Categoría', w: 70, ph: '1, 2, 3' }, { k: 'ubicacion', l: 'Ubicación en la institución', w: 180 },
-        { k: 'kvMax', l: 'kV máx.', w: 70 }, { k: 'maMax', l: 'mA máx.', w: 70 }, { k: 'n', l: 'N: pacientes / semana', w: 100 },
+        { k: 'kvMax', l: 'kV máx.', w: 70 }, { k: 'maMax', l: 'mA máx.', w: 70 }, { k: 'n', l: 'N: pacientes / semana', w: 100 }, { k: 'wsite', l: 'Wsitio: mA·min por paciente (opcional)', w: 130 },
         { k: 'ctNctdiCab', l: 'TC nCTDI100 cabeza', w: 90, when: esTC }, { k: 'ctNctdiCue', l: 'TC nCTDI100 cuerpo', w: 90, when: esTC },
         { k: 'ctMasCab', l: 'TC mAs cabeza', w: 80, when: esTC }, { k: 'ctMasCue', l: 'TC mAs cuerpo', w: 80, when: esTC },
         { k: 'ctDlpCab', l: 'TC DLP cabeza (mGy·cm)', w: 100, when: esTC }, { k: 'ctDlpCue', l: 'TC DLP cuerpo (mGy·cm)', w: 100, when: esTC },
@@ -593,7 +590,7 @@ function renderSeccion() {
         { k: 'plano', l: 'Plano con barreras', type: 'img', w: 160 }
       ];
       const colsPar = [
-        { k: 'nombre', l: 'Conjunto (tipo de sala y barrera)', w: 220 }, { k: 'k', l: 'K (mGy/paciente a 1 m)', w: 110 },
+        { k: 'nombre', l: 'Conjunto (tipo de sala y barrera)', w: 260 }, { k: 'k', l: 'K (mGy/paciente a 1 m)', w: 110, ph: '4,9E-2' }, { k: 'wnorm', l: 'Wnorm (mA·min/paciente)', w: 100 },
         { k: 'aPb', l: 'Plomo α (mm⁻¹)', w: 80 }, { k: 'bPb', l: 'Plomo β (mm⁻¹)', w: 80 }, { k: 'gPb', l: 'Plomo γ', w: 80 },
         { k: 'aCo', l: 'Concreto α (mm⁻¹)', w: 90 }, { k: 'bCo', l: 'Concreto β (mm⁻¹)', w: 90 }, { k: 'gCo', l: 'Concreto γ', w: 80 },
         { k: 'prePb', l: 'Preblindaje (mm Pb)', w: 90 }, { k: 'preCo', l: 'Preblindaje (mm concreto)', w: 100 },
@@ -613,15 +610,21 @@ function renderSeccion() {
       ];
       const resBl = s.blBarreras.filter(b => b.punto).map(b => { const r = calcularBarrera(c, b); return `<tr><td>${esc(b.sala || '')}</td><td>${esc(b.punto)}</td><td>${r.B == null ? '—' : r.B.toExponential(2)}</td><td>${mm(r.xPb, 2)}</td><td>${mm(r.xCo)}</td><td>${mm(r.xLad)}</td><td class="${r.cumple === false ? 'alerta-txt' : ''}">${r.cumple == null ? 'Faltan datos' : (r.cumple ? 'Cumple' : 'No cumple')}</td></tr>`; }).join('');
       const faltanPar = s.blParams.some(p => p.nombre && !(nivel(p.k) && nivel(p.aPb) && nivel(p.gPb)));
+      const usados = new Set(s.blParams.map(p => p.nombre));
+      const bib = `<div class="perfil"><select id="bl-bib" aria-label="Biblioteca NCRP 147"><option value="">Agregar desde el NCRP 147…</option>${NCRP147_BIB.map((x, i) => `<option value="${i}"${usados.has(x.nombre) ? ' disabled' : ''}>${esc(x.nombre)} · K = ${esc(x.k)}</option>`).join('')}</select><button class="btn sec" id="btn-bl-bib">Agregar</button><small>K, Wnorm y preblindaje de las tablas 4.5, 4.6 y 4.7. Los parámetros α, β y γ (tablas B.1 y C.1) se completan a mano por ahora.</small></div>`;
+      const tablaN = NCRP147_N.map(r => `${r[0]}: ${r[1]} (${r[2]} en alta demanda)`).join(' · ');
+      const tablaT = NCRP147_T.map(r => `<tr><td>${esc(r[0])}</td><td>${r[1]}</td></tr>`).join('');
       h = `<h2>Memoria de cálculo de blindaje</h2><p class="lead">Anexo VI de la Norma Técnica (categoría 1 y 2, unidades móviles, telecomandados y tomografía). Método del NCRP 147: B = P·d² / (K·U·N·T) y espesor con la ecuación de Archer. Los valores de K, α, β y γ se copian de las tablas del NCRP 147 en la tabla de parámetros.</p>
         ${faltanPar ? '<p class="lead alerta-txt">Hay conjuntos de parámetros sin K o sin α y γ: complete los valores del NCRP 147 para que se calculen los espesores.</p>' : ''}
         <h3>Datos de la memoria</h3>${grupoCampos([{ k: 'meta.blFecha', l: 'Fecha de presentación', type: 'date' }, { k: 'meta.blRevision', l: 'N.º de revisión', ph: '01' }, { k: 'meta.blPc', l: 'P zona controlada (mGy/semana)', ph: '0,1' }, { k: 'meta.blPnc', l: 'P zona no controlada (mGy/semana)', ph: '0,02' },
-          { k: 'meta.blDensConcreto', l: 'Densidad del concreto (g/cm³)', ph: '2,35' }, { k: 'meta.blDensLadrillo', l: 'Densidad del ladrillo (g/cm³)', ph: '1,8' }, { k: 'meta.blFormatoPlano', l: 'Formato del plano', type: 'select', opts: ['A3', 'A1'] }, { k: 'meta.blLadrilloNota', l: 'Nota sobre el ladrillo (tipo, interpolación)', span: 1 },
+          { k: 'meta.blDensConcreto', l: 'Densidad del concreto (g/cm³)', ph: '2,4' }, { k: 'meta.blDensLadrillo', l: 'Densidad del ladrillo (g/cm³)', ph: '1,8' }, { k: 'meta.blFormatoPlano', l: 'Formato del plano', type: 'select', opts: ['A3', 'A1'] }, { k: 'meta.blLadrilloNota', l: 'Nota sobre el ladrillo (tipo, interpolación)', span: 1 },
           { k: 'meta.blMateriales', l: 'Materiales de construcción y acabados', type: 'textarea', span: 2 }, { k: 'meta.blElementos', l: 'Elementos de control de acceso y señalización', type: 'textarea', span: 2 },
           { k: 'meta.blObjetivo', l: '2. Objetivo (opcional)', type: 'textarea', span: 2 }, { k: 'meta.blJustificacion', l: '3. Justificación (opcional)', type: 'textarea', span: 2 }])}
-        <h3>Salas</h3>${tablaEditable('blSalas', colsSala, s.blSalas, 'Agregar sala')}
-        <h3>Parámetros del NCRP 147</h3><p class="lead">Un conjunto por tipo de sala y barrera (por ejemplo, «Sala de radiografía – piso (primaria)», «Sala de radiografía – secundaria»). K es el kerma sin blindaje por paciente a 1 m; α, β y γ son los parámetros de ajuste de la transmisión para plomo y concreto. El preblindaje (mesa, rejilla, receptor) solo se descuenta en barreras primarias.</p>${tablaEditable('blParams', colsPar, s.blParams, 'Agregar conjunto de parámetros')}
-        <h3>Barreras</h3>${salasBl.length ? tablaEditable('blBarreras', colsBar, s.blBarreras, 'Agregar barrera') : '<p class="lead">Primero agregue una sala.</p>'}
+        <h3>Salas</h3><p class="lead">Si no tiene registro de pacientes, el NCRP 147 (Tabla 4.3) sugiere por semana: ${tablaN}. Wsitio solo se llena si la carga de trabajo por paciente de su servicio difiere del Wnorm de referencia.</p>${tablaEditable('blSalas', colsSala, s.blSalas, 'Agregar sala')}
+        <h3>Parámetros del NCRP 147</h3><p class="lead">Un conjunto por tipo de sala y barrera (por ejemplo, «Sala de radiografía – piso (primaria)», «Sala de radiografía – secundaria»). K es el kerma sin blindaje por paciente a 1 m; α, β y γ son los parámetros de ajuste de la transmisión para plomo y concreto. El preblindaje (mesa, rejilla, receptor) solo se descuenta en barreras primarias.</p>${bib}${tablaEditable('blParams', colsPar, s.blParams, 'Agregar conjunto vacío')}
+        <h3>Barreras</h3><p class="lead">Distancia desde la fuente hasta 0,3 m más allá de la pared, 1,7 m sobre el piso inferior o 0,5 m sobre el piso superior. U primaria (Tabla 4.4): piso 0,89; pared de la toma lateral 0,09; otra pared 0,02; bucky mural 1.</p>
+        <details><summary>Factores de ocupación del NCRP 147 (Tabla 4.1)</summary><div class="tabla-ed"><table><thead><tr><th>Área</th><th>T</th></tr></thead><tbody>${tablaT}</tbody></table></div></details>
+        ${salasBl.length ? tablaEditable('blBarreras', colsBar, s.blBarreras, 'Agregar barrera') : '<p class="lead">Primero agregue una sala.</p>'}
         ${resBl ? `<h3>Resultado calculado</h3><div class="tabla-ed"><table><thead><tr><th>Sala</th><th>Punto</th><th>B requerida</th><th>Plomo (mm)</th><th>Concreto (mm)</th><th>Ladrillo (mm)</th><th>Barrera existente</th></tr></thead><tbody>${resBl}</tbody></table></div>` : ''}`;
       break;
     }
@@ -837,8 +840,8 @@ function filaVacia(t) {
   if (t === 'epp') { const n = S().epp.length + 1; return { codigo: 'EPR-' + String(n).padStart(2, '0'), tipo: '', espesor: '0,5', marca: '', talla: '', sala: '', cantidad: '1', factura: '', proveedor: '', fechaCaducidad: '', estado: 'Bueno', cubierta: '', sujeciones: '', costuras: '', estetica: '', kv1: '60', ma1: '', kv2: '65', ma2: '', defectos: 'Ninguno', resultado: 'Apta' }; }
   if (t === 'facturas') return { fecha: '', numero: '', proveedor: '', producto: '', subtotal: '', iva: '', total: '', img: null };
   if (t === 'levantamientos') return { sala: '', serie: '', modalidad: '', kv: '', ma: '', tiempo: '', mas: '', campo: '', direccion: '', maniqui: '', fondo: '0,1', fc: '1', fconv: '1', nr: '', masPaciente: '', w: '', plano: null };
-  if (t === 'blSalas') return { sala: (S().levantamientos[0] || {}).sala || '', serie: '', modalidad: '', categoria: '', ubicacion: '', kvMax: '', maMax: '', n: '', plano: null, intTiempos: '' };
-  if (t === 'blParams') return { nombre: '', k: '', aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: '', preCo: '', fuente: 'NCRP 147' };
+  if (t === 'blSalas') return { sala: (S().levantamientos[0] || {}).sala || '', serie: '', modalidad: '', categoria: '', ubicacion: '', kvMax: '', maMax: '', n: '', wsite: '', plano: null, intTiempos: '' };
+  if (t === 'blParams') return { nombre: '', k: '', wnorm: '', aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: '', preCo: '', fuente: 'NCRP 147' };
   if (t === 'blBarreras') { const s0 = S(); const sala = (s0.blSalas[0] || {}).sala || ''; const n = s0.blBarreras.filter(b => b.sala === sala).length; return { sala, punto: String.fromCharCode(65 + n), descripcion: '', tipo: 'Secundaria', param: '', d: '', u: '', t: '1', zona: 'ZNC', material: 'Ladrillo', existente: '', plomoAdic: '' }; }
   if (t === 'levFuga') { const sala = (S().levantamientos[0] || {}).sala || ''; return { sala, punto: '', kv: '', ie: '', imax: '', distancia: '1', lectura: '', obs: '' }; }
   if (t === 'levPuntos') { const s0 = S(); const sala = (s0.levantamientos[0] || {}).sala || ''; const n = s0.levPuntos.filter(p => p.sala === sala).length; return { sala, punto: String.fromCharCode(65 + n), descripcion: '', distancia: '', barrera: 'Secundaria', zona: 'Supervisada', u: '1', t: '1', lectura: '', unidad: 'µSv', disparos: '1', obs: '' }; }
@@ -928,6 +931,13 @@ async function alClic(e) {
       const otras = Object.keys(PRACTICAS).filter(p => p !== s.practica); n.practica = otras[0];
       BD.lista[n.id] = n; BD.actual = n.id; seleccion = null; guardar(); render();
       aviso(`Copia creada para ${PRACTICAS[n.practica].nombre}. Cambie la práctica arriba si necesita otra.`); break;
+    }
+    case 'btn-bl-bib': {
+      const i = document.getElementById('bl-bib').value;
+      if (i === '') { aviso('Elija un conjunto de la lista.'); break; }
+      const x = NCRP147_BIB[+i];
+      s.blParams.push({ nombre: x.nombre, k: x.k, wnorm: x.wnorm, aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: x.prePb || '', preCo: x.preCo || '', fuente: x.fuente });
+      quitarEjemplo(); guardar(); renderSeccion(); aviso(`Agregado: ${x.nombre}.`); break;
     }
     case 'btn-cap-proponer': s.capacitaciones = cronogramaPropuesto(crearContexto(s)); guardar(); renderSeccion(); renderNav(); aviso('Propuesta cargada. Edite fechas, temas y horarios.'); break;
     case 'btn-perfil-guardar': {

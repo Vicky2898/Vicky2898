@@ -6,6 +6,34 @@
    Transmisión de un espesor:  B(x) = [(1 + β/α) · e^(α·γ·x) − β/α]^(-1/γ)
    Los valores de K, α, β y γ se toman de las tablas del NCRP 147 y se registran en la tabla de parámetros. */
 
+/* Valores verificados contra el NCRP Report No. 147 (2004):
+   Tabla 4.5: kerma primario sin blindaje por paciente a 1 m (K¹P) y Wnorm.
+   Tabla 4.7: kerma secundario total por paciente a 1 m (K¹sec); «90°» = fuga + dispersión lateral,
+              «135°» = fuga + retrodispersión/dispersión frontal (el NCRP usa el de 135° como conservador).
+   Tabla 4.6: preblindaje xpre. Tabla 4.4: factores de uso. Tabla 4.3: pacientes por semana.
+   Los parámetros α, β y γ (tablas B.1 y C.1 del Apéndice) se completan aparte. */
+const NCRP147_BIB = [
+  { nombre: 'Sala de radiografía, piso u otras barreras – primaria', tipo: 'Primaria', k: '5,2', wnorm: '1,9', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tabla 4.5 (Rad Room, floor or other barriers); xpre Tabla 4.6' },
+  { nombre: 'Sala de radiografía, pared del bucky mural – primaria', tipo: 'Primaria', k: '2,3', wnorm: '0,6', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tabla 4.5 (Rad Room, chest bucky); xpre Tabla 4.6' },
+  { nombre: 'Sala de radiografía, pared de la toma lateral (cross-table) – primaria', tipo: 'Primaria', k: '5,2', wnorm: '1,9', prePb: '0,3', preCo: '30', fuente: 'NCRP 147, Tabla 4.5 (Rad Room, floor or other barriers); xpre cross-table Tabla 4.6' },
+  { nombre: 'Tubo de radiografía de sala R&F – primaria', tipo: 'Primaria', k: '5,9', wnorm: '1,5', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tabla 4.5 (Rad Tube, R&F Room); xpre Tabla 4.6' },
+  { nombre: 'Sala de tórax dedicada – primaria', tipo: 'Primaria', k: '1,2', wnorm: '0,22', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tabla 4.5 (Chest Room); xpre Tabla 4.6' },
+  { nombre: 'Sala de radiografía, todas las barreras – secundaria (135°)', tipo: 'Secundaria', k: '4,9E-2', wnorm: '2,5', fuente: 'NCRP 147, Tabla 4.7 (Rad Room, all barriers)' },
+  { nombre: 'Sala de radiografía, todas las barreras – secundaria (90°)', tipo: 'Secundaria', k: '3,4E-2', wnorm: '2,5', fuente: 'NCRP 147, Tabla 4.7 (Rad Room, all barriers, dispersión lateral)' },
+  { nombre: 'Sala de radiografía, bucky mural – secundaria', tipo: 'Secundaria', k: '7,3E-3', wnorm: '0,60', fuente: 'NCRP 147, Tabla 4.7 (Rad Room, chest bucky)' },
+  { nombre: 'Sala de radiografía, piso u otras barreras – secundaria', tipo: 'Secundaria', k: '3,3E-2', wnorm: '1,9', fuente: 'NCRP 147, Tabla 4.7 (Rad Room, floor or other barriers)' },
+  { nombre: 'Tubo de fluoroscopia de sala R&F – secundaria', tipo: 'Secundaria', k: '4,6E-1', wnorm: '13', fuente: 'NCRP 147, Tabla 4.7 (Fluoroscopy Tube, R&F room)' },
+  { nombre: 'Tubo de radiografía de sala R&F – secundaria', tipo: 'Secundaria', k: '4,0E-2', wnorm: '1,5', fuente: 'NCRP 147, Tabla 4.7 (Rad Tube, R&F room)' },
+  { nombre: 'Sala de tórax dedicada – secundaria', tipo: 'Secundaria', k: '3,6E-3', wnorm: '0,22', fuente: 'NCRP 147, Tabla 4.7 (Chest Room)' },
+  { nombre: 'Mamografía – secundaria (4 proyecciones, valor conservador)', tipo: 'Secundaria', k: '3,6E-2', wnorm: '6,7', fuente: 'NCRP 147, Tabla 4.7, nota f (Mammography Room)' },
+  { nombre: 'Angiografía cardíaca – secundaria', tipo: 'Secundaria', k: '3,8', wnorm: '160', fuente: 'NCRP 147, Tabla 4.7 (Cardiac Angiography)' },
+  { nombre: 'Angiografía periférica o neuroangiografía – secundaria', tipo: 'Secundaria', k: '9,5E-1', wnorm: '64', fuente: 'NCRP 147, Tabla 4.7 (Peripheral Angiography; aplica a neuroangiografía)' }
+];
+// Tabla 4.3: pacientes por semana (promedio / alta demanda) como guía cuando no hay registro
+const NCRP147_N = [['Sala de radiografía', '120', '160'], ['Sala de tórax dedicada', '200', '400'], ['Fluoroscopia (sala R&F)', '20', '30'], ['Radiografía en sala R&F', '25', '40'], ['Mamografía', '80', '160'], ['Angiografía cardíaca', '20', '30'], ['Angiografía periférica / neuroangiografía', '20', '30']];
+// Tabla 4.1: factores de ocupación
+const NCRP147_T = [['Oficinas, laboratorios, farmacias, recepción, salas de espera atendidas, áreas de juego infantil, salas de rayos X adyacentes, salas de lectura, estaciones de enfermería, consolas de control', '1'], ['Salas de examen y tratamiento de pacientes', '1/2'], ['Pasillos, habitaciones de pacientes, salas de descanso del personal', '1/5'], ['Puertas de pasillos', '1/8'], ['Baños públicos, áreas de venta no atendidas, bodegas, áreas exteriores con asientos, salas de espera no atendidas, áreas de espera de pacientes', '1/20'], ['Áreas exteriores de tránsito, estacionamientos no atendidos, áticos, escaleras, ascensores no atendidos, cuartos de limpieza', '1/40']];
+
 const BL_MATERIALES = ['Concreto', 'Ladrillo', 'Plomo', 'Vidrio plomado', 'Puerta plomada', 'Bloque', 'Otro (mm Pb equivalente)'];
 const BL_ZONAS = ['ZC', 'ZNC'];
 const esPlomo = (m) => /plomo|plomad|Pb/i.test(m || '');
@@ -29,7 +57,7 @@ const blNum = (v) => { const n = nivel(v); return n == null ? null : n; };
 function blParametro(c, nombre) {
   const p = (c.S.blParams || []).find(x => x.nombre && x.nombre === nombre) || {};
   const f = (k) => blNum(p[k]);
-  return { nombre: p.nombre || '', K: f('k'), pb: [f('aPb'), f('bPb'), f('gPb')], co: [f('aCo'), f('bCo'), f('gCo')], prePb: f('prePb') || 0, preCo: f('preCo') || 0, fuente: p.fuente || '' };
+  return { nombre: p.nombre || '', K: f('k'), wnorm: f('wnorm'), pb: [f('aPb'), f('bPb'), f('gPb')], co: [f('aCo'), f('bCo'), f('gCo')], prePb: f('prePb') || 0, preCo: f('preCo') || 0, fuente: p.fuente || '' };
 }
 
 function blSalaDe(c, nombre) { return (c.S.blSalas || []).find(s => s.sala === nombre) || {}; }
@@ -42,7 +70,9 @@ function blKN(sala, prm) {
     return { KN: (kc && dc && nc ? kc * dc * nc : 0) + (kb && db && nb ? kb * db * nb : 0), ct: true };
   }
   const N = blNum(sala.n);
-  return { KN: prm.K != null && N ? prm.K * N : null, ct: false };
+  // Si la carga de trabajo por paciente del sitio difiere de Wnorm, K se multiplica por Wsitio / Wnorm (NCRP 147, 4.1.4)
+  const ws = blNum(sala.wsite), wf = (ws && prm.wnorm) ? ws / prm.wnorm : 1;
+  return { KN: prm.K != null && N ? prm.K * N * wf : null, ct: false, wf };
 }
 
 function calcularBarrera(c, br) {
@@ -54,11 +84,11 @@ function calcularBarrera(c, br) {
   const T = fraccion(br.t) ?? 1;
   const d = blNum(br.d);
   const P = br.zona === 'ZC' ? (blNum(M.blPc) ?? 0.1) : (blNum(M.blPnc) ?? 0.02);
-  const { KN, ct } = blKN(sala, prm);
+  const { KN, ct, wf } = blKN(sala, prm);
   const B = (KN && d) ? P * d * d / (KN * U * T) : null;
   const xPb = B == null ? null : Math.max(0, (archerEspesor(B, ...prm.pb) ?? NaN) - (primaria ? prm.prePb : 0));
   const xCo = B == null ? null : Math.max(0, (archerEspesor(B, ...prm.co) ?? NaN) - (primaria ? prm.preCo : 0));
-  const rc = blNum(M.blDensConcreto) || 2.35, rl = blNum(M.blDensLadrillo) || 1.8;
+  const rc = blNum(M.blDensConcreto) || 2.4, rl = blNum(M.blDensLadrillo) || 1.8;
   const xLad = xCo == null || isNaN(xCo) ? null : xCo * rc / rl;
   // Transmisión de la barrera existente: material principal (en concreto equivalente o plomo) × plomo adicional
   const ex = blNum(br.existente) || 0, exPb = blNum(br.plomoAdic) || 0;
@@ -66,12 +96,14 @@ function calcularBarrera(c, br) {
   if (esPlomo(br.material)) pbTotal += ex;
   else if (/ladrillo|bloque/i.test(br.material || '')) coTotal = ex * rl / rc;
   else coTotal = ex;
-  const preB = primaria ? (archerTransmision(prm.prePb, ...prm.pb) ?? 1) : 1;
-  const Bpb = archerTransmision(pbTotal, ...prm.pb), Bco = archerTransmision(coTotal, ...prm.co);
-  const Bex = (Bpb != null && Bco != null) ? Bpb * Bco * preB : null;
+  // En primarias el preblindaje se suma al espesor existente (NCRP 147, ec. 4.7); se suma al material dominante
+  const conPb = pbTotal > 0 || !coTotal;
+  const Bpb = archerTransmision(pbTotal + (primaria && conPb ? prm.prePb : 0), ...prm.pb);
+  const Bco = coTotal ? archerTransmision(coTotal + (primaria && !conPb ? prm.preCo : 0), ...prm.co) : 1;
+  const Bex = (Bpb != null && Bco != null) ? Bpb * Bco : null;
   const sinExistente = !ex && !exPb;
   const cumple = (B == null || Bex == null || isNaN(xPb) || sinExistente) ? null : Bex <= B * 1.0001;
-  return { P, U, T, d, KN, ct, B, xPb: isNaN(xPb) ? null : xPb, xCo: isNaN(xCo) ? null : xCo, xLad, Bex, cumple, primaria, prm, rc, rl };
+  return { P, U, T, d, KN, ct, wf, B, xPb: isNaN(xPb) ? null : xPb, xCo: isNaN(xCo) ? null : xCo, xLad, Bex, cumple, primaria, prm, rc, rl };
 }
 
 const mm = (v, dec = 1) => v == null ? '—' : num2(v, dec);
@@ -84,7 +116,7 @@ function docMemoriaBlindaje(c) {
   const interv = c.S.practica === 'intervencionista';
   const calc = barreras.map(b => ({ b, r: calcularBarrera(c, b) }));
   const Pc = blNum(M.blPc) ?? 0.1, Pnc = blNum(M.blPnc) ?? 0.02;
-  const rc = blNum(M.blDensConcreto) || 2.35, rl = blNum(M.blDensLadrillo) || 1.8;
+  const rc = blNum(M.blDensConcreto) || 2.4, rl = blNum(M.blDensLadrillo) || 1.8;
   const elaborador = `${[R.osrTitulo, R.osrNombre].filter(Boolean).join(' ') || '[Nombre]'}${R.osrProfesion ? ', ' + R.osrProfesion : ''}${R.osrAut ? ' – autorización de OSR ' + R.osrAut : ''}`;
   const blocks = [
     H('Carátula'),
@@ -156,18 +188,24 @@ function docMemoriaBlindaje(c) {
     L([
       `Protocolo: NCRP Report No. 147, Structural Shielding Design for Medical X-Ray Imaging Facilities (2004), con los valores de sus tablas.`,
       `Objetivos de diseño (P): ${num2(Pc, 2)} mGy/semana de kerma en aire para zonas controladas (ZC) y ${num2(Pnc, 2)} mGy/semana para zonas no controladas (ZNC).`,
-      'Factores de ocupación y de uso según las tablas del NCRP 147, ajustados a la ocupación real de cada área colindante.',
+      'La distancia se mide desde la fuente hasta la persona más expuesta: 0,3 m más allá de las paredes, 1,7 m sobre el piso del nivel inferior y 0,5 m sobre el piso del nivel superior (NCRP 147, 4.1.2).',
+      'Factores de ocupación (T) de la Tabla 4.1 del NCRP 147, ajustados a la ocupación real de cada área colindante; factores de uso (U) de la Tabla 4.4 (piso 0,89, pared de la toma lateral 0,09, otra pared 0,02, receptor de tórax 1).',
+      'Kerma sin blindaje por paciente a 1 m: Tabla 4.5 para barreras primarias y Tabla 4.7 para secundarias. Si la carga de trabajo por paciente del servicio (Wsitio) difiere del valor de referencia (Wnorm), K se multiplica por Wsitio / Wnorm (4.1.4).',
       'Para las barreras secundarias se usa U = 1 y la suma de radiación dispersa y de fuga incluida en el kerma secundario por paciente.',
       ...(params.some(p => blNum(p.prePb) || blNum(p.preCo)) ? ['En las barreras primarias se descuenta el preblindaje que aportan la mesa, la rejilla y el receptor de imagen.'] : []),
-      `Ladrillo: el espesor se obtiene por equivalencia de densidad con el concreto (ρ concreto = ${num2(rc, 2)} g/cm³; ρ ladrillo = ${num2(rl, 2)} g/cm³), x ladrillo = x concreto × ρ concreto / ρ ladrillo${M.blLadrilloNota ? `. ${M.blLadrilloNota}` : ''}.`
+      'El NCRP 147 no publica curvas de transmisión para ladrillo; recomienda considerar sus vacíos y usar ladrillo macizo o rellenar los huecos con mortero (2.3.1.3).',
+      `Ladrillo: el espesor se obtiene por equivalencia de densidad con el concreto de peso normal (ρ concreto = ${num2(rc, 2)} g/cm³, NCRP 147, 2.3.5.1; ρ ladrillo = ${num2(rl, 2)} g/cm³), x ladrillo = x concreto × ρ concreto / ρ ladrillo${M.blLadrilloNota ? `. ${M.blLadrilloNota}` : ''}.`
     ]),
     Ps('c) Metodología de cálculo', { bold: true }),
     Ps('Para cada barrera se calcula la transmisión requerida:', { align: 'j' }),
-    Ps('B = P · d² / (K · U · N · T)', { bold: true, align: 'c' }),
+    Ps('B = (P / T) · d² / (K · U · N)', { bold: true, align: 'c' }),
+    Ps('En barreras secundarias U = 1 (NCRP 147, ec. 4.5, 4.7 y 4.9).', { align: 'c' }),
     Ps('y el espesor de material que la produce con la ecuación de ajuste de Archer, cuyos parámetros α, β y γ dependen del material y del espectro de la sala (tablas del NCRP 147):', { align: 'j' }),
-    Ps('x = [1 / (α · γ)] · ln[(B^-γ + β/α) / (1 + β/α)]', { bold: true, align: 'c' }),
+    Ps('x = [1 / (α · γ)] · ln[(B^-γ + β/α) / (1 + β/α)] − xpre', { bold: true, align: 'c' }),
+    Ps('El preblindaje xpre (Tabla 4.6) solo se descuenta en barreras primarias con receptor de imagen en el haz (ec. 4.8).', { align: 'c' }),
     Ps('Para verificar una barrera existente se calcula su transmisión con la forma inversa, B(x) = [(1 + β/α) · e^(α·γ·x) − β/α]^(-1/γ), multiplicando la del material principal por la del plomo adicional si lo hubiera, y se compara con la transmisión requerida: la barrera cumple si su transmisión es igual o menor.', { align: 'j' })
   );
+  if (c.S.practica === 'odontologico' || salas.some(s => /odont/i.test(s.modalidad || ''))) blocks.push(NOTE('El NCRP 147 remite el blindaje de las instalaciones odontológicas al NCRP Report No. 145, Radiation Protection in Dentistry (2.2.8). Los parámetros de esas salas deben tomarse de ese informe.'));
   if (salas.some(s => /tomo/i.test(s.modalidad || ''))) blocks.push(Ps('En tomografía computarizada el kerma secundario semanal a 1 m del isocentro se estima a partir del producto dosis-longitud: K = κ × DLP × N, con κ diferente para estudios de cabeza y de cuerpo según el NCRP 147.', { align: 'j' }));
   // d) ejemplo con la barrera que requiere mayor blindaje
   const conDato = calc.filter(x => x.r.xPb != null);
@@ -180,7 +218,7 @@ function docMemoriaBlindaje(c) {
     blocks.push(KV([
       ['Objetivo de diseño P', `${num2(r.P, 2)} mGy/semana`],
       ['Distancia d', `${num2(r.d, 2)} m`],
-      [r.ct ? 'Kerma semanal sin blindaje a 1 m (Σ κ × DLP × N)' : `K × N (${r.prm.nombre})`, `${num2(r.KN, 2)} mGy/semana${r.ct ? '' : ` (K = ${num2(r.prm.K, 4)} mGy/paciente; N = ${blSalaDe(c, b.sala).n || '[N]'} pacientes/semana)`}`],
+      [r.ct ? 'Kerma semanal sin blindaje a 1 m (Σ κ × DLP × N)' : `K × N (${r.prm.nombre})`, `${num2(r.KN, 2)} mGy/semana${r.ct ? '' : ` (K = ${r.prm.K < 0.01 ? r.prm.K.toExponential(1).replace('.', ',') : num2(r.prm.K, 3)} mGy/paciente; N = ${blSalaDe(c, b.sala).n || '[N]'} pacientes/semana${r.wf && r.wf !== 1 ? `; Wsitio/Wnorm = ${num2(r.wf, 2)}` : ''})`}`],
       ['U / T', `${num2(r.U, 2)} / ${b.t || '1'}`],
       ['Transmisión requerida', `B = ${num2(r.P, 2)} × ${num2(r.d, 2)}² / (${num2(r.KN, 2)} × ${num2(r.U, 2)} × ${b.t || '1'}) = ${r.B < 0.001 ? r.B.toExponential(3).replace('.', ',') : num2(r.B, 4)}`],
       ['Plomo (α, β, γ)', `${num2(aP, 4)}; ${num2(bP, 4)}; ${num2(gP, 4)} mm⁻¹ → x = ${mm(r.xPb, 2)} mm Pb${r.primaria && r.prm.prePb ? ` (descontado el preblindaje de ${num2(r.prm.prePb, 2)} mm)` : ''}`],
@@ -244,8 +282,8 @@ function docMemoriaBlindaje(c) {
   );
   if (params.length) {
     blocks.push(Ps('Parámetros utilizados (tablas del NCRP 147)', { bold: true }));
-    blocks.push(T(['Conjunto', 'K (mGy/paciente a 1 m)', 'Plomo α', 'Plomo β', 'Plomo γ', 'Concreto α', 'Concreto β', 'Concreto γ', 'Preblindaje Pb / concreto (mm)', 'Fuente'],
-      params.map(p => [p.nombre, { t: p.k || '—', align: 'c' }, { t: p.aPb || '—', align: 'c' }, { t: p.bPb || '—', align: 'c' }, { t: p.gPb || '—', align: 'c' }, { t: p.aCo || '—', align: 'c' }, { t: p.bCo || '—', align: 'c' }, { t: p.gCo || '—', align: 'c' }, { t: `${p.prePb || '0'} / ${p.preCo || '0'}`, align: 'c' }, p.fuente || 'NCRP 147']), { widths: [18, 9, 8, 8, 8, 8, 8, 8, 10, 15], small: true }));
+    blocks.push(T(['Conjunto', 'K (mGy/paciente a 1 m)', 'Wnorm (mA·min/ paciente)', 'Plomo α', 'Plomo β', 'Plomo γ', 'Concreto α', 'Concreto β', 'Concreto γ', 'Preblindaje Pb / concreto (mm)', 'Fuente'],
+      params.map(p => [p.nombre, { t: p.k || '—', align: 'c' }, { t: p.wnorm || '—', align: 'c' }, { t: p.aPb || '—', align: 'c' }, { t: p.bPb || '—', align: 'c' }, { t: p.gPb || '—', align: 'c' }, { t: p.aCo || '—', align: 'c' }, { t: p.bCo || '—', align: 'c' }, { t: p.gCo || '—', align: 'c' }, { t: `${p.prePb || '0'} / ${p.preCo || '0'}`, align: 'c' }, p.fuente || 'NCRP 147']), { widths: [17, 8, 7, 7, 7, 7, 7, 7, 7, 8, 18], small: true }));
   }
   return { title: 'Memoria de cálculo de blindaje', subtitle: `Contenido según el Anexo VI de la Norma Técnica; metodología NCRP 147`, kind: 'sgc', landscape: true, blocks };
 }
