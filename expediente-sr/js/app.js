@@ -8,11 +8,11 @@ function estadoVacio(practica = 'medico') {
     practica,
     ejemplo: false,
     inst: { razonSocial: '', nombreComercial: '', sede: '', ruc: '', establecimiento: '', tipoEstab: '', actividad: '', licencia: '', licenciaExp: '', licenciaCad: '', kvMax: '', maMax: '', repEmpresa: '', repLegal: '', repCedula: '', repCargo: 'Gerente General', repProfesion: '', repTelefono: '', repCorreo: '', direccion: '', parroquia: '', referencia: '', ciudad: '', provincia: '', codPostal: '', telefono: '', correo: '', logo: null, sello: null },
-    resp: Object.assign({ osrAplica: practica === 'intervencionista', osrTitulo: '', osrNombre: '', osrProfesion: '', osrCedula: '', osrAut: '', osrAutCad: '', osrLicencia: '', osrTelefono: '', osrCorreo: '', medTitulo: '', medNombre: '', medCedula: '', medEspecialidad: '', medLicencia: '', medLicCad: '' }, (typeof BD !== 'undefined' && BD.perfil) || {}),
-    serv: { dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
+    resp: Object.assign({ osrAplica: practica === 'intervencionista', osrTitulo: '', osrNombre: '', osrProfesion: '', osrCedula: '', osrRuc: '', osrDireccion: '', osrAut: '', osrAutCad: '', osrLicencia: '', osrTelefono: '', osrCorreo: '', medTitulo: '', medNombre: '', medCedula: '', medEspecialidad: '', medLicencia: '', medLicCad: '' }, (typeof BD !== 'undefined' && BD.perfil) || {}),
+    serv: { informeDirigido: '', invHoja: '1', invFecha: '', invDepto: '', invAdmin: '', obsEpp: '', dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
     oficio: { autoridad: 'Ministerio de Ambiente y Energía', direccionMEM: 'Dirección de Licenciamiento y Protección Radiológica', numero: '', fecha: '', tramite: '', tecnicoTitulo: 'Especialista', tecnicoNombre: '', tecnicoCargo: 'Técnico de Licenciamiento y Protección Radiológica', numResp: '', numDisp: '', numBaja: '', informeNum: '', informeFecha: '', plazo: '90' },
     meta: { siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
-    poe: [], equipos: [], epp: [], disp: [], check: {}
+    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], check: {}
   };
 }
 
@@ -40,11 +40,15 @@ function estadoEjemplo() {
     { tipo: 'Tomógrafo computarizado', marca: 'GE', modelo: 'Revolution ACT', serie: '0000C3', tuboMarca: 'GE', tuboModelo: 'Performix 40 Plus', tuboSerie: '0000T3', anio: '2020', sala: 'Sala de tomografía', uso: 'Tomografía', estado: 'Funcionando', mantFecha: '2025-07-01' }
   ];
   s.epp = [
-    { codigo: 'DP-01', tipo: 'Delantal plomado frontal', espesor: '0,5', marca: 'Infab', talla: 'M', sala: 'Sala 1', estado: 'Bueno', fechaPrueba: '2026-02-10', kv: '80', mas: '5', defectos: 'Ninguno', resultado: 'Apta' },
-    { codigo: 'DP-02', tipo: 'Delantal plomado frontal', espesor: '0,5', marca: 'Infab', talla: 'L', sala: 'Sala 1', estado: 'Bueno', fechaPrueba: '2026-02-10', kv: '80', mas: '5', defectos: 'Ninguno', resultado: 'Apta' },
-    { codigo: 'CT-01', tipo: 'Collarín tiroideo', espesor: '0,5', marca: 'Infab', talla: 'U', sala: 'Sala 1', estado: 'Bueno', fechaPrueba: '2026-02-10', kv: '70', mas: '4', defectos: 'Ninguno', resultado: 'Apta' },
-    { codigo: 'CT-02', tipo: 'Collarín tiroideo', espesor: '0,5', marca: 'Infab', talla: 'U', sala: 'Sala 1', estado: 'Regular', fechaPrueba: '2026-02-10', kv: '70', mas: '4', defectos: 'Fisura de 20 mm² en zona central', resultado: 'No apta' }
+    { codigo: 'EJMNDPL01', tipo: 'Mandil plomado', espesor: '0,5', marca: 'Infab', talla: 'M', sala: 'Sala 1 - Rayos X', cantidad: '1', factura: '001-002-000000001', proveedor: 'Proveedor Ejemplo', fechaCaducidad: '2028-02-18', estado: 'Bueno', cubierta: '4', sujeciones: '5', costuras: '5', estetica: '4', kv1: '60', ma1: '3,5', kv2: '65', ma2: '3', defectos: 'Ninguno', resultado: 'Apta' },
+    { codigo: 'EJMNDPL02', tipo: 'Mandil plomado', espesor: '0,5', marca: 'Infab', talla: 'L', sala: 'Sala 1 - Rayos X', cantidad: '1', factura: 'N/R', proveedor: 'Proveedor Ejemplo', fechaCaducidad: '', estado: 'Bueno', cubierta: '5', sujeciones: '4', costuras: '5', estetica: '4', kv1: '60', ma1: '3,5', kv2: '65', ma2: '3', defectos: 'Ninguno', resultado: 'Apta' },
+    { codigo: 'EJPRTPL01', tipo: 'Collarín o protector tiroideo plomado', espesor: '0,5', marca: 'Infab', talla: 'U', sala: 'Sala 1 - Rayos X', cantidad: '1', factura: '001-002-000000001', proveedor: 'Proveedor Ejemplo', fechaCaducidad: '2026-12-28', estado: 'Bueno', cubierta: '5', sujeciones: '4', costuras: '4', estetica: '4', kv1: '60', ma1: '3,5', kv2: '65', ma2: '3', defectos: 'Ninguno', resultado: 'Apta' },
+    { codigo: 'EJPRTPL02', tipo: 'Collarín o protector tiroideo plomado', espesor: '0,5', marca: 'Infab', talla: 'U', sala: 'Tomografía', cantidad: '1', factura: 'N/R', proveedor: '', fechaCaducidad: '', estado: 'Regular', cubierta: '3', sujeciones: '4', costuras: '3', estetica: '3', kv1: '60', ma1: '3,5', kv2: '65', ma2: '3', defectos: 'Fisura de 20 mm² en zona central', resultado: 'No apta' },
+    { codigo: 'EJPRGPL01', tipo: 'Protectores gonadales plomados (juego)', espesor: '0,5', marca: 'Infab', talla: '', sala: 'Sala 1 - Rayos X', cantidad: '3', factura: '001-002-000000001', proveedor: 'Proveedor Ejemplo', fechaCaducidad: '', estado: 'Bueno', cubierta: '5', sujeciones: '5', costuras: '5', estetica: '5', kv1: '60', ma1: '3,5', kv2: '65', ma2: '3', defectos: 'Ninguno', resultado: 'Apta' }
   ];
+  s.facturas = [{ fecha: '2023-08-31', numero: '001-002-000000001', proveedor: 'Proveedor Ejemplo', producto: 'Mandil plomado + collarín plomado + protectores gonadales', subtotal: '825,00', iva: '99,00', total: '924,00' }];
+  s.serv.informeDirigido = 'Dr. Nombre Ejemplo';
+  s.serv.obsEpp = 'Se reemplazó un mandil de la Sala 1 por roturas en el anterior.';
   return s;
 }
 
@@ -72,7 +76,8 @@ function normalizar(s) {
     if (!p.cargo && p.funcion) p.cargo = p.funcion;
   });
   ['inst', 'resp', 'serv', 'oficio', 'meta'].forEach(k => { s[k] = Object.assign({}, base[k], s[k] || {}); });
-  ['poe', 'equipos', 'epp', 'disp'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
+  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
+  s.epp.forEach(e => { if (e.kv && !e.kv1) e.kv1 = e.kv; if (e.mas && !e.ma1) e.ma1 = e.mas; });
   if (!s.check) s.check = {};
 }
 let tGuardar = null;
@@ -171,7 +176,9 @@ const F_OSR = [
   { k: 'resp.osrNombre', l: 'Nombre completo', span: 2 },
   { k: 'resp.osrProfesion', l: 'Profesión', ph: 'Biofísica' },
   { k: 'resp.osrCedula', l: 'Cédula' },
-  { k: 'resp.osrLicencia', l: 'Licencia ocupacional N.º' },
+  { k: 'resp.osrRuc', l: 'RUC personal' },
+  { k: 'resp.osrDireccion', l: 'Dirección', span: 2 },
+  { k: 'resp.osrLicencia', l: 'Licencia / autorización N.º', help: 'Normalmente la cédula' },
   { k: 'resp.osrAut', l: 'Autorización OSR N.º', when: s => s.resp.osrAplica },
   { k: 'resp.osrAutCad', l: 'Caducidad de la autorización', type: 'date', when: s => s.resp.osrAplica },
   { k: 'resp.osrTelefono', l: 'Teléfono' },
@@ -285,20 +292,51 @@ function colsEquipos() {
 function colsEpp() {
   const P = PRACTICAS[S().practica];
   return [
-    { k: 'codigo', l: 'Código', w: 80 },
-    { k: 'tipo', l: 'Tipo', type: 'select', opts: P.tiposEpp, w: 210 },
-    { k: 'espesor', l: 'mm Pb', w: 70 },
-    { k: 'marca', l: 'Marca', w: 110 },
+    { k: 'codigo', l: 'Código interno', w: 110 },
+    { k: 'tipo', l: 'Descripción', type: 'select', opts: P.tiposEpp, w: 230 },
+    { k: 'espesor', l: 'mm Pb Eq.', w: 70 },
+    { k: 'marca', l: 'Marca', w: 100 },
     { k: 'talla', l: 'Talla', w: 60 },
-    { k: 'sala', l: 'Sala', w: 110 },
-    { k: 'estado', l: 'Estado', type: 'select', opts: ['Bueno', 'Regular', 'Malo'], w: 100 },
-    { k: 'fechaPrueba', l: 'Última prueba', type: 'date', w: 140 },
-    { k: 'kv', l: 'kV', w: 60 },
-    { k: 'mas', l: 'mAs', w: 60 },
-    { k: 'defectos', l: 'Defectos encontrados', w: 200 },
-    { k: 'resultado', l: 'Resultado', type: 'select', opts: ['Apta', 'No apta'], w: 100 }
+    { k: 'sala', l: 'Ubicación', w: 160 },
+    { k: 'cantidad', l: 'Cantidad', w: 70 },
+    { k: 'factura', l: 'N.º de factura', w: 150, ph: 'N/R' },
+    { k: 'proveedor', l: 'Proveedor', w: 130 },
+    { k: 'fechaCaducidad', l: 'Fecha de caducidad', type: 'date', w: 140 }
   ];
 }
+function colsEppEval() {
+  const n = (k, l) => ({ k, l, type: 'select', opts: ['1', '2', '3', '4', '5'], w: 70 });
+  return [
+    { k: 'codigo', l: 'Prenda', w: 150, ro: true },
+    n('cubierta', 'Cubierta'), n('sujeciones', 'Sujeciones'), n('costuras', 'Costuras'),
+    { k: 'kv1', l: 'Prueba 1 kV', w: 70, ph: '60' }, { k: 'ma1', l: 'Prueba 1 mA', w: 70 },
+    { k: 'img1', l: 'Imagen prueba 1', type: 'img', w: 150 },
+    { k: 'kv2', l: 'Prueba 2 kV', w: 70, ph: '65' }, { k: 'ma2', l: 'Prueba 2 mA', w: 70 },
+    { k: 'img2', l: 'Imagen prueba 2', type: 'img', w: 150 },
+    { k: 'defectos', l: 'Defectos encontrados', w: 190 },
+    { k: 'resultado', l: 'Resultado', type: 'select', opts: ['Apta', 'No apta'], w: 100 },
+    n('estetica', 'Estética')
+  ];
+}
+const COLS_FACT = [
+  { k: 'fecha', l: 'Fecha', type: 'date', w: 140 },
+  { k: 'numero', l: 'N.º de factura', w: 150 },
+  { k: 'proveedor', l: 'Proveedor', w: 150 },
+  { k: 'producto', l: 'Producto', w: 240 },
+  { k: 'subtotal', l: 'Subtotal', w: 80 },
+  { k: 'iva', l: 'IVA', w: 70 },
+  { k: 'total', l: 'Total', w: 80, ph: 'auto' },
+  { k: 'img', l: 'Escaneo de la factura', type: 'img', w: 160 }
+];
+const COLS_CAP = [
+  { k: 'fecha', l: 'Fecha', type: 'date', w: 140 },
+  { k: 'tema', l: 'Tema', type: 'textarea', w: 300 },
+  { k: 'horaIni', l: 'Hora inicio', type: 'time', w: 100 },
+  { k: 'horaFin', l: 'Hora fin', type: 'time', w: 100 },
+  { k: 'dirigido', l: 'Dirigido a', w: 190 },
+  { k: 'obs', l: 'Observaciones', w: 200 },
+  { k: 'capacitador', l: 'Capacitador', w: 170, ph: 'OSR' }
+];
 const COLS_DISP = [
   { k: 'nc', l: 'No conformidad (copie del informe)', type: 'textarea', w: 320 },
   { k: 'accion', l: 'Acción ejecutada', type: 'textarea', w: 320 },
@@ -334,13 +372,14 @@ function tablaEditable(nombre, cols, filas, textoAgregar) {
     if (c.when && !c.when(r)) return '<td class="vacio">—</td>';
     let v = getPath(r, c.k) ?? '';
     if (c.map) v = (CATEGORIAS_POE.find(x => x.id === v) || {}).t || v;
-    if (c.ro) return `<td class="ro">${esc([v, c.k === 'apellidos' ? r.nombres : ''].filter(Boolean).join(' ')) || '—'}</td>`;
+    if (c.ro) return `<td class="ro">${esc(c.k === 'codigo' ? [r.codigo, r.tipo ? '· ' + r.tipo : ''].filter(Boolean).join(' ') : [v, c.k === 'apellidos' ? r.nombres : ''].filter(Boolean).join(' ')) || '—'}</td>`;
     const a = `data-t="${nombre}" data-i="${i}" data-c="${c.k}" aria-label="${esc(c.l)} fila ${i + 1}"`;
     if (c.type === 'select') {
       const opts = c.opts.includes(v) || !v ? c.opts : [v, ...c.opts];
       return `<td><select ${a}><option value=""></option>${opts.map(o => `<option ${o === v ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select></td>`;
     }
     if (c.type === 'textarea') return `<td><textarea ${a} rows="2">${esc(v)}</textarea></td>`;
+    if (c.type === 'img') return `<td><div class="img-mini">${v && v.data ? `<img src="${v.data}" alt="">` : ''}<label class="btn link"><input type="file" accept="image/*" hidden data-imgt="${nombre}" data-i="${i}" data-c="${c.k}">${v && v.data ? 'Cambiar' : 'Subir'}</label>${v && v.data ? `<button class="icono" data-imgq="${nombre}" data-i="${i}" data-c="${c.k}" title="Quitar imagen" aria-label="Quitar imagen">✕</button>` : ''}</div></td>`;
     return `<td><input ${a} type="${c.type || 'text'}" value="${esc(v)}"${c.ph ? ` placeholder="${esc(c.ph)}"` : ''}></td>`;
   }).join('')}<td class="acc"><button class="icono" data-del="${nombre}" data-i="${i}" title="Eliminar fila" aria-label="Eliminar fila ${i + 1}">✕</button></td></tr>`).join('');
   return `<div class="tabla-ed"><table><thead><tr>${head}<th class="acc"></th></tr></thead><tbody>${cuerpo || `<tr><td colspan="${cols.length + 1}" class="sin-filas">Todavía no hay filas.</td></tr>`}</tbody></table></div>
@@ -363,19 +402,21 @@ const SECCIONES = [
   { id: 'poe', t: 'Personal expuesto' },
   { id: 'equipos', t: 'Equipos' },
   { id: 'prendas', t: 'Prendas de protección' },
-  { id: 'oficio', t: 'Oficio del MEM' },
+  { id: 'capacitacion', t: 'Capacitación' },
+  { id: 'oficio', t: 'Oficio de la Autoridad' },
   { id: 'verificacion', t: 'Lista de verificación' },
   { id: 'documentos', t: 'Documentos' }
 ];
 let seccion = 'documentos';
 let subPOE = 'datos';
+let subEPP = 'inv';
 let docActivo = 'OF-RESP';
 let seleccion = null;
 
 function contadores() {
   const s = S();
   return {
-    poe: s.poe.length, equipos: s.equipos.length, prendas: s.epp.length,
+    poe: s.poe.length, equipos: s.equipos.length, prendas: s.epp.length, capacitacion: s.capacitaciones.filter(x => x.tema).length || '',
     oficio: s.disp.filter(d => d.nc).length || '',
     documentos: DOCS.filter(d => d.aplica(crearContexto(s))).length
   };
@@ -436,14 +477,29 @@ function renderSeccion() {
         ${tablaEditable('equipos', colsEquipos(), s.equipos, 'Agregar equipo')}
         <p class="lead">Los procedimientos técnicos se arman según los tipos de equipo registrados. Tipos disponibles para ${esc(P.corto)}: ${esc(P.tiposEquipo.join(', '))}.</p>`;
       break;
-    case 'prendas':
-      h = `<h2>Prendas y elementos de protección</h2><p class="lead">Se usan para el inventario y para el informe de integridad del blindaje. Mínimo exigido: dos prendas de cada tipo por sala; delantal frontal de 0,5 a 0,7 mm Pb y collarín de 0,5 mm Pb.</p>
-        ${tablaEditable('epp', colsEpp(), s.epp, 'Agregar prenda')}
-        <h3>Datos de la prueba de integridad</h3>
-        ${grupoCampos([{ k: 'serv.eqPrueba', l: 'Equipo usado para la prueba', span: 2, type: 'select', opts: crearContexto(s).eqAct.map(e => `${e.tipo}, serie ${e.serie || 'NR'}`) }, { k: 'serv.modoPrueba', l: 'Modalidad', type: 'select', opts: ['Radiografía', 'Fluoroscopia'] }, { k: 'serv.fechaPruebaEpp', l: 'Fecha de la evaluación', type: 'date' }])}`;
+    case 'prendas': {
+      const c = crearContexto(s);
+      const sub = subEPP;
+      h = `<h2>Equipo de protección radiológica (EPR)</h2><p class="lead">Alimenta el inventario de EPR con su resumen de facturas y el informe de integridad del blindaje. Mínimo exigido (Norma Técnica, num. 5.4): delantal frontal de 0,5 a 0,7 mm Pb, collarín y protectores gonadales de 0,5 mm Pb, dos prendas de cada tipo por sala.</p>
+        <div class="subtabs" role="tablist">${[['inv', 'Inventario'], ['eval', 'Evaluación del blindaje'], ['fact', 'Facturas']].map(([k, t]) => `<button role="tab" class="subtab ${sub === k ? 'on' : ''}" data-subepp="${k}" aria-selected="${sub === k}">${t}</button>`).join('')}</div>`;
+      if (sub === 'inv') h += `${tablaEditable('epp', colsEpp(), s.epp, 'Agregar prenda')}
+        <h3>Datos del inventario</h3>${grupoCampos([{ k: 'serv.invHoja', l: 'N.º de hoja' }, { k: 'serv.invFecha', l: 'Fecha del inventario', type: 'date' }, { k: 'serv.invDepto', l: 'Departamento', ph: 'Urdesa - Oficial de Seguridad Radiológica', span: 2 }, { k: 'serv.invAdmin', l: 'Responsable de administración (firma)', span: 2 }, { k: 'serv.obsEpp', l: 'Observaciones (una por línea)', type: 'textarea', span: 4 }])}`;
+      if (sub === 'eval') h += `<p class="lead">Escala de 1 (pésimo) a 5 (excelente). Las tomas radiográficas se hacen con al menos 60 kVp; suba las imágenes de cada prueba para que aparezcan en la tabla 5 del informe.</p>
+        ${tablaEditable('epp', colsEppEval(), s.epp, 'Agregar prenda')}
+        <h3>Datos del informe</h3>${grupoCampos([{ k: 'serv.eqPrueba', l: 'Equipo usado para la prueba', span: 2, type: 'select', opts: c.eqAct.map(e => `${e.tipo}, serie ${e.serie || 'NR'}`) }, { k: 'serv.modoPrueba', l: 'Modalidad', type: 'select', opts: ['Radiografía', 'Fluoroscopia'] }, { k: 'serv.fechaPruebaEpp', l: 'Fecha de la evaluación', type: 'date' }, { k: 'serv.informeDirigido', l: 'Informe dirigido a', span: 2 }])}`;
+      if (sub === 'fact') h += `<p class="lead">Las facturas forman el resumen del inventario; si sube el escaneo, se adjunta como anexo.</p>${tablaEditable('facturas', COLS_FACT, s.facturas, 'Agregar factura')}`;
       break;
+    }
+    case 'capacitacion': {
+      const c = crearContexto(s);
+      const vacio = !s.capacitaciones.filter(x => x.tema).length;
+      h = `<h2>Plan de capacitación ${esc(String(c.anio))}</h2><p class="lead">Base: Anexo III, numeral 17 de la Norma Técnica (protección del POE y del paciente, dosímetro personal, elementos de protección y trámites de licencias). ${vacio ? 'Mientras esta tabla esté vacía, los documentos usan la propuesta automática.' : ''}</p>
+        <div class="perfil"><button class="btn sec" id="btn-cap-proponer">${vacio ? 'Cargar propuesta para editar' : 'Reemplazar por la propuesta'}</button><small>La propuesta tiene ${cronogramaPropuesto(c).length} sesiones de 2 horas, de marzo a diciembre.</small></div>
+        ${tablaEditable('capacitaciones', COLS_CAP, s.capacitaciones, 'Agregar capacitación')}`;
+      break;
+    }
     case 'oficio':
-      h = `<h2>Oficio del Ministerio de Energía y Minas</h2><p class="lead">Datos del oficio de notificación y solicitud de requisitos que recibió la institución.</p>
+      h = `<h2>Oficio de la Autoridad Reguladora</h2><p class="lead">Datos del oficio de notificación y solicitud de requisitos que recibió la institución.</p>
         ${grupoCampos(F_OFICIO)}
         <h3>Informe de inspección con disposiciones</h3><p class="lead">Si ya recibió un informe con no conformidades, regístrelas aquí para generar el oficio de cumplimiento.</p>
         ${grupoCampos(F_INFORME)}
@@ -589,6 +645,25 @@ async function exportarLibro() {
 function ocupado(si) { document.body.classList.toggle('ocupado', si); }
 
 /* ---------- imágenes ---------- */
+/* Fotos y escaneos: se guardan como JPEG reducido para no llenar el almacenamiento del navegador */
+function leerFoto(file, max) {
+  return new Promise((res, rej) => {
+    if (!/^image\//.test(file.type)) { rej(new Error('Suba una imagen (JPG o PNG). Si la factura está en PDF, tómele una captura.')); return; }
+    const url = URL.createObjectURL(file);
+    const im = new Image();
+    im.onload = () => {
+      const r = Math.min(1, max / Math.max(im.width, im.height));
+      const cv = document.createElement('canvas');
+      cv.width = Math.round(im.width * r); cv.height = Math.round(im.height * r);
+      const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height); g.drawImage(im, 0, 0, cv.width, cv.height);
+      URL.revokeObjectURL(url);
+      res({ data: cv.toDataURL('image/jpeg', 0.72), w: cv.width, h: cv.height });
+    };
+    im.onerror = () => { URL.revokeObjectURL(url); rej(new Error('No se pudo leer la imagen.')); };
+    im.src = url;
+  });
+}
+
 function leerImagen(file) {
   return new Promise((res, rej) => {
     const fr = new FileReader();
@@ -613,7 +688,9 @@ function leerImagen(file) {
 function filaVacia(t) {
   if (t === 'poe') return { apellidos: '', nombres: '', cedula: '', categoria: 'tecnologo', profesion: '', cargo: '', campo: PRACTICAS[S().practica].nombre, licencia: '', codigo: '', ren: '0', act: '0', expedicion: '', licCad: '', observacion: '', certMed: '', dosimetro: '', docs: {} };
   if (t === 'equipos') return { tipo: '', marca: '', modelo: '', serie: '', tuboMarca: '', tuboModelo: '', tuboSerie: '', anio: '', anioTubo: '', anioInst: '', enLicencia: 'Sí', sala: '', uso: '', estado: 'Funcionando', mantFecha: '' };
-  if (t === 'epp') { const n = S().epp.length + 1; return { codigo: 'PP-' + String(n).padStart(2, '0'), tipo: '', espesor: '0,5', marca: '', talla: '', sala: '', estado: 'Bueno', fechaPrueba: '', kv: '', mas: '', defectos: 'Ninguno', resultado: 'Apta' }; }
+  if (t === 'epp') { const n = S().epp.length + 1; return { codigo: 'EPR-' + String(n).padStart(2, '0'), tipo: '', espesor: '0,5', marca: '', talla: '', sala: '', cantidad: '1', factura: '', proveedor: '', fechaCaducidad: '', estado: 'Bueno', cubierta: '', sujeciones: '', costuras: '', estetica: '', kv1: '60', ma1: '', kv2: '65', ma2: '', defectos: 'Ninguno', resultado: 'Apta' }; }
+  if (t === 'facturas') return { fecha: '', numero: '', proveedor: '', producto: '', subtotal: '', iva: '', total: '', img: null };
+  if (t === 'capacitaciones') return { fecha: '', tema: '', horaIni: '09:00', horaFin: '11:00', dirigido: 'POE', obs: '', capacitador: '' };
   return { nc: '', accion: '', anexo: '' };
 }
 
@@ -649,6 +726,8 @@ async function alClic(e) {
   if (!b) return;
   const s = S();
   if (b.dataset.sub) { subPOE = b.dataset.sub; renderSeccion(); return; }
+  if (b.dataset.subepp) { subEPP = b.dataset.subepp; renderSeccion(); return; }
+  if (b.dataset.imgq) { s[b.dataset.imgq][+b.dataset.i][b.dataset.c] = null; guardar(); renderSeccion(); return; }
   if (b.dataset.importar !== undefined) { ejecutarImportacion(); return; }
   if (b.dataset.sec) { seccion = b.dataset.sec; renderNav(); renderSeccion(); document.getElementById('contenido').focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
   if (b.dataset.practica) {
@@ -679,8 +758,9 @@ async function alClic(e) {
       BD.lista[n.id] = n; BD.actual = n.id; seleccion = null; guardar(); render();
       aviso(`Copia creada para ${PRACTICAS[n.practica].nombre}. Cambie la práctica arriba si necesita otra.`); break;
     }
+    case 'btn-cap-proponer': s.capacitaciones = cronogramaPropuesto(crearContexto(s)); guardar(); renderSeccion(); renderNav(); aviso('Propuesta cargada. Edite fechas, temas y horarios.'); break;
     case 'btn-perfil-guardar': {
-      BD.perfil = {}; ['osrTitulo', 'osrNombre', 'osrProfesion', 'osrCedula', 'osrLicencia', 'osrAut', 'osrAutCad', 'osrTelefono', 'osrCorreo'].forEach(k => { BD.perfil[k] = s.resp[k]; });
+      BD.perfil = {}; ['osrTitulo', 'osrNombre', 'osrProfesion', 'osrCedula', 'osrRuc', 'osrDireccion', 'osrLicencia', 'osrAut', 'osrAutCad', 'osrTelefono', 'osrCorreo'].forEach(k => { BD.perfil[k] = s.resp[k]; });
       guardar(); renderSeccion(); aviso('Perfil de OSR guardado. Se usará en los expedientes nuevos.'); break;
     }
     case 'btn-perfil-usar': Object.assign(s.resp, BD.perfil, { osrAplica: true }); guardar(); renderSeccion(); aviso('Datos del perfil copiados.'); break;
@@ -702,6 +782,14 @@ async function alClic(e) {
 
 async function alArchivo(e) {
   const t = e.target;
+  if (t.dataset.imgt && t.files[0]) {
+    try {
+      const fila = S()[t.dataset.imgt][+t.dataset.i];
+      fila[t.dataset.c] = await leerFoto(t.files[0], t.dataset.imgt === 'facturas' ? 1400 : 800);
+      quitarEjemplo(); guardar(); renderSeccion(); aviso('Imagen cargada.');
+    } catch (err) { aviso(err.message, true); }
+    return;
+  }
   if (t.dataset.img && t.files[0]) {
     try { S().inst[t.dataset.img] = await leerImagen(t.files[0]); quitarEjemplo(); guardar(); renderSeccion(); aviso('Imagen cargada.'); }
     catch (err) { aviso(err.message, true); }

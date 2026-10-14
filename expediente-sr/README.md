@@ -64,9 +64,17 @@ Formatos propios de la OSR incluidos: bitácora de POE, bitácora de equipos, bi
 
 Antes de descargar, la sección Documentos muestra observaciones como licencias caducadas o por caducar, certificados médicos con más de un año, equipos sin mantenimiento en los últimos 12 meses, prendas no aptas o con espesor insuficiente, y si la instalación debe contar con OSR según el Art. 5 de la Norma Técnica.
 
+## Formatos de la OSR incorporados
+
+- **Plan de capacitación anual** con el formato de cronograma (fecha, tema, hora de inicio y fin, carga horaria, dirigido a, observaciones), datos de la institución y del responsable, y firmas del representante legal y del responsable. Se edita en la sección *Capacitación*; hay una propuesta automática basada en el Anexo III, numeral 17.
+- **Informe de integridad del blindaje del EPR** con las cuatro pruebas (fecha de expiración, evaluación funcional, inspección del blindaje con atenuación e integridad, valoración estética), tabla de tomas radiográficas con las imágenes cargadas, conclusiones calculadas y recomendaciones.
+- **Inventario de EPR** con código interno, descripción, factura/proveedor, cantidad y ubicación coloreada por sala, observaciones, resumen de facturas y anexo con los escaneos.
+
 ## Base normativa
 
 - Reglamento de Seguridad Radiológica, Decreto Supremo N.º 3640 (R.O. 891, 8 de agosto de 1979).
-- Acuerdo Ministerial MERNNR-MERNNR-2022-0011-AM, Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario.
+- Acuerdo Ministerial MERNNR-MERNNR-2022-0011-AM (R.O. Cuarto Suplemento N.º 11, 25 de febrero de 2022), Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario.
+
+Citas verificadas contra los textos: límites de dosis (num. 5.2 lit. a), feto 1 mSv (6.1.1 lit. c), trabajadora gestante (5.2 lit. b y Reglamento Art. 112 lit. e), prendas (5.4 lit. a y b), dosimetría de cristalino y extremidades en intervencionismo (Art. 11 lit. a), responsabilidades del personal (5.8.1 a 5.8.4, 10.3.4, 16.5.1), funciones del OSR (Anexo III), categorías de riesgo (Anexo I), comunicación trimestral de dosis (Reglamento Art. 7 lit. b), venta o arrendamiento de equipos (Art. 70) y actualización de licencia por baja de equipos (4.3.2). El trébol de los rótulos es magenta sobre amarillo (Reglamento Art. 6).
 
 Los valores de técnica radiográfica de los procedimientos son referenciales; cada instalación debe ajustarlos a su equipo y receptor de imagen.

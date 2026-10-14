@@ -225,6 +225,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .importar td small { color: var(--ink-2); }
 .imp-acc { display: flex; gap: 8px; flex-wrap: wrap; }
 
+td.d-imgcell { text-align: center; vertical-align: middle; }
+td.d-imgcell img { max-width: 100%; }
+.d-kv4 th { width: 20%; font-weight: 700; }
+.d-fig { margin: 8px 0 14px; text-align: center; }
+.d-fig img { max-width: 100%; border: 1px solid #ccd; }
+.d-fig figcaption { font-family: var(--f-ui); font-size: 11px; font-style: italic; color: #4A5560; }
+.tabla-ed .img-mini { display: flex; gap: 6px; align-items: center; }
+.tabla-ed .img-mini img { height: 34px; width: 34px; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); }
+.tabla-ed .img-mini label { white-space: nowrap; }
+
 /* Avisos y estados */
 #aviso { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 10px 16px; border-radius: var(--r); box-shadow: 0 6px 20px rgba(0,0,0,.2); z-index: 50; max-width: min(560px, calc(100vw - 32px)); }
 #aviso.err { background: var(--bad); color: #fff; }

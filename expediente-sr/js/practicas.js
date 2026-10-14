@@ -27,7 +27,7 @@ const PRACTICAS = {
     operador: 'Tecnólogo médico en imagenología',
     prescriptor: 'médico',
     tiposEquipo: ['Rayos X convencional fijo', 'Rayos X portátil', 'Telecomandado', 'Fluoroscopio', 'Arco en C', 'Tomógrafo computarizado', 'Mamógrafo', 'Densitómetro óseo', 'Litotriptor'],
-    tiposEpp: ['Delantal plomado frontal', 'Delantal plomado envolvente', 'Collarín tiroideo', 'Kit de protectores gonadales', 'Protector gonadal', 'Guantes plomados', 'Mampara plomada móvil', 'Delantal plomado pediátrico'],
+    tiposEpp: ['Mandil plomado', 'Delantal plomado frontal', 'Delantal plomado envolvente', 'Collarín o protector tiroideo plomado', 'Protectores gonadales plomados (juego)', 'Protector gonadal', 'Par de guantes plomados', 'Faldilla plomada', 'Delantal plomado pediátrico', 'Mampara plomada móvil', 'Biombo plomado'],
     usos: ['Diagnóstico general', 'Emergencia', 'Hospitalización (portátil)', 'Quirófano', 'Estudios contrastados', 'Tomografía', 'Mamografía'],
     temas: [
       { tema: 'Optimización de técnicas radiográficas', contenido: 'Tablas de técnicas, control automático de exposición, colimación, distancia foco-imagen y criterios para evitar repeticiones.', horas: 2 },
@@ -64,7 +64,7 @@ const PRACTICAS = {
     operador: 'Tecnólogo médico en imagenología',
     prescriptor: 'médico',
     tiposEquipo: ['Angiógrafo monoplano', 'Angiógrafo biplano', 'Arco en C', 'Arco en C quirúrgico (móvil)', 'Litotriptor', 'Tomógrafo computarizado'],
-    tiposEpp: ['Delantal plomado envolvente', 'Delantal plomado de dos piezas (chaleco y falda)', 'Collarín tiroideo', 'Gafas plomadas', 'Mampara suspendida de techo', 'Faldón plomado de mesa', 'Mampara plomada móvil', 'Gorro plomado', 'Kit de protectores gonadales'],
+    tiposEpp: ['Mandil plomado', 'Delantal plomado envolvente', 'Delantal plomado de dos piezas (chaleco y falda)', 'Collarín o protector tiroideo plomado', 'Lentes plomados (0,2 mm Pb)', 'Guantes de compresión (0,25 mm Pb)', 'Gorro plomado', 'Protectores gonadales plomados (juego)', 'Cortina plomada bajo la mesa', 'Mampara suspendida de techo (cielítica)', 'Mampara plomada móvil'],
     usos: ['Hemodinamia', 'Neurointervencionismo', 'Intervencionismo periférico', 'Electrofisiología', 'Quirófano', 'CPRE / Gastroenterología'],
     temas: [
       { tema: 'Dosis en piel del paciente y efectos deterministas', contenido: 'Kerma en el punto de referencia (Ka,r), producto kerma-área (PKA), umbrales de lesión cutánea, niveles de notificación durante el procedimiento y seguimiento del paciente.', horas: 2 },
@@ -96,7 +96,7 @@ const PRACTICAS = {
     operador: 'Odontólogo operador',
     prescriptor: 'odontólogo',
     tiposEquipo: ['Intraoral (periapical)', 'Intraoral portátil', 'Panorámico', 'Panorámico-cefalométrico', 'Tomógrafo de haz cónico (CBCT)'],
-    tiposEpp: ['Chaleco plomado con collarín', 'Delantal plomado frontal', 'Collarín tiroideo', 'Delantal plomado pediátrico', 'Mampara plomada móvil'],
+    tiposEpp: ['Chaleco plomado con collarín', 'Mandil plomado', 'Collarín o protector tiroideo plomado', 'Delantal plomado pediátrico', 'Protectores gonadales plomados (juego)', 'Mampara plomada móvil'],
     usos: ['Diagnóstico intraoral', 'Diagnóstico extraoral', 'Ortodoncia', 'Implantología', 'Endodoncia'],
     temas: [
       { tema: 'Técnicas intraorales y uso de posicionadores', contenido: 'Técnica de paralelismo y bisectriz, posicionadores, colimación rectangular, tiempos de exposición con sensor digital y criterios de repetición.', horas: 2 },
@@ -143,10 +143,12 @@ const PROTOCOLOS = {
       si: /portátil/,
       params: [['Tórax AP en cama', '85 a 100', '2 a 4', '100 a 120', 'Detector detrás del paciente, cabecera elevada si es posible']],
       pasos: [
+        'Usar el equipo móvil solo cuando no sea posible trasladar al paciente a la sala convencional, y únicamente dentro de la casa de salud (Norma Técnica, num. 13.1.3 lit. a y b).',
         'Confirmar con enfermería la identidad del paciente y la posibilidad de embarazo.',
-        'Solicitar que salgan del cubículo las personas que no sean necesarias. A los pacientes vecinos que no puedan movilizarse, mantenerlos a más de 2 m del tubo o interponer la mampara móvil.',
+        'Solicitar que salgan del cubículo las personas que no sean necesarias. En habitaciones compartidas, interponer biombos plomados entre el paciente y sus vecinos (num. 13.1.3 lit. e).',
+        'Usar rejilla antidifusora cuando la región de estudio tenga un espesor mayor de 12 cm (lit. c).',
         'Si un acompañante o miembro del personal debe sostener al paciente, entregarle delantal y collarín y ubicarlo fuera del haz directo.',
-        'El operador se coloca a no menos de 2 m del tubo, con delantal, y anuncia en voz alta el disparo.',
+        'El operador dispara con el cable disparador extendido (longitud mínima de 2 m, lit. f), con delantal, y anuncia en voz alta el disparo.',
         'Colimar al área de interés; nunca abrir el colimador al tamaño completo del detector por comodidad.'
       ],
       calidad: 'Ausencia de rotación, campos pulmonares completos y vías, sondas o catéteres identificables.'
@@ -159,7 +161,7 @@ const PROTOCOLOS = {
         'Preguntar a toda paciente en edad fértil por la posibilidad de embarazo y registrar la respuesta en la solicitud.',
         'Paciente en decúbito supino, plano sagital medio centrado en la mesa.',
         'Centrar a nivel de las crestas ilíacas y colimar desde el diafragma hasta la sínfisis del pubis.',
-        'En varones, colocar protector gonadal cuando no interfiera con la región de estudio.',
+        'Proteger las gónadas que queden a menos de 5 cm del campo con un blindaje de al menos 0,5 mm Pb, salvo que interfiera con la región de estudio (Norma Técnica, num. 6.1.3 lit. h).',
         'Exponer en espiración sostenida.'
       ],
       calidad: 'Visualización de la línea del psoas, contorno renal y sínfisis del pubis, sin rotación de la pelvis.'

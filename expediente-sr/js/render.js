@@ -25,6 +25,38 @@ const cTxt = (x) => (x && typeof x === 'object') ? (x.t == null ? '' : x.t) : (x
 const cFill = (x) => (x && typeof x === 'object' && x.fill) ? x.fill.replace('#', '') : null;
 const cBold = (x) => !!(x && typeof x === 'object' && x.bold);
 
+const cImg = (x) => (x && typeof x === 'object' && x.img) ? x.img : null;
+const tipoImg = (img) => /^data:image\/jpe?g/i.test(img.data) ? 'JPEG' : 'PNG';
+
+/* Word solo acepta aquí imágenes PNG: las fotos (JPEG) se convierten al exportar */
+const _pngCache = new Map();
+function aPNG(img) {
+  if (!img || tipoImg(img) === 'PNG') return Promise.resolve(img);
+  if (_pngCache.has(img.data)) return Promise.resolve(_pngCache.get(img.data));
+  return new Promise((res) => {
+    const im = new Image();
+    im.onload = () => {
+      const cv = document.createElement('canvas'); cv.width = im.width; cv.height = im.height;
+      cv.getContext('2d').drawImage(im, 0, 0);
+      const out = { data: cv.toDataURL('image/png'), w: im.width, h: im.height };
+      _pngCache.set(img.data, out); res(out);
+    };
+    im.onerror = () => res(null);
+    im.src = img.data;
+  });
+}
+async function prepararImagenesWord(doc) {
+  const mapa = new Map();
+  const tareas = [];
+  const ver = (img) => { if (img && !mapa.has(img)) { mapa.set(img, null); tareas.push(aPNG(img).then(r => mapa.set(img, r))); } };
+  doc.blocks.forEach(b => {
+    if (b.t === 'img') ver(b.img);
+    if (b.t === 'table') b.rows.forEach(r => r.forEach(x => ver(cImg(x))));
+  });
+  await Promise.all(tareas);
+  return mapa;
+}
+
 function richHTML(text) {
   return segmentos(text).map(s => s.bold ? `<strong>${esc(s.text)}</strong>` : esc(s.text)).join('').replace(/\n/g, '<br>');
 }
@@ -46,9 +78,10 @@ function trebolPNG() {
   const m = 30, top = 40, base = S - 50;
   g.lineJoin = 'round';
   g.beginPath(); g.moveTo(S / 2, top); g.lineTo(S - m, base); g.lineTo(m, base); g.closePath();
-  g.fillStyle = '#FFD200'; g.fill(); g.lineWidth = 34; g.strokeStyle = '#111111'; g.stroke();
+  g.fillStyle = '#FFD200'; g.fill(); g.lineWidth = 34; g.strokeStyle = '#8E1F6E'; g.stroke();
   const cx = S / 2, cy = base - (base - top) / 3 + 6, r0 = 22;
-  g.fillStyle = '#111111';
+  /* Reglamento de Seguridad Radiológica, Art. 6: trébol magenta o púrpura sobre fondo amarillo */
+  g.fillStyle = '#8E1F6E';
   g.beginPath(); g.arc(cx, cy, r0, 0, Math.PI * 2); g.fill();
   [90, 210, 330].forEach(a => {
     const a1 = (a - 30) * Math.PI / 180, a2 = (a + 30) * Math.PI / 180;
@@ -111,6 +144,7 @@ function renderHTML(doc, c) {
 }
 
 function celdaHTML(x, tag = 'td') {
+  if (cImg(x)) return `<td class="d-imgcell"><img src="${cImg(x).data}" alt="Imagen" style="max-height:${(x.h || 40) * 3.2}px"></td>`;
   const f = cFill(x);
   const style = f ? ` style="background:#${f}"` : '';
   const t = richHTML(cTxt(x));
@@ -135,6 +169,10 @@ function blockHTML(b, c, st) {
       const pre = (b.pre || []).map(r => `<tr>${r.map(x => `<th colspan="${x.s || 1}" ${x.t ? th : 'class="d-th-vacio"'}>${esc(x.t || '')}</th>`).join('')}</tr>`).join('');
       return `<div class="d-tw"><table class="d-t ${b.small ? 'd-small' : ''} ${b.tall ? 'd-tall' : ''}">${cols}<thead>${pre}<tr>${b.head.map(h => `<th ${th}>${esc(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r => `<tr>${r.map(x => celdaHTML(x)).join('')}</tr>`).join('')}</tbody></table></div>`;
     }
+    case 'kv4':
+      return `<div class="d-tw"><table class="d-t d-kv4"><tbody>${b.rows.map(r => `<tr><th style="background:#${st.claro}">${esc(r[0])}</th><td>${richHTML(r[1])}</td><th style="background:#${st.claro}">${esc(r[2] || '')}</th><td>${richHTML(r[3] || '')}</td></tr>`).join('')}</tbody></table></div>`;
+    case 'img':
+      return `<figure class="d-fig"><img src="${b.img.data}" alt="${esc(b.caption || 'Imagen')}" style="max-height:${(b.maxH || 120) * 3.2}px">${b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''}</figure>`;
     case 'kv':
       return `<div class="d-tw"><table class="d-t d-kv ${b.tall ? 'd-tall' : ''}"><tbody>${b.rows.map(r => `<tr><th style="background:#${st.claro}">${esc(r[0])}</th><td>${richHTML(r[1])}</td></tr>`).join('')}</tbody></table></div>`;
     case 'sign':
@@ -165,6 +203,8 @@ async function buildDocx(doc, c) {
   const { Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, ImageRun, Header, Footer, PageNumber, BorderStyle, ShadingType, PageBreak, PageOrientation, VerticalAlign, TableLayoutType } = D;
   const st = estilo(c);
   const W = anchoContenidoTwips(doc.landscape);
+  const PNG = await prepararImagenesWord(doc);
+  const mmPx = 3.78;
   const e = encabezadoInfo(doc, c);
   const borde = { style: BorderStyle.SINGLE, size: 4, color: '7A8894' };
   const bordes = { top: borde, bottom: borde, left: borde, right: borde };
@@ -204,7 +244,11 @@ async function buildDocx(doc, c) {
       trs.push(new TableRow({ tableHeader: true, children: r.map(x => { const s = x.s || 1; const w = ws.slice(k, k + s).reduce((a, b) => a + b, 0); k += s; return celda(x.t || '', w, { bold: true, align: 'c', fill: x.t ? st.col : undefined, color: 'FFFFFF', size, span: s > 1 ? s : undefined, valign: VerticalAlign.CENTER }); }) }));
     });
     if (head) trs.push(new TableRow({ tableHeader: true, children: head.map((h, i) => celda(h, ws[i], { bold: true, fill: st.col, color: 'FFFFFF', size, align: 'c', valign: VerticalAlign.CENTER })) }));
-    rows.forEach(r => trs.push(new TableRow({ height: o.tall ? { value: 420, rule: 'atLeast' } : undefined, children: r.map((x, i) => celda(plano(cTxt(x)), ws[i], { size, bold: (o.kv && i === 0) || cBold(x), fill: cFill(x) || (o.kv && i % 2 === 0 ? st.claro : undefined), align: x && x.align })) })));
+    rows.forEach(r => trs.push(new TableRow({ cantSplit: r.some(x => cImg(x)), height: o.tall ? { value: 420, rule: 'atLeast' } : undefined, children: r.map((x, i) => {
+      const im = cImg(x) && PNG.get(cImg(x));
+      if (im) return celda([new Paragraph({ alignment: AlignmentType.CENTER, children: [new ImageRun({ data: im.data, transformation: imgDims(im, ws[i] / 15 - 10, (x.h || 40) * mmPx) })] })], ws[i], { valign: VerticalAlign.CENTER });
+      return celda(plano(cTxt(x)), ws[i], { size, bold: (o.kv && i % 2 === 0) || cBold(x), fill: cFill(x) || (o.kv && i % 2 === 0 ? st.claro : undefined), align: x && x.align, valign: o.vcenter ? VerticalAlign.CENTER : undefined });
+    }) })));
     return new Table({ rows: trs, width: { size: W, type: WidthType.DXA }, columnWidths: ws, layout: TableLayoutType.FIXED });
   };
 
@@ -248,6 +292,13 @@ async function buildDocx(doc, c) {
         break;
       case 'table': children.push(tabla(b.head, b.rows, b.widths, b)); children.push(new Paragraph({ children: [], spacing: { after: 60 } })); break;
       case 'kv': children.push(tabla(null, b.rows.map(r => [r[0], r[1]]), [38, 62], { kv: true, tall: b.tall })); children.push(new Paragraph({ children: [], spacing: { after: 60 } })); break;
+      case 'kv4': children.push(tabla(null, b.rows.map(r => [r[0], r[1], r[2] || '', r[3] || '']), [20, 30, 20, 30], { kv: true, small: true })); children.push(new Paragraph({ children: [], spacing: { after: 60 } })); break;
+      case 'img': {
+        const im = PNG.get(b.img);
+        if (im) children.push(new Paragraph({ alignment: AlignmentType.CENTER, keepNext: !!b.caption, children: [new ImageRun({ data: im.data, transformation: imgDims(im, Math.min(W / 15, (b.maxW || 170) * mmPx), (b.maxH || 120) * mmPx) })] }));
+        if (b.caption) children.push(par(b.caption, { align: 'c', size: 16, italics: true, color: '4A5560' }));
+        break;
+      }
       case 'legend':
         children.push(par('Leyenda:', { bold: true, size: 16, after: 40 }));
         b.items.forEach(i => children.push(new Paragraph({ spacing: { after: 20 }, children: [...(i.fill ? [new TextRun({ text: '     ', shading: { type: ShadingType.CLEAR, color: 'auto', fill: i.fill } }), new TextRun({ text: '  ' })] : []), new TextRun({ text: i.t, size: 16 })] })));
@@ -397,6 +448,7 @@ function buildPDF(doc, c) {
       startY: y,
       head: headRows.length ? headRows : undefined,
       body: rows.map(r => r.map(x => {
+        if (cImg(x)) return { content: '', _img: cImg(x), styles: { minCellHeight: (x.h || 40) + 3 } };
         const f = cFill(x);
         const styles = {};
         if (f) styles.fillColor = hexRGB(f);
@@ -409,7 +461,13 @@ function buildPDF(doc, c) {
       styles: { font: 'helvetica', fontSize: o.small ? 7.5 : 8.5, cellPadding: 1.4, textColor: [31, 42, 51], lineColor: [122, 136, 148], lineWidth: 0.2, valign: 'top', overflow: 'linebreak', minCellHeight: o.tall ? 7.5 : 0 },
       headStyles: { fillColor: COL, textColor: [255, 255, 255], fontStyle: 'bold', valign: 'middle', halign: 'center' },
       columnStyles: colStyles,
-      rowPageBreak: 'avoid'
+      rowPageBreak: 'avoid',
+      didDrawCell: (d) => {
+        const im = d.section === 'body' && d.cell.raw && d.cell.raw._img;
+        if (!im) return;
+        const dm = imgDims(im, d.cell.width - 3, d.cell.height - 3);
+        pdf.addImage(im.data, tipoImg(im), d.cell.x + (d.cell.width - dm.width) / 2, d.cell.y + (d.cell.height - dm.height) / 2, dm.width, dm.height);
+      }
     });
     y = pdf.lastAutoTable.finalY + 4;
   }
@@ -477,6 +535,16 @@ function buildPDF(doc, c) {
         break;
       case 'table': tabla(b.head, b.rows, b.widths, b); break;
       case 'kv': tabla(null, b.rows.map(r => [r[0], r[1]]), [38, 62], { kv: true, tall: b.tall }); break;
+      case 'kv4': tabla(null, b.rows.map(r => [r[0], r[1], r[2] || '', r[3] || '']), [20, 30, 20, 30], { kv: true, small: true }); break;
+      case 'img': {
+        const dm = imgDims(b.img, Math.min(CW, b.maxW || 170), b.maxH || 120);
+        espacio(dm.height + (b.caption ? 8 : 3));
+        pdf.addImage(b.img.data, tipoImg(b.img), PW / 2 - dm.width / 2, y, dm.width, dm.height);
+        y += dm.height + 2;
+        if (b.caption) rich(b.caption, ML, CW, { align: 'c', size: 8, italic: true });
+        y += 3;
+        break;
+      }
       case 'legend': {
         espacio(6 + b.items.length * 4.5);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(8); pdf.text('Leyenda:', ML, y + 3); y += 5;
@@ -635,6 +703,31 @@ function agregarHojaExcel(wb, doc, c, usados) {
         break;
       case 'big': r++; filaTexto(b.text, { bold: true, size: 20, align: 'center', height: 30 * (b.text.split('\n').length + 1) }); if (b.sub) filaTexto(b.sub, { align: 'center' }); r++; break;
       case 'trebol': filaTexto('[Símbolo internacional de radiación ionizante]', { align: 'center', italic: true }); break;
+      case 'kv4': {
+        const mitad = Math.floor(nCols / 2);
+        b.rows.forEach(row => {
+          [[1, 0], [mitad + 1, 2]].forEach(([c0, k0]) => {
+            const fin = c0 === 1 ? mitad : nCols;
+            const lab = ws.getCell(r, c0); lab.value = row[k0] || ''; lab.font = { bold: true, size: 9 }; lab.fill = relleno(st.claro);
+            const vc = c0 + 1 <= fin ? c0 + 1 : c0;
+            if (fin > vc) ws.mergeCells(r, vc, r, fin);
+            const val = ws.getCell(r, vc); val.value = plano(row[k0 + 1] || ''); val.font = { size: 9 }; val.alignment = { wrapText: true, vertical: 'top' };
+            for (let cc = c0; cc <= fin; cc++) ws.getCell(r, cc).border = bordes;
+          });
+          ws.getRow(r).height = 18; r++;
+        });
+        r++;
+        break;
+      }
+      case 'img': {
+        const ext = tipoImg(b.img) === 'JPEG' ? 'jpeg' : 'png';
+        const id = wb.addImage({ base64: b.img.data, extension: ext });
+        const dm = imgDims(b.img, anchoRango(1, nCols) * 7, (b.maxH || 120) * 3.78);
+        ws.addImage(id, { tl: { col: 0, row: r - 1 }, ext: { width: dm.width, height: dm.height } });
+        r += Math.ceil(dm.height / 20) + 1;
+        if (b.caption) filaTexto(b.caption, { italic: true, size: 9, align: 'center' });
+        break;
+      }
       case 'kv':
         b.rows.forEach(([kk, v]) => {
           ws.mergeCells(r, 1, r, 2); ws.mergeCells(r, 3, r, nCols);
@@ -673,6 +766,15 @@ function agregarHojaExcel(wb, doc, c, usados) {
             const col = i + 1, fin = ultimo(i);
             if (fin > col) ws.mergeCells(r, col, r, fin);
             const cell = ws.getCell(r, col);
+            if (!esHead && cImg(v)) {
+              const im = cImg(v);
+              const id = wb.addImage({ base64: im.data, extension: tipoImg(im) === 'JPEG' ? 'jpeg' : 'png' });
+              const dm = imgDims(im, anchoRango(col, fin) * 7 - 6, (v.h || 40) * 3.78);
+              ws.addImage(id, { tl: { col: col - 1 + 0.05, row: r - 1 + 0.05 }, ext: { width: dm.width, height: dm.height } });
+              for (let cc = col; cc <= fin; cc++) ws.getCell(r, cc).border = bordes;
+              hmax = Math.max(hmax, dm.height * 0.75 + 6);
+              return;
+            }
             const txt = plano(cTxt(v));
             cell.value = txt;
             cell.alignment = { wrapText: true, vertical: esHead ? 'middle' : 'top', horizontal: esHead || (v && v.align === 'c') ? 'center' : 'left' };

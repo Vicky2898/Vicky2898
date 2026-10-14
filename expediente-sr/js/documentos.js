@@ -201,87 +201,99 @@ function docOficioBaja(c) {
   const { I } = c;
   const filas = c.eqBaja.map(e => [e.tipo || '', e.marca || '', e.modelo || '', e.serie || '', e.estado || '', fCorta(e.destinoFecha), e.destinoDoc || '']);
   const hayChatarra = c.eqBaja.some(e => /baja/i.test(e.estado || ''));
+  const quedan = c.eqAct.length;
   const blocks = [
     Ps(`Oficio Nro. ${ph(c.O.numBaja, 'Número de oficio de la institución')}`, { align: 'r', bold: true }),
     Ps(lugarFecha(c), { align: 'r' }),
     SP(),
-    Ps(`**Asunto:** Notificación del destino final de equipos generadores de radiación ionizante – ${ph(I.razonSocial, 'Razón social')}.`),
+    Ps(`**Asunto:** Notificación del destino final de equipos generadores de radiación ionizante y solicitud de actualización de la licencia institucional tipo C – ${ph(I.razonSocial, 'Razón social')}.`),
     SP(),
     destinatarioMEM(c),
     SP(),
     Ps('De mi consideración:'),
-    Ps(`En cumplimiento del artículo 70 del ${REGLAMENTO}, pongo en conocimiento de la Autoridad Reguladora el destino final de los equipos que constaban registrados bajo responsabilidad de ${ph(I.razonSocial, 'Razón social')}, RUC ${ph(I.ruc, 'RUC')}:`, { align: 'j' }),
+    Ps(`En cumplimiento del artículo 70 del ${REGLAMENTO}, que obliga a notificar la venta o el arrendamiento de una máquina de rayos X dentro de los quince días siguientes, y del numeral 4.3.2 de la Norma Técnica (${NORMA}), pongo en conocimiento de la Autoridad Reguladora el destino final de los equipos que constaban registrados bajo responsabilidad de ${ph(I.razonSocial, 'Razón social')}, RUC ${ph(I.ruc, 'RUC')}${I.licencia ? `, licencia institucional ${I.licencia}` : ''}:`, { align: 'j' }),
     T(['Tipo', 'Marca', 'Modelo', 'Serie', 'Destino', 'Fecha', 'Respaldo'], filas.length ? filas : [['', '', '', '', '', '', '']], { small: true }),
     hayChatarra
       ? Ps('Para los equipos dados de baja se adjunta el acta de chatarrización correspondiente, en la que constan la inutilización del tubo de rayos X y la identificación de cada equipo.', { align: 'j' })
       : Ps('Se adjuntan los documentos que respaldan la transferencia de cada equipo.', { align: 'j' }),
-    Ps('Solicito que estos equipos sean excluidos del registro de la instalación.', { align: 'j' }),
+    quedan
+      ? Ps(`Por lo expuesto, solicito la actualización de la licencia institucional tipo C para los ${quedan} ${quedan === 1 ? 'equipo que continúa' : 'equipos que continúan'} en operación.`, { align: 'j' })
+      : Ps('Al no quedar equipos generadores de radiación ionizante en operación, solicito la extinción de la licencia institucional y el cierre del expediente, conforme al numeral 4.3.2 de la Norma Técnica.', { align: 'j' }),
     Ps('Atentamente,'),
     SIGN([c.firmas.rep])
   ];
-  return { code: `${c.pref}-OF-03`, title: 'Oficio de destino final de equipos', kind: 'carta', blocks };
+  return { title: 'Oficio de destino final de equipos', kind: 'carta', blocks };
 }
 
 /* ---------------------------------------------------- DECLARACIONES Y NOMBRAMIENTOS */
 
 function docEmbrion(c) {
   const { I, P, S } = c;
-  const medidaPractica = {
-    medico: 'No realizará estudios con equipo portátil ni en quirófano, no participará en fluoroscopia y no sujetará pacientes durante la exposición. Sus tareas se concentrarán en la sala de comando y en actividades fuera de la zona controlada.',
-    intervencionista: 'Será reubicada, en lo posible, fuera de la sala de procedimientos mientras dure la gestación. Si por la naturaleza del servicio debe permanecer, lo hará con delantal envolvente, detrás de la mampara y lejos del lado del tubo, con un segundo dosímetro bajo el delantal.',
-    odontologico: 'Realizará las exposiciones siempre desde detrás de la barrera o a más de 2 m del tubo, no sostendrá receptores ni pacientes y no permanecerá en la sala durante tomas panorámicas o de tomografía.'
+  const tareas = {
+    medico: 'tareas administrativas del servicio, recepción y verificación de solicitudes, gestión de imágenes y del archivo, o actividades fuera de la zona controlada',
+    intervencionista: 'tareas fuera de la sala de procedimientos: programación, preparación previa del paciente fuera de la sala, registro de indicadores de dosis y gestión documental',
+    odontologico: 'atención clínica sin exposición, gestión de historias clínicas o actividades fuera de la sala de rayos X'
   }[S.practica];
   const blocks = [
     H('1. Objeto'),
-    Ps(`Establecer las restricciones adicionales que ${ph(I.razonSocial, 'Razón social')} aplicará a las trabajadoras ocupacionalmente expuestas que declaren su embarazo, de modo que el embrión o feto reciba el mismo grado de protección que se exige para los miembros del público, conforme al numeral 5.2, literal b) de la Norma Técnica (${NORMA}).`, { align: 'j' }),
-    H('2. Alcance'),
+    Ps(`Establecer las restricciones adicionales que ${ph(I.razonSocial, 'Razón social')} aplicará a las trabajadoras ocupacionalmente expuestas en estado de gestación, de modo que el embrión o feto reciba el mismo grado de protección que se exige para los miembros del público.`, { align: 'j' }),
+    H('2. Base legal'),
+    T(['Norma', 'Referencia', 'Disposición'], [
+      ['Norma Técnica MERNNR-MERNNR-2022-0011-AM', { t: 'Num. 5.2 lit. b)', align: 'c' }, 'La sospecha de embarazo no excluye a la trabajadora; el empleador aplica restricciones adicionales para dar al embrión o feto la protección de un miembro del público.'],
+      ['Norma Técnica MERNNR-MERNNR-2022-0011-AM', { t: 'Num. 6.1.1 lit. c)', align: 'c' }, 'La vigilancia radiológica del POE en estado de gravidez no debe sobrepasar el límite de 1 mSv para el feto durante la gestación.'],
+      ['Norma Técnica MERNNR-MERNNR-2022-0011-AM', { t: 'Num. 6.1.2 lit. d)', align: 'c' }, 'La trabajadora que sospeche estar embarazada lo notifica al representante legal o su delegado.'],
+      ['Reglamento de Seguridad Radiológica (D.S. 3640)', { t: 'Art. 112 lit. e)', align: 'c' }, 'El personal femenino en estado de gravidez reconocido por diagnóstico médico no debe estar en contacto con radiación y se destina a labores sin contacto directo con las radiaciones ionizantes.']
+    ], { widths: [30, 17, 53], small: true }),
+    H('3. Alcance'),
     Ps(`Aplica a todas las trabajadoras que forman parte del POE de la práctica de ${P.corto}, cualquiera sea su modalidad de contratación.`, { align: 'j' }),
-    H('3. Compromiso del empleador'),
-    Ps(`La institución, a través de su representante legal, se compromete a que la dosis al embrión o feto no supere **1 mSv durante el resto del embarazo**, contado desde la fecha de la notificación. La declaración de embarazo no será causa de despido, discriminación ni reducción de la remuneración.`, { align: 'j' }),
-    H('4. Disposiciones'),
+    H('4. Compromiso del empleador'),
+    Ps(`La institución, a través de su representante legal, garantiza que la dosis al embrión o feto no supere **1 mSv durante la gestación**. La notificación del embarazo no será motivo para excluir a la trabajadora, reducir su remuneración ni darle un trato discriminatorio.`, { align: 'j' }),
+    H('5. Disposiciones'),
     L([
-      `La trabajadora notifica su estado por escrito al ${c.rolOSR.toLowerCase()} tan pronto lo conozca, usando el formato de este documento. La notificación es voluntaria, pero la institución la promueve en cada capacitación.`,
-      'En un plazo máximo de cinco días laborables, el responsable revisa con la trabajadora sus tareas, sus registros dosimétricos de los últimos doce meses y define las medidas por escrito.',
-      medidaPractica,
-      'Se le asigna, cuando corresponda, un segundo dosímetro a la altura del abdomen y por debajo del delantal, con lectura mensual. El responsable revisa cada lectura y, si la proyección indica que podría acercarse a 1 mSv, cambia de inmediato sus funciones.',
-      'No participa en la atención de incidentes o situaciones de emergencia radiológica.',
-      'Al tratarse de equipos generadores de rayos X, sin fuentes radiactivas, no existe riesgo de contaminación; por eso la lactancia no requiere restricciones adicionales.'
+      `La trabajadora que sospeche estar embarazada lo notifica por escrito al representante legal o al ${c.rolOSR.toLowerCase()}, como su delegado, usando el formato de este documento.`,
+      'En un plazo máximo de cinco días laborables, el responsable revisa con ella sus tareas y sus registros dosimétricos de los últimos doce meses, y deja por escrito las medidas adoptadas.',
+      `Confirmado el embarazo por diagnóstico médico, la trabajadora es destinada a labores sin contacto directo con las radiaciones ionizantes (Art. 112 lit. e del Reglamento), como ${tareas}.`,
+      'Mientras permanezca en el servicio mantiene su dosímetro personal y, si su nueva tarea la acerca a una zona supervisada, se le asigna un segundo dosímetro a la altura del abdomen. El responsable revisa cada lectura frente al límite de 1 mSv.',
+      'No sujeta pacientes ni actúa como acompañante durante exposiciones, en concordancia con el numeral 6.1.4 lit. b) de la Norma Técnica, y no participa en la atención de incidentes radiológicos.',
+      'Al tratarse de equipos generadores de rayos X, sin fuentes radiactivas, no existe riesgo de contaminación; la lactancia no requiere restricciones adicionales.'
     ], true),
-    H('5. Registro'),
-    Ps('La notificación y las medidas adoptadas se archivan en el expediente de la trabajadora, con copia en el registro de vigilancia dosimétrica.', { align: 'j' }),
-    H('6. Formato de notificación de embarazo'),
+    H('6. Registro'),
+    Ps('La notificación, el certificado médico y las medidas adoptadas se archivan en el expediente de la trabajadora, con copia en el registro de vigilancia dosimétrica.', { align: 'j' }),
+    H('7. Formato de notificación de embarazo'),
     KV([
       ['Nombres y apellidos', ''],
       ['Cédula', ''],
       ['Cargo / función', ''],
       ['Fecha probable de parto', ''],
       ['Fecha de notificación', ''],
-      ['Medidas adoptadas', ''],
+      ['Labor asignada durante la gestación', ''],
       ['Dosímetro adicional asignado (código)', '']
     ], { tall: true }),
     SIGN([{ name: '', role: 'Trabajadora', blank: true }, { ...c.firmas.osr }]),
     PB(),
     aprobaciones(c)
   ];
-  return { code: `${c.pref}-PR-01`, title: 'Protección del embrión y feto en trabajadoras expuestas', kind: 'sgc', blocks };
+  return { title: 'Protección del embrión y feto en trabajadoras expuestas', kind: 'sgc', blocks };
 }
 
+/* Funciones del OSR según el Anexo III de la Norma Técnica */
 function funcionesOSR(c) {
   const f = [
-    'Elaborar, implementar y mantener actualizado el programa de protección radiológica de la instalación.',
-    'Vigilar el cumplimiento del Reglamento de Seguridad Radiológica y de la Norma Técnica vigente.',
-    `Gestionar la dosimetría personal: entrega y recambio de dosímetros, revisión de reportes, comunicación de las dosis a cada trabajador e investigación cuando se supere 1,5 mSv en un mes.`,
-    'Coordinar los exámenes médicos pre-ocupacionales y periódicos del POE y mantener su registro.',
-    'Elaborar y ejecutar el plan anual de capacitación y llevar el registro de asistencia.',
-    'Verificar que el mantenimiento, el control de calidad y el levantamiento radiométrico se realicen en los plazos previstos y por empresas licenciadas.',
-    'Mantener el inventario de prendas de protección y coordinar la prueba anual de integridad de su blindaje.',
-    'Verificar la señalización, la rotulación y la delimitación de zonas controladas y supervisadas.',
-    'Mantener el sistema de registros y la lista maestra de documentos.',
-    'Investigar, registrar e informar los incidentes y accidentes radiológicos.',
-    'Actuar como enlace con la Autoridad Reguladora y acompañar las inspecciones.',
-    'Suspender cualquier operación que represente un riesgo radiológico no justificado e informar de inmediato al representante legal.'
+    'Conocer, participar y supervisar el diseño, montaje, instalación, operación, modificación y clausura de la instalación, aplicando la filosofía ALARA (Anexo III, num. 1).',
+    'Velar porque las licencias, autorizaciones y demás documentación estén actualizadas, vigentes y disponibles (num. 2).',
+    'Asegurar que solo el personal autorizado manipule los equipos y que los manuales de operación estén disponibles (num. 3 y 4).',
+    'Estar presente en las inspecciones y auditorías de la Autoridad Reguladora e informar al titular de la licencia cualquier hecho relacionado con la seguridad (num. 5 y 6).',
+    'Llevar a cabo o verificar el levantamiento radiométrico y participar desde la adquisición hasta la recepción de los equipos (num. 7 y 8).',
+    'Clasificar, señalizar y vigilar las zonas controladas y supervisadas y establecer los requisitos de acceso y permanencia (num. 11 y 12).',
+    'Gestionar la vigilancia dosimétrica: archivo de datos, récord dosimétrico, investigación de dosis que superen el nivel de investigación e información a cada trabajador de su dosis (num. 13).',
+    'Verificar la aptitud médica del POE y proporcionar al médico los datos del riesgo radiológico de cada puesto (num. 14).',
+    'Coordinar los procedimientos del manual de seguridad radiológica en caso de incidente o accidente (num. 15 y 16).',
+    'Capacitar al POE según el plan anual, con la temática mínima de protección del POE y del paciente, dosímetro personal, elementos de protección y trámites de licencias, e inducir al personal nuevo (num. 17 y 18).',
+    'Elaborar el programa de vigilancia y control de dosis y vigilar el control de calidad de los equipos de rayos X (num. 19 y 20).',
+    'Asegurar la corrección de las no conformidades de las auditorías y paralizar los trabajos cuando no se cumplan los requisitos de protección radiológica (num. 21 y 22).',
+    'Elaborar el manual de seguridad radiológica, implementar el programa de protección radiológica y llevar todos los registros y evidencias (num. 23 a 25).'
   ];
-  if (c.S.practica === 'intervencionista') f.splice(3, 0, 'Revisar los indicadores de dosis de los procedimientos y verificar que se aplique el seguimiento a pacientes que superen los niveles de vigilancia.');
+  if (c.S.practica === 'intervencionista') f.splice(7, 0, 'Revisar los registros de parámetros dosimétricos de los pacientes (Art. 10.1 lit. e) y verificar el seguimiento de quienes superen los niveles de vigilancia de dosis en piel.');
   return f;
 }
 
@@ -308,67 +320,54 @@ function docNombramientoOSR(c) {
 }
 
 function docDesignacionMedico(c) {
-  const { I, R, P, S } = c;
-  const resp = [
-    'Justificar cada exposición a partir de la prescripción y de la información clínica disponible, y rechazar los estudios que no estén justificados.',
-    'Aprobar los procedimientos técnicos y los protocolos de la práctica, junto con el personal operador.',
-    'Verificar que antes de cada estudio se haya preguntado por la posibilidad de embarazo y se haya obtenido el consentimiento informado.',
-    'Establecer la conducta frente a pacientes embarazadas y pediátricos según el procedimiento de justificación de la institución.',
-    'Revisar periódicamente los indicadores de dosis de los pacientes y compararlos con los niveles de referencia para diagnóstico.',
-    'Participar en el análisis de rechazo y repetición de imágenes y en las acciones de optimización.'
-  ];
-  if (S.practica === 'intervencionista') resp.push('Registrar los indicadores de dosis de cada procedimiento y activar el seguimiento clínico de los pacientes que superen los niveles de vigilancia de dosis en piel.');
-  if (S.practica === 'odontologico') resp.push('Seleccionar la técnica intraoral o extraoral de menor dosis que responda a la pregunta diagnóstica.');
+  const { I, R, P } = c;
+  const rm = responsabilidadesMedico(c);
   const blocks = [
     Ps(lugarFecha(c), { align: 'r' }),
     SP(),
     LINES([ph(R.medTitulo, 'Título'), ph(R.medNombre, 'Nombre del profesional'), 'Presente.']),
     SP(),
     Ps('**Asunto:** Designación de responsable de la protección radiológica del paciente'),
-    Ps(`Conforme al artículo 5, numeral 5.1, literal l) y al numeral 5.8.3 de la Norma Técnica (${NORMA}), le asigno la responsabilidad total de la protección del paciente en la práctica de ${P.corto} de ${ph(I.razonSocial, 'Razón social')}.`, { align: 'j' }),
-    Ps(`Esta designación considera su formación como ${ph(R.medEspecialidad, 'especialidad')} y su licencia ocupacional tipo A N.º ${ph(R.medLicencia, 'N.º de licencia')}, vigente hasta el ${fLarga(R.medLicCad)}, en la que consta la razón social de la instalación.`, { align: 'j' }),
-    Ps('Sus responsabilidades son:', { align: 'j' }),
-    L(resp, true),
+    Ps(`Conforme al artículo 5, numeral 5.1, literal l) de la Norma Técnica (${NORMA}), le asigno la responsabilidad total de la protección del paciente en la práctica de ${P.corto} de ${ph(I.razonSocial, 'Razón social')}.`, { align: 'j' }),
+    Ps(`Esta designación considera su formación como ${ph(R.medEspecialidad, 'especialidad')} y su licencia personal tipo A ${ph(R.medLicencia, 'N.º de licencia')}, vigente hasta el ${fLarga(R.medLicCad)}, en la que consta la razón social de la instalación.`, { align: 'j' }),
+    Ps(`De acuerdo con el ${rm.num} de la Norma Técnica, sus responsabilidades son:`, { align: 'j' }),
+    L(rm.lista, true),
     SIGN([c.firmas.rep]),
     SP(),
     H('Aceptación'),
     Ps(`Yo, ${ph(R.medNombre, 'Nombre del profesional')}, con cédula N.º ${ph(R.medCedula, 'Cédula')}, acepto la designación y las responsabilidades que implica.`, { align: 'j' }),
     SIGN([c.firmas.med])
   ];
-  return { code: `${c.pref}-DC-03`, title: 'Designación del responsable de la protección del paciente', kind: 'carta', blocks };
+  return { title: 'Designación del responsable de la protección del paciente', kind: 'carta', blocks };
 }
 
 function docFunciones(c) {
-  const { I, P, S, R } = c;
+  const { I, P, S } = c;
+  const tecnologo = 'Operar el equipo bajo condiciones seguras; utilizar las técnicas que correspondan a cada estudio; proporcionar y asegurar el uso de los elementos de protección radiológica al paciente y a sus acompañantes; usar adecuadamente su dosímetro y los elementos de protección; participar en la optimización y en el programa de garantía de calidad; cumplir los protocolos clínicos; mantener su licencia personal tipo A vigente.';
+  const rm = responsabilidadesMedico(c);
   const roles = [
-    ['Representante legal', 'Máximo responsable de la seguridad radiológica. Provee recursos, mantiene vigentes las licencias, contrata dosimetría, vigilancia médica y mantenimiento, y notifica a la Autoridad Reguladora los cambios de personal y de equipos.'],
-    [c.rolOSR, funcionesOSR(c).slice(0, 7).join(' ')],
-    [P.tituloResp, 'Justifica las exposiciones, aprueba los procedimientos técnicos, define la conducta en embarazadas y pediátricos y revisa los indicadores de dosis de los pacientes.']
+    [{ t: 'Representante legal / licenciatario', bold: true }, { t: 'Art. 5, num. 5.1', align: 'c' }, 'Máximo responsable de la protección radiológica de la instalación. Asegura licencias personales tipo A, nombra al OSR cuando corresponde, ejecuta el plan anual de capacitación, garantiza la prescripción documentada, la justificación en embarazadas y pediátricos, la vigilancia dosimétrica y médica, y notifica a la Autoridad Reguladora la suspensión de equipos y los cambios de personal en los plazos establecidos.'],
+    [{ t: c.rolOSR, bold: true }, { t: c.R.osrAplica ? 'Num. 5.8.3 y Anexo III' : 'Reglamento, Art. 17 lit. d)', align: 'c' }, c.R.osrAplica ? funcionesOSR(c).slice(0, 8).map(x => x.replace(/\s*\((Anexo III, )?num\.[^)]*\)/g, '')).join(' ') : 'Por delegación del representante legal, vigila de forma permanente los aspectos de control de radiación: dosimetría, vigilancia médica, capacitación, registros, prendas de protección, señalización y relación con la Autoridad Reguladora.'],
+    [{ t: P.tituloResp, bold: true }, { t: rm.num.replace('numerales', 'Num.').replace('numeral', 'Num.'), align: 'c' }, rm.lista.join(' ')]
   ];
-  if (S.practica === 'medico') {
-    roles.push(['Tecnólogo médico (operador)', 'Verifica la prescripción y la identidad del paciente, pregunta por embarazo, aplica el procedimiento técnico, coloca las prendas de protección, colima, evita repeticiones, usa su dosímetro y reporta fallas del equipo o incidentes.']);
-    roles.push(['Personal de apoyo (enfermería, camilleros)', 'Cuando deba permanecer en la sala o sujetar a un paciente, usa delantal y collarín y se ubica fuera del haz directo. No opera el equipo.']);
-  } else if (S.practica === 'intervencionista') {
-    roles.push(['Médico intervencionista (operador)', 'Dirige el uso de la fluoroscopia y de las adquisiciones, aplica las medidas de optimización y decide la conducta cuando se alcanzan los niveles de notificación de dosis.']);
-    roles.push(['Tecnólogo médico', 'Opera el equipo, configura los protocolos de baja dosis, informa en voz alta el Ka,r acumulado a partir de 3 Gy y registra los indicadores de dosis al final del procedimiento.']);
-    roles.push(['Enfermería y anestesiología', 'Usan delantal, collarín, gafas y dosímetro; se ubican lejos del tubo y detrás de la mampara cuando su tarea lo permite.']);
-  } else {
-    roles.push(['Odontólogo operador', 'Justifica la radiografía, selecciona la técnica, coloca chaleco plomado al paciente, usa posicionadores, realiza el disparo desde detrás de la barrera o a 2 m del tubo y usa su dosímetro.']);
-    roles.push(['Asistente dental', 'Prepara al paciente y el material. No opera el equipo ni permanece en la sala durante el disparo; no sostiene receptores.']);
-  }
+  if (S.practica !== 'odontologico') roles.push([{ t: 'Técnico, tecnólogo médico o licenciado en radiología', bold: true }, { t: 'Num. 5.8.4', align: 'c' }, tecnologo]);
+  if (S.practica === 'odontologico') roles.push([{ t: 'Tecnólogo o licenciado en radiología (si lo hay)', bold: true }, { t: 'Num. 16.4 y 5.8.4', align: 'c' }, tecnologo]);
+  if (S.practica === 'intervencionista') roles.push([{ t: 'Anestesiología, instrumentación, enfermería y practicantes', bold: true }, { t: 'Num. 10.3.4 y Art. 11', align: 'c' }, 'No requieren licencia de la Autoridad Reguladora, pero obligatoriamente usan dosimetría personal (cuerpo entero, extremidades y cristalino cuando corresponda), elementos de protección y cumplen el control médico. Se ubican lejos del tubo y detrás de las mamparas siempre que su tarea lo permita.']);
+  if (S.practica === 'medico') roles.push([{ t: 'Personal de apoyo (enfermería, camilleros)', bold: true }, { t: 'Num. 6.1.4 lit. a) y b)', align: 'c' }, 'Permanece fuera de la zona controlada durante la exposición salvo que su presencia sea indispensable; en ese caso usa los dispositivos de protección que entrega el operador. Una persona en estado de gestación no puede actuar como acompañante.']);
+  if (S.practica === 'odontologico') roles.push([{ t: 'Asistente dental', bold: true }, { t: '—', align: 'c' }, 'Prepara al paciente y el material. No opera el equipo, no permanece en la sala durante el disparo y no sostiene receptores.']);
   const acept = (c.poe.length ? c.poe : [{}, {}, {}]).map((p, i) => [String(i + 1), p.nombre || '', p.cedula || '', p.funcion || '', '', '']);
   const blocks = [
     H('1. Objeto'),
-    Ps(`Asignar las funciones y responsabilidades en materia de seguridad radiológica al personal de la práctica de ${P.corto} de ${ph(I.razonSocial, 'Razón social')}, en cumplimiento del artículo 9 del Reglamento de Seguridad Radiológica y del artículo 12, literal g) de la Norma Técnica.`, { align: 'j' }),
+    Ps(`Asignar las funciones y responsabilidades en materia de seguridad radiológica al personal de la práctica de ${P.corto} de ${ph(I.razonSocial, 'Razón social')}, con la aceptación respectiva de cada trabajador, según el artículo 9 del Reglamento de Seguridad Radiológica y los artículos ${S.practica === 'intervencionista' ? '12 lit. g)' : '15 lit. g)'} y 5.8 de la Norma Técnica.`, { align: 'j' }),
     H('2. Funciones por cargo'),
-    T(['Cargo', 'Funciones y responsabilidades'], roles, { widths: [26, 74] }),
+    T(['Cargo', 'Base', 'Funciones y responsabilidades'], roles, { widths: [20, 13, 67], small: true }),
     H('3. Obligaciones comunes a todo el POE'),
     L([
-      'Mantener vigente su licencia ocupacional y presentarla cuando se le solicite.',
-      'Portar el dosímetro personal durante toda la jornada y dejarlo, al terminar, en el lugar destinado fuera de la zona controlada.',
+      'Mantener vigente su licencia personal tipo A y presentarla cuando se le solicite. Las licencias caducan a los cuatro años y la renovación se solicita con 90 días de anticipación (Reglamento, Art. 33 y 105).',
+      'Portar el dosímetro personal durante la jornada y dejarlo, al terminar, almacenado en la institución fuera de la zona controlada (Norma, num. 6.1.2 lit. c).',
       'Firmar el recibido de su reporte dosimétrico.',
       'Asistir a las capacitaciones del plan anual.',
-      'Realizarse el examen médico ocupacional anual.',
+      'Realizarse el examen médico ocupacional anual (Reglamento, Art. 112).',
       'Informar de inmediato al responsable cualquier falla, incidente o condición insegura.'
     ]),
     H('4. Aceptación de funciones'),
@@ -376,54 +375,179 @@ function docFunciones(c) {
     T(['N.º', 'Nombres y apellidos', 'Cédula', 'Función', 'Firma', 'Fecha'], acept, { widths: [6, 30, 14, 22, 16, 12], tall: true }),
     aprobaciones(c)
   ];
-  return { code: `${c.pref}-PR-02`, title: 'Asignación de funciones y responsabilidades', kind: 'sgc', blocks };
+  return { title: 'Asignación de funciones y responsabilidades', kind: 'sgc', blocks };
 }
 
 /* ---------------------------------------------------- PLANES Y PROCEDIMIENTOS */
 
 function temasPlan(c) {
-  const P = c.P;
-  const extra = (P.temasSi || []).filter(t => c.tiene(t.si));
-  return [...TEMAS_COMUNES, ...P.temas, ...extra];
+  return cronogramaActual(c).map(x => ({ tema: x.tema, contenido: x.obs || '', horas: horasEntre(x.horaIni, x.horaFin) || 2 }));
 }
 
-function docPlanCapacitacion(c) {
-  const { I, P, R } = c;
-  const temas = temasPlan(c);
-  const capacitador = ph(R.osrNombre, 'Capacitador');
-  const filas = temas.map((t, i) => {
-    const mes = MESES[Math.min(10, Math.round(i * 10 / Math.max(1, temas.length - 1)) + 1)];
-    return [String(i + 1), t.tema, t.contenido, mes.charAt(0).toUpperCase() + mes.slice(1), String(t.horas), capacitador];
-  });
-  const totalH = temas.reduce((a, t) => a + t.horas, 0);
-  const blocks = [
-    H('1. Objetivo'),
-    Ps(`Mantener y actualizar los conocimientos en protección radiológica del personal ocupacionalmente expuesto de la práctica de ${P.corto} de ${ph(I.razonSocial, 'Razón social')} durante el año ${c.anio}, en cumplimiento de los artículos 52 literal c), 55 y 132 del Reglamento de Seguridad Radiológica y del artículo 5, numeral 5.1, literal j) de la Norma Técnica.`, { align: 'j' }),
-    H('2. Alcance'),
-    Ps(`Dirigido a las ${c.poe.length || '[n]'} personas que integran el POE y, en los temas que corresponda, al personal de apoyo que ingresa a zonas controladas.`, { align: 'j' }),
-    H('3. Responsable'),
-    Ps(`La elaboración y ejecución del plan está a cargo de ${capacitador}, ${c.rolOSR.toLowerCase()}. Los temas especializados podrán ser dictados por profesionales externos con experiencia acreditada.`, { align: 'j' }),
-    H('4. Metodología'),
-    L([
-      'Sesiones presenciales teórico-prácticas en las instalaciones, con material de apoyo entregado a los participantes.',
-      'Evaluación escrita al final de cada tema; la calificación mínima aprobatoria es 7 sobre 10. Quien no apruebe repite el tema en el mes siguiente.',
-      'Registro de asistencia firmado por cada participante y por el capacitador, y certificado de participación.',
-      'El personal que ingrese durante el año recibe una inducción con los temas 1 a 5 antes de iniciar sus actividades.'
-    ]),
-    H(`5. Cronograma ${c.anio}`),
-    T(['N.º', 'Tema', 'Contenido', 'Mes', 'Horas', 'Capacitador'], filas, { widths: [5, 20, 43, 10, 7, 15], small: true }),
-    Ps(`Carga horaria total: **${totalH} horas** por trabajador.`),
-    H('6. Indicadores'),
-    L([
-      'Cumplimiento del cronograma: temas dictados / temas programados × 100. Meta: 100 %.',
-      'Cobertura: trabajadores capacitados / total del POE × 100. Meta: 100 %.',
-      'Aprovechamiento: trabajadores que aprueban la evaluación / trabajadores evaluados × 100. Meta: mayor o igual a 90 %.'
-    ]),
-    H('7. Registros'),
-    Ps(`La asistencia se registra en el formato ${codigoDoc(c, 'REG-CAP')} (Registro de capacitaciones). Los certificados y evaluaciones se archivan junto con el registro.`, { align: 'j' }),
-    aprobaciones(c)
+function responsabilidadesMedico(c) {
+  if (c.S.practica === 'odontologico') return {
+    num: 'numeral 16.5.1',
+    lista: [
+      'Operar el equipo bajo condiciones seguras.',
+      'Interpretar las imágenes que se obtengan como resultado del radiodiagnóstico odontológico.',
+      'Proporcionar y asegurar el uso de los elementos de protección radiológica al paciente y a sus acompañantes, y mantenerlos en condiciones adecuadas.',
+      'Justificar cada radiografía, con énfasis en pacientes embarazadas y pediátricos (Art. 5, num. 5.1 lit. q).',
+      'Mantener su licencia personal tipo A vigente.'
+    ]
+  };
+  return {
+    num: c.S.practica === 'medico' ? 'numerales 5.8.1 y 5.8.2' : 'numeral 5.8.1',
+    lista: [
+      'Asumir la responsabilidad de la protección radiológica del paciente durante el diagnóstico o el procedimiento.',
+      'Evaluar el estudio solicitado y recomendar el procedimiento adecuado para obtener la información diagnóstica con la mínima exposición del paciente.',
+      'Cumplir y establecer los protocolos clínicos optimizados de la práctica, y los parámetros de exposición por tipo de equipo y de estudio, revisando las tablas de técnicas con los operadores.',
+      'Justificar todos los estudios, con énfasis en personas embarazadas y pediátricas.',
+      'Evaluar cualquier incidente o accidente radiológico ocurrido.',
+      'Utilizar adecuadamente los dosímetros y elementos de seguridad radiológica y mantenerlos en condiciones adecuadas.',
+      'Participar activamente en la optimización de la práctica y en el programa de garantía de calidad.',
+      'Mantener su licencia personal tipo A vigente.',
+      ...(c.S.practica === 'intervencionista' ? ['Mantener el registro de parámetros dosimétricos del paciente y activar el seguimiento clínico cuando se superen los niveles de vigilancia de dosis en piel (Art. 10.1 lit. e y g).'] : [])
+    ]
+  };
+}
+
+function horasEntre(a, b) {
+  const p = (t) => { const m = /^(\d{1,2}):(\d{2})/.exec(t || ''); return m ? +m[1] + (+m[2]) / 60 : null; };
+  const x = p(a), y = p(b);
+  return x != null && y != null && y > x ? Math.round((y - x) * 10) / 10 : null;
+}
+
+function fechaHabil(anio, mes, dia) {
+  const d = new Date(anio, mes, dia);
+  while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() + 1);
+  return isoDe(d);
+}
+
+/* Propuesta basada en el Anexo III, num. 17 de la Norma Técnica y en el formato de la OSR */
+function cronogramaPropuesto(c) {
+  const P = c.P, S = c.S;
+  const base = [
+    [`Principios básicos de protección radiológica en ${P.corto}`, 'POE y personal administrativo', 'Incluye medidas prácticas y responsabilidades'],
+    ['Uso correcto del dosímetro personal y lectura de los reportes dosimétricos', 'POE', 'Revisión del cumplimiento y registro'],
+    ['Protección radiológica del paciente: justificación, embarazadas y pediátricos', 'POE', 'Revisión de los procedimientos internos'],
+    ['Uso adecuado y mantenimiento del equipo de protección radiológica', 'POE', 'Capacitación práctica y teórica'],
+    ['Procedimientos para la obtención y renovación de licencias institucionales y personales', 'POE y representante legal', 'Actualización de normativa']
   ];
-  return { code: `${c.pref}-PL-01`, title: `Plan anual de capacitación y entrenamiento ${c.anio}`, kind: 'sgc', blocks };
+  const propio = S.practica === 'intervencionista'
+    ? ['Protección del cristalino y dosis en piel del paciente en intervencionismo', 'POE y personal involucrado en la práctica', 'Incluye niveles de notificación de Ka,r']
+    : S.practica === 'odontologico'
+      ? ['Técnicas intraorales y extraorales de baja dosis', 'POE', 'Uso de posicionadores y colimación']
+      : c.tiene(/Tomógrafo/)
+        ? ['Optimización de dosis en tomografía computarizada', 'POE', 'CTDIvol, DLP y protocolos pediátricos']
+        : ['Optimización de técnicas radiográficas y control de calidad básico', 'POE', 'Revisión de tablas de técnicas'];
+  const lista = [...base, propio,
+    ['Gestión de riesgos radiológicos y emergencias', 'POE y personal administrativo', 'Simulacro y evaluación'],
+    ['Actualización sobre normativa de seguridad radiológica nacional e internacional', 'POE y representante legal', 'Revisión y ajustes al plan anual']];
+  const meses = [2, 3, 4, 5, 6, 7, 9, 11];
+  const anio = +c.anio;
+  return lista.map((x, i) => ({ fecha: fechaHabil(anio, meses[i], 15), tema: x[0], horaIni: '09:00', horaFin: '11:00', dirigido: x[1], obs: x[2], capacitador: '' }));
+}
+
+function cronogramaActual(c) {
+  const l = (c.S.capacitaciones || []).filter(x => x.tema);
+  return l.length ? l : cronogramaPropuesto(c);
+}
+
+function datosResponsable(c) {
+  const R = c.R;
+  return [
+    ['Responsable', [R.osrProfesion, R.osrNombre].filter(Boolean).join(' ') || '[Nombre]'],
+    ['RUC', R.osrRuc || '[RUC]'],
+    ['Dirección', R.osrDireccion || '[Dirección]'],
+    ['Cargo', c.rolOSR],
+    ['Autorización de O.S.R. N.°', R.osrLicencia || R.osrCedula || '[N.º]'],
+    ['Código', R.osrAut || '[Código]'],
+    ['Vigencia', R.osrAutCad ? fCorta(R.osrAutCad) : '[Vigencia]']
+  ];
+}
+
+function datosInstitucion(c) {
+  const I = c.I;
+  return [
+    ['Razón social', ph(I.razonSocial, 'Razón social')],
+    ['RUC', ph(I.ruc, 'RUC')],
+    ['Nombre comercial', I.nombreComercial || 'No registra'],
+    ['Práctica', c.P.nombre],
+    ['Dirección', `${ph(I.direccion, 'Dirección')}, ${ph(I.ciudad, 'Ciudad')}, ${ph(I.provincia, 'Provincia')}`],
+    ['Representante legal', I.repEmpresa ? `${I.repEmpresa} (Rep.: ${ph(I.repLegal, 'Nombre')})` : ph(I.repLegal, 'Representante legal')],
+    ['Cargo', I.repCargo || 'Representante legal']
+  ];
+}
+
+function tipoCorto(t) {
+  t = t || '';
+  if (/Delantal|Mandil|Chaleco|dos piezas/i.test(t)) return 'Mandil';
+  if (/Collar/i.test(t)) return 'Collarín';
+  if (/gonadal/i.test(t)) return 'Protector gonadal';
+  if (/Guante/i.test(t)) return 'Guantes';
+  if (/Faldilla|Falda|Faldón/i.test(t)) return 'Faldilla';
+  if (/Gorro/i.test(t)) return 'Gorro';
+  if (/Gafa|Lente/i.test(t)) return 'Lentes';
+  return t;
+}
+
+function nombresEPR(lista) {
+  const cuenta = {};
+  return lista.map(p => { const k = tipoCorto(p.tipo); cuenta[k] = (cuenta[k] || 0) + 1; return `${k} ${cuenta[k]}`; });
+}
+const nivel = (v) => { const n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? null : n; };
+
+function estadoDePuntaje(prom) {
+  if (prom == null) return '';
+  if (prom >= 4.75) return 'Excelente';
+  if (prom >= 3.75) return 'Bueno';
+  if (prom >= 2.5) return 'Regular';
+  return 'Pésimo';
+}
+const colorEstado = (e) => ({ Excelente: 'C6E0B4', Bueno: 'FFF2CC', Regular: 'F8CBAD', Pésimo: 'F4B183' })[e] || null;
+
+function estadoCaducidad(p) {
+  if (!p.fechaCaducidad) return p.estado === 'Malo' ? 'Pésimo' : (p.estado === 'Regular' ? 'Regular' : 'Bueno');
+  const n = diasHasta(p.fechaCaducidad);
+  if (n < 0) return 'Pésimo';
+  if (n <= 180) return 'Regular';
+  return 'Bueno';
+}
+
+function estadoFuncional(p) {
+  const v = [p.cubierta, p.sujeciones, p.costuras].map(nivel).filter(x => x != null);
+  return v.length ? estadoDePuntaje(v.reduce((a, b) => a + b, 0) / v.length) : (p.estado === 'Bueno' ? 'Bueno' : p.estado || '');
+}
+
+function estadoIntegridad(p) {
+  if (p.resultado === 'No apta') return 'Pésimo';
+  return p.estadoBlindaje || (/ningun|^$/i.test(p.defectos || '') ? 'Excelente' : 'Bueno');
+}
+
+const COLORES_SALA = ['BDD7EE', 'F8CBAD', 'FFE699', 'C6E0B4', 'D9D2E9', 'F4B183', 'B4C7E7', 'E2EFDA', 'FCE4D6'];
+
+function docPlanCapacitacion(c) {
+  const lista = cronogramaActual(c);
+  const capacitador = (x) => x.capacitador || [c.R.osrTitulo, c.R.osrNombre].filter(Boolean).join(' ') || c.rolOSR;
+  const filas = lista.map((x, i) => [{ t: String(i + 1), align: 'c' }, { t: fCorta(x.fecha), align: 'c' }, x.tema, { t: x.horaIni || '', align: 'c' }, { t: x.horaFin || '', align: 'c' }, { t: String(horasEntre(x.horaIni, x.horaFin) || ''), align: 'c' }, x.dirigido || 'POE', x.obs || '']);
+  const total = lista.reduce((a, x) => a + (horasEntre(x.horaIni, x.horaFin) || 0), 0);
+  const di = datosInstitucion(c), dr = datosResponsable(c);
+  const blocks = [
+    Ps(`La planificación se realiza con base en el Anexo III, numeral 17 de la Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario, que fija como temática mínima la protección radiológica del POE y del paciente, el uso correcto del dosímetro personal y de los elementos de protección radiológica, y los trámites de licencia personal e institucional.`, { align: 'j' }),
+    { t: 'kv4', rows: di.map((r, i) => [r[0], r[1], dr[i][0], dr[i][1]]) },
+    T(['N.°', 'Fecha', 'Tema', 'Hora inicio', 'Hora fin', 'Carga horaria', 'Dirigido a', 'Observaciones'],
+      [...filas, [{ t: '', align: 'c' }, '', { t: 'Carga horaria total', bold: true }, '', '', { t: String(total), align: 'c', bold: true }, '', '']],
+      { widths: [4, 9, 31, 8, 8, 8, 14, 18], small: true }),
+    Ps('**Observaciones generales:**'),
+    L([
+      'El plan de capacitación deberá estar disponible en todo momento para la Autoridad Reguladora durante las inspecciones (Norma Técnica, Art. 5 num. 5.1 lit. j).',
+      `Se llevará un registro de asistencia firmado por cada participante, que archivará el ${c.rolOSR}, con la carga horaria y la frecuencia de cada capacitación (Art. ${c.S.practica === 'intervencionista' ? '12' : '15'} lit. d y e).`,
+      'Se entregará material de apoyo digital y certificado de asistencia al finalizar cada sesión.',
+      'El personal que ingrese durante el año recibirá una inducción en protección radiológica antes de iniciar sus actividades (Anexo III, num. 18).'
+    ], true),
+    SIGN([{ ...c.firmas.rep, role: 'Representante Legal' }, { ...c.firmas.osr, role: 'Responsable' }])
+  ];
+  return { title: `Plan de capacitación anual y entrenamiento en seguridad radiológica ${c.anio}`, kind: 'sgc', landscape: true, blocks };
 }
 
 function protocolosAplicables(c) {
@@ -445,13 +569,16 @@ function docProcTecnicos(c) {
       'Colimar al área de interés. El campo nunca debe ser mayor que el detector.',
       'Cerrar la puerta de la sala antes del disparo y verificar que la señalización luminosa esté encendida.',
       'El operador realiza la exposición desde la consola protegida, viendo al paciente y con comunicación verbal.',
-      'Nadie del personal sujeta pacientes de forma rutinaria. Si es imprescindible, lo hace un acompañante con delantal, fuera del haz directo; nunca una mujer embarazada ni un menor de edad.',
+      'Nadie del personal sujeta pacientes de forma rutinaria. Si es imprescindible, lo hace un acompañante con delantal, fuera del haz directo; nunca una persona en estado de gestación (num. 6.1.4 lit. b) ni un menor de 18 años (Reglamento, Art. 3).',
+      'Durante la exposición no permanecen personas ni pacientes en los vestidores internos de la sala, las puertas de la sala y de los vestidores se mantienen cerradas y la sala se usa para un solo paciente a la vez (num. 6.1.3 lit. c, d y f).',
+      'Proteger las gónadas del paciente que queden a menos de 5 cm del campo con un blindaje de al menos 0,5 mm Pb, salvo que interfiera con el estudio (num. 6.1.3 lit. h).',
       'Antes de repetir una imagen, consultar con el médico especialista. Las repeticiones se registran con su causa.'
     ],
     intervencionista: [
       'Ningún procedimiento se realiza sin prescripción médica y consentimiento informado firmado.',
       'Antes de iniciar, completar la lista de verificación de la sala.',
-      'Todo el personal en sala usa delantal, collarín, gafas plomadas y dosímetro.',
+      'Todo el personal en sala usa delantal, collarín, lentes plomados de 0,2 mm Pb y su dosimetría de cuerpo entero, cristalino y extremidades; el médico intervencionista usa además gorro plomado (num. 5.4 lit. b; Art. 11 lit. a).',
+      'Usar las cortinas plomadas bajo la mesa, la mampara móvil y la cielítica (Art. 10.1 lit. i).',
       'Mantener la puerta cerrada y la señalización luminosa encendida durante el procedimiento.',
       'Al finalizar, registrar tiempo de fluoroscopia, Ka,r, PKA y número de series en la hoja del procedimiento.'
     ],
@@ -460,7 +587,7 @@ function docProcTecnicos(c) {
       'Preguntar a las pacientes por la posibilidad de embarazo y registrar la respuesta.',
       'Colocar chaleco plomado al paciente, con collarín cuando no interfiera con la imagen.',
       'Nunca sostener el receptor ni el cabezal del equipo durante la exposición; usar posicionadores.',
-      'El operador dispara desde detrás de la barrera o a no menos de 2 m del tubo.',
+      'El operador dispara desde detrás de la barrera o a no menos de 2 m del tubo. Los controles de exposición del equipo periapical se ubican en un lugar seguro para evitar manipulaciones (num. 16.2.1 lit. d).',
       'En niños, si necesitan ayuda, el acompañante usa chaleco plomado y se coloca fuera del haz.'
     ]
   }[S.practica];
@@ -549,6 +676,7 @@ function docJustificacion(c) {
     Ps(`Establecer cómo se justifica y optimiza la exposición a radiación ionizante en pacientes embarazadas y pediátricos en la práctica de ${P.corto} de ${ph(I.razonSocial, 'Razón social')}, según el artículo 5, numeral 5.1, literal q) de la Norma Técnica.`, { align: 'j' }),
     H('2. Pacientes embarazadas o con posibilidad de embarazo'),
     L([
+      `Este procedimiento es el que exige el numeral 6.1.3 lit. g) de la Norma Técnica para verificar la posibilidad de embarazo. Los exámenes a pacientes embarazadas se evitan salvo fuertes indicaciones clínicas (lit. i).`,
       `Antes de cada estudio, el operador pregunta a toda paciente entre 10 y 50 años: «¿Está embarazada o existe la posibilidad de que lo esté?». La respuesta queda escrita en la solicitud${odont ? ' o en la historia clínica' : ''}.`,
       'Si la respuesta es afirmativa o dudosa, el estudio se detiene y se comunica al profesional responsable.',
       odont
@@ -585,54 +713,58 @@ function docJustificacion(c) {
 }
 
 function docDosimetria(c) {
-  const { I, P, V, S } = c;
+  const { I, V, S } = c;
   const interv = S.practica === 'intervencionista';
   const blocks = [
     H('1. Objetivo'),
     Ps(`Definir cómo se realiza la vigilancia dosimétrica del POE de ${ph(I.razonSocial, 'Razón social')}, cómo se comunica la dosis a cada trabajador y qué se hace cuando una lectura supera el nivel de investigación.`, { align: 'j' }),
     H('2. Servicio de dosimetría'),
     KV([
-      ['Proveedor', ph(V.dosEmpresa, 'Empresa de dosimetría')],
-      ['Licencia del proveedor', ph(V.dosLicencia, 'N.º de licencia')],
-      ['Tipo de dosímetro', ph(V.dosTipo, 'TLD / OSL')],
-      ['Periodo de lectura', ph(V.dosPeriodo, 'Mensual')],
-      ['Vigencia del contrato', V.dosVigencia ? `Hasta el ${fLarga(V.dosVigencia)}` : '[Vigencia]']
+      ['Laboratorio autorizado (num. 6.1.1)', ph(V.dosEmpresa, 'Empresa de dosimetría')],
+      ['Licencia del laboratorio', ph(V.dosLicencia, 'N.º de licencia')],
+      ['Tipo de dosímetro', `${ph(V.dosTipo, 'TLD / OSL')} de cuerpo entero${interv ? ', extremidades y cristalino (Art. 11 lit. a)' : ''}`],
+      ['Periodo de recambio', ph(V.dosPeriodo, 'Bimestral')],
+      ['Contrato', `${V.dosInicio ? 'Desde ' + fLarga(V.dosInicio) : '[inicio]'} ${V.dosVigencia ? 'hasta ' + fLarga(V.dosVigencia) : '[fin]'}`]
     ]),
     H('3. Uso y almacenamiento del dosímetro'),
     L([
-      'El dosímetro es personal e intransferible y se usa durante toda la jornada.',
-      interv ? 'Se coloca a la altura del tórax, debajo del delantal. Se recomienda un segundo dosímetro sobre el delantal, a la altura del cuello, para estimar la dosis en cristalino y tiroides.' : 'Se coloca a la altura del tórax, debajo del delantal cuando se lo usa.',
-      'Al terminar la jornada se deja en el tablero de almacenamiento, ubicado fuera de la zona controlada y junto al dosímetro de control, lejos de fuentes de calor y humedad.',
+      'El dosímetro es personal e intransferible y su portación es obligatoria durante toda la jornada (Reglamento, Art. 5; Norma, num. 6.1.1 lit. a y b). Incluye a estudiantes y personal en formación.',
+      interv
+        ? 'El dosímetro de cuerpo entero se coloca a la altura del tórax, bajo el delantal. El de cristalino se usa a la altura de los ojos, del lado más próximo al tubo, y el de extremidades en la mano dominante del médico operador, como exige el Art. 11 lit. a) de la Norma.'
+        : 'Se coloca a la altura del tórax, por debajo del delantal cuando se lo usa.',
+      'Al terminar la jornada se deja almacenado en la institución, en un lugar adecuado fuera de la zona controlada, junto al dosímetro de control (num. 6.1.2 lit. c).',
       'Nunca se deja dentro de la sala, se expone de forma intencional ni se lleva a otra institución.',
       'Si se pierde o se daña, el trabajador lo informa el mismo día; el responsable solicita el reemplazo y asigna una dosis estimada a ese periodo.'
     ], true),
     H('4. Límites de dosis'),
+    Ps('Límites del numeral 5.2 lit. a) de la Norma Técnica, que actualiza los valores del Art. 1 del Reglamento de Seguridad Radiológica (expresados en rem) a los límites internacionales vigentes:', { align: 'j' }),
     T(['Magnitud', 'Personal ocupacionalmente expuesto', 'Miembros del público'], [
-      ['Dosis efectiva', '20 mSv por año, promediada en 5 años consecutivos, sin superar 50 mSv en un solo año', '1 mSv por año'],
-      ['Dosis equivalente en cristalino', '20 mSv por año, promediada en 5 años, sin superar 50 mSv en un solo año', '15 mSv por año'],
-      ['Dosis equivalente en piel', '500 mSv por año', '50 mSv por año'],
-      ['Dosis equivalente en manos y pies', '500 mSv por año', '—']
-    ], { widths: [26, 48, 26], small: true }),
+      ['Dosis efectiva', '20 mSv por año promediados en 5 años consecutivos (100 mSv en 5 años), sin superar 50 mSv en un año cualquiera', '1 mSv por año'],
+      ['Dosis equivalente en cristalino', '20 mSv por año promediados en 5 años consecutivos, sin superar 50 mSv en un año cualquiera', '—'],
+      ['Dosis equivalente en extremidades (manos y pies) o piel', '500 mSv en un año', '—'],
+      ['Embrión o feto de una trabajadora gestante', '1 mSv durante la gestación (num. 6.1.1 lit. c)', '—']
+    ], { widths: [26, 50, 24], small: true }),
     Ps('**Nivel de investigación** establecido por la Autoridad Reguladora: **1,5 mSv en un mes** de dosis equivalente personal Hp(10).', { align: 'j' }),
     H('5. Comunicación de la dosis'),
     L([
-      `Al recibir el reporte, el ${c.rolOSR.toLowerCase()} lo revisa en un plazo de cinco días laborables.`,
-      'Cada trabajador conoce su dosis del periodo y su dosis acumulada en el año y firma el recibido en el registro de dosimetría.',
-      'El reporte original se archiva y se conserva durante toda la vida laboral del trabajador y al menos 30 años después de terminada su relación con la institución.'
+      `Al recibir cada reporte, el ${c.rolOSR.toLowerCase()} lo revisa en un plazo máximo de cinco días laborables.`,
+      'Cada trabajador conoce su dosis del periodo y su dosis acumulada, y firma el recibido en el registro de dosimetría. La comunicación se realiza al menos trimestralmente (Reglamento, Art. 7 lit. b) y con cada reporte del laboratorio (Norma, num. 6.1.1 lit. e).',
+      'El POE tiene acceso a sus registros de dosis. Los registros se conservan durante todo el empleo y como mínimo treinta años después de que el trabajador deje la institución (num. 5.1 lit. r).',
+      'Al cese de funciones de un trabajador, se le entrega su récord dosimétrico en un plazo no mayor a quince días (Reglamento, Art. 133).'
     ], true),
     H('6. Investigación de dosis'),
-    Ps('Cuando una lectura mensual supera 1,5 mSv, o cuando un valor no es coherente con el historial del trabajador, el responsable:', { align: 'j' }),
+    Ps('Cuando una lectura mensual supera 1,5 mSv, o un valor no es coherente con el historial del trabajador, el empleador investiga el hecho e implementa acciones correctivas (num. 5.1 lit. r; Anexo III, num. 13 lit. d). El responsable:', { align: 'j' }),
     L([
       'Entrevista al trabajador y verifica si el dosímetro estuvo bien usado y almacenado o si pudo quedar dentro de la sala.',
       'Revisa la carga de trabajo del periodo, los procedimientos en los que participó y el estado de las prendas de protección y del equipo.',
       'Determina si la dosis es real o atribuible a un mal uso del dosímetro y deja constancia escrita de la conclusión.',
-      'Define acciones correctivas (reentrenamiento, cambio de funciones, revisión de blindajes o del equipo) y fija un plazo.',
+      'Define acciones correctivas (reentrenamiento, cambio de funciones, revisión de blindajes o del equipo) con un plazo.',
       'Si se confirma una dosis que supera los límites, informa por escrito a la Autoridad Reguladora y al representante legal.',
       'Archiva el informe de investigación en el registro de dosimetría.'
     ], true),
     aprobaciones(c)
   ];
-  return { code: `${c.pref}-PR-06`, title: 'Vigilancia dosimétrica e investigación de dosis', kind: 'sgc', blocks };
+  return { title: 'Vigilancia dosimétrica e investigación de dosis', kind: 'sgc', blocks };
 }
 
 function docSeguimientoPaciente(c) {
@@ -669,57 +801,115 @@ function docSeguimientoPaciente(c) {
 
 /* ---------------------------------------------------- INFORMES Y LISTADOS */
 
-const ES_PRENDA = /Delantal|Chaleco|Collarín|Falda|Guantes|Gorro|Faldón|dos piezas/i;
+const ES_PRENDA = /Delantal|Mandil|Chaleco|Collar|Falda|Guantes|Gorro|Faldón|dos piezas|gonadal/i;
 
 function docInformeDelantales(c) {
-  const { I, V } = c;
+  const { I, V, R } = c;
   const prendas = c.epp.filter(e => ES_PRENDA.test(e.tipo || ''));
-  const aptas = prendas.filter(p => (p.resultado || 'Apta') !== 'No apta');
-  const noAptas = prendas.filter(p => p.resultado === 'No apta');
+  const nom = nombresEPR(prendas);
+  const eti = (i) => prendas[i].codigo ? `${nom[i]}\n${prendas[i].codigo}` : nom[i];
   const fecha = V.fechaPruebaEpp || c.fecha;
-  const filas = prendas.map((p, i) => [String(i + 1), p.codigo || '', p.tipo || '', p.marca || '', p.espesor || '', p.sala || '', p.kv || '', p.mas || '', p.defectos || 'Ninguno', p.resultado || 'Apta']);
+  const tipos = [...new Set(prendas.map(p => tipoCorto(p.tipo).toLowerCase()))];
+  const tiposTxt = tipos.length ? tipos.map(t => t === 'mandil' ? 'mandiles' : t === 'collarín' ? 'collarines' : t + 'es').join(', ').replace(/, ([^,]*)$/, ' y $1') + ' plomados' : 'mandiles y collarines plomados';
+  const inst = `${ph(I.razonSocial, 'Razón social')}${I.nombreComercial ? ' – ' + I.nombreComercial.toUpperCase() : ''}${I.sede ? ' ' + I.sede.toUpperCase() : ''}`;
+  const sinFilas = [['', '', '']];
+  const f1 = prendas.map((p, i) => [eti(i), { t: p.fechaCaducidad ? fCorta(p.fechaCaducidad) : 'NR', align: 'c' }, (() => { const e = estadoCaducidad(p); return { t: e, align: 'c', fill: colorEstado(e) }; })()]);
+  const f2 = prendas.map((p, i) => [eti(i), { t: `Cubierta: ${p.cubierta || '—'}\nSujeciones: ${p.sujeciones || '—'}\nCosturas: ${p.costuras || '—'}`, align: 'c' }, (() => { const e = estadoFuncional(p); return { t: e, align: 'c', fill: colorEstado(e) }; })()]);
+  const f3 = prendas.map((p, i) => [eti(i), `Indicaciones de la etiqueta del proveedor: ${p.espesor || '[espesor]'} mm Pb equivalente`, (() => { const mm = nivel(p.espesor); const ok = mm != null && (/Collar|gonadal/i.test(p.tipo) ? mm >= 0.5 : (/envolvente|dos piezas/i.test(p.tipo) ? mm >= 0.25 : mm >= 0.5)); const e = mm == null ? '' : (ok ? 'Excelente' : 'Pésimo'); return { t: e, align: 'c', fill: colorEstado(e) }; })()]);
+  const modo = V.modoPrueba === 'Fluoroscopia' ? 'Exploración fluoroscópica' : 'Exploración radiográfica';
+  const tec = (kv, ma) => (kv || ma) ? `kV: ${kv || '—'}\nmA: ${ma || '—'}` : '—';
+  const f4 = prendas.map((p, i) => [eti(i), modo, { t: tec(p.kv1 || p.kv, p.ma1 || p.mas), align: 'c' }, { t: tec(p.kv2, p.ma2), align: 'c' }, p.defectos || 'Ninguno', (() => { const e = estadoIntegridad(p); return { t: e, align: 'c', fill: colorEstado(e) }; })()]);
+  const f5 = [];
+  prendas.forEach((p, i) => {
+    if (p.img1) f5.push([eti(i), { t: `Prueba 1\nkV: ${p.kv1 || p.kv || '—'}\nmA: ${p.ma1 || p.mas || '—'}`, align: 'c' }, { img: p.img1, h: 55 }]);
+    if (p.img2) f5.push([eti(i), { t: `Prueba 2\nkV: ${p.kv2 || '—'}\nmA: ${p.ma2 || '—'}`, align: 'c' }, { img: p.img2, h: 55 }]);
+  });
+  const f6 = prendas.map((p, i) => [eti(i), { t: `Valoración estética: ${p.estetica || '—'}`, align: 'c' }, (() => { const e = estadoDePuntaje(nivel(p.estetica)); return { t: e, align: 'c', fill: colorEstado(e) }; })()]);
+
+  /* Conclusiones según los resultados */
+  const est = (fn) => [...new Set(prendas.map(fn).filter(Boolean))];
+  const resumen = (lst) => lst.length === 1 ? lst[0].toUpperCase() : lst.map(x => x.toUpperCase()).join(' y ');
+  const caducan = prendas.filter(p => p.fechaCaducidad && diasHasta(p.fechaCaducidad) <= 180);
+  const conDef = prendas.filter(p => p.defectos && !/ningun/i.test(p.defectos));
+  const noAptas = prendas.filter(p => p.resultado === 'No apta');
+  const kvs = prendas.flatMap(p => [p.kv1 || p.kv, p.kv2].map(nivel)).filter(x => x != null);
+  const mas = prendas.flatMap(p => [p.ma1 || p.mas, p.ma2].map(nivel)).filter(x => x != null);
+  const rango = (a, u) => a.length ? (Math.min(...a) === Math.max(...a) ? `${String(Math.min(...a)).replace('.', ',')} ${u}` : `${String(Math.min(...a)).replace('.', ',')} – ${String(Math.max(...a)).replace('.', ',')} ${u}`) : '';
+  const conclusiones = prendas.length ? [
+    `Se verificó y valoró la integridad del blindaje de ${prendas.length} elementos de protección radiológica (${tiposTxt}) de ${inst}, mediante procedimientos acordes con la Norma Técnica y con las recomendaciones internacionales para el control de prendas plomadas.`,
+    caducan.length
+      ? `Prueba 1, fecha de expiración: ${caducan.map(p => nom[prendas.indexOf(p)]).join(', ')} ${caducan.length === 1 ? 'tiene' : 'tienen'} la fecha de caducidad vencida o dentro de los próximos seis meses, por lo que su reemplazo debe planificarse de inmediato.`
+      : `Prueba 1, fecha de expiración: el estado de los elementos fue ${resumen(est(estadoCaducidad))}; las fechas registradas son prudentes para prever y planificar su cambio.`,
+    `Prueba 2, evaluación funcional: revisadas la cubierta, las sujeciones y las costuras, el estado general fue ${resumen(est(estadoFuncional))}.${est(estadoFuncional).some(e => e !== 'Excelente') ? ' Para asegurar la protección radiológica del POE y de los pacientes, este estado debe llevarse a EXCELENTE.' : ''}`,
+    `Prueba 3, inspección del blindaje: según la etiqueta del proveedor, los elementos tienen ${[...new Set(prendas.map(p => p.espesor).filter(Boolean))].join(' y ') || '[espesor]'} mm Pb equivalente. La exploración ${V.modoPrueba === 'Fluoroscopia' ? 'fluoroscópica' : 'radiográfica'} se realizó con ${kvs.length ? 'dos técnicas (' + rango(kvs, 'kVp') + (mas.length ? ' y ' + rango(mas, 'mA') : '') + ')' : 'las técnicas indicadas'}, sin control automático de exposición, manteniendo al mínimo la dosis y el desgaste del tubo. ${conDef.length ? `Se observaron defectos en ${conDef.map(p => nom[prendas.indexOf(p)]).join(', ')}.` : 'No se observaron grietas, perforaciones ni zonas de falta de homogeneidad.'}${noAptas.length ? ` ${noAptas.map(p => nom[prendas.indexOf(p)]).join(', ')} no ${noAptas.length === 1 ? 'cumple' : 'cumplen'} el criterio de aceptación y ${noAptas.length === 1 ? 'debe retirarse' : 'deben retirarse'} de uso.` : ''}`,
+    `Prueba 4, valoración estética: el aspecto general de los elementos es ${resumen(est(p => estadoDePuntaje(nivel(p.estetica)))) || '[pendiente]'}.`
+  ] : ['[Registre las prendas y sus resultados en la sección Prendas de protección.]'];
+
   const blocks = [
     H('1. Datos generales'),
+    Ps('1.1. Responsable', { bold: true }),
     KV([
-      ['Institución', ph(I.razonSocial, 'Razón social')],
+      ['Nombre', ph(R.osrNombre, 'Nombre')],
+      ['Título', R.osrProfesion || '[Título]'],
+      ['RUC', R.osrRuc || '[RUC]'],
+      ['Dirección', R.osrDireccion || '[Dirección]'],
+      ['Autorización de O.S.R. N.°', R.osrLicencia || R.osrCedula || '[N.º]'],
+      ['Código', R.osrAut || '[Código]'],
+      ['Vigencia', R.osrAutCad ? fCorta(R.osrAutCad) : '[Vigencia]']
+    ]),
+    Ps('1.2. Institución', { bold: true }),
+    KV([
+      ['Razón social', ph(I.razonSocial, 'Razón social')],
+      ['Nombre comercial', I.nombreComercial || 'No registra'],
+      ['RUC', ph(I.ruc, 'RUC')],
+      ['Dirección', `${ph(I.direccion, 'Dirección')}, ${ph(I.ciudad, 'Ciudad')}, ${ph(I.provincia, 'Provincia')}`],
+      ['Práctica', c.P.nombre],
+      ['Representante legal', I.repEmpresa ? `${I.repEmpresa} (Rep.: ${ph(I.repLegal, 'Nombre')})` : ph(I.repLegal, 'Representante legal')],
+      ['Cargo', I.repProfesion || I.repCargo || '[Cargo]'],
+      ['Informe dirigido a', V.informeDirigido || ph(I.repLegal, 'Destinatario')],
       ['Fecha de la evaluación', fLarga(fecha)],
-      ['Equipo utilizado', ph(V.eqPrueba, 'Equipo usado para la prueba')],
-      ['Modalidad', ph(V.modoPrueba, 'Fluoroscopia o radiografía')],
-      ['Evaluado por', ph(c.R.osrNombre, 'Responsable')]
+      ['Equipo utilizado', ph(V.eqPrueba, 'Equipo usado para la prueba')]
     ]),
-    H('2. Objetivo'),
-    Ps('Comprobar la integridad del blindaje de las prendas de protección radiológica de la instalación, conforme al numeral 5.4, literal a) de la Norma Técnica, que dispone su verificación en intervalos aproximados de 12 meses con imágenes de rayos X de al menos 60 kV.', { align: 'j' }),
-    H('3. Metodología'),
+    Ps(`**Tema:** Integridad del blindaje del equipo de protección radiológica (${tiposTxt}) de ${inst}.`, { align: 'j' }),
+    H('2. Antecedentes'),
+    Ps('La seguridad en las prácticas radiológicas es de suma importancia y los delantales plomados cumplen un papel central en la protección del personal. Es imprescindible revisar periódicamente estos equipos de protección para garantizar su funcionamiento óptimo. En la evaluación se consideran los siguientes aspectos:', { align: 'j' }),
+    L(['Revisión de la fecha de expiración', 'Evaluación funcional', 'Inspección del blindaje', 'Valoración estética', 'Documentación de los resultados']),
+    H('3. Objetivo'),
+    Ps(`Verificar y valorar la integridad del blindaje del equipo de protección radiológica (${tiposTxt}) de ${inst}.`, { align: 'j' }),
+    H('4. Desarrollo'),
+    Ps('El Título II, Art. 5, numeral 5.4, literal a) de la Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario dispone que «los delantales plomados deben ser probados a intervalos aproximados de 12 meses con el fin de comprobar la integridad de su blindaje. Las fallas en el blindaje pueden comprobarse usando imágenes de Rx mínimo a 60 kVp». El mismo numeral exige delantales de 0,5 a 0,7 mm Pb cuando cubren solo el frente (0,25 mm si cubren completamente los costados), collarín tiroideo de 0,5 mm Pb y protectores gonadales de 0,5 mm Pb, y prohíbe doblar las vestimentas plomadas.', { align: 'j' }),
+    Ps('4.1. Prueba 1: revisión de la fecha de expiración', { bold: true }),
+    Ps('La vida útil estimada de cada elemento de protección plomado es de aproximadamente cinco años en condiciones normales de uso y almacenamiento. Un uso intensivo o un almacenamiento inadecuado reducen ese periodo, por lo que la fecha de caducidad se verifica de forma regular para no utilizar prendas que ya no ofrecen la protección adecuada.', { align: 'j' }),
+    T(['EPR', 'Fecha de caducidad', 'Estado (Excelente, Bueno, Regular, Pésimo)'], f1.length ? f1 : sinFilas, { widths: [30, 30, 40], small: true }),
+    Ps('4.2. Prueba 2: evaluación funcional', { bold: true }),
+    Ps('Aunque el material de blindaje interno esté en buen estado, un deterioro de la cubierta o de las sujeciones vuelve inseguro el uso de la prenda y dificulta su limpieza, con el consiguiente riesgo de contaminación biológica. Se evalúan cubierta, sujeciones y costuras en una escala del 1 al 5 (1 = pésimo, 5 = excelente).', { align: 'j' }),
+    T(['EPR', 'Evaluación funcional (1 a 5)', 'Estado general'], f2.length ? f2 : sinFilas, { widths: [30, 40, 30], small: true }),
+    Ps('4.3. Prueba 3: inspección del blindaje', { bold: true }),
+    Ps('**Atenuación:** debe estar certificada por el fabricante o el proveedor conforme a la norma internacional IEC 61331-1, que determina las propiedades de atenuación de los materiales de protección contra la radiación de diagnóstico médico, o una equivalente. El dato consta en la etiqueta de identificación de la prenda.', { align: 'j' }),
+    T(['EPR', 'Atenuación', 'Estado'], f3.length ? f3 : sinFilas, { widths: [30, 45, 25], small: true }),
+    Ps(`**Integridad y homogeneidad:** se inspecciona cada prenda para identificar grietas, perforaciones o zonas sin homogeneidad, mediante ${V.modoPrueba === 'Fluoroscopia' ? 'exploración fluoroscópica' : 'exploración radiográfica'} con al menos 60 kVp. Como criterio de rechazo se adopta el propuesto por Lambert y McKeon (2001): defectos que sumen más de 15 mm² sobre órganos críticos, más de 670 mm² en zonas de solapamiento o espalda, o más de 11 mm² en collarines tiroideos.`, { align: 'j' }),
+    T(['EPR', 'Integridad y homogeneidad', 'Prueba 1', 'Prueba 2', 'Defectos encontrados', 'Estado'], f4.length ? f4 : [['', '', '', '', '', '']], { widths: [16, 20, 14, 14, 20, 16], small: true }),
+    ...(f5.length
+      ? [Ps('Se adjuntan las tomas de cada elemento de protección radiológica, con las dos técnicas utilizadas.', { align: 'j' }), T(['EPR', 'Técnica', 'Imagen radiográfica'], f5, { widths: [20, 18, 62], small: true })]
+      : [NOTE('Cargue las imágenes radiográficas de cada prenda (prueba 1 y prueba 2) en la sección Prendas de protección para incluirlas en esta tabla.')]),
+    Ps('4.4. Prueba 4: valoración estética', { bold: true }),
+    Ps('Aunque es un aspecto secundario, la apariencia de las prendas refleja el cuidado del servicio y la imagen de la institución.', { align: 'j' }),
+    T(['EPR', 'Valoración estética (1 a 5)', 'Estado general'], f6.length ? f6 : sinFilas, { widths: [30, 40, 30], small: true }),
+    H('5. Conclusiones'),
+    L(conclusiones),
+    H('6. Recomendaciones'),
     L([
-      'Inspección visual y táctil de cada prenda, extendida sobre una superficie plana, buscando dobleces, costuras abiertas, desgaste del forro y zonas endurecidas.',
-      'Adquisición de imágenes de rayos X de toda la superficie de la prenda, con tensión de al menos 60 kV, para identificar grietas, perforaciones o zonas de menor atenuación.',
-      'Medición aproximada del área de cada defecto encontrado.',
-      'Las prendas que no se usan sobre el cuerpo (mamparas, faldones de mesa) se evalúan solo por inspección visual.'
-    ], true),
-    H('4. Criterio de aceptación'),
-    Ps('Se adopta el criterio de Lambert y McKeon (2001), de uso extendido en la verificación de prendas plomadas. La prenda se retira de uso cuando presenta:', { align: 'j' }),
-    L([
-      'Defectos que sumen más de 15 mm² en zonas que cubren órganos críticos (tórax, abdomen, gónadas).',
-      'Defectos que sumen más de 670 mm² en zonas de solapamiento o en la parte posterior.',
-      'En collarines tiroideos, defectos que sumen más de 11 mm².'
+      ...(noAptas.length ? ['Retirar de inmediato las prendas no aptas, rotularlas como «fuera de uso» y reponerlas, manteniendo al menos dos prendas de cada tipo por sala.'] : []),
+      'Seguir las recomendaciones del fabricante para el cuidado de los elementos de protección radiológica.',
+      'Repetir la inspección al menos una vez al año y documentar los hallazgos (Norma Técnica, num. 5.4 lit. a).',
+      'Usar las prendas de manera regular durante los procedimientos, tanto el POE como los pacientes y acompañantes.',
+      ...(caducan.length ? ['Planificar el reemplazo de las prendas próximas a su fecha de caducidad dentro del próximo semestre.'] : []),
+      'Guardarlas colgadas en soportes tipo percha, sin doblarlas, para preservar su integridad.',
+      'Realizar una inspección visual de cubierta, sujeciones y costuras y una inspección táctil del material interno; ante cualquier daño, comunicarlo de inmediato al responsable de protección radiológica.'
     ]),
-    H('5. Resultados'),
-    T(['N.º', 'Código', 'Tipo', 'Marca', 'mm Pb', 'Sala', 'kV', 'mAs', 'Defectos', 'Resultado'], filas.length ? filas : [['', '', '', '', '', '', '', '', '', '']], { small: true }),
-    H('6. Conclusiones'),
-    Ps(prendas.length
-      ? `Se evaluaron ${prendas.length} prendas de protección. ${aptas.length} ${aptas.length === 1 ? 'resultó apta' : 'resultaron aptas'} para su uso${noAptas.length ? ` y ${noAptas.length} ${noAptas.length === 1 ? 'no cumple' : 'no cumplen'} el criterio de aceptación (${noAptas.map(p => p.codigo || p.tipo).join(', ')})` : ''}.`
-      : '[Registrar las prendas en la sección de prendas de protección.]', { align: 'j' }),
-    H('7. Recomendaciones'),
-    L([
-      noAptas.length ? 'Retirar de inmediato las prendas no aptas, rotularlas como «fuera de uso» y gestionar su reposición, manteniendo al menos dos prendas de cada tipo por sala.' : 'Mantener las prendas en uso y repetir la evaluación en 12 meses.',
-      'Guardar los delantales colgados en soportes y nunca doblados, para evitar fisuras en el material de blindaje.',
-      'Realizar inspección visual mensual y registrar cualquier daño observado.'
-    ]),
-    H('8. Anexos'),
-    Ps('Imágenes radiográficas de cada prenda, identificadas con su código, y parámetros de exposición utilizados.', { align: 'j' }),
-    SIGN([c.firmas.osr])
+    SIGN([{ ...c.firmas.osr, label: 'Elaborado por', role: `${c.rolOSR}${R.osrLicencia || R.osrCedula ? '\nLicencia N.°: ' + (R.osrLicencia || R.osrCedula) : ''}${R.osrAut ? '\nCódigo: ' + R.osrAut : ''}` }])
   ];
-  return { code: `${c.pref}-IN-01`, title: 'Informe de integridad del blindaje de prendas de protección', kind: 'sgc', landscape: true, blocks };
+  return { title: 'Informe de integridad del blindaje del equipo de protección radiológica', kind: 'sgc', blocks };
 }
 
 function docDeclaracionMaxima(c) {
@@ -1039,21 +1229,45 @@ function docRegEquipos(c) {
 }
 
 function docRegEpp(c) {
-  const filas = c.epp.map((e, i) => [String(i + 1), e.codigo || '', e.tipo || '', e.espesor || '', e.marca || '', e.talla || '', e.sala || '', e.estado || 'Bueno', fCorta(e.fechaPrueba), e.resultado || 'Apta', `Foto ${i + 1}`]);
+  const { V } = c;
   const salas = [...new Set(c.epp.map(e => e.sala).filter(Boolean))];
+  const col = (s) => COLORES_SALA[salas.indexOf(s) % COLORES_SALA.length] || null;
+  const desc = (e) => `${e.tipo || '[Tipo]'}${e.espesor ? ', ' + e.espesor + ' mm Pb Eq.' : ''}${e.talla ? ', talla ' + e.talla : ''}`;
+  const factura = (e) => [e.factura || 'N/R', e.proveedor ? `(${e.proveedor})` : ''].filter(Boolean).join(' ');
+  const filas = c.epp.map(e => [{ t: e.codigo || '', fill: col(e.sala), bold: true, align: 'c' }, desc(e), { t: factura(e), align: 'c' }, { t: e.cantidad || '1', align: 'c' }, { t: e.sala || '', fill: col(e.sala), align: 'c' }]);
   const resumen = salas.map(s => {
     const deSala = c.epp.filter(e => e.sala === s);
-    const del = deSala.filter(e => /Delantal|Chaleco|dos piezas/i.test(e.tipo || '')).length;
-    const col = deSala.filter(e => /Collar/i.test(e.tipo || '') || /Chaleco plomado con collarín/i.test(e.tipo || '')).length;
-    return [s, String(del), String(col), del >= 2 && col >= 2 ? 'Cumple' : 'Completar'];
+    const n = (re) => deSala.filter(e => re.test(e.tipo || '')).reduce((a, e) => a + (parseInt(e.cantidad, 10) || 1), 0);
+    const del = n(/Delantal|Mandil|Chaleco|dos piezas/i), cuello = n(/Collar|Chaleco plomado con collarín/i), gon = n(/gonadal/i);
+    const necesitaGon = c.S.practica === 'medico';
+    return [s, { t: String(del), align: 'c' }, { t: String(cuello), align: 'c' }, { t: necesitaGon ? String(gon) : '—', align: 'c' }, (() => { const ok = del >= 2 && cuello >= 2 && (!necesitaGon || gon >= 1); return { t: ok ? 'Cumple' : 'Completar', align: 'c', fill: ok ? 'C6E0B4' : 'F8CBAD' }; })()];
   });
+  const facturas = (c.S.facturas || []).filter(f => f.numero || f.producto);
+  const num = (v) => { const n = parseFloat(String(v || '').replace(',', '.')); return isNaN(n) ? 0 : n; };
+  const money = (n) => n ? n.toFixed(2).replace('.', ',') : '';
+  const totF = facturas.reduce((a, f) => [a[0] + num(f.subtotal), a[1] + num(f.iva), a[2] + (num(f.total) || num(f.subtotal) + num(f.iva))], [0, 0, 0]);
+  const obs = String(V.obsEpp || '').split('\n').map(x => x.trim()).filter(Boolean);
   const blocks = [
-    T(['N.º', 'Código', 'Tipo', 'mm Pb', 'Marca', 'Talla', 'Sala', 'Estado', 'Última prueba', 'Resultado', 'Fotografía'], [...filas, ...blancos(2, 11)], { small: true }),
-    Ps('Espesor mínimo exigido: delantales de 0,5 a 0,7 mm Pb cuando cubren solo el frente, o 0,25 mm Pb cuando cubren completamente los costados del tórax y la pelvis; collarín tiroideo de 0,5 mm Pb. Al menos dos prendas de cada tipo por sala.', { align: 'j' }),
-    ...(resumen.length ? [T(['Sala', 'Delantales', 'Collarines', 'Mínimo de dos por tipo'], resumen, { small: true })] : []),
-    SIGN([c.firmas.osr])
+    { t: 'kv4', rows: [['N.° de hoja', V.invHoja || '1', 'Fecha', fLarga(V.invFecha || c.fecha)], ['Realizado por', [c.R.osrProfesion ? c.R.osrProfesion.slice(0, 4) + '.' : '', c.R.osrNombre].filter(Boolean).join(' ') || '[Nombre]', 'Departamento', V.invDepto || `${c.I.sede || c.I.nombreComercial || ''} - ${c.rolOSR}`.replace(/^ - /, '')]] },
+    T(['Código interno', 'Descripción del artículo', 'N.° de factura / precio de compra', 'Cantidad', 'Ubicación'], filas.length ? filas : [['', '', '', '', '']], { widths: [17, 33, 22, 9, 19], small: true }),
+    ...(obs.length ? [Ps('**Observaciones:**'), L(obs)] : []),
+    Ps('Requisito mínimo (Norma Técnica, num. 5.4 lit. a): delantales de 0,5 a 0,7 mm Pb cuando cubren solo el frente o 0,25 mm cuando cubren completamente los costados del tórax y la pelvis; collarín tiroideo y protectores gonadales de 0,5 mm Pb; al menos dos prendas de cada tipo por sala.', { align: 'j' }),
+    ...(resumen.length ? [T(['Sala', 'Mandiles', 'Collarines', 'Protectores gonadales', 'Mínimo por sala'], resumen, { widths: [32, 15, 15, 18, 20], small: true })] : []),
+    ...(facturas.length ? [
+      H('Resumen de facturas'),
+      T(['Fecha', 'N.° factura', 'Proveedor', 'Producto', 'Subtotal', 'IVA', 'Total'],
+        [...facturas.map(f => [{ t: fCorta(f.fecha), align: 'c' }, { t: f.numero || '', align: 'c' }, f.proveedor || '', f.producto || '', { t: money(num(f.subtotal)), align: 'c' }, { t: money(num(f.iva)), align: 'c' }, { t: money(num(f.total) || num(f.subtotal) + num(f.iva)), align: 'c' }]),
+          ['', '', '', { t: 'Total', bold: true }, { t: money(totF[0]), align: 'c', bold: true }, { t: money(totF[1]), align: 'c', bold: true }, { t: money(totF[2]), align: 'c', bold: true }]],
+        { widths: [11, 16, 18, 27, 9, 9, 10], small: true })
+    ] : []),
+    SIGN([{ label: 'Administración', name: V.invAdmin || '[Nombre]', role: 'Administración' }, { ...c.firmas.osr }])
   ];
-  return { code: `${c.pref}-RG-04`, title: 'Registro de inventario de elementos de protección radiológica', kind: 'sgc', landscape: true, blocks };
+  const conImg = facturas.filter(f => f.img);
+  if (conImg.length) {
+    blocks.push(PB(), H('Anexo: facturas de compra'));
+    conImg.forEach(f => blocks.push({ t: 'img', img: f.img, maxH: 200, caption: `Factura ${f.numero || ''}${f.proveedor ? ' – ' + f.proveedor : ''}${f.fecha ? ' – ' + fCorta(f.fecha) : ''}` }));
+  }
+  return { title: 'Inventario de equipo de protección radiológica', kind: 'sgc', blocks };
 }
 
 function docRegDosimetria(c) {
@@ -1101,17 +1315,17 @@ function docRegInspecciones(c) {
 }
 
 function docRegCapacitacion(c) {
-  const temas = temasPlan(c);
+  const lista = cronogramaActual(c);
   const blocks = [];
-  temas.forEach((t, i) => {
-    blocks.push(Ps(`Tema ${i + 1}: ${t.tema}`, { bold: true }));
-    blocks.push(KV([['Capacitador', ph(c.R.osrNombre, 'Capacitador')], ['Fecha', ''], ['Duración', `${t.horas} h`]]));
+  lista.forEach((x, i) => {
+    blocks.push(Ps(`Capacitación ${i + 1}: ${x.tema}`, { bold: true }));
+    blocks.push({ t: 'kv4', rows: [['Fecha', fLarga(x.fecha), 'Horario', `${x.horaIni || ''} a ${x.horaFin || ''}`], ['Capacitador', x.capacitador || [c.R.osrTitulo, c.R.osrNombre].filter(Boolean).join(' ') || c.rolOSR, 'Carga horaria', `${horasEntre(x.horaIni, x.horaFin) || ''} h`], ['Dirigido a', x.dirigido || 'POE', 'Modalidad', x.obs || 'Presencial']] });
     const filas = (c.poe.length ? c.poe : [{}, {}, {}]).map((p, j) => [String(j + 1), p.cedula || '', p.nombre || '', '', '']);
     blocks.push(T(['N.º', 'Cédula', 'Nombres completos', 'Calificación', 'Firma'], filas, { widths: [6, 18, 40, 14, 22], small: true, tall: true }));
-    blocks.push(SIGN([{ name: ph(c.R.osrNombre, 'Capacitador'), role: 'Capacitador' }, { ...c.firmas.osr, role: 'Responsable del registro' }].filter((x, k, arr) => k === 0 || !c.mismaPersona(x, arr[0]))));
-    if (i < temas.length - 1) blocks.push(PB());
+    blocks.push(SIGN([{ name: x.capacitador || c.firmas.osr.name, role: 'Capacitador' }, { ...c.firmas.osr, role: 'Responsable del registro' }].filter((y, k, arr) => k === 0 || !c.mismaPersona(y, arr[0]))));
+    if (i < lista.length - 1) blocks.push(PB());
   });
-  return { code: `${c.pref}-RG-09`, title: 'Registro de capacitaciones', kind: 'sgc', blocks };
+  return { title: 'Registro de capacitaciones', kind: 'sgc', blocks };
 }
 
 /* ---------------------------------------------------- FORMATOS Y RÓTULOS */
@@ -1155,9 +1369,9 @@ function docConsentimiento(c) {
 function docRotulos(c) {
   const rot = [
     { t: 'trebol' },
-    { t: 'big', text: 'PRECAUCIÓN\nZONA CONTROLADA\nRADIACIÓN IONIZANTE', sub: 'Prohibido el ingreso a personal no autorizado' },
+    { t: 'big', text: 'RAYOS X\nPROHIBIDO EL INGRESO A PERSONAS NO AUTORIZADAS', sub: 'Zona controlada · Norma Técnica MERNNR-MERNNR-2022-0011-AM, num. 5.2 lit. d)' },
     PB(),
-    { t: 'big', text: 'SE PROHÍBE LA ENTRADA CUANDO LA LUZ ESTÉ ENCENDIDA', sub: 'Colocar junto a la señalización luminosa roja, sobre la puerta de acceso' },
+    { t: 'big', text: 'SE PROHÍBE LA ENTRADA CUANDO LA LUZ ESTÉ ENCENDIDA', sub: 'Colocar junto a la señalización luminosa roja, sobre la puerta de acceso (num. 10.2.4)' },
     PB(),
     { t: 'big', text: 'PACIENTE:\nSOLICITE VESTIMENTAS PLOMADAS PARA SU PROTECCIÓN DURANTE EL EXAMEN RADIOGRÁFICO' },
     PB(),
@@ -1225,13 +1439,25 @@ function revisarExpediente(c) {
     if (falt.length) a.push({ nivel: 'media', txt: `${p.nombre}: falta ${falt.join(', ')}.` });
     if (/por revisar/i.test(p.observacion || '')) a.push({ nivel: 'media', txt: `${p.nombre}: la fecha de expiración de la licencia en su bitácora no es válida; corríjala.` });
     if (!p.codigo && !p.licencia) a.push({ nivel: 'media', txt: `${p.nombre}: falta el número de licencia ocupacional.` });
-    else if (e === 'Caducada' || e === 'Por caducar') a.push({ nivel: e === 'Caducada' ? 'alta' : 'media', txt: `${p.nombre}: licencia ocupacional ${e.toLowerCase()} (${fCorta(p.licCad)}).` });
+    else if (e === 'Caducada' || e === 'Por caducar') a.push({ nivel: e === 'Caducada' ? 'alta' : 'media', txt: `${p.nombre}: licencia ocupacional ${e.toLowerCase()} (${fCorta(p.licCad)}). La renovación se solicita con 90 días de anticipación (Reglamento, Art. 33).` });
     const dm = diasHasta(p.certMed);
     if (!p.certMed) a.push({ nivel: 'media', txt: `${p.nombre}: sin fecha de certificado médico.` });
     else if (dm < -365) a.push({ nivel: 'alta', txt: `${p.nombre}: certificado médico con más de un año (${fCorta(p.certMed)}).` });
   });
   const necesitaOSR = c.eqAct.length >= 4 && c.eqAct.some(e => TIPOS_OSR.test(e.tipo || ''));
-  if (necesitaOSR && !R.osrAplica) a.push({ nivel: 'alta', txt: `La instalación tiene ${c.eqAct.length} equipos y al menos uno de tipo angiógrafo, tomógrafo, arco en C, litotriptor o telecomandado: debe contar con OSR (Art. 5, lit. g). Active la opción en Responsables.` });
+  const categoria2 = c.eqAct.some(e => /Angiógrafo/.test(e.tipo || ''));
+  if (categoria2 && !R.osrAplica) a.push({ nivel: 'alta', txt: 'La angiografía y la hemodinamia son prácticas de categoría 2 (Anexo I): la instalación debe nombrar un OSR (Art. 5, num. 5.1 lit. d). Active la opción en Responsables.' });
+  else if (necesitaOSR && !R.osrAplica) a.push({ nivel: 'alta', txt: `La instalación tiene ${c.eqAct.length} equipos y al menos uno de tipo tomógrafo, arco en C, litotriptor o telecomandado: debe contar con OSR (Art. 5, num. 5.1 lit. g). Active la opción en Responsables.` });
+  if (R.osrAplica && R.osrCedula) {
+    const doble = c.poe.find(p => (p.cedula || '') === R.osrCedula && p.categoria !== 'osr');
+    if (doble) a.push({ nivel: 'media', txt: `${doble.nombre} figura como OSR y también como ${doble.funcion || 'operador'}: el OSR no puede ejercer doble función dentro de una misma práctica (Anexo II, indicaciones generales).` });
+  }
+  if (c.S.practica === 'intervencionista') {
+    if (!c.epp.some(e => /Lente|Gafa/i.test(e.tipo || ''))) a.push({ nivel: 'media', txt: 'Intervencionismo: no hay lentes plomados registrados (0,2 mm Pb, num. 5.4 lit. b).' });
+    if (!c.epp.some(e => /Guante/i.test(e.tipo || ''))) a.push({ nivel: 'baja', txt: 'Intervencionismo: no hay guantes de compresión de 0,25 mm Pb registrados (num. 5.4 lit. b).' });
+    if (!c.epp.some(e => /Gorro/i.test(e.tipo || ''))) a.push({ nivel: 'baja', txt: 'Intervencionismo: no hay gorro plomado registrado para el médico intervencionista (num. 5.4 lit. b).' });
+  }
+  c.epp.forEach(p => { if (p.fechaCaducidad && diasHasta(p.fechaCaducidad) < 0) a.push({ nivel: 'media', txt: `${p.codigo || p.tipo}: fecha de caducidad vencida (${fCorta(p.fechaCaducidad)}).` }); });
   if (R.osrAplica) {
     const e = estadoVigencia(R.osrAutCad);
     if (e === 'Caducada' || e === 'Por caducar') a.push({ nivel: e === 'Caducada' ? 'alta' : 'media', txt: `Autorización de OSR ${e.toLowerCase()}.` });
