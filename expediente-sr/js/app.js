@@ -63,7 +63,7 @@ function estadoEjemplo() {
     { sala: 'Sala 1 - Rayos X', punto: 'Lado cátodo', kv: '125', ie: '2', imax: '4', distancia: '1', lectura: '0,09', obs: '' }
   ];
   s.blSalas = [{ sala: 'Sala 1 - Rayos X', serie: '0000A1', modalidad: 'Radiografía general', categoria: '3', ubicacion: 'Planta baja, área de imagenología', kvMax: '150', maMax: '1000', n: '150', plano: null, intTiempos: '' }];
-  s.blParams = [NCRP147_BIB[0], NCRP147_BIB[5]].map(x => ({ nombre: x.nombre, k: x.k, wnorm: x.wnorm, aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: x.prePb || '', preCo: x.preCo || '', fuente: x.fuente }));
+  s.blParams = [NCRP147_BIB[0], NCRP147_BIB[5]].map(x => ({ nombre: x.nombre, k: x.k, wnorm: x.wnorm, aPb: x.aPb, bPb: x.bPb, gPb: x.gPb, aCo: x.aCo, bCo: x.bCo, gCo: x.gCo, prePb: x.prePb || '', preCo: x.preCo || '', fuente: x.fuente }));
   s.blBarreras = [
     { sala: 'Sala 1 - Rayos X', punto: 'A', descripcion: 'Pared hacia la consola de mando', tipo: 'Secundaria', param: NCRP147_BIB[5].nombre, d: '2,5', u: '', t: '1', zona: 'ZC', material: 'Ladrillo', existente: '150', plomoAdic: '1' },
     { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso (pasillo)', tipo: 'Secundaria', param: NCRP147_BIB[5].nombre, d: '3,0', u: '', t: '1/5', zona: 'ZNC', material: 'Puerta plomada', existente: '2', plomoAdic: '' },
@@ -583,9 +583,9 @@ function renderSeccion() {
         { k: 'kvMax', l: 'kV máx.', w: 70 }, { k: 'maMax', l: 'mA máx.', w: 70 }, { k: 'n', l: 'N: pacientes / semana', w: 100 }, { k: 'wsite', l: 'Wsitio: mA·min por paciente (opcional)', w: 130 },
         { k: 'ctNctdiCab', l: 'TC nCTDI100 cabeza', w: 90, when: esTC }, { k: 'ctNctdiCue', l: 'TC nCTDI100 cuerpo', w: 90, when: esTC },
         { k: 'ctMasCab', l: 'TC mAs cabeza', w: 80, when: esTC }, { k: 'ctMasCue', l: 'TC mAs cuerpo', w: 80, when: esTC },
-        { k: 'ctDlpCab', l: 'TC DLP cabeza (mGy·cm)', w: 100, when: esTC }, { k: 'ctDlpCue', l: 'TC DLP cuerpo (mGy·cm)', w: 100, when: esTC },
+        { k: 'ctDlpCab', l: 'TC DLP cabeza (mGy·cm)', w: 100, when: esTC, ph: '1200' }, { k: 'ctDlpCue', l: 'TC DLP cuerpo (mGy·cm)', w: 100, when: esTC, ph: '550' },
         { k: 'ctNCab', l: 'TC estudios cabeza / sem', w: 100, when: esTC }, { k: 'ctNCue', l: 'TC estudios cuerpo / sem', w: 100, when: esTC },
-        { k: 'ctKappaCab', l: 'κ cabeza (cm⁻¹)', w: 90, when: esTC }, { k: 'ctKappaCue', l: 'κ cuerpo (cm⁻¹)', w: 90, when: esTC },
+        { k: 'ctKappaCab', l: 'κ cabeza (cm⁻¹)', w: 90, when: esTC, ph: '9E-5' }, { k: 'ctKappaCue', l: 'κ cuerpo (cm⁻¹)', w: 90, when: esTC, ph: '3E-4' }, { k: 'ctContraste', l: 'TC % con y sin contraste', w: 100, when: esTC, ph: '40' },
         { k: 'intTiempos', l: 'Intervencionismo: tipo: minutos (una por línea)', type: 'textarea', w: 220 },
         { k: 'plano', l: 'Plano con barreras', type: 'img', w: 160 }
       ];
@@ -609,9 +609,9 @@ function renderSeccion() {
         { k: 'existente', l: 'Espesor existente (mm)', w: 90 }, { k: 'plomoAdic', l: 'Plomo adicional (mm)', w: 90 }
       ];
       const resBl = s.blBarreras.filter(b => b.punto).map(b => { const r = calcularBarrera(c, b); return `<tr><td>${esc(b.sala || '')}</td><td>${esc(b.punto)}</td><td>${r.B == null ? '—' : r.B.toExponential(2)}</td><td>${mm(r.xPb, 2)}</td><td>${mm(r.xCo)}</td><td>${mm(r.xLad)}</td><td class="${r.cumple === false ? 'alerta-txt' : ''}">${r.cumple == null ? 'Faltan datos' : (r.cumple ? 'Cumple' : 'No cumple')}</td></tr>`; }).join('');
-      const faltanPar = s.blParams.some(p => p.nombre && !(nivel(p.k) && nivel(p.aPb) && nivel(p.gPb)));
+      const faltanPar = s.blParams.some(p => p.nombre && !((nivel(p.k) || /tomograf/i.test(p.nombre)) && nivel(p.aPb) && nivel(p.gPb)));
       const usados = new Set(s.blParams.map(p => p.nombre));
-      const bib = `<div class="perfil"><select id="bl-bib" aria-label="Biblioteca NCRP 147"><option value="">Agregar desde el NCRP 147…</option>${NCRP147_BIB.map((x, i) => `<option value="${i}"${usados.has(x.nombre) ? ' disabled' : ''}>${esc(x.nombre)} · K = ${esc(x.k)}</option>`).join('')}</select><button class="btn sec" id="btn-bl-bib">Agregar</button><small>K, Wnorm y preblindaje de las tablas 4.5, 4.6 y 4.7. Los parámetros α, β y γ (tablas B.1 y C.1) se completan a mano por ahora.</small></div>`;
+      const bib = `<div class="perfil"><select id="bl-bib" aria-label="Biblioteca NCRP 147"><option value="">Agregar desde el NCRP 147…</option>${NCRP147_BIB.map((x, i) => `<option value="${i}"${usados.has(x.nombre) ? ' disabled' : ''}>${esc(x.nombre)} · K = ${esc(x.k)}</option>`).join('')}</select><button class="btn sec" id="btn-bl-bib">Agregar</button><small>Llena K, Wnorm, preblindaje y α, β, γ de plomo y concreto (tablas 4.5, 4.6, 4.7, B.1 y C.1; TC: sección 5.6 y figuras A.2 y A.3).</small></div>`;
       const tablaN = NCRP147_N.map(r => `${r[0]}: ${r[1]} (${r[2]} en alta demanda)`).join(' · ');
       const tablaT = NCRP147_T.map(r => `<tr><td>${esc(r[0])}</td><td>${r[1]}</td></tr>`).join('');
       h = `<h2>Memoria de cálculo de blindaje</h2><p class="lead">Anexo VI de la Norma Técnica (categoría 1 y 2, unidades móviles, telecomandados y tomografía). Método del NCRP 147: B = P·d² / (K·U·N·T) y espesor con la ecuación de Archer. Los valores de K, α, β y γ se copian de las tablas del NCRP 147 en la tabla de parámetros.</p>
@@ -620,7 +620,7 @@ function renderSeccion() {
           { k: 'meta.blDensConcreto', l: 'Densidad del concreto (g/cm³)', ph: '2,4' }, { k: 'meta.blDensLadrillo', l: 'Densidad del ladrillo (g/cm³)', ph: '1,8' }, { k: 'meta.blFormatoPlano', l: 'Formato del plano', type: 'select', opts: ['A3', 'A1'] }, { k: 'meta.blLadrilloNota', l: 'Nota sobre el ladrillo (tipo, interpolación)', span: 1 },
           { k: 'meta.blMateriales', l: 'Materiales de construcción y acabados', type: 'textarea', span: 2 }, { k: 'meta.blElementos', l: 'Elementos de control de acceso y señalización', type: 'textarea', span: 2 },
           { k: 'meta.blObjetivo', l: '2. Objetivo (opcional)', type: 'textarea', span: 2 }, { k: 'meta.blJustificacion', l: '3. Justificación (opcional)', type: 'textarea', span: 2 }])}
-        <h3>Salas</h3><p class="lead">Si no tiene registro de pacientes, el NCRP 147 (Tabla 4.3) sugiere por semana: ${tablaN}. Wsitio solo se llena si la carga de trabajo por paciente de su servicio difiere del Wnorm de referencia.</p>${tablaEditable('blSalas', colsSala, s.blSalas, 'Agregar sala')}
+        <h3>Salas</h3><p class="lead">Si no tiene registro de pacientes, el NCRP 147 (Tabla 4.3) sugiere por semana: ${tablaN}. Wsitio solo se llena si la carga de trabajo por paciente de su servicio difiere del Wnorm de referencia. En tomografía se usan los estudios de cabeza y cuerpo por semana; si deja vacíos κ, DLP o el porcentaje con contraste, se aplican los valores del NCRP 147 (κ 9E-5 y 3E-4 cm⁻¹, DLP 1200 y 550 mGy·cm, 40 %). Ponga 0 % si su DLP ya incluye las fases con contraste.</p>${tablaEditable('blSalas', colsSala, s.blSalas, 'Agregar sala')}
         <h3>Parámetros del NCRP 147</h3><p class="lead">Un conjunto por tipo de sala y barrera (por ejemplo, «Sala de radiografía – piso (primaria)», «Sala de radiografía – secundaria»). K es el kerma sin blindaje por paciente a 1 m; α, β y γ son los parámetros de ajuste de la transmisión para plomo y concreto. El preblindaje (mesa, rejilla, receptor) solo se descuenta en barreras primarias.</p>${bib}${tablaEditable('blParams', colsPar, s.blParams, 'Agregar conjunto vacío')}
         <h3>Barreras</h3><p class="lead">Distancia desde la fuente hasta 0,3 m más allá de la pared, 1,7 m sobre el piso inferior o 0,5 m sobre el piso superior. U primaria (Tabla 4.4): piso 0,89; pared de la toma lateral 0,09; otra pared 0,02; bucky mural 1.</p>
         <details><summary>Factores de ocupación del NCRP 147 (Tabla 4.1)</summary><div class="tabla-ed"><table><thead><tr><th>Área</th><th>T</th></tr></thead><tbody>${tablaT}</tbody></table></div></details>
@@ -936,7 +936,7 @@ async function alClic(e) {
       const i = document.getElementById('bl-bib').value;
       if (i === '') { aviso('Elija un conjunto de la lista.'); break; }
       const x = NCRP147_BIB[+i];
-      s.blParams.push({ nombre: x.nombre, k: x.k, wnorm: x.wnorm, aPb: '', bPb: '', gPb: '', aCo: '', bCo: '', gCo: '', prePb: x.prePb || '', preCo: x.preCo || '', fuente: x.fuente });
+      s.blParams.push(({ nombre: x.nombre, k: x.k, wnorm: x.wnorm, aPb: x.aPb, bPb: x.bPb, gPb: x.gPb, aCo: x.aCo, bCo: x.bCo, gCo: x.gCo, prePb: x.prePb || '', preCo: x.preCo || '', fuente: x.fuente }));
       quitarEjemplo(); guardar(); renderSeccion(); aviso(`Agregado: ${x.nombre}.`); break;
     }
     case 'btn-cap-proponer': s.capacitaciones = cronogramaPropuesto(crearContexto(s)); guardar(); renderSeccion(); renderNav(); aviso('Propuesta cargada. Edite fechas, temas y horarios.'); break;

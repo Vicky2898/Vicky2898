@@ -11,23 +11,27 @@
    Tabla 4.7: kerma secundario total por paciente a 1 m (K¹sec); «90°» = fuga + dispersión lateral,
               «135°» = fuga + retrodispersión/dispersión frontal (el NCRP usa el de 135° como conservador).
    Tabla 4.6: preblindaje xpre. Tabla 4.4: factores de uso. Tabla 4.3: pacientes por semana.
-   Los parámetros α, β y γ (tablas B.1 y C.1 del Apéndice) se completan aparte. */
+   Tabla B.1: α, β, γ de transmisión primaria; Tabla C.1: secundaria (plomo y concreto de peso normal).
+   Sección 5.6 y figuras A.2/A.3: tomografía (κ cabeza 9×10⁻⁵ cm⁻¹, κ cuerpo 3×10⁻⁴ cm⁻¹, K cuerpo = 1,2 κ DLP). */
 const NCRP147_BIB = [
-  { nombre: 'Sala de radiografía, piso u otras barreras – primaria', tipo: 'Primaria', k: '5,2', wnorm: '1,9', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tabla 4.5 (Rad Room, floor or other barriers); xpre Tabla 4.6' },
-  { nombre: 'Sala de radiografía, pared del bucky mural – primaria', tipo: 'Primaria', k: '2,3', wnorm: '0,6', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tabla 4.5 (Rad Room, chest bucky); xpre Tabla 4.6' },
-  { nombre: 'Sala de radiografía, pared de la toma lateral (cross-table) – primaria', tipo: 'Primaria', k: '5,2', wnorm: '1,9', prePb: '0,3', preCo: '30', fuente: 'NCRP 147, Tabla 4.5 (Rad Room, floor or other barriers); xpre cross-table Tabla 4.6' },
-  { nombre: 'Tubo de radiografía de sala R&F – primaria', tipo: 'Primaria', k: '5,9', wnorm: '1,5', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tabla 4.5 (Rad Tube, R&F Room); xpre Tabla 4.6' },
-  { nombre: 'Sala de tórax dedicada – primaria', tipo: 'Primaria', k: '1,2', wnorm: '0,22', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tabla 4.5 (Chest Room); xpre Tabla 4.6' },
-  { nombre: 'Sala de radiografía, todas las barreras – secundaria (135°)', tipo: 'Secundaria', k: '4,9E-2', wnorm: '2,5', fuente: 'NCRP 147, Tabla 4.7 (Rad Room, all barriers)' },
-  { nombre: 'Sala de radiografía, todas las barreras – secundaria (90°)', tipo: 'Secundaria', k: '3,4E-2', wnorm: '2,5', fuente: 'NCRP 147, Tabla 4.7 (Rad Room, all barriers, dispersión lateral)' },
-  { nombre: 'Sala de radiografía, bucky mural – secundaria', tipo: 'Secundaria', k: '7,3E-3', wnorm: '0,60', fuente: 'NCRP 147, Tabla 4.7 (Rad Room, chest bucky)' },
-  { nombre: 'Sala de radiografía, piso u otras barreras – secundaria', tipo: 'Secundaria', k: '3,3E-2', wnorm: '1,9', fuente: 'NCRP 147, Tabla 4.7 (Rad Room, floor or other barriers)' },
-  { nombre: 'Tubo de fluoroscopia de sala R&F – secundaria', tipo: 'Secundaria', k: '4,6E-1', wnorm: '13', fuente: 'NCRP 147, Tabla 4.7 (Fluoroscopy Tube, R&F room)' },
-  { nombre: 'Tubo de radiografía de sala R&F – secundaria', tipo: 'Secundaria', k: '4,0E-2', wnorm: '1,5', fuente: 'NCRP 147, Tabla 4.7 (Rad Tube, R&F room)' },
-  { nombre: 'Sala de tórax dedicada – secundaria', tipo: 'Secundaria', k: '3,6E-3', wnorm: '0,22', fuente: 'NCRP 147, Tabla 4.7 (Chest Room)' },
-  { nombre: 'Mamografía – secundaria (4 proyecciones, valor conservador)', tipo: 'Secundaria', k: '3,6E-2', wnorm: '6,7', fuente: 'NCRP 147, Tabla 4.7, nota f (Mammography Room)' },
-  { nombre: 'Angiografía cardíaca – secundaria', tipo: 'Secundaria', k: '3,8', wnorm: '160', fuente: 'NCRP 147, Tabla 4.7 (Cardiac Angiography)' },
-  { nombre: 'Angiografía periférica o neuroangiografía – secundaria', tipo: 'Secundaria', k: '9,5E-1', wnorm: '64', fuente: 'NCRP 147, Tabla 4.7 (Peripheral Angiography; aplica a neuroangiografía)' }
+  { nombre: 'Sala de radiografía, piso u otras barreras – primaria', tipo: 'Primaria', k: '5,2', wnorm: '1,9', aPb: '2,651', bPb: '16,56', gPb: '0,4585', aCo: '0,03994', bCo: '0,1448', gCo: '0,4231', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tablas 4.5 y B.1 (Rad Room, floor or other barriers); xpre Tabla 4.6' },
+  { nombre: 'Sala de radiografía, pared del bucky mural – primaria', tipo: 'Primaria', k: '2,3', wnorm: '0,6', aPb: '2,264', bPb: '13,08', gPb: '0,56', aCo: '0,03552', bCo: '0,1177', gCo: '0,6007', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tablas 4.5 y B.1 (Rad Room, chest bucky); xpre Tabla 4.6' },
+  { nombre: 'Sala de radiografía, pared de la toma lateral (cross-table) – primaria', tipo: 'Primaria', k: '5,2', wnorm: '1,9', aPb: '2,651', bPb: '16,56', gPb: '0,4585', aCo: '0,03994', bCo: '0,1448', gCo: '0,4231', prePb: '0,3', preCo: '30', fuente: 'NCRP 147, Tablas 4.5 y B.1 (Rad Room, floor or other barriers); xpre cross-table Tabla 4.6' },
+  { nombre: 'Tubo de radiografía de sala R&F – primaria', tipo: 'Primaria', k: '5,9', wnorm: '1,5', aPb: '2,295', bPb: '13,0', gPb: '0,5573', aCo: '0,03549', bCo: '0,1164', gCo: '0,5774', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tablas 4.5 y B.1 (Rad Tube, R&F room); xpre Tabla 4.6' },
+  { nombre: 'Sala de tórax dedicada – primaria', tipo: 'Primaria', k: '1,2', wnorm: '0,22', aPb: '2,283', bPb: '10,74', gPb: '0,637', aCo: '0,03622', bCo: '0,07766', gCo: '0,5404', prePb: '0,85', preCo: '72', fuente: 'NCRP 147, Tablas 4.5 y B.1 (Chest Room); xpre Tabla 4.6' },
+  { nombre: 'Sala de radiografía, todas las barreras – secundaria (135°)', tipo: 'Secundaria', k: '4,9E-2', wnorm: '2,5', aPb: '2,298', bPb: '17,38', gPb: '0,6193', aCo: '0,0361', bCo: '0,1433', gCo: '0,56', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Rad Room, all barriers)' },
+  { nombre: 'Sala de radiografía, todas las barreras – secundaria (90°)', tipo: 'Secundaria', k: '3,4E-2', wnorm: '2,5', aPb: '2,298', bPb: '17,38', gPb: '0,6193', aCo: '0,0361', bCo: '0,1433', gCo: '0,56', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Rad Room, all barriers; dispersión lateral)' },
+  { nombre: 'Sala de radiografía, bucky mural – secundaria', tipo: 'Secundaria', k: '7,3E-3', wnorm: '0,60', aPb: '2,256', bPb: '13,8', gPb: '0,8837', aCo: '0,0356', bCo: '0,1079', gCo: '0,7705', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Rad Room, chest bucky)' },
+  { nombre: 'Sala de radiografía, piso u otras barreras – secundaria', tipo: 'Secundaria', k: '3,3E-2', wnorm: '1,9', aPb: '2,513', bPb: '17,34', gPb: '0,4994', aCo: '0,0392', bCo: '0,1464', gCo: '0,4486', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Rad Room, floor or other barriers)' },
+  { nombre: 'Tubo de fluoroscopia de sala R&F – secundaria', tipo: 'Secundaria', k: '4,6E-1', wnorm: '13', aPb: '2,322', bPb: '12,91', gPb: '0,7575', aCo: '0,0363', bCo: '0,0936', gCo: '0,5955', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Fluoroscopy Tube, R&F room)' },
+  { nombre: 'Tubo de radiografía de sala R&F – secundaria', tipo: 'Secundaria', k: '4,0E-2', wnorm: '1,5', aPb: '2,272', bPb: '13,6', gPb: '0,7184', aCo: '0,0356', bCo: '0,1114', gCo: '0,662', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Rad Tube, R&F room)' },
+  { nombre: 'Sala de tórax dedicada – secundaria (135°)', tipo: 'Secundaria', k: '3,6E-3', wnorm: '0,22', aPb: '2,288', bPb: '9,848', gPb: '1,054', aCo: '0,0364', bCo: '0,0659', gCo: '0,7543', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Chest Room)' },
+  { nombre: 'Sala de tórax dedicada – secundaria (90°)', tipo: 'Secundaria', k: '2,7E-3', wnorm: '0,22', aPb: '2,288', bPb: '9,848', gPb: '1,054', aCo: '0,0364', bCo: '0,0659', gCo: '0,7543', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Chest Room; dispersión lateral)' },
+  { nombre: 'Mamografía – secundaria (4 proyecciones, valor conservador)', tipo: 'Secundaria', k: '3,6E-2', wnorm: '6,7', aPb: '29,91', bPb: '184,4', gPb: '0,355', aCo: '0,2539', bCo: '1,8411', gCo: '0,3924', prePb: '', preCo: '', fuente: 'NCRP 147, Tabla 4.7 nota f y Tabla C.1 (Mammography Room)' },
+  { nombre: 'Angiografía cardíaca – secundaria', tipo: 'Secundaria', k: '3,8', wnorm: '160', aPb: '2,354', bPb: '14,94', gPb: '0,7481', aCo: '0,0371', bCo: '0,1067', gCo: '0,5733', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Cardiac Angiography)' },
+  { nombre: 'Angiografía periférica o neuroangiografía – secundaria', tipo: 'Secundaria', k: '9,5E-1', wnorm: '64', aPb: '2,661', bPb: '19,54', gPb: '0,5094', aCo: '0,04219', bCo: '0,1559', gCo: '0,4472', prePb: '', preCo: '', fuente: 'NCRP 147, Tablas 4.7 y C.1 (Peripheral Angiography; aplica a neuroangiografía)' },
+  { nombre: 'Tomografía computarizada 120 kVp – secundaria', tipo: 'Secundaria', k: '', wnorm: '', aPb: '2,246', bPb: '5,73', gPb: '0,547', aCo: '0,0383', bCo: '0,0142', gCo: '0,658', prePb: '', preCo: '', fuente: 'NCRP 147, sección 5.6 y figuras A.2 y A.3 (CT 120 kVp); K se calcula con κ × DLP' },
+  { nombre: 'Tomografía computarizada 140 kVp – secundaria', tipo: 'Secundaria', k: '', wnorm: '', aPb: '2,009', bPb: '3,99', gPb: '0,342', aCo: '0,0336', bCo: '0,0122', gCo: '0,519', prePb: '', preCo: '', fuente: 'NCRP 147, sección 5.6 y figuras A.2 y A.3 (CT 140 kVp); K se calcula con κ × DLP' }
 ];
 // Tabla 4.3: pacientes por semana (promedio / alta demanda) como guía cuando no hay registro
 const NCRP147_N = [['Sala de radiografía', '120', '160'], ['Sala de tórax dedicada', '200', '400'], ['Fluoroscopia (sala R&F)', '20', '30'], ['Radiografía en sala R&F', '25', '40'], ['Mamografía', '80', '160'], ['Angiografía cardíaca', '20', '30'], ['Angiografía periférica / neuroangiografía', '20', '30']];
@@ -63,11 +67,20 @@ function blParametro(c, nombre) {
 function blSalaDe(c, nombre) { return (c.S.blSalas || []).find(s => s.sala === nombre) || {}; }
 
 // Kerma sin blindaje por semana a 1 m (mGy/semana): K × N, o para TC Σ κ × DLP × N
+// Tomografía (NCRP 147, 5.6.1): K¹sec(cabeza) = κcabeza·DLP; K¹sec(cuerpo) = 1,2·κcuerpo·DLP.
+// Valores por defecto: κ de la ec. 5.5, DLP de la Tabla 5.2 y 40 % de estudios con y sin contraste (DLP × 1,4).
+function blTC(sala) {
+  const nc = blNum(sala.ctNCab) || 0, nb = blNum(sala.ctNCue) || 0;
+  const kc = blNum(sala.ctKappaCab) || 9e-5, kb = blNum(sala.ctKappaCue) || 3e-4;
+  const dc = blNum(sala.ctDlpCab) || 1200, db = blNum(sala.ctDlpCue) || 550;
+  const pc = blNum(sala.ctContraste), fc = 1 + (pc == null ? 40 : pc) / 100;
+  const Kc = kc * dc * fc, Kb = 1.2 * kb * db * fc;
+  return { nc, nb, kc, kb, dc, db, fc, Kc, Kb, KN: nc * Kc + nb * Kb };
+}
+
 function blKN(sala, prm) {
-  const kc = blNum(sala.ctKappaCab), dc = blNum(sala.ctDlpCab), nc = blNum(sala.ctNCab);
-  const kb = blNum(sala.ctKappaCue), db = blNum(sala.ctDlpCue), nb = blNum(sala.ctNCue);
-  if (/tomo/i.test(sala.modalidad || '') && ((kc && dc && nc) || (kb && db && nb))) {
-    return { KN: (kc && dc && nc ? kc * dc * nc : 0) + (kb && db && nb ? kb * db * nb : 0), ct: true };
+  if (/tomo/i.test(sala.modalidad || '') && (blNum(sala.ctNCab) || blNum(sala.ctNCue))) {
+    return { KN: blTC(sala).KN, ct: true };
   }
   const N = blNum(sala.n);
   // Si la carga de trabajo por paciente del sitio difiere de Wnorm, K se multiplica por Wsitio / Wnorm (NCRP 147, 4.1.4)
@@ -206,7 +219,7 @@ function docMemoriaBlindaje(c) {
     Ps('Para verificar una barrera existente se calcula su transmisión con la forma inversa, B(x) = [(1 + β/α) · e^(α·γ·x) − β/α]^(-1/γ), multiplicando la del material principal por la del plomo adicional si lo hubiera, y se compara con la transmisión requerida: la barrera cumple si su transmisión es igual o menor.', { align: 'j' })
   );
   if (c.S.practica === 'odontologico' || salas.some(s => /odont/i.test(s.modalidad || ''))) blocks.push(NOTE('El NCRP 147 remite el blindaje de las instalaciones odontológicas al NCRP Report No. 145, Radiation Protection in Dentistry (2.2.8). Los parámetros de esas salas deben tomarse de ese informe.'));
-  if (salas.some(s => /tomo/i.test(s.modalidad || ''))) blocks.push(Ps('En tomografía computarizada el kerma secundario semanal a 1 m del isocentro se estima a partir del producto dosis-longitud: K = κ × DLP × N, con κ diferente para estudios de cabeza y de cuerpo según el NCRP 147.', { align: 'j' }));
+  if (salas.some(s => /tomo/i.test(s.modalidad || ''))) blocks.push(Ps('En tomografía computarizada solo se considera radiación secundaria. El kerma secundario por estudio a 1 m del isocentro se obtiene del producto dosis-longitud (NCRP 147, ec. 5.10): K cabeza = κ cabeza × DLP y K cuerpo = 1,2 × κ cuerpo × DLP, con κ cabeza = 9 × 10⁻⁵ cm⁻¹ y κ cuerpo = 3 × 10⁻⁴ cm⁻¹ (ec. 5.5). El DLP se incrementa según la fracción de estudios que se repiten con contraste (40 % por defecto, factor 1,4). La transmisión se calcula con los parámetros de las figuras A.2 (plomo) y A.3 (concreto) para el kVp de uso.', { align: 'j' }));
   // d) ejemplo con la barrera que requiere mayor blindaje
   const conDato = calc.filter(x => x.r.xPb != null);
   const peor = conDato.sort((a, b) => (b.r.xPb || 0) - (a.r.xPb || 0))[0];
@@ -241,8 +254,9 @@ function docMemoriaBlindaje(c) {
   const ct = salas.filter(s => /tomo/i.test(s.modalidad || ''));
   if (ct.length) {
     blocks.push(Ps('f) Datos de tomografía computarizada', { bold: true }));
-    blocks.push(T(['Sala', 'nCTDI100 cabeza (mGy/mAs)', 'nCTDI100 cuerpo (mGy/mAs)', 'mAs cabeza', 'mAs cuerpo', 'DLP cabeza (mGy·cm)', 'DLP cuerpo (mGy·cm)', 'Estudios/semana cabeza / cuerpo'],
-      ct.map(s => [s.sala, { t: s.ctNctdiCab || '—', align: 'c' }, { t: s.ctNctdiCue || '—', align: 'c' }, { t: s.ctMasCab || '—', align: 'c' }, { t: s.ctMasCue || '—', align: 'c' }, { t: s.ctDlpCab || '—', align: 'c' }, { t: s.ctDlpCue || '—', align: 'c' }, { t: `${s.ctNCab || '—'} / ${s.ctNCue || '—'}`, align: 'c' }]), { small: true }));
+    blocks.push(T(['Sala', 'nCTDI100 cabeza / cuerpo (mGy/mAs)', 'mAs cabeza / cuerpo', 'DLP cabeza / cuerpo (mGy·cm)', 'κ cabeza / cuerpo (cm⁻¹)', '% con y sin contraste', 'K¹sec por estudio cabeza / cuerpo (mGy)', 'Estudios/semana cabeza / cuerpo', 'Kerma semanal a 1 m (mGy)'],
+      ct.map(s => { const t = blTC(s); const e = (v) => v.toExponential(0).replace('.', ','); return [s.sala, { t: `${s.ctNctdiCab || '—'} / ${s.ctNctdiCue || '—'}`, align: 'c' }, { t: `${s.ctMasCab || '—'} / ${s.ctMasCue || '—'}`, align: 'c' }, { t: `${s.ctDlpCab || '1200*'} / ${s.ctDlpCue || '550*'}`, align: 'c' }, { t: `${e(t.kc)} / ${e(t.kb)}`, align: 'c' }, { t: `${num2((t.fc - 1) * 100, 0)} %`, align: 'c' }, { t: `${num2(t.Kc, 3)} / ${num2(t.Kb, 3)}`, align: 'c' }, { t: `${t.nc} / ${t.nb}`, align: 'c' }, { t: num2(t.KN, 2), align: 'c' }]; }), { small: true }));
+    if (ct.some(s => !s.ctDlpCab || !s.ctDlpCue)) blocks.push(NOTE('* DLP por defecto de la Tabla 5.2 del NCRP 147 (cabeza 1200 mGy·cm; promedio de cuerpo 550 mGy·cm), usados a falta de valores propios del equipo.'));
   }
   // g) intervencionismo
   const tiempos = salas.flatMap(s => String(s.intTiempos || '').split('\n').map(l => l.trim()).filter(Boolean).map(l => { const [tipo, t] = l.split(/[:=;]/); return [s.sala, (tipo || '').trim(), { t: (t || '').trim() || '—', align: 'c' }]; }));
