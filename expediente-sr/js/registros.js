@@ -22,6 +22,7 @@ function docRegMantenimiento(c) {
   });
   const blocks = [
     Ps(`Historial de mantenimiento preventivo, correctivo y control de calidad de los equipos generadores de radiación ionizante de la práctica de ${c.P.corto} de ${ph(c.I.razonSocial, 'Razón social')}. Cada intervención la realiza una empresa autorizada por la Autoridad Reguladora y se respalda con el informe técnico en el formato aprobado, firmado por el técnico con licencia personal vigente.`, { align: 'j' }),
+    Ps('Base normativa: Norma Técnica, num. 5.6 (mantenimiento preventivo y correctivo con periodicidad mínima anual por instituciones autorizadas, control de calidad anual y técnico con licencia personal tipo A), Art. 7 (programa de garantía de calidad) y Art. 8 lit. g) y h) (registro de los informes técnicos de mantenimiento y de control de calidad).', { align: 'j' }),
     KV([
       ['Empresa de mantenimiento', ph(V.mantEmpresa, 'Empresa')],
       ['Licencia institucional de la empresa', ph(V.mantLicencia, 'N.º de licencia')],
@@ -64,7 +65,7 @@ function docMatrizRegistros(c) {
     return [{ t: String(i + 1), align: 'c' }, nombre, p ? p.code : '—', p ? p.title : 'No aplica'];
   });
   const blocks = [
-    Ps(`Matriz de los registros institucionales de seguridad radiológica de ${ph(c.I.razonSocial, 'Razón social')}, práctica de ${c.P.corto}. Reúne en un solo documento los registros que la Autoridad Reguladora solicita para el licenciamiento; en la versión de Excel cada registro ocupa su propia hoja.`, { align: 'j' }),
+    Ps(`Matriz de los registros institucionales de seguridad radiológica de ${ph(c.I.razonSocial, 'Razón social')}, práctica de ${c.P.corto}. Reúne en un solo documento los registros que la Autoridad Reguladora solicita para el licenciamiento; en la versión de Excel cada registro ocupa su propia hoja. Responde al sistema de registro y archivo que exige el Art. 8 de la Norma Técnica (licencias, inventarios de equipos y de elementos de protección, vigilancia dosimétrica, control médico, mantenimiento y control de calidad, incidentes e inspecciones).`, { align: 'j' }),
     T(['N.º', 'Registro', 'Código', 'Documento'], indice, { widths: [6, 44, 22, 28], small: true }),
     SIGN([{ ...c.firmas.osr, label: 'Elaborado por' }, { ...c.firmas.rep, label: 'Aprobado por' }])
   ];
@@ -89,7 +90,7 @@ function docInformacionPaciente(c) {
     : [['Beneficio esperado', `Obtener información diagnóstica necesaria para decidir el tratamiento.`], ['Riesgos por radiación', `La dosis de un ${odont ? 'estudio odontológico' : 'estudio radiográfico'} es baja; el riesgo de efectos a largo plazo es muy pequeño frente al beneficio diagnóstico. No produce efectos inmediatos.`], ['Embarazo', 'Se pregunta siempre; si existe o se sospecha embarazo se aplica el procedimiento de justificación antes de realizar el estudio.']];
   const blocks = [
     H('1. Objetivo'),
-    Ps(`Establecer cómo se informa a la persona que será expuesta, o a su representante o apoderado, sobre los beneficios esperados y los riesgos asociados al ${estudio} radiológico antes de realizarlo, en la práctica de ${P.corto} de ${ph(I.razonSocial, 'Razón social')}.`, { align: 'j' }),
+    Ps(`Establecer cómo se informa a la persona que será expuesta, o a su representante o apoderado, sobre los beneficios esperados y los riesgos asociados al ${estudio} radiológico antes de realizarlo, en la práctica de ${P.corto} de ${ph(I.razonSocial, 'Razón social')}, conforme al num. 5.1 lit. n) de la Norma Técnica, que obliga al titular de la licencia a verificar que el médico ha informado a la persona sometida a la exposición o a su apoderado de los beneficios y riesgos esperados.`, { align: 'j' }),
     H('2. Alcance'),
     Ps(`Aplica a todos los pacientes que se realizan ${odont ? 'estudios radiográficos odontológicos' : (interv ? 'procedimientos intervencionistas guiados por fluoroscopia' : 'estudios de radiodiagnóstico')} en la institución, incluidos menores de edad y personas que no pueden decidir por sí mismas, en cuyo caso se informa a su representante legal o apoderado.`, { align: 'j' }),
     H('3. Responsables'),

@@ -1,0 +1,1561 @@
+REGLAMENTO DE SEGURIDAD RADIOLOGICA
+Decreto Supremo 3640
+Registro Oficial 891 de 08-ago.-1979
+Estado: Vigente
+EL CONSEJO SUPREMO DE GOBIERNO
+Considerando:
+Que el objeto de este Reglamento es proteger contra los efectos nocivos de las radiaciones
+ionizantes a la población del país, en general, y en particular a las personas que trabajan con dichas
+radiaciones;
+Que la Ley Constitutiva de la Comisión Ecuatoriana de Energía Atómica, expedida por Decreto
+Supremo No. 3306, de 8 de marzo de 1979, publicado en el Registro Oficial No. 798, de 23 de marzo
+de 1979 , manifiesta en el artículo 10, letra g, que esta Entidad se obliga a reglamentar la
+producción, adquisición, transporte, importación, exportación, utilización y manejo de elementos
+fértiles fisionables y radiactivos; así como de los radioisótopos artificiales importados o producidos en
+el país y de las máquinas generadoras de radiaciones ionizantes; y,
+En uso de las atribuciones que se halla investido.
+Decreta:
+El siguiente Reglamento de Seguridad Radiológica
+TITULO PRIMERO
+De la Protección Contra la Radiación
+CAPITULO I
+Límites de Dosis
+Art. 1.- Dosis máxima permitida para personas ocupacionalmente expuestas.- No se podrá usar
+fuentes de radiación que den lugar a que una persona ocupacionalmente expuesta, reciba una dosis
+de radiación en exceso de los límites especificados a continuación:
+a) Para irradiación externa:
+ORGANO DOSIS MAXIMA PERMITIDA
+Cuerpo entero, gónadas, médula ósea 5 rem/año
+3 rem/trimestre
+Hueso, piel de todo el cuerpo, tiroides 30 rem/año
+15 rem/trimestre
+Manos, antebrazos, pies, tobillos 75 rem/año
+40 rem/trimestre
+Todos los otros órganos 15 rem/año
+8 rem/trimestre
+Exceptúanse de esta tabla al personal femenino en edad reproductiva, quien no puede recibir más
+de 1.25 rem/trimestre, y la mujer en estado de gravidez, quien no podrá recibir más de 1 rem durante
+el período de embarazo.
+b) Para irradiación interna.- Los valores de incorporación máxima permitida anualmente son los
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 1
+LEXIS FINDER - www.lexis.com.ec
+
+indicados en la Tabla No. 1. Si se tratara de la incorporación de una mezcla de radionucleidos en
+proporciones conocidas, deberá cumplirse que la suma de las fracciones de las cantidades
+incorporadas calculadas en base a los valores correspondientes indicados en la Tabla No. 1 sea
+igual o menos que uno (1). Si se tratara de mezcla de radionucleidos determinados en proporciones
+desconocidas, el máximo permisible para la mezcla será el correspondiente al radionucleido
+integrante la mezcla de menor valor permisible de incorporación. Sin perjuicio del cumplimiento de
+este literal podrá aceptarse que en un trimestre, el personal incorpore material radioactivo en
+cantidad de hasta la mitad de los límites anuales fijados, exceptuándose el personal femenino en
+edad reproductiva, para quienes está limitada la incorporación del material radioactivo a la cuarta
+parte de los límites anuales fijados.
+NOTA: Las dosis especificadas en este artículo no comprenden las dosis resultantes del fondo
+natural de radiación ni las que puede recibir una persona por exámenes o tratamientos médicos que
+involucren el uso de radiaciones ionizantes.
+Art. 2.- Dosis máxima permitida para la población en general.- La dosis de radiación que puede
+recibir la población en general por irradiación externa no deberá exceder el diez por ciento (10%) de
+los valores especificados en el literal a), Art. 1. Se exceptúa la tiroides de personas menores de 16
+años, cuya dosis no deberá exceder de 150 mrem/año. Para irradiación interna, los valores límites
+anuales de ingestión e inhalación de material radiactivo, son los indicados en la tabla No. 2. Para la
+incorporación de mezclas de radionucleidos, se seguirá un criterio igual al establecido en el literal b)
+Art. 1.
+Art. 3.- Exposición de menores de edad.- Se prohíbe el trabajo de personas menores de 18 años de
+edad en áreas de radiación.
+CAPITULO II
+Procedimientos Preventivos
+Art. 4.- Inspecciones de reconocimiento.- Todo licenciatario está obligado a solicitar a la CEEA que
+se realicen las inspecciones de reconocimiento para verificar el cumplimiento de las disposiciones de
+este Reglamento.
+Una inspección anual, por lo menos, será obligación de parte de la CEEA, la cual se acreditará con
+el certificado correspondiente.
+Art. 5.- Control de dosimetría personal.- Todo licenciatario está obligado a usar detectores de control
+de dosimetría personal adecuados, como dosímetros de bolsillo, dosímetros de película o dosímetros
+termoluminiscentes. La portación de estos dosímetros es obligatoria dentro de un área restringida.
+Art. 6.- Etiquetas, Símbolos y Señales de Precaución.- El símbolo de radiación internacional es el
+adoptado en este Reglamento y consiste en 3 hojas en forma de trébol, de color magenta o púrpura
+sobre fondo amarillo.
+Además de este símbolo, deberán añadirse las señales de precaución correspondientes a cada área
+donde se genere o emita radiación; asimismo, todo envase de material radiactivo deberá llevar una
+etiqueta que identifique a una fecha determinada sus características: hombre del radioisótopo,
+período de semidesintegración, actividad o tasa de exposición.
+CAPITULO III
+Notificaciones y Registros
+Art. 7.- Notificación del Empleador a sus Trabajadores.- El empleador está obligado a lo siguiente:
+a) Informar a las personas que trabajen en un área restringida sobre la existencia de radiación y
+sobre los problemas de seguridad asociados con la exposición a dicha radiación, así como las
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 2
+LEXIS FINDER - www.lexis.com.ec
+
+precauciones y procedimientos que se deben tomar para reducir la dosis de radiación.
+Deberá, además, instruir a dichas personas sobre las disposiciones de este Reglamento;
+b) Informar trimestralmente al personal la dosis de radiación recibida durante su tiempo de trabajo,
+evaluada por el dosímetro personal;
+c) Exhibir o mantener disponible la licencia otorgada por la CEEA, tanto al personal como a la
+Institución, así como el certificado de inspección de las fuentes y máquinas de radiación; y,
+d) Proporcionar al personal copias del FORMULARIO INSTRUCTIVO de NORMAS DE
+PROTECCION CONTRA LA RADIACION, elaborado por la CEEA, y asegurarse de que se le
+instruya sobre sus deberes y derechos.
+Art. 8.- Notificación del Usuario a la CEEA.- El usuario estará obligado a notificar a la CEEA sobre lo
+siguiente:
+a) La adquisición de radioisótopos y máquinas generadores de radiación; y,
+b) El uso mensual de cada entrega de radioisótopos recibidos del importador.
+Art. 9.- Registros.- El empleador está obligado a lo siguiente:
+a) Llevar registros personales de cada trabajador profesionalmente expuesto en áreas controladas,
+en las que constará:
+1. La licencia de trabajo.
+2. La índole de las tareas que realiza.
+3. El tipo de radiación y/o contaminación posibles.
+4. Los resultados de las operaciones de monitoreo individual.
+5. Los resultados de los reconocimientos médicos.
+b) Deberá también mantener récords de toda persona que entre en un área restringida;
+c) Mantener registros de las inspecciones a equipos e instalaciones certificadas por la CEEA; y,
+d) Mantener registros de los usos de radioisótopos y máquinas generadores de radiación.
+CAPITULO IV
+Desperdicios Radiactivos y Descontaminación de Instalaciones
+Art. 10.- Alcance.- Los desechos radioactivos comprenden substancias radiactivas y materiales
+contaminados por contacto con substancias radiactivas. Dichos materiales son sólidos, líquidos y
+gaseosos.
+Art. 11.- Tratamiento y Evacuación.- El Licitario puede realizar todas las operaciones existentes para
+el tratamiento y evacuación de desperdicios radiactivos.
+El tratamiento comprende el almacenamiento para fines de decaimiento del material radiactivo, su
+entierro e incineración si éstos son desechos sólidos; evaporación, intercambio iónico y tratamiento
+químico, si son líquidos.
+Art. 12.- Obligación de Licenciatarios.- Los usuarios de radioisótopos están obligados a presentar a
+la CEEA un análisis y estudio de los procedimientos que se aplicarán para tratar y evacuar desechos
+radiactivos, así como también un análisis y estudio de los factores ambientales pertinentes.
+Art. 13.- Descontaminación de Instalaciones.- Para la descontaminación se observarán las
+siguientes reglas:
+a) El Licenciatario notificará a la CEEA la presencia de contaminación, ya sea ésta en personas o en
+instalaciones;
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 3
+LEXIS FINDER - www.lexis.com.ec
+
+b) En presencia de área contaminada, el Licenciatario está obligado a descontaminarla, para lo cual
+podrá pedir la cooperación de la CEEA; y,
+c) Un área contaminada deberá ser inmediatamente aislada, permitiéndose su acceso a ella
+únicamente a las personas a cargo de la descontaminación.
+TITULO SEGUNDO
+Radioisótopos como Fuentes Abiertas
+CAPITULO I
+Licencias para la Adquisición y Uso de Fuentes Abiertas
+Art. 14.- Obligación de las Instituciones.- Para que cualquier institución pública o privada, nacional e
+internacional, con o sin sede en el Ecuador, reciba, posea, use o transfiera material radioactivo en
+territorio ecuatoriano, necesitará una autorización expresa de la CEEA.
+Las instituciones están obligadas también a llevar una contabilidad mensual de la adquisición y uso
+de dicho material.
+Art. 15.- Concesión de Licencias.- Las licencias para el uso de radioisótopos como fuentes abiertas,
+serán concedidas por la CEEA, a petición de la Sociedad Ecuatoriana de Biología y Medicina
+Nuclear, Sociedad Ecuatoriana de Radiología o Sociedad Ecuatoriana de Oncología y Ciencias
+Afines, y en caso de que el profesional no estuviera representado por una de estas sociedades, a
+petición del interesado.
+Art. 16.- Tipos de Licencias.- Las licencias son de tres tipos: licencias a instituciones, licencias a
+profesionales y licencias a personal paramédico.
+Art. 17.- Licencias a Instituciones.- Esta licencia permite a todo consultorio profesional, a
+instituciones públicas o privadas, nacionales e internacionales, con sede en el Ecuador, adquirir
+radioisótopos y compuestos químicos nuclearmente marcados para satisfacer sus necesidades de
+trabajo. Los requisitos para obtener este tipo de licencias son los siguientes:
+a) Disponer, a más del equipo necesario para los fines específicos, de los instrumentos que sean
+requeridos para el manejo correcto de radioisótopos;
+b) Disponer de equipo de detección de radiación apropiado y del material de laboratorio necesario
+para el manejo correcto de radioisótopos. El equipo deberá estar en perfecto estado de
+funcionamiento a la fecha de solicitud de la licencia, lo que deberá ser verificada por la CEEA;
+c) Disponer de locales apropiados donde los radioisótopos puedan ser manejados sin peligro de
+exposición a terceros, y de las facilidades adecuadas donde los radioisótopos puedan ser guardados
+para mantener las reglas de seguridad radiológica. Estos lugares deberán estar debidamente
+marcados de acuerdo al nivel de radiación y a lo estipulado en el Título Primero de este Reglamento
+y, en general, serán considerados como las áreas restringidas;
+d) Que el representante legal de la institución asuma la responsabilidad, o ésta nombre un Oficial de
+seguridad Radiológica, de manera que los aspectos de control de radiación estén permanentemente
+vigilados;
+e) El oficial de Seguridad Radiológica será un graduado en ciencias físicas, biológicas, médicas o de
+ingeniería y tendrá delegación del representante legal de la institución para hacer cumplir el
+Reglamento de Seguridad Radiológica. El oficial de Seguridad Radiológica para ser nombrado por la
+Institución, deberá ser evaluado por la CEEA;
+f) La institución se compromete, al solicitar licencia para adquirir y usar radioisótopos, a llevar una
+contabilidad de los radioisótopos adquiridos y de las cantidades empleadas, e informar
+mensualmente de este particular a la CEEA;
+g) La institución se compromete a reportar a la CEEA, antes del 15 de enero de cada año, la
+cantidad y clase de radioisótopos que se proponga utilizar durante el año;
+h) La institución facilitará acceso a las inspecciones por parte de la CEEA, cuando ésta así lo
+requiera; e,
+i) La licencia será válida por el tiempo estipulado en la misma.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 4
+LEXIS FINDER - www.lexis.com.ec
+
+Art. 18.- Licencia a Profesionales.- La CEEA, concederá licencia a personas para la adquisición y
+uso de radioisótopos y compuestos químicos nuclearmente marcados, conforme se señala en el Art.
+15; siempre y cuando el solicitante se comprometa a lo siguiente:
+a) Prestar la cooperación necesaria al represente legal de la institución o su delegado, el oficial de
+Seguridad Radiológica, para llevar la contabilidad de recepción y uso de radioisótopos;
+b) Emplear como ayudantes solamente a personas que poseen licencia extendida por la CEEA;
+c) Tomar las precauciones necesarias en relación a los desperdicios y desechos radiactivos y
+disponer de ellos conforme lo estipulado en el Art. 11 de este Reglamento;
+d) Obligar a su personal que observe las reglas de Seguridad Radiológica y use los dosímetros
+personales;
+e) No usar los radioisótopos adquiridos para una institución en actividades privadas; y
+f) Renovar la licencia al cumplir el tiempo para el cual fue expedida.
+Art. 19.- Licencias a Personal Paramédico.- La CEEA concederá licencias a personal paramédico
+para el uso de radioisótopos y compuestos químicos nuclearmente marcados, conforme a lo
+señalado en el Art. 15.
+CAPITULO II
+Uso de Radioisótopos
+Art. 20.- Radioisótopos en Medicina.- Los Licenciatarios médicos, podrán usar radioisótopos en
+diagnóstico y en terapia, siempre que cumplan lo siguiente:
+a) Disponer de facilidades apropiadas de hospitalización que previamente hayan sido
+inspeccionadas por la CEEA;
+b) Que el cuarto de hospitalización del paciente sea considerado como área restringida;
+c) Que el personal que cuida y controla al paciente esté instruido de las precauciones que deben
+tomarse, y esté provisto de dosímetros personales; y,
+d) Que se almacene para su decaimiento, se procese o se deseche los residuos radiactivos
+provenientes de los tratamientos, de acuerdo con lo estipulado en el Art. 11.
+Art. 21.- Radioisótopos en Investigación.- Los profesionales con licencia para emplear radioisótopos
+en investigaciones en ciencias médicas, físicas, química, biológicas e ingeniería, están obligados a lo
+siguiente:
+a) Informar a la CEEA de las instalaciones, el equipo y la clase, actividad y uso de los radioisótopos
+que se emplearán;
+b) Cumplir con todos los requisitos de Seguridad Radiológica y permitir el acceso de Inspectores de
+la CEEA a las instalaciones;
+c) Tomar las precauciones necesarias para que los trabajos propuestos no causen daños a terceros;
+y,
+d) Permitir a la CEEA informes semestrales sobre la recepción y consumo de radioisótopos.
+CAPITULO III
+Transferencia de Radioisótopos
+Art. 22.- Requisitos.- La transferencia de radioisótopos y compuestos químicos nuclearmente
+marcados entre instituciones y licenciatarios para fines de diagnóstico, terapia o investigación podrán
+realizarse siempre que estas transferencias sean reportadas mensualmente por escrito a la CEEA
+adjuntando la copia de la factura remitida junto con el material.
+Art. 23.- Provisión por parte de la CEEA.- Cuando la CEEA esté en condiciones de preparar
+radioisótopos y substancias nuclearmente marcadas, todas las entregas a usuarios serán
+únicamente de su parte.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 5
+LEXIS FINDER - www.lexis.com.ec
+
+CAPITULO IV
+Importación de Radioisótopos
+Art. 24.- Normas Supletorias.- El comercio de radioisótopos se rige por las leyes y reglamentos
+pertinentes. Las regulaciones que se determinan en este capítulo se concretan únicamente a
+garantizar los aspectos de Seguridad Radiológica para los importadores y Licenciatarios de
+radioisótopos como fuentes abiertas.
+Art. 25.- Licencia de Importación.- La CEEA dará una licencia denominada Licencia de Importación
+para Radioisótopos a los representantes de casas extranjeras productoras de importadoras de
+radioisótopos o compuestos químicos nuclearmente marcados que deseen dedicarse a esta
+actividad de comercio en el Ecuador. La Solicitud pertinente debe contener:
+a) Número de registro de la Cámara de Comercio local;
+b) Manufactureo (representado);
+c) Domicilio en el Ecuador, y representantes en provincias, si existiesen;
+d) Radioisótopos que van a importarse y sus actividades. Estas cifras de actividad deben darse como
+datos de promedio por año; y
+e) Distribución geográfica de sus ventas de radioisótopos, por provincia, en el año precedente.
+Art. 26.- Trámite.- El Banco Central del Ecuador dará trámite al pedido de importación de
+radioisótopos sólo cuando el importador presente la licencia válida otorgada por la CEEA.
+Art. 27.- Contenido del Formulario.- El importador comunicará la importación a la CEEA llenando el
+formulario correspondiente con la siguiente información:
+a) Origen de radioisótopos;
+b) Nombre, dirección y número de licencia del importador;
+c) Nombre, dirección y número de licencia de la institución o Licenciatario para el cual se hace la
+importación;
+d) Fecha de embarque y llegada;
+e) Actividad de los radioisótopos; y,
+f) Tasa de exposición en el exterior del blindaje usado para el transporte de radioisótopos.
+Art. 28.- Entrega de Radioisótopos a Licenciatarios.- Cuando la CEEA, no disponga de algún otro
+procedimiento para la entrega de radioisótopos al licenciatario, el importador deberá observar las
+siguientes disposiciones previa a la entrega de los mismos:
+a) Inspeccionar los radioisótopos al llegar al país, comprobando las condiciones descritas en los
+documentos de importación; y,
+b) Notificar inmediatamente a la CEEA si se detectaren fugas de radiación en el empaque del
+radioisótopo por el medio más rápido posible y posteriormente se presentará el informe
+correspondiente. La CEEA implementará las medidas de seguridad recomendadas en estos casos.
+Art. 29.- Contabilidad de Radioisótopos por el Importador.- La CEEA portador informará por escrito
+mensualmente a la CEEA sobre los radioisótopos que se han entregado a los licenciatarios en los
+formatos preparados para este fin, remitiendo copia de la factura correspondiente.
+Art. 30.- Seguridad Radiológica para el Importador.- La CEEA controlará que cada importador
+cumpla los requerimientos de Seguridad Radiológica prescritos para la entrega de radioisótopos a
+licenciatarios. Será obligatorio para el importador asegurar el uso de dosímetros individuales por la o
+las personas a cargo del transporte de radioisótopos.
+El importador mantendrá disponible el reporte de la dosis de radiación recibida por el empleado.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 6
+LEXIS FINDER - www.lexis.com.ec
+
+Art. 31.- Areas Restringidas.- El importador señalará el área de almacenaje de radioisótopos hasta la
+entrega total al destinatario, como área restringida, para lo cual cumplirá con lo estipulado en el Art. 6
+de este Reglamento.
+CAPITULO V
+Concesión, expiración y suspensión de licencias para la
+adquisición y uso de radioisótopos
+Art. 32.- Concesión de Licencias.- Una vez llenados los requisitos señalados en el presente
+Reglamento para importadores, instituciones, profesionales y personal paramédico, la CEEA
+conferirá la licencia respectiva.
+Art. 33.- Expiración de Licencias.- Las licencias se concederán por el lapso de cuatro años. Los
+Licenciatarios deberán solicitar la renovación con 90 días de anticipación a la fecha de su
+vencimiento, para lo cual se aplicarán los Arts. 15, 17 y 18 de este Reglamento.
+Art. 34.- Suspensión de Licencias.- Por las faltas cometidas por los licenciatarios se podrá
+suspender las licencias en forma temporal o definitiva, conforme se establece en el Título Octavo de
+este Reglamento, y será la CEEA el organismo técnico legalmente facultado para imponer tales
+sanciones.
+TITULO TERCERO
+Radioisótopos como fuentes selladas
+CAPITULO I
+Radioisótopos en implantes de medicina
+Art. 35.- Profesionales autorizados para estas actividades.- En aplicaciones intersticiales e
+intracavitarias, podrán manejar este tipo de fuentes, profesionales médicos con licencia actualizada
+expedida por la CEEA.
+Art. 36.- Licencias para la Adquisición y Uso de Fuentes Selladas en Implantes de Medicina.- Las
+licencias para la adquisición y uso de fuentes selladas en implantes de medicina serán concedidas
+en igual forma que lo dispuesto en los Arts. 15, 16 y 18 de este Reglamento.
+Art. 37.- Almacenaje, Pruebas de Escape y Contaminación.- Para adquirir y usar este tipo de fuentes
+de radiación, el licenciatario está obligado a lo siguiente:
+a) Almacenaje.- Cuando no se estuvieren usando las fuentes selladas deberán mantenerse en
+lugares blindados y protegidos del acceso de terceras personas. Estos lugares serán considerados
+como área restringida; y,
+b) Pruebas de Fuga y Contaminación.- Toda fuente sellada con una vida media mayor de treinta días
+será sometida a pruebas de fuga y contaminación antes del uso inicial y a intervalos que no
+excederán de seis meses.
+Se considerará que existe fuga en la fuente sellada si la prueba revela la presencia de actividades en
+cantidades mayores a cinco centésimas de microcurie (0.05 uCi).
+La CEEA realizará todo lo concerniente a pruebas de fuga y contaminación.
+Art. 38.- Contaminación de Areas y Fuentes Selladas.- Cuando el análisis de las áreas y fuentes se
+obtuviera como resultado valores del doble o más de la radiación del fondo, se procederá en la
+siguiente forma:
+a) La CEEA notificará al Licenciatario sobre la contaminación encontrada;
+b) La CEEA procederá a la descontaminación del área y fuentes por métodos recomendados
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 7
+LEXIS FINDER - www.lexis.com.ec
+
+internacionalmente; y,
+c) Si una vez efectuada la descontaminación de la fuente, se detectare una nueva actividad anómala,
+lo cual indicare que existe una fuga de radioactividad en la fuente, el licenciatario está obligado a
+reparar o desechar la fuente.
+Art. 39.- Normas de Seguridad Radiológica para Licenciatarios.- Todo Licenciatario que trabaje con
+fuentes selladas en implantes en medicina, deberá usar dosímetro personal, el cual deberá ser
+medido por un organismo nacional competente. El médico que haga el implante deberá usar en lo
+posible un dosímetro de mano adicional. Los locales donde se realicen estos implantes serán
+considerados como áreas restringidas.
+Queda prohibida la transferencia de este tipo de fuente sellada entre licenciatarios sin previa
+autorización de la CEEA.
+CAPITULO II
+Radioisótopos en aplicaciones externas con fines médicos
+Art. 40.- Características del Equipo y los Locales.- Las fuentes de alta actividad usadas para el
+tratamiento con radiación en pacientes con cáncer funcionarán sólo en locales que tengan el blindaje
+adecuado y estén aprobados por la CEEA. Las características generales que deben tener el equipo y
+los locales destinados a estos usos serán los señalados a continuación.
+Art. 41.- Equipo.- Toda fuente sellada de rayos gamma usada para terapia deberá estar encerrada
+en una cubierta protectora de tal manera que la unidad funcione de la siguiente forma:
+a) Con el mecanismo de control del haz en la posición "apagada", la exposición proveniente de fuga
+de radiación medida a una distancia de 1 metro de la fuente no excederá de 2 mR/h. En cualquier
+posición accesible distante 5 cm de la superficie de la cubierta, la exposición proveniente de fuga de
+radiación, no deberá exceder 20 mR/h, a menos que la exposición del haz útil de radiación fuera
+menor que 100 R/h a 1 m desde la fuente, en cuyo caso la exposición proveniente de fuga de
+radiación no deberá exceder 40 mR/h;
+b) Con el mecanismo de control del haz en posición "prendida", la razón de exposición proveniente
+de fuga de radiación medida a una distancia de 1 metro desde la fuente, no deberá exceder de 1 R/h
+o 0.1% de la exposición del haz útil a 1 metro de la fuente. Cuando la exposición del haz sea menor
+que 100 R/h a 1 m desde la fuente, la exposición proveniente de radiación de fuga no deberá
+exceder 1% de exposición del haz útil;
+c) En el panel de control y en la cubierta protectora, habrá un artefacto de precaución que indique
+claramente si el haz está expuesto o no; y
+d) El panel de control estará provisto con un cronómetro que automáticamente termine la exposición
+al transcurrir el tiempo fijado.
+Art. 42.- Locales.- Los locales en donde se instalarán las fuentes de Radioterapia contarán con las
+barreras primarias y secundarias necesarias para un blindaje seguro. Los locales además deberán
+tener los siguientes requisitos:
+a) Cuando cualquier puerta de la sala de tratamiento fuera abierta, el mecanismo de control del haz
+deberá apagar automáticamente la unidad;
+b) En la sala de tratamiento y en las puertas de ésta habrá un artefacto de precaución que indique
+claramente si el haz está expuesto o no;
+c) Se preveerán ventanas, sistemas de espejos o equipos de televisión apropiados para observar
+continuamente a los pacientes durante la irradiación; y
+d) Se deberá obligatoriamente contar con planes de operación y emergencia, los cuales estarán
+colocados en las partes más visibles del local.
+Art. 43.- Calibración, Pruebas de Fuga y Contaminación.- La CEEA prestará periódicamente el
+servicio de calibración de estas fuentes, lo que permitirá un conocimiento exacto de su rendimiento.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 8
+LEXIS FINDER - www.lexis.com.ec
+
+Las fuentes selladas serán sometidas, en cuanto sea posible, a los procedimientos establecidos en
+el Art. 37.
+Art. 44.- Personal requerido para trabajar en instalaciones de Radioterapia.- El personal requerido
+para una instalación de Radioterapia será el siguiente:
+a) Médico Radioterapeuta, con entrenamiento y experiencia en esta rama de la Medicina;
+b) Físico de Hospitales, graduado en ciencias o ingeniería, con entrenamiento y experiencia en el
+planeamiento, diseño y dosimetría de tratamientos y en problemas de Seguridad Radiológica
+referentes a este tipo de instalaciones.
+A las instituciones que no dispongan de estos profesionales se les concede el plazo de dos años, a
+partir de la fecha de vigencia de este Reglamento, para contar con los servicios de aquellos. Las
+instituciones del caso comunicarán por escrito a la CEEA el nombre y el curriculum vitae del
+profesional contratado.
+La CEEA prestará el asesoramiento para el planeamiento, el diseño y la dosimetría de tratamiento,
+así como para la calibración y las pruebas de fuga de las fuentes, en forma gratuita a instituciones
+que no cobraren por estos servicios, y remunerada en caso contrario;
+c) Operador de equipo, que será Tecnólogo Médico, Técnico en Radioterapia o persona que por su
+experiencia y sus conocimientos sea idónea para asumir estas responsabilidades. El operador no
+podrá abandonar su sitio de trabajo durante el tratamiento a los pacientes y el será la única persona
+autorizada para manejar u operar el equipo; y,
+d) En caso requerido se puede contar con personal auxiliar, como Auxiliar de Tecnólogo o Auxiliar de
+Enfermería, que asistirá al Radioterapeuta para lograr mayor eficiencia en el servicio.
+Art. 45.- Seguridad Radiológica en Instalaciones de Radioterapia.- Todo el personal médico y
+paramédico que trabaje en instalaciones de Radioterapia deberá usar dosímetro personal medido
+por un organismo nacional competente. Los locales donde se realicen estos tratamientos se
+considerarán como áreas restringidas.
+Art. 46.- Licencias para Instituciones y Personal que trabaje con Equipo Radioterapia.- Las licencias
+para instituciones que trabajen con equipo de Radioterapia serán concedidas por la CEEA previo
+cumplimiento de las condiciones establecidas en los Arts. 15 y 17 de este Reglamento, además de
+los requerimientos de hospitalización necesarios para los pacientes.
+Las instituciones deberán asimismo, presentar a la CEEA un plan de trabajo en el cual se incluya la
+función profesional de cada persona que trabaje en la instalación. Para la expedición del
+nombramiento y licencia deben cumplirse las condiciones expuestas en los Arts. 15 y 18 del presente
+Reglamento, respecto del personal.
+CAPITULO III
+Radioisótopos en Investigación
+Art. 47.- Alcance.- Las fuentes destinadas a investigación pueden tener una actividad nuclear similar
+a las usadas en Radioterapia. A estas fuentes se aplicarán las regulaciones contenidas en los
+artículos que siguen.
+Art. 48.- Regulaciones para Fuentes de Irradiación.- Estas fuentes generalmente vienen en blindajes
+que al mismo tiempo pueden servir de cámara de irradiación, o que son sacadas de su blindaje y
+puestos en sitios de irradiación bajo suficiente profundidad de agua; o que pueden también ser
+sacadas de su blindaje y, mediante un mecanismo adecuado, ser colocadas en un área para
+irradiación. Sobre cada caso se regula en los dos artículos siguientes.
+Art. 49.- Fuentes que Usan su Blindaje como Cámaras de Irradiación.- Debe observarse en estos
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 9
+LEXIS FINDER - www.lexis.com.ec
+
+equipos que la tasa de exposición fuera del blindaje a un metro de distancia, no exceda a un
+miliroentgen por hora (1 mR/h).
+Debe hacerse un rastreo con un detector de radiación apropiado, alrededor del equipo, para localizar
+posibles puntos calientes o puntos de mayor nivel de radiación; lo que se realizará tanto con el
+irradiador en servicio y cuando esté apagado.
+En caso de que se encontraren puntos calientes, se implementarán las medidas del caso para
+atenuar la radiación, de manera que se consiga la protección del operador y un nivel de radiación
+permisible en áreas adyacentes.
+Art. 50.- Fuentes que usan Agua como Blindaje.- Las fuentes que usan agua como blindaje se
+someterán a lo siguiente:
+a) El volumen de agua será tal que la medida de la tasa de exposición en su superficie no exceda de
+un miliroentgen por hora (1 mR/h);
+b) El agua estará contenida en un estanque hermético que evite la filtración de la misma;
+c) El agua será analizada por lo menos una vez cada semana para detección de radioactividad
+originada por fuga de radiación de la fuente. La medida de radiactividad no deberá ser mayor que la
+máxima permitida. En caso de detectar actividad anómala en el agua, se notificará inmediatamente a
+la CEEA;
+d) Para precaver la posible corrosión del empaque de encapsulamiento, la instalación debe tener un
+equipo para desionización del agua;
+e) La instalación debe disponer de equipo apropiado para el traslado de las fuentes;
+f) La instalación debe tener alarmas de radiación adecuadas, que permita poner al personal en aviso
+anticipado de cualquier sobre - exposición; y,
+g) La instalación debe, además, disponer de seguridades para evitar la posibilidad de salida de la
+fuente de radiación al sacar las muestras que son irradiadas.
+Art. 51.- Fuentes Expuestas en Areas de Radiación.- Estas fuentes son expuestas en un local
+denominado cuarto de irradiación. A ellos se aplicarán las regulaciones siguientes:
+a) La fuente no podrá ser expuesta mientras no está herméticamente cerrada la puerta;
+b) Cuando la fuente esté expuesta, debe haber en la instalación una señal indicativa; y,
+c) Las paredes del blindaje serán del espesor calculado para que a un (1) metro de distancia de
+ellas, no exista una tasa de exposición mayor de un miliroentgen por hora (1 mR/h).
+Art. 52.- Licencias para Instalaciones de Fuentes de Radiación.- Las instituciones interesadas en
+adquirir este tipo de fuentes de radiación deben someter la solicitud correspondiente a la CEEA. En
+esta solicitud se presentará el programa de trabajo y un plan detallado de Seguridad Radiológica en
+el cual todos los aspectos concernientes a riesgos, tanto del personal como del equipo, serán
+descritos con precisión.
+Comprobada la experiencia de la persona a cargo del programa e inspeccionado el sitio de
+localización de la fuente, se otorgará la licencia para poseer y operar este tipo de equipo a la
+institución que lo solicite, quedando ésta obligada a lo siguiente:
+a) Mantener el local donde este equipo esté localizado como área restringida;
+b) Que tanto el operador, como cualquier otra persona que por su trabajo tenga acceso a la fuente,
+utilice siempre el correspondiente dosímetro personal;
+c) Garantizar a la CEEA que el operador, y cualquier otra persona que por su trabajo tenga acceso a
+la fuente, esté correctamente instruido en el manejo del equipo y conozca los procedimientos
+requeridos en caso de emergencia;
+d) Preparar el operador correspondiente para obtener la licencia, previo exámenes de calificación
+rendidos ante la CEEA; y,
+e) Solicitar la visita, por lo menos dos veces al año, a los Inspectores de la CEEA. Además la puesta
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 10
+LEXIS FINDER - www.lexis.com.ec
+
+en marcha de estas fuentes será supervisada por la CEEA, la cual podrá hacer las recomendaciones
+que estimen necesarias para el mejor control de la Seguridad Radiológica.
+Art. 53.- Licencias para Personal que Trabaje en Investigaciones con Fuentes de Radiación.- Las
+licencias para personal que trabaje en esta clase de investigación serán concedidas por la CEEA
+previo el cumplimiento de las disposiciones de Seguridad Radiológica.
+CAPITULO IV
+Radioisótopos en la Industria
+Art. 54.- Licencias.- La CEEA concederá la licencia correspondiente solo cuando se cumplan los
+requisitos determinados en los artículos que siguen.
+Art. 55.- Entrenamiento del Personal.- El interesado deberá tener un programa adecuado de
+entrenamiento de operadores y asistentes de operadores y someterá a la CEEA una descripción de
+dicho programa en el cual se especificará lo siguiente:
+a) Entrenamiento inicial;
+b) Entrenamiento periódico o en servicio; y,
+c) Los medios usados por el licenciatario para asegurar la preparación adecuada del operador y del
+asistente y su capacidad para cumplir con las reglamentaciones y los procedimientos de operación y
+de emergencia.
+Art. 56.- Descripción de la Organización.- El solicitante debe someter un organigrama de funciones y
+responsabilidades con relación al programa de aplicación industrial.
+Art. 57.- Seguridad Radiológica en Usos Industriales.- Para este tipo de fuentes se aplican las
+mismas regulaciones de Seguridad Radiológica que se han señalado en los Arts. 39 y 41.
+Igualmente, se aplican las normas establecidas en el Art. 37 en lo relacionado con las pruebas de
+escape y contaminación en el equipo. Además el Licenciatario queda obligado a lo siguiente:
+a) Entregar a todas las personas que intervengan en el programa un dosímetro personal; y,
+b) El área en donde se realicen los trabajos será considerada como área restringida y la persona
+responsable tomará las medidas adecuadas para el aislamiento de dicha área de otras áreas de
+trabajo.
+CAPITULO V
+Importación de Radioisótopos
+Art. 58.- Requisitos para la Importación.- Las firmas representantes de casas que fabrican o
+comercian con fuentes selladas de radiación, para proceder a la importación de ellas, deben cumplir
+con las disposiciones señaladas en los artículos que siguen.
+Art. 59.- Notificación a la CEEA.- Tan pronto como cualquier persona, institución pública o privada,
+nacional o internacional, con o sin sede en el Ecuador, notifique a un importador de su interés en
+adquirir cualquier tipo de fuente descrita en este capítulo, dicho importador debe comunicar esto por
+escrito a la CEEA.
+Art. 60.- Acción de la CEEA al ser notificada.- La CEEA, en el plazo de cinco días laborables, tomará
+contacto con la institución y observará en detalle el programa en el cual van a usarse las fuentes que
+se pretende traer al país.
+Se fijarán los detalles de puesta en marcha del equipo y la política general de Seguridad Radiológica
+o seguridad industrial necesarios y aconsejables para el mejor desarrollo del programa, de acuerdo a
+las regulaciones que, para cada tipo de equipo, se fijan en este Reglamento.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 11
+LEXIS FINDER - www.lexis.com.ec
+
+Art. 61.- Llegada del Equipo al País.- la Dirección General de Aduanas, así como el importador
+notificarán a la CEEA el arribo de fuentes selladas de material radiactivo al país.
+La CEEA en un plazo razonable, dispondrá que uno de sus Inspectores de Seguridad Radiológica
+realice un rastreo externo de las fuentes y detalle por escrito las precauciones que deberán tomarse
+para el transporte de las mismas.
+Art. 62.- Requerimientos de Seguridad Radiológica.- Las fuentes para radiología u otro uso industrial
+deberá contar con la certificación de la CEEA de que no hay presencia de contaminación y que
+cuentan con el adecuado blindaje y con la aprobación de los procedimientos de trabajo.
+Art. 63.- Aprobación para el Uso de Equipo por el Licenciatario.- La aprobación del uso de las
+fuentes por el licenciatario se concederá cuando el importador haya cumplido los requisitos para la
+importación y entrega del mismo, en lo que se refiere a la Seguridad Radiológica, aunque quedaren
+vigentes otras cláusulas que los compradores hayan previamente convenido con el importador en
+relación a servicios y garantías.
+La CEEA dará la aprobación para el uso de las fuentes al licenciatario mediante la concesión de las
+correspondientes licencias, tanto a la institución como a los profesionales o personas en general que
+vayan a trabajar con ellas.
+Los licenciatarios y las instituciones para obtener la autorización de trabajo con fuentes selladas
+radiactivas, se comprometerán a cumplir lo dispuesto en el presente Reglamento.
+La autorización o licencia de trabajo se otorgará por un plazo de cuatro años y será renovable.
+Art. 64.- Sanciones.- Cualquier infracción a lo estipulado en el presente Reglamento en relación al
+uso de fuentes radiactivas selladas, será sancionada conforme a lo estipulado en el Título Octavo.
+TITULO CUARTO
+Máquinas de Rayos X en general
+CAPITULO I
+Propósito y Alcance
+Art. 65.- Ambito de Aplicación.- Este título regula las disposiciones generales que deben adoptar
+instituciones y personas para la adquisición y el uso de equipos que generan radiación; igualmente,
+regula los procedimientos que los importadores deben seguir para la entrega a usuarios de este tipo
+de fuentes de radiación ionizante.
+Para los efectos de este Reglamento a tales equipos se les denomina máquinas de Rayos X.
+CAPITULO II
+Disposiciones Generales
+Art. 66.- Importación de Máquinas de Rayos X.- Todo representante de casas manufactureras de
+máquinas de Rayos X, autorizado legalmente para comercializar en el Ecuador, que importe estos
+equipos, debe comprobar previamente que el comprador de este equipo tenga al día la licencia
+correspondiente para poder operarlo en el Ecuador.
+El Banco Central del Ecuador no podrá conceder el permiso de importación, ni dar curso a los
+trámites pertinentes, sin que el destinatario presente su licencia vigente.
+Las condiciones para obtener la licencia, que otorga la CEEA, están detalladas en los títulos y
+capítulos de este Reglamento que tratan de las distintas aplicaciones de máquinas de Rayos X.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 12
+LEXIS FINDER - www.lexis.com.ec
+
+El importador debe notificar a la CEEA, por lo menos treinta días antes, de que dicha máquina va a
+ser introducida al país.
+En la notificación constarán los datos pertinentes, tales como
+manufacturero, modelo, tipo, propósito y rendimiento de máquinas; así como el nombre y la dirección
+del destinatario y el número de licencia otorgada por la CEEA.
+Art. 67.- Obligaciones del Importador.- A más de lo señalado en el Art. 66, el importador debe
+cumplir con todo lo especificado en el contrato de compraventa en relación a garantías y
+mantenimiento del equipo.
+El importador está obligado a entregar e instalar el equipo dejándolo en perfecto estado de
+funcionamiento y es responsable de cualquier daño que pueda ocurrir durante el transporte o
+instalación que ocasionare deterioro en el equipo en relación a su operación y a su Seguridad
+Radiológica.
+Art. 68.- Obligaciones de un Propietario de una Máquina de Rayos X.- El poseedor, propietario o
+usuario de una máquina de Rayos X debe registrarla, valiéndose del correspondiente formulario
+provisto por la CEEA, dentro de un plazo de tres meses contados desde la fecha de entrada del
+equipo al país. En el caso de equipos de máquina de Rayos X, ya en funcionamiento, el plazo para
+registrarla se contará dentro de los tres meses subsiguientes a la fecha de entrada en vigencia de
+este Reglamento.
+El registrante debe notificar a la CEEA cualquier cambio que altere la información dada, dentro de los
+treinta días siguientes a dicho cambio.
+Art. 69.- Expedición del Certificado de Habilitación.- La CEEA expedirá un certificado de habilitación
+al propietario o usuario del equipo, en el cual se señalará la fecha en que la máquina y sus
+instalaciones podrían comenzar a utilizarse para lo cual realizará una inspección inicial, refiriéndose
+este certificado a las máquinas ya existentes.
+Art. 70.- Casos de Venta o de Arrendamiento.- Si por cualquier circunstancia una máquina de Rayos
+X es arrendada o vendida a terceros, se notificará a la CEEA dentro de quince días de celebrado el
+contrato.
+Art. 71.- Generalidades de la Obligación.- Cualquier persona o institución que reciba el equipo, para
+poder operarlo debe tener la licencia correspondiente y cumplir las obligaciones indicadas en el Art.
+68 para el usuario.
+Art. 72.- Inspecciones e Informes.- Toda persona que use máquinas de Rayos X permitirá el acceso
+a Inspectores de Seguridad Radiológica de la CEEA.
+La inspección inicial se llevará a cabo en la fecha comunicada al recibir la solicitud de registro;
+subsecuentemente, se llevará a cabo una inspección anual.
+El Inspector de la CEEA elaborará un informe escrito detallado indicando los resultados de cada
+inspección y hará las recomendaciones que juzgue convenientes para que se implementen las
+disposiciones de protección contra la radiación especificadas en el presente Reglamento.
+Esta implementación es pre - requisito para el otorgamiento del certificado de habilitación y el
+mantenimiento de la licencia. El Inspector de Seguridad Radiológica debe someter a la CEEA el
+informe original de la inspección dentro de los quince días siguientes a la misma y entregar una
+copia al registrante, quien deberá mantener estos informes en su archivo de referencia.
+Art. 73.- Obligaciones del Licenciatario Responsable de la Unidad Operativa en relación a sus
+Empleados y Equipos.- Conforme dispone el Art. 72 el licenciatario facilitará el acceso de Inspectores
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 13
+LEXIS FINDER - www.lexis.com.ec
+
+de la CEEA para la revisión de sus máquinas de Rayos X.
+El Licenciatario responsable de la unidad operativa está además
+obligado a lo siguiente:
+a) Obtener la licencia de operación para el personal auxiliar;
+b) Asegurar que el personal necesario para la operación del servicio esté instruido en el uso y
+características del equipo; y,
+c) Verificar que la máquina cumpla con los requisitos establecidos en este Reglamento y con lo
+señalado en cuanto a sus características en la factura de compra.
+Art. 74.- Obligaciones del Licenciatario Responsable de la Unidad Operativa en relación al Control
+de Radiaciones y otros Riesgos.- El Licenciatario responsable de la unidad operativa, observará y
+hará observar por sus empleados el cumplimiento de las disposiciones de protección contra la
+radiación establecidas en el presente Reglamento. Corresponde a la CEEA comprobar la correcta
+instalación del equipo para prevenir cualquier daño a terceros.
+Art. 75.- Sanciones.- Cualquier infracción a lo estipulado en este Reglamento será sancionada de
+acuerdo a lo establecido en el Título Octavo.
+TITULO QUINTO
+Máquinas de Rayos X en Medicina
+CAPITULO I
+Disposiciones de Seguridad Radiológica
+Art. 76.- Licencias.- En igual forma a lo que se dispone para el uso de radioisótopos como fuentes
+abiertas y selladas en los Títulos Segundo y Tercero de este Reglamento, las licencias para
+máquinas de Rayos X serán concedidas por la CEEA a las instituciones donde los equipos vayan a
+ser instalados, a los profesionales que vayan a operar el equipo o sean responsables de la seguridad
+de su operación y al personal paramédico.
+Art. 77.- Operación del Equipo.- Para la operación del equipo deben observarse las siguientes
+disposiciones.
+a) El Licenciatario responsable de la unidad operativa deberá asegurarse que el equipo de Rayos X
+bajo su control sea operado únicamente por personas debidamente instruidas en los procedimientos
+de operación y reglas de seguridad, que demuestren ser competentes en el uso de dicho equipo y
+porten la licencia correspondiente.
+b) Ningún licenciatario operara, ni permitirá la operación, de un equipo de Rayos X, a menos que el
+equipo y el local reúnan los requisitos señalados en este Reglamento.
+c) Cada equipo deberá, para operar, estar instalado en un local con tantas barreras primarias y
+secundarias como sean necesarias, según las normas de protección contra radiación.
+Como ejemplo en el caso de Radiología de diagnóstico, para un cuarto de 4 m2, con un tubo de
+Rayos X en el centro se requiere un blindaje de 2 mm de plomo o su equivalente en otros materiales
+como barrera primaria para reducir la exposición fuera del cuarto a 0.25 mR/h. Un espesor de 1,1
+mm de plomo o su equivalente en otro material se requiere para las barreras secundarias; y,
+d) Los equipos que estén en funcionamiento bajo condiciones no ideales del local, tendrán un plazo
+de 6 meses para su adecuación.
+CAPITULO II
+Instalaciones Radiográficas de Diagnóstico Médico
+Excluidas las Dentales y Veterinarias
+Art. 78.- Equipo.- El equipo para instalaciones radiográficas de diagnóstico, que no sean de medicina
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 14
+LEXIS FINDER - www.lexis.com.ec
+
+dental, ni veterinaria, tendrá las siguientes características generales:
+a) Cada tubo de Rayos X deberá estar encerrado en una cubierta tal, que la exposición proveniente
+de fuga de radiación medida a una distancia de 1 metro del foco no exceda de 100 mR en una hora;
+b) Deberá proveerse de diafragmas, conos o colimadores ajustables capaces de restringir el haz útil
+de radiación al área de interés clínico;
+c) La filtración mínima total permanente en el haz útil deberá ser determinada para el máximo voltaje
+especificado en el tubo. La filtración total permanente deberá ser equivalente a no menos que 2 mm
+a voltajes hasta 100 kv inclusive, y 3 mm Al a voltajes sobre 100 kV,
+Excepciones. A voltajes de operación bajo 50 kV (por ej. mamografía) se permite una filtración total
+permanente menor.
+La filtración total permanente en el haz útil deberá ser indicada en la cubierta del tubo.
+d) Si el filtro de la máquina no está accesible para ser examinado o se desconoce la filtración total,
+puede considerarse que los requisitos de la letra anterior se han cumplido si la capa hemirreductora
+no es menor de valores que constan en la siguiente tabla:
+VOLTAJE DE OPERACION CAPA HEMIRREDUCTORA
+KVP (mm DE Al)
+Menor de 50 0,6
+Menor de 70 1,6
+Menor de 90 2,6
+Menor de 100 2,8
+Menor de 110 3,0
+Menor de 120 3,3
+e) En caso de que el equipo sea móvil, para radiografía destinada a diagnóstico, la distancia foco piel no debe ser menor de treinta centímetros, y el operador se colocará a una distancia mínima de
+dos metros con relación al paciente; y,
+f) Algunos procedimientos radiográficos especiales, por ej. mamografía, requieren radiación débil.
+Tales procedimientos deberán ser llevados a cabo en equipo especial y no en equipo de Rayos X
+standard diseñado para potenciales mayores. Bajo ninguna circunstancia deberá ser la filtración total
+permanente menor de 0.5 mm Al. Cuando un tubo de Rayos X especial con filtro de molibdeno es
+usado para mamografía, un filtro de molibdeno de por lo menos 0.33 mm es preferible en algunos
+casos y puede ser usado en lugar de filtración de aluminio.
+Art. 79.- Blindaje.- Las características del blindaje serán las siguientes:
+a) Las paredes, piso y techo hacia los cuales pudiere apuntarse el haz útil de radiación deberán
+tener barreras primarias.
+Las barreras primarias de las paredes tendrán una altura mínima de dos metros sobre el nivel del
+piso; y,
+b) Se preveerán barreras secundarias en todas aquellas paredes, piso, techo que, por restricciones
+en la orientación útil de radiación, no pueden ser afectados directamente por dicho haz.
+Art. 80.- Procedimientos de Operación.- Los siguientes procedimientos de operación sean
+adoptados:
+a) El haz útil de radiación deberá estar restringido a aquellas áreas de interés clínico;
+b) Toda persona que opera un equipo de Rayos X debe situarse detrás de una barrera de seguridad
+individual. Los controles deben estar colocados de tal manera que el técnico esté siempre protegido.
+Los instrumentos en el panel de control deberán indicar el potencial del tubo, la corriente y la clase
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 15
+LEXIS FINDER - www.lexis.com.ec
+
+de filtro, cuando éstos puedan ser variados;
+c) Cuando sea necesario mantener a un paciente en posición adecuada para la toma de radiografía,
+se usarán artefactos mecánicos de soporte. En caso de emergencia, si un paciente está sujeto por
+una persona, ella deberá estar protegida con medios protectores adecuados tales como guantes y un
+delantal blindado y deberá colocarse en una posición tal, que ninguna parte de su cuerpo sea
+expuesto al haz útil de radiación;
+d) Se usará, para las gónadas, un blindaje consistente en un equivalente de plomo no menor de
+cinco décimas de milímetro (0,5 mm) cuando estos órganos estén directamente en el haz útil de
+radiación, exceptuando los casos en que el blindaje interfiera en el procedimiento de diagnóstico;
+e) El personal que esté trabajando en un servicio deberá llevar, durante el tiempo de trabajo, un
+dosímetro individual. La CEEA puede recomendar otro tipo de control de dosis de radiación,
+dependiendo del nivel de exposición a la radiación a que el personal esté sujeto en un determinado
+servicio;
+f) Se deberá instalar indicadores de exposición y medidores de tiempo de exposición automáticos,
+que adviertan tanto al médico, como al técnico que se está produciendo radiación y además la
+duración del examen; y,
+g) Deberán instalarse señales que indiquen a terceras personas que el equipo está en operación.
+CAPITULO III
+Instalaciones Radiográficas Dentales
+Art. 81.- Equipo.- El equipo para las instalaciones de radiografía dental tendrá las siguientes
+características:
+a) La cubierta del tubo será de tipo diagnóstico;
+b) Se usarán diafragmas y conos para colimar el haz útil de radiación. Para radiografía intra oral, se
+requiere que el diámetro del haz útil de radiación en el extremo del cono no exceda de ocho
+centímetros;
+c) Por medio de un cono se asegurará que la distancia foco - piel no sea menor de 18 centímetros
+estando el aparato funcionando sobre cincuenta (50) kVp; o de 10 centímetros, estando el aparato
+funcionando a cincuenta (50) kVp, para radiografía intra oral;
+d) La filtración en total (inherente más añadida) equivalente de aluminio, es el haz útil de radiación,
+no será menor a los valores señalados en la siguiente tabla:
+VOLTAJE DE OPERACION FILTRACION TOTAL
+kVp (mm equivalente de Al)
+Menor de 50 0,5
+de 50 - 70 1,5
+Mayor de 70 2,5
+e) Si el filtro de la máquina no está accesible para ser examinado o se desconoce la filtración total,
+puede considerarse que los requisitos de la letra anterior se han cumplido si la capa hemirreductora
+no es menor de lo que se indica en la siguiente tabla:
+VOLTAJE DE OPERACION CAPA HEMIRREDUCTORA
+kVp (mm de Al)
+Menor de 50 0,6
+de 50 - 70 1,6
+Mayor de 70 2,6
+f) El panel de control deberá incluir indicadores de voltaje, corriente del tubo, filtro.
+Cronómetro, e indicador (luz) que advierta al operador que se están produciendo Rayos X;
+g) La exposición máxima a la superficie del aplicador se dará con una luz de aviso y un aviso audible
+para indicar cuando el tubo esta en operación; y,
+h) Para radiografía dental convencional, el tiempo de exposición no deberá exceder de cinco
+segundos.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 16
+LEXIS FINDER - www.lexis.com.ec
+
+Art. 82.- Blindaje Estructural.- Las características del blindaje estructural serán las siguientes:
+a) Las paredes, piso y techo hacia los cuales pudiera apuntarse el haz útil de radiación deberán
+tener barreras primarias. Las barreras primarias de las paredes tendrán una altura mínima de dos
+metros sobre el nivel del piso; y,
+b) Se preveerán barreras secundarias en todas aquellas paredes, piso y techo que, por restricciones
+en la orientación del haz útil de radiación, no puedan ser afectadas directamente por dicho haz.
+Art. 83.- Procedimientos de Operación en Radiografía Dental.- En las operaciones de radiografía
+dental:
+a) Los exámenes radiológicos dentales se limitarán lo indispensable y el haz deberá ser restringido al
+tamaño requerido para el examen; ni el dentista, ni su asistentes, sujetarán al paciente o las
+películas durante la exposición;
+b) Solamente las personas necesarias para el proceso radiográfico se encontrarán en el salón de
+radiografía durante las exposiciones;
+c) Durante cada exposición, el operador deberá pararse a una distancia no menor de dos metros del
+piso del haz útil de radiación o detrás de una barrera protectora adecuada;
+d) No se usará fluoroscopia en exámenes dentales;
+e) Ni la cubierta protectora del tubo, ni el cono, serán sostenidos con las manos durante la
+exposición; y,
+f) La película deberá ser puesta en posición o sostenida por el paciente. No deberá ser sostenida ni
+por el dentista ni por el técnico.
+CAPITULO IV
+Instalaciones Radiográficas en Medicina Veterinaria
+Art. 84.- Equipo.- Las características del equipo para instalaciones radiográficas en medicina
+veterinaria serán las siguientes:
+a) La cubierta protectora del tubo será de tipo diagnóstico;
+b) Se proveerá conos para colimar el haz útil de radiación hacia el área de interés clínico; y,
+c) La filtración total (inherente más añadida) equivalente de Aluminio (Al), en el haz útil de radiación,
+no será menor que los valores señalados en la siguiente tabla:
+VOLTAJE DE OPERACION FILTRACION TOTAL
+kVp (mm equivalente de Al)
+Menor de 50 0.6
+de 50 - 70 1.6
+Mayor de 70 2.6. .
+Art. 85.- Blindaje.- Las características del blindaje serán las siguientes:
+a) Las paredes, piso y techo hacia, los cuales pudiera apuntarse el haz útil de radiación, deberán
+tener barreras primarias. Las paredes tendrán una altura mínima de dos metros sobre el nivel del
+piso; y,
+b) Se preveerán barreras secundarias en todas aquellas paredes, piso y techo que, por restricciones
+en la orientación del haz útil de radiación, no puedan ser afectadas directamente por dicho haz.
+Art. 86.- Procedimientos de Operación.- En la operación se procederá de la siguiente manera:
+a) El operador se localizará a una distancia del haz útil de radiación, por lo menos de dos metros del
+animal durante la exposición a Rayos X;
+b) Ni la cubierta protectora del tubo, ni el cono, serán sostenidos con las manos durante la
+exposición; y,
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 17
+LEXIS FINDER - www.lexis.com.ec
+
+c) No se usará regularmente ninguna persona para sujetar los animales durante la exposición a
+Rayos X, sino un sostén mecánico. En caso de emergencia podrá hacerlo una persona con
+artefactos protectores tales como guantes y un delantal que tenga la equivalencia de plomo no
+menor de cinco décimas de milímetro (0.5 mm), y deberá colocarse en una posición tal que ninguna
+parte de su cuerpo sea alcanzada por el haz útil de radiación. La exposición de cualquier persona
+empleada para este propósito deberá ser medida con equipo de control de seguridad individual.
+CAPITULO V
+Instalaciones Fluoroscópicas
+Art. 87.- Reglas para el Uso.- El uso de máquinas de Rayos X en fluoroscopia, se sujetará a las
+siguientes reglas:
+a) La cubierta protectora del tubo deberá ser de tipo diagnóstico y la fuga de radiación no excederá
+100 mR/h a un metro;
+b) En radiografía y fluoroscopia con equipo móvil, la distancia foco - piel no será menor de 30 cm. En
+radiografía y fluoroscopia (diferente a la de pecho) con equipo estacionario, la distancia foco - piel
+tampoco será menor de 30 cm. En fluoroscopia de pecho la distancia foco - piel no será menor de 60
+cm. y para equipo específicamente usado para exámenes de pecho no será menor de 45 cm.
+Fotofluorografía y radiografía de pecho deberán ser hechos con una distancia foco - piel de al menos
+60 cm. Los valores recomendados son valores mínimos, distancias mayores son a menudo
+apropiadas;
+c) La filtración total del haz útil de radiación (incluyendo el equivalente de aluminio), cuando éste esté
+interpuesto entre la fuente y el paciente, no será menor de 2,5 mm. (equivalente de aluminio). Este
+requisito se entenderá cumplido si la capa hemirreductora es equivalente a no menos de 2,5 mm. de
+Al a voltajes normales de operación;
+d) El equipo deberá estar construido de tal forma que toda la sección transversal del haz útil de
+radiación sea atenuado por una barrera primaria. Esta barrera es por lo general el artefacto de
+observación ya sea una pantalla fluoroscópica o un mecanismo de intensificación de imagen. La
+exposición termina automáticamente cuando se remueve la barrera del haz útil de radiación;
+e) Para el equipo instalado con posterioridad a la fecha de vigencia de este Reglamento, la
+equivalencia de plomo requerida por las barreras no será menor de un milímetro y medio (1,5 mm)
+en máquinas capaces de operar desde cien (100) kVp hasta ciento veinte y cinco (125) kVp; ni
+menor de dos milímetros (2 mm) en máquinas capaces de operar desde ciento veinte y cinco (125)
+kVp en adelante;
+f) Deberá usarse guantes protectores con un equivalente de plomo no menor de 0,25 mm cuando
+exámenes fluoroscópicos puedan requerir colocar las manos en o cerca del haz de radiación. Si el
+médico o técnico no pudieran estar detrás de pantallas protectoras o blindajes durante todos los tipos
+de exámenes fluoroscópicos, deberán usarse delantales con un equivalente de plomo de no menos
+de 0,25 mm;
+g) En fluoroscopia, la tasa de exposición medida en el punto donde el haz entra al paciente serán tan
+baja, como sea posible y no excederá de 10 R/min; y 2 R/min en fluoroscopia con intensificador de
+imagen;
+h) La tasa de exposición de fluoroscopia medida en la superficie del paciente deberá ser tan baja
+como sea posible y no deberá exceder 5 R/min en fluoroscopia directa;
+i) El equipo necesario deberá proveerse para operar con seguridad (gafas para adaptación de la
+vista a la obscuridad, guantes protectores de 0,25 mm equivalente de plomo, etc.);
+j) Los equipos fluoroscópicos móviles deberán reunir los requisitos aplicables que se señalen en este
+capítulo y los siguientes requisitos adicionales:
+1. En ausencia de un tablero de mesa, la distancia foco - piel será limitada a no menos de treinta
+centímetros por un cono u otro artefacto;
+2. La tasa de exposición medida a la distancia mínima foco - piel, no excederá de cinco Roentgen
+por minuto (5 R/min)bajo condiciones normales de operación; y,
+k) En caso de no existir intensificadores de imágenes para fluoroscopia, se controlará que el local
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 18
+LEXIS FINDER - www.lexis.com.ec
+
+esté lo suficientemente obscuro de modo que el tiempo de exposición sea mínimo.
+CAPITULO VI
+Instalaciones de Terapia
+Art. 88.- Disposiciones Aplicables.- En las instalaciones dedicadas a Rayos X de terapia, son
+aplicables los Arts. 44, 45, y 46 de este Reglamento. Además, el uso de máquinas de Rayos X en
+aplicaciones de terapia se sujetará a las regulaciones que se indican en los artículos siguientes.
+Art. 89.- Equipo.- Las condiciones que deben cumplir el equipo serán las siguientes:
+a) Cada tubo de Rayos X usado para terapia, deberá estar encerrado en una cubierta tal que la tasa
+de exposición proveniente de fuga de radiación medida a un metro de distancia desde el foco, no
+exceda de 1 R/hm ni 30 R/h a cualquier posición accesible al paciente a una distancia de 5 cm desde
+la superficie de la cubierta o su equipo accesorio;
+b) Los filtros, los cuales deben estar marcados con su material y su espesor, serán colocados en su
+sitio en forma segura, y la apertura donde se coloquen estará construida de tal forma que la
+radiación que escape lateralmente a través de la misma no exceda de 1 R/h a un (1) metro; o si la
+radiación proveniente de la apertura llegare al paciente, 30 R/h a cinco (5) centímetros de la apertura
+externa para equipos que operan a potenciales mayores de 60 kVp; en equipos que operan a
+potenciales inferiores o iguales a 60 kVp, el escape será de 0.1 R/h;
+c) En el panel de control deberá indicarse la presencia o la ausencia de filtros añadidos;
+d) Se proveerá de un cronómetro automático o medidor de exposición para terminar ésta luego de
+transcurrido un intervalo de tiempo prefijado; y,
+e) Se preveerán medios para los cuales el operador pueda terminar la exposición en cualquier
+momento.
+Art. 90.- Blindaje.- Las características del blindaje serán las siguientes:
+a) Las paredes, piso y techo hacia los cuales pudiera apuntarse el haz útil de radiación deberán
+tener barreras primarias de una altura mínima de dos metros sobre el nivel del piso;
+b) Se preveerán las barreras secundarias en todas aquellas paredes, piso y techo que, por
+restricciones en la orientación del haz útil de radiación, no puedan ser afectadas directamente por
+dicho haz;
+c) Para equipo que opere sobre cincuenta (50) kVp, el panel de control estará dentro de una cabina
+protectora provista de un intercierre en la puerta y localizada fuera del salón de tratamiento. Este
+intercierre permitirá que la máquina se apague automáticamente en caso de que cualquier puerta del
+salón de tratamientos sea abierta; y,
+d) Se preveerán luces intermitentes de advertencia en la puerta de acceso a los cuartos de
+tratamientos, que se encenderán cuando se esté emitiendo el haz útil de radiación.
+Art. 91.- Procedimientos de Operación.- Se adoptarán los siguientes procedimientos de operación:
+a) Toda nueva instalación o instalaciones existentes que no hayan sido previamente inspeccionadas
+deberán ser objeto de ellas por un Inspector de la CEEA;
+b) Cuando sea necesario mantener a un paciente en posición adecuada para terapia de radiación, se
+usarán únicamente artefactos mecánicos de soporte;
+c) El rendimiento de la máquina deberá ser calibrado cada seis meses por el licenciatario y verificada
+por un Inspector de la CEEA. Se repetirá la calibración después de cualquier cambio o reemplazo en
+el equipo generador, que pudiera alterar la emisión de Rayos X. Además debe existir una calibración
+para cada tipo y espesor de filtro, kilovoltaje y miliamperaje;
+d) Las pruebas de fuga de radiación deberán ser efectuadas por lo menos una vez cada año;
+e) El licenciatario deberá mantener los registros de las calibraciones y pruebas efectuadas en el
+equipo a disposición de la CEEA; y,
+f) El licenciatario podrá obtener servicios de calibración y pruebas de fuga para sus equipos, en la
+CEEA, como se ha indicado en los artículos 37, y 43 de este Reglamento.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 19
+LEXIS FINDER - www.lexis.com.ec
+
+CAPITULO VII
+Máquinas de Rayos X en Radiografía Industrial
+Art. 92.- Requisitos para el Uso.- Los equipos para el uso de radiografía industrial de máquinas de
+Rayos X pueden utilizarse sólo por instituciones y personas autorizadas que hayan recibido la
+licencia correspondiente. Para el efecto, se aplicarán las disposiciones de los Artículos 55, 56 y 57,
+así como todas las disposiciones de este Reglamento.
+Art. 93.- Normas de Seguridad Radiológica.- Todo licenciatario está obligado a vigilar que el
+personal que trabaje en un servicio de radiografía industrial lleve consigo, durante el trabajo, un
+dosímetro personal certificado por la CEEA.
+Art. 94.- Puesta en Marcha del Equipo.a) Todo equipo, antes de ser puesto en marcha, deberá ser inspeccionado por la CEEA; y,
+b) El importador debe satisfacer cualquier demanda de seguridad radiológica en la operación del
+equipo que se deba a defecto de fabricación o daño del mismo durante su transporte.
+Es obligación del licenciatario responsable de la unidad operativa, calibrar el equipo en lo cual,
+mediante acuerdo, puede cooperar la CEEA, tomado en cuanta lo dispuesto en el artículo 43 de este
+Reglamento.
+Art. 95.- Aprobación para el Uso del Equipo por el Licenciatario.- Luego de una inspección a la
+instalación y al equipo, se extenderá la licencia correspondiente a la instalación y el certificado de
+habilitación al equipo.
+Art. 96.- Otras disposiciones.- Se observarán, además, las siguientes reglas:
+a) Se tomarán, en cuanto sean aplicables, las regulaciones dadas para equipos de Rayos X usados
+en diagnóstico; y,
+b) Previa a la concesión de la licencia, cada solicitante permitirá una evaluación del equipo y de sus
+procedimientos de trabajo.
+TITULO SEXTO
+Máquinas generadoras de radiaciones y partículas
+nucleares de cualquier tipo
+CAPITULO I
+Propósito y Alcance
+Art. 97.- Requisitos Generales.- Las máquinas generadores de radiación y partículas nucleares se
+someterán a las normas de seguridad radiológica señaladas en este Título.
+CAPITULO II
+Disposiciones Generales
+Art. 98.- Importación.- Para la concesión del permiso de importación de este tipo de equipos, las
+personas o instituciones interesadas deberán cumplir las disposiciones de este capítulo.
+Art. 99.- Localización del equipo y facilidades de trabajo.- Se proporcionará un plano de localización
+del edificio y un plano detallado del local donde va a instalarse el equipo. Además, se proporcionará
+una descripción cronológica de los trabajos a ser realizados para adecuar convenientemente las
+instalaciones requeridas para la eficiente operación del equipo.
+Art. 100.- Seguridad Radiológica.- El solicitante queda obligado a satisfacer lo siguiente:
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 20
+LEXIS FINDER - www.lexis.com.ec
+
+a) Disponer del equipo de protección necesario para evitar posibles riesgos del personal;
+b) Notificar a la CEEA por lo menos con seis meses de anticipación, sobre el tipo de radiación o
+partículas que serán generadas por el equipo;
+c) Facilitar las inspecciones y el control que la CEEA demande; y,
+d) Proporcionar al personal que trabaja con el equipo o tenga acceso al mismo, los dosímetros
+individuales exigidos por la CEEA.
+Art. 101.- Seguridad Industrial.- El solicitante está obligado a cumplir todos los requerimientos de
+seguridad industrial que la CEEA prescriba, de acuerdo a las leyes y reglamentos sobre la materia
+que se hallen vigentes en el país.
+Art. 102.- Licencias.- Cumplidos los requisitos anteriormente mencionados, el solicitante recibirá la
+licencia correspondiente para la importación del equipo.
+La Dirección General de Aduanas no podrá proceder a los trámites de importación ni permitir la
+entrega de un equipo de esta clase sin la autorización de la CEEA.
+Art. 103.- Puesta en marcha del equipo.- El licenciatario, para poder poner en marcha uno de estos
+equipos, debe observar lo siguiente:
+a) Mantener como operador del equipo a un profesional especializado en su manejo;
+b) Notificar a la CEEA, por lo menos con diez días laborables de anticipación, sobre la fecha y hora
+en que el equipo va a ser puesto en marcha por primera vez, de manera que el Inspector de
+Seguridad Radiológica pueda asistir a tal evento y extienda la certificación correspondiente.
+TITULO SEPTIMO
+Normas para el personal que trabaja en el campo de las radiaciones
+CAPITULO I
+Propósito y Alcance
+Art. 104.- Licencias de Trabajo.- Solamente las personas que estén debidamente autorizadas
+mediante una licencia concedida por la CEEA pueden trabajar en el campo de las radiaciones.
+Art. 105.- Tiempo de Validez de las Licencias.- Todas las licencias para personal y para instituciones
+caducarán a los cuatro años.
+Art. 106.- Licencias a Profesionales e Instituciones.- Las licencias a profesionales en el campo de
+Radiodiagnóstico que no sean referentes a Medicina Dental ni Veterinaria y en Radioterapia y
+Medicina Nuclear, serán concedidas por la CEEA a petición de las Sociedades correspondientes. En
+cuanto a otras personas, las licencias serán concedidas por la CEEA a petición del interesado.
+Las licencias para instituciones serán concedidas por la CEEA previa inspección a los locales y
+equipos.
+CAPITULO II
+Solicitud y Concesión de Licencias a Personal
+Paramédico y Auxiliar en general
+Art. 107.- Clasificación de las Licencias.- Las licencias se clasifican de la siguiente manera:
+a) Las licencias a profesionales (médicos, ingenieros, etc.) tendrán la denominación de licencias A;
+b) Las licencias a personal paramédico y auxiliar en general, tendrá la denominación de licencia B; y,
+c) Las licencias a instituciones, tendrán la denominación de licencias C.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 21
+LEXIS FINDER - www.lexis.com.ec
+
+Art. 108.- Trámite.- las solicitudes de licencias para personal paramédico y auxiliar en general, que
+trabaje en radiaciones se harán a la CEEA, la cual extenderá previa aprobación de idoneidad
+profesional del candidato.
+Art. 109.- Solicitud y Concesión de Licencias a Personal que trabaje con Máquinas de Rayos X,
+Máquinas Generadores de Radiación y Partículas Nucleares con Fines no Médicos.- Las solicitudes
+del personal auxiliar relacionado con la operación de equipos de Rayos X en industria y de máquinas
+generadores de radiación y partículas nucleares aplicadas con fines no médicos serán presentadas
+por el candidato de la CEEA, la que juzgará y extenderá la licencia de carácter individual e
+intransferible, la misma que tendrá la denominación establecida en el Art. 107.
+Art. 110.- Solicitud y Concesión de Licencias a Personal que trabaje con otros tipos de Máquinas
+Generadoras de Radiación y Partículas Nucleares.- Las solicitudes del personal técnico asistente
+relacionado con la operación de cualquier tipo de máquinas no clasificadas bajo las denominaciones
+anteriores que, no obstante, se encuentren relacionadas con las ciencias nucleares y atómicas,
+serán presentadas a la CEEA, la que juzgará y extenderá la licencia de carácter individual e
+intransferible, la misma que tendrá la denominación establecida en el Art. 107 de este Reglamento.
+CAPITULO III
+Inscripción de Nombramientos
+Art. 111.- Requisitos para Inscripción de Nombramientos.- La Dirección Nacional de Personal, para
+inscribir el nombramiento de personal que vaya a desempeñar funciones en el campo de las
+radiaciones, deberá exigir la licencia correspondiente extendida por la CEEA.
+CAPITULO IV
+Control del Estado de Salud del Personal
+que trabaja con Radiaciones
+Art. 112.- Exámenes Médicos del Personal.- El personal directamente involucrado en trabajos con
+radiaciones ionizantes se sujetará a las siguientes disposiciones:
+a) Toda persona que trabaje por primera vez en el campo de las radiaciones, cualquiera sean sus
+responsabilidades, tiene que someterse a un examen médico, adecuado antes de iniciar sus tareas,
+practicado por un profesional del Departamento de Riesgos de Trabajo del Instituto Ecuatoriano de
+Seguridad Social. Este será el requisito previo a la concesión de la licencia por parte de la CEEA;
+b) El personal que se encuentra laborando en el campo de las radiaciones se someterá anualmente
+a un examen médico;
+c) En el caso de trabajadores que ya estén laborando en el campo de las radiaciones, a la fecha de
+promulgación de este Reglamento, los exámenes médicos necesarios para obtener la licencia
+correspondiente serán realizados por el Instituto Ecuatoriano de Seguridad Social;
+d) Dados los problemas médicos particulares que plantea el trabajo con radiaciones en el caso de las
+mujeres en edad de concebir, deberán adoptarse todas las precauciones para garantizar que no
+reciban dosis sobre las máximas permisibles; y.
+e) Se prohíbe que el personal femenino en estado de gravidez, reconocido por diagnóstico médico,
+esté en contacto con radiación. Si tal es el caso, esa persona será destinada a labores que no sean
+de contacto directo con las radiaciones ionizantes.
+CAPITULO V
+Horas de Trabajo, Vacaciones y Jubilación
+Art. 113.- Regulaciones.- Las horas de trabajo y vacaciones de todo el personal que labore en
+contacto directo con las radiaciones ionizantes se sujetarán a las disposiciones dadas en el presente
+capítulo.
+Art. 114.- Prohibición de Trabajar Horas Extras.- El personal paramédico y auxiliar en general que
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 22
+LEXIS FINDER - www.lexis.com.ec
+
+trabaje con máquinas o fuentes de radiación, no podrá, bajo ninguna circunstancia, laborar más de 8
+horas mensuales suplementarias.
+Toda infracción a lo dispuesto en este artículo, será sancionada por la CEEA de acuerdo al Título
+Octavo.
+Art. 115.- De las Vacaciones.- Siendo el trabajo con radiaciones una profesión riesgosa y
+considerando tanto sus efectos a largo plazo, como las condiciones de trabajo que, hasta el
+presente, no han sido óptimas, el período de vacaciones estará sujeto a una ley especial.
+Las vacaciones que correspondan a un empleado que labora en contacto directo con las radiaciones
+ionizantes, no podrán ser compensadas económicamente ni podrán acumularse.
+Art. 116.- De la Jubilación.- Por las razones expuestas en el Art. 115, el tiempo para la jubilación
+estará sujeto a una ley especial.
+CAPITULO VI
+Obligaciones Especiales de los Empleadores
+Art. 117.- Cuidados especiales por Sobredosis de Radiación.- Toda persona que en forma accidental
+se haya expuesto a una sobredosis de radiación, tendrá derecho a cuidados especiales hasta su
+total recuperación, asumiendo su patrono los gastos que tal recuperación implique, sea a través de
+los servicios del Instituto Ecuatoriano de Seguridad Social, o mediante otros servicios adecuados.
+CAPITULO VII
+Riesgos de Trabajo y Enfermedades Profesionales
+Art. 118.- Riesgos de Trabajo.- Toda persona que se dedique a labores que la expongan a un
+contacto permanente con las radiaciones ionizantes queda expuesta a la posibilidad de sufrir
+lesiones inmediatas o mediatas y, por consiguiente, debe estar consciente de los efectos
+acumulativos de la radiación.
+Art. 119.- Enfermedades Profesionales.- La energía atómica es un patrimonio científico de la
+civilización moderna y solamente es útil cuando se conoce como usarla correctamente, pues el uso
+inapropiado puede conducir a grandes siniestros. La exposición contínua a las radiaciones puede
+ocasionar diversos tipos de enfermedades cuyo resumen se presenta en el Apéndice VIII-1. En el
+presente Reglamento se determinan dichos riesgos y las medidas preventivas correspondientes.
+Art. 120.- Determinación de Dosis Absorbidas por personas que hayan estado en contacto con las
+Radiaciones Ionizantes.- La CEEA realizará una labor de permanente supervisión para salvaguardar
+la salud de todos los ecuatorianos que trabajen con radiaciones. La radiometría de locales e
+inspección de equipos solamente tiende a proteger a los usuarios. Cuando dichas medidas hayan
+sido efectuadas por la CEEA, se realizarán cálculos de la dosis biológica equivalente a la cual ha
+estado expuesto el trabajador durante todo el tiempo que ha laborado en contacto con radiaciones
+ionizantes. La fórmula utilizada será la siguiente:
+5(N-18) rem
+N representa la edad del individuo en número de años y fracción del inmediato superior.
+De acuerdo a los resultados obtenidos, se procederá como se indica en los artículos siguientes.
+Art. 121.- Dosis Absorbida en un más menos 5% de la Máxima Permitida.- Si se encuentra que la
+dosis absorbida está dentro de un límite de más menos 5% del valor máximo permisible, la CEEA
+notificará al empleador para que su empleado pueda continuar laborando en su servicio siempre que
+se adecúen las instalaciones para que reciba una dosis de radiación inferior.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 23
+LEXIS FINDER - www.lexis.com.ec
+
+Art. 122.- Suspensión del Trabajador y Bonificaciones.- Si, mediando las condiciones de sobredosis
+detalladas en este Reglamento, el empleador no pudiere continuar utilizando los servicios del
+empleado, se dará por terminado el contrato de trabajo y el empleador pagará al trabajador cesante
+las indemnizaciones previstas para el caso de despido intempestivo y, además, el equivalente a un
+mes de remuneración por cada año de trabajo prestado en contacto directo con las radiaciones
+ionizantes. Por los lapsos que no completaren un año, se pagará la parte proporcional. Tendrá que
+ser demostrado por el empleado que fue culpa de empleador por condiciones no óptimas de trabajo
+o accidente de trabajo con la reconstrucción de hechos.
+Art. 123.- Control de Salud del Trabajador Sobreexpuesto.- El trabajador sobreexpuesto a
+radiaciones ionizantes tiene derecho a que se le efectúe análisis clínicos y metabólicos completos, a
+cargo del IESS. Si se encontraren anormalidades que puedan ser catalogadas dentro del Apéndice
+VIII-1, el Departamento de Riesgos de Trabajo del IESS, evaluará y dictaminará si éstas provienen
+de efectos causados por exposición de trabajo a niveles de radiación excesivas, y aquella será
+considerada como enfermedad profesional. En presencia de enfermedades profesionales
+diagnosticadas por especialistas reconocidos, conjuntamente por el Instituto Ecuatoriano de
+Seguridad Social y por la CEEA, el trabajador tiene derecho a las compensaciones fijadas por el
+IESS, que estén vigentes a la fecha de producirse el diagnóstico médico.
+CAPITULO VIII
+Compensación por Accidentes de Radiación
+Art. 124.- Categorías.- Los accidentes de trabajo para personas que laboren en contacto directo con
+radiaciones ionizantes se sujetarán a lo previsto para el efecto en el Código de Trabajo con las
+modalidades determinadas en los artículos siguientes.
+Art. 125.- Informe sobre el Accidente.- Los informes sobre accidentes de trabajo serán emitidos por
+la CEEA, la Sociedad correspondiente y el Departamento de Riesgos de Trabajo del Instituto
+Ecuatoriano de Seguridad Social.
+Art. 126.- Normas que regulen las Indemnizaciones por Accidentes.- En caso de accidentes del
+trabajador se aplicarán las normas señaladas en el Código de Trabajo y en la Ley del Instituto
+Ecuatoriano de Seguridad Social.
+Art. 127.- Accidentes por negligencia del Empleador.- Si un accidente resultare como consecuencia
+de una orden emanada por un supervisor o representante del empleador, a sabiendas de que lo
+ordenado puede exponer gravemente al trabajador a los efectos de dosis excesivas de radiación, el
+responsable será enjuiciado penalmente, pues se considerará como si se tratare de daños a terceros
+con conocimientos de causa.
+Art. 128.- Remuneraciones para trabajadores en el Campo de las Radiaciones.- Para los
+trabajadores en el campo de las radiaciones, las comisiones de salario mínimo fijarán las
+remuneraciones correspondientes, tomando en cuenta los riesgos a que aquellos se hallan
+expuestos.
+APENDICE VIII-1
+ENFERMEDADES CAUSADAS POR RADIACIONES
+Art. 129.- Regla General.- Para los efectos señalados en las leyes laborales y de seguridad social,
+se entenderán como enfermedades profesionales:
+a) Dosis de exposición acumulativa (cuerpo entero).
+De acuerdo a la constitución física del individuo, la exposición contínua de radiación ionizante sobre
+los niveles de radiactividad natural puede producir las siguientes enfermedades:
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 24
+LEXIS FINDER - www.lexis.com.ec
+
+1. Lesiones Superficiales:
+Dermatitis, depilación y pérdida de brillo de las unas.
+2. Lesiones Hematopoyéticas:
+Linfopenia, leucopenia, anemia, leucemia, y pérdida de inmunidad específica,
+3. Propensión a tumores malignos:
+Carcinoma de la piel y sarcoma.
+4. Reducción del promedio de duración de la vida.
+5. Aberraciones genéticas:
+Mutaciones genéticas directas o aberraciones cromosomáticas.
+6. Otros efectos:
+Cataratas lenticulares, esterilidad.
+b) Dosis de exposición única (cuerpo entero).
+Las estadísticas de accidentes de sobre exposición a radiación y el empleo de explosivos con fines
+militares, han permitido establecer las relaciones de dosis - efecto que constan en la siguiente tabla:
+DOSIS (Rem) EFECTOS
+0 - 50 Efectos no detectables inmediatamente.
+30 - 120 Náuseas y vómitos por un día. Fatiga por
+tiempo variable. Efectos tardíos.
+130 - 160 Enfermedades manifiestas. Síntomas de
+vómitos y fatiga persistente por tiempo
+variable. Efectos tardíos.
+180 - 220 Mortalidad en un 5%. Difícil recuperación
+total. Efectos tardíos.
+270 - 330 Lo mismo que lo anterior. Síntomas más
+acentuados.
+400 - 750 Mortalidad en un 100%.
+NOTA: La radiación, como cualquier otro agente contaminante, presenta daño mayor en gente
+desnutrida.
+TITULO OCTAVO
+Sanciones a infracciones cometidas a lo estipulado
+en el presente Reglamento
+CAPITULO I
+Disposiciones Generales
+Art. 130.- Irradiación no justificada de menores.- Los menores de edad pueden someterse a
+exámenes y aún a tratamientos que involucren a la radiación, únicamente por prescripción médica.
+Cualquier persona que sea responsable de la exposición no justificada de menores, será sancionada
+con multa equivalente a treinta salarios vitales mensuales del trabajador en general, y la suspensión
+definitiva de la licencia en caso de que éste sea un licenciatario.
+Art. 131.- No localización de señales de precaución, símbolos de Radiación y Etiquetas.- Si, en una
+inspección, se encontrare el local inspeccionado sin señales de precaución, símbolos de radiación y
+etiquetas, se concederá el plazo de quince días para colocar los mismos en los sitios que la CEEA
+designará por medio del Inspector de Seguridad Radiológica. Si al cabo de este tiempo no se los
+hubiere colocado, se aplicarán las siguientes sanciones a la institución o licenciatario responsable de
+la unidad operativa:
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 25
+LEXIS FINDER - www.lexis.com.ec
+
+a) Multa equivalente a un salario vital mensual del trabajador en general por cada día de demora en
+colocarlos; y,
+b) Si la demora fuere de más de treinta días, se procederá a la clausura de la instalación.
+Art. 132.- Personal no instruido debidamente.- Si al realizar una inspección, se encontrare que el
+personal no está debidamente instruido sobre las precauciones que se debe tomar en el manejo de
+máquinas y fuentes de radiación, de cualquier tipo que éstas fueren, se procederá en la siguiente
+forma:
+a) Se dará al licenciatario, según sea el caso, el plazo de sesenta días para que cumpla este
+requisito;
+b) Si vencido el plazo concedido no su cumpliere con lo dispuesto en este artículo, se sancionará a la
+persona responsable con multa equivalente a treinta salarios vitales mensuales del trabajador en
+general y deberá retirar al personal no instruido hasta el cumplimiento del requisito.
+Art. 133.- Falta de Información por parte del Patrono.- Si el empleador dejare de notificar las dosis de
+exposición anuales a las que sus empleados han sido expuestos por el tiempo que señale este
+Reglamento o hasta quince días después de que sus empleados han cesado en sus funciones, se le
+sancionará de acuerdo a las siguientes disposiciones:
+a) Con multa equivalente a un salario vital mensual del trabajador en general por cada día de
+demora; y,
+b) Si la demora es superior a treinta días, se procederá a la suspensión de la licencia, en caso de
+que el responsable sea un licenciatario, hasta que presente la información respectiva.
+Art. 134.- Dificultades puestas a Inspecciones de Servicios o Instalaciones.- Se notificará al
+licenciatario con la debida anticipación sobre la fecha y hora de la inspección.
+En caso de que el licenciatario no de las facilidades necesarias o no permita la presencia de un
+Inspector de Seguridad Radiológica, se procederá a la clausura del servicio o instalación y, además,
+se impondrá una multa equivalente a siete salarios vitales mensuales del trabajador en general a la
+persona responsable que no permita la inspección.
+Art. 135.- Clausura y reapertura de Servicios o Instalaciones.- Las infracciones graves a lo dispuesto
+en el Reglamento de Seguridad Radiológica se sancionarán con la clausura de servicios o
+instalaciones.
+La reapertura de los mismos podrá llevarse a cabo cuando se considere que se han subsanado los
+problemas por los cuales los servicios o instalaciones fueron clausurados previo pago de un salario
+vital mensual por costos de trámite.
+CAPITULO II
+Infracciones en el uso o manejo de Radioisótopos y
+Desechos de Materiales Radiactivos
+Art. 136.- Transferencia de Radioisótopos Usados como Fuentes Abiertas.- A cualquier licenciatario
+que transfiera radioisótopos en actividades superiores a las especificadas en el Anexo II, sin notificar
+a la CEEA se le suprimirá la licencia por treinta días y se le impondrá multa de tres salarios
+mensuales. La reincidencia será sancionada con la suspensión de la licencia en forma definitiva y
+una multa de 15 salarios.
+Art. 137.- Infracciones en el Uso y Manejo de Radioisótopos como Fuentes Selladas.- A cualquier
+licenciatario que, sin previa autorización, transfiera fuentes selladas de radioisótopos, se le impondrá
+la multa de siete salarios y se le suspenderá la licencia por seis meses.
+En caso de que se ocasionaren daños a terceros, el responsable será enjuiciado penalmente, pues
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 26
+LEXIS FINDER - www.lexis.com.ec
+
+se presumirá que los daños a terceros han sido ocasionados intencionalmente.
+La reincidencia será sancionada con la suspensión definitiva de la licencia y una multa de treinta
+salarios.
+Se exceptúa de lo establecido en los incisos anteriores, las fuentes selladas de actividad menor
+usadas para calibración de instrumentos de detección nuclear, las cuales pueden ser transferidas
+entre licenciatarios, quienes estarán obligados a notificar a la CEEA en los casos o sospecha de fuga
+o destrucción de las mismas.
+Art. 138.- Contabilidad de Radioisótopos Usados como Fuentes Abiertas.- Cualquier licenciatario
+que no informe sobre la contabilidad de radioisótopos usados como fuentes abiertas será sancionado
+de acuerdo a las siguientes reglas:
+a) La demora de más de quince días en informar sobre el uso dado a radioisótopos recibidos se
+sancionará con un salario. Si la demora es mayor de treinta días, además de la imposición de la
+multa de 30 salarios se le suprimirá la licencia por un año;
+b) En el caso de que el licenciatario se vea imposibilitado de cumplir lo exigido por disposición de un
+superior, éste último será sancionado con treinta salarios de multa; y,
+c) Cualquier licenciatario que proporcione datos falsos en la contabilidad de radioisótopos será
+sancionado con multa, de treinta salarios y la suspensión definitiva de su licencia sin perjuicio de la
+acción judicial correspondiente por perjuicios que ocasionare.
+Art. 139.- Desechos de Material Radiactivo.- Cualquier licenciatario que deseche materiales
+radiactivos en exceso de los límites de concentración en agua, establecidos internacionalmente, será
+sancionado con la multa equivalente a diez salarios vitales mensuales del trabajador en general.
+CAPITULO III
+Infracciones en la adquisición y uso de máquinas de
+Rayos X y máquinas generadoras de radiación o
+partículas nucleares
+Art. 140.- Falta de Notificación.- La falta de notificación en el tiempo prescrito en este Reglamento se
+sancionará con la multa equivalente en un salario vital mensual del trabajador en general por cada
+día de demora en cumplir la notificación.
+Art. 141.- Equipo o Local que no cumpla las especificaciones en relación a Seguridad Radiológica.Si, luego de una inspección, se encontrare que el local o equipo no cumple con las especificaciones
+de Seguridad Radiológica, al licenciatario se le dará el plazo de noventa días para cumplir este
+requisito.
+En caso de que en este plazo no se cumpliere con lo dispuesto, se procederá a la clausura de la
+instalación.
+Las mismas disposiciones se aplicarán para máquinas generadores de radiación o de partículas
+nucleares de cualquier tipo.
+CAPITULO IV
+Infracciones contra el personal que trabaja
+en el campo de las radiaciones
+Art. 142.- Falsificación de documentos o datos falsos en solicitudes de Licencias.- En caso de
+comprobarse falsificación o presentación de datos falsos para cualquier tipo de licencia, la CEEA
+negará la licencia definitivamente, ya sea al profesional o a la institución que incurriere en dicha falta.
+Esta disposición se aplicará a todo tipo de actividades que tengan relación con el campo de las
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 27
+LEXIS FINDER - www.lexis.com.ec
+
+radiaciones.
+Art. 143.- Impedimentos sobre las Vacaciones.- El empleador que no concediere las vacaciones a
+que tienen derechos los trabajadores en el campo de las radiaciones será sancionado con la multa
+equivalente a siete salarios vitales mensuales del trabajador en general.
+Art. 144.- Caso de obligar a trabajar horas extras.- El empleador que obligue a un trabajador del
+campo de radiaciones a laborar más de 8 horas mensuales suplementarias será sancionado con la
+multa equivalente a siete salarios mensuales del trabajador en general.
+CAPITULO V
+Destino de los fondos obtenidos por multas
+Art. 145.- Empleo de Fondos.- Los valores recaudados por concepto de multas impuestas de
+conformidad con el presente Reglamento, se depositarán en una cuenta corriente especial, que la
+CEEA abrirá en el Banco Central del Ecuador.
+La CEEA empleará este dinero en la compra de equipo para mejorar el control de Seguridad
+Radiológica y preparación de personal del país, o para el pago de aportación voluntarias al
+Organismo Internacional de Energía Atómica (OIEA), lo que facilita asistencia técnica extraordinaria
+en caso de necesitarse.
+TITULO NOVENO
+Disposiciones varias para el Reglamento de
+Seguridad Radiológica
+CAPITULO I
+Organización del control de Seguridad Radiológica
+en la República del Ecuador
+Art. 146.- División en Zonas.- Para poner en ejecución el presente Reglamento de Seguridad
+Radiológica, la República del Ecuador se dividirá en tres zonas, atendiendo la densidad de los
+usuarios de fuentes de radiación.
+La sede de la primera zona será la ciudad de Quito, de la segunda zona la ciudad de Guayaquil y de
+la tercera zona la ciudad de Cuenca.
+De acuerdo al crecimiento del número de usuarios de máquinas y fuentes de radiaciones, se podrán
+establecer las subzonas que se crean convenientes.
+Art. 147.- Personal necesario para la aplicación del presente Reglamento.- Habrá un Jefe Nacional
+de Seguridad Radiológica. Cada zona tendrá su Jefe de Zona, el cual debe haber realizado estudios
+de postgrado en ciencias relacionadas con física de radiaciones y tener experiencia en dicho campo.
+Cada Jefe de Zona tendrá como ayudantes a los Inspectores de Seguridad Radiológica, en número
+tal que realicen un trabajo eficiente, cubriendo las necesidades de los usuarios de máquinas y
+fuentes de radiación en su zona.
+CAPITULO II
+Infracciones cometidas contra el personal que trabaja
+en Seguridad Radiológica
+Art. 148.- Sanciones.- Cualquier ofensa, de palabra u obra, contra el personal que trabaje en
+Seguridad Radiológica cuando éste se halle en ejercicio de sus funciones, será sancionado de
+acuerdo a lo prescrito en el Título Tercero "De los Delitos contra la Administración Pública", Capítulo
+I "De la Rebelión y Atentados contra Funcionarios", del Código Penal vigente.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 28
+LEXIS FINDER - www.lexis.com.ec
+
+En el caso de tratarse de un licenciatario, se le suspenderá, además, la licencia.
+CAPITULO III
+Clausura y reapertura de servicios en instalaciones
+donde se usen fuentes de radiación de cualquier tipo
+Art. 149.- Clausura de Servicios e Instalaciones.- Cuando un funcionario del Servicio Nacional de
+Seguridad Radiológica considere que, por violaciones previstas en este Reglamento, es necesario la
+clausura de servicios o instalaciones donde máquinas y fuentes de radiación estén siendo usadas,
+procederá en la siguiente forma:
+a) Comunicará el particular al Jefe Nacional de Seguridad Radiológica, dando la información
+adecuada;
+b) El Jefe Nacional, a su vez, comunicará el particular a la sociedad profesional que tenga relación
+con el interesado;
+c) En el plazo de ocho días se tomará la decisión; y,
+d) Se procederá a la clausura, poniendo el sello de clausura, acompañado de la autoridad de
+Gobierno que sea del caso.
+Art. 150.- Reapertura de Servicios e Instalaciones.- Cuando se hubieren subsanado los problemas
+por los cuales un servicio ha sido clausurado, el Jefe Nacional de Seguridad Radiológica puede
+proceder a disponer su reapertura , por intermedio de uno de los funcionarios de la institución,
+tomando en cuenta las siguientes disposiciones:
+a) Si han sido impuestas sanciones económicas por haberse infringido el presente Reglamento,
+éstas deberán haber sido totalmente cubiertas;
+b) Satisfecho este requisito, el funcionario procederá a la reapertura del servicio o instalación, en
+compañía de la autoridad competente, y levantará el acta correspondiente; y,
+c) Una copia del acta será entregada al interesado, a la Sociedad a la que pertenece el interesado, y
+la Jefe Nacional de Seguridad Radiológica.
+CAPITULO IV
+Violación de los sellos de clausura
+Art. 151.- Sanción.- La violación de los sellos de clausura de Servicios o instalaciones será
+sancionado de acuerdo con lo prescrito en el Código Penal, Título III, de los "Delitos contra la
+Administración Pública", Capítulo III "De la Violación de Sellos y Documentos.
+CAPITULO V
+Control de Dosimetría Personal
+Art. 152.- Organismo Competente.- El control de dosimetría personal por medio de dosímetros de
+película recomendado internacionalmente para este fin, continuará realizándose por la División de
+Radiobiología del Instituto Nacional de Higiene "Leopoldo Izquieta Pérez" en la ciudad de Guayaquil,
+sede de la Zona II. La CEEA, podrá, por razones de servicio, cambiar de institución o sede.
+Cualquier otro tipo de dosimetría que se crea necesaria establecer, estará bajo el control de la
+División de Seguridad Radiológica de la CEEA.
+CAPITULO VI
+De la recaudación de multas impuestas por violaciones
+al presente Reglamento
+Art. 153.- Procedimiento.- Las multas impuestas por violaciones al presente Reglamento serán
+recaudadas por los procedimientos establecidos en las leyes pertinentes.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 29
+LEXIS FINDER - www.lexis.com.ec
+
+CAPITULO VII
+Disposiciones Finales
+Art. 154.- Radiaciones no Ionizantes.- Lo concerniente a radiaciones no ionizantes se regulará
+mediante reglamento específico.
+Art. 155.- Futuras plantas, como reactores, laboratorios de radiofarmacia, etc., se regirán por
+reglamentos especiales inspirados en este Reglamento general.
+Art. 156.- Vigencia.- Este Reglamento entrará en vigencia después de sesenta días de la fecha de
+su publicación en el Registro Oficial, y prevalecerá sobre cualquier disposición reglamentaria que se
+le oponga.
+Dado en el Palacio Nacional, en Quito, a 19 de Julio de 1979.
+f.) Almirante Alfredo Poveda Burbano, Comandante General de la Fuerza Naval, Presidente del
+Consejo Supremo de Gobierno.- f.) General de División Guillermo Durán Arcentales, Comandante
+General de la Fuerza Terrestre, Miembro del Consejo Supremo de Gobierno.- f.) Teniente General
+Luis Leoro Franco, Comandante General de la Fuerza Aérea, Miembro del Consejo Supremo de
+Gobierno.
+Es copia.- Lo certifico:
+f.) Julio Enrique Dobronski Bohórquez, Coronel E.M.S., Secretario General de la Administración
+Pública.
+ANEXO 1
+TABLA No. 1
+INCORPORACIONES MAXIMAS PERMITIDAS ANUALMENTE (en uCi) PARA TRABAJADORES
+EN CONDICIONES NORMALES DE TRABAJO
+Nota: Para leer Anexo, ver Registro Oficial 891 de 8 de Agosto de 1979, página 22.
+TABLA No. 2
+ABSORCION ANUAL PERMITIDA POR INGESTION E INHALACION PARA MIEMBROS DE LA
+POBLACION
+Nota: Para leer Anexo, ver Registro Oficial 891 de 8 de Agosto de 1979, página 29.
+ANEXO No. 2
+ACTIVIDADES QUE NO REQUIEREN AUTORIZACION POR PARTE DE LA CEEA
+Nota: Para leer Anexo, ver Registro Oficial 891 de 8 de Agosto de 1979, página 39.
+1. ABSORBENTE: Material que atenúa la cantidad de radiación que incide sobre el.
+2. ABSORCION: Proceso por el cual radiación entrega parte o toda su energía al material que
+atraviesa.
+3. ACTIVIDAD: Número de transformaciones nucleares que tienen lugar en una cantidad de material
+en un intervalo determinado de tiempo.
+4. AREA RESTRINGIDA: Un área definida, en la cual la exposición ocupacional del personal a la
+radiación está bajo la supervisión de un oficial de Seguridad Radiológica.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 30
+LEXIS FINDER - www.lexis.com.ec
+
+5. AREA DE RADIACION: Area restringida, en la cual el nivel de radiación es tal que la mayor parte
+del cuerpo humano puede recibir en una hora, una dosis mayor de cinco milirem (5 mrem/h) o en una
+semana de trabajo de 40 h una dosis mayor de cien milirem (100 mrem/semana).
+6. AREA DE ALTA RADIACION: Area restringida, en la cual el nivel de radiación es tal que la mayor
+parte del cuerpo humano puede recibir en una hora una dosis debida a exposición externa mayor de
+cien milirem (100 mrem/h).
+7. CAPA HEMIRREDUCTORA: Espesor de un determinado material que reduce a la mitad la
+exposición debida a un haz de radiación.
+8. COLIMADOR: Dispositivo que restringe el haz útil de radiación a un área determinada.
+9. CUBIERTA PROTECTORA DEL TUBO DE DIAGNOSTICO DE RAYOS X: Cubierta construida de
+forma que la radiación de escape, medida a una distancia de un metro del foco de emisión de Rayos
+X, no exceda de cien miliroentgen en una hora (100 mR/h) cuando el tubo está funcionando al
+máximo de corriente y al máximo de potencial característico del tubo.
+10. CUBIERTA PROTECTORA DEL TUBO TERAPEUTICO: Cubierta construida de forma que la
+exposición promedio de la radiación de escape en un área de diez por diez centímetros (10 x 10) a
+una distancia de un metro (1m) de la fuente, no exceda de un Roentgen en una hora (1 R/h) cuando
+el tubo esté funcionando al máximo de corriente y al máximo de potencial característico del tubo.
+11. CURIE: Unidad de medida de radiactividad, Un Curie (1 Ci) es la cantidad de material radiactivo
+que se desintegra a razón de 3.7 x 10 a la 10 desintegraciones por segundo (dps). Submúltiplos del
+Curie usados corrientemente son el milicurie (mCi) equivalente a 3.7 x 10 a la 7 dps, y el microcurie
+(uCi) equivalente a 3.7 x 10 a la 4 dps.
+12. DESINTEGRACION NUCLEAR: Transformación nuclear espontánea caracterizada por la
+emisión de energía y/o masa del núcleo.
+13. DIAFRAGMA: Artefacto o mecanismo con una abertura central colocada en forma tal que
+restringe el haz útil al área apropiada en el punto de interés.
+14. DOSIS (DOSIS ABSORBIDA): Energía cedida por la radiación ionizante a la unidad de masa del
+material irradiado.
+15. DOSIS EQUIVALENTE: Dosis definida en términos del efecto biológico producido. Es igual a la
+dosis absorbida en (rad) multiplicada por un factor (factor de calidad) que depende del tipo de
+radiación. El factor de calidad se define de modo que una misma dosis equivalente de diferentes
+radiaciones, produzca el mismo efecto biológico.
+16. DOSIS MAXIMA PERMITIDA: Es la mayor dosis que puede recibir una persona en un período de
+tiempo especificado y que, en base a los actuales conocimientos, se acepta que no produce daño
+somático o genético apreciable.
+17. DOSIMETRO: Instrumento que permite evaluar una dosis absorbida, medir una exposición o
+cualquier otra magnitud radiológica.
+18. EQUIVALENTE EN ALUMINIO O EN PLOMO DE UN MATERIAL: Espesor de aluminio o de
+plomo que causa idéntica atenuación, bajo las mismas condiciones de irradiación que el material en
+cuestión.
+19. EXPOSICION: Magnitud física que caracteriza la ionización producida en el aire por la radiación
+X o gamma.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 31
+LEXIS FINDER - www.lexis.com.ec
+
+20. FILTRACION INHERENTE: Filtración permanente de haz útil de radiación debida a la ventana
+del tubo de Rayos X o cualquier envoltura permanente del tubo o la fuente radiactiva.
+21. FUENTE RADIACTIVA ABIERTA: Fuente de radiación constituida por material radiactivo que
+está en contacto con el ambiente en que se encuentra.
+22. FUENTE RADIACTIVA SELLADA: Fuente de radiación constituida por material radiactivo, que se
+encuentra permanentemente encerrado en una cápsula o molde diseñado para evitar su liberación y
+dispersión bajo las condiciones más severas que puedan darse durante su uso y manejo normal.
+23. HAZ UTIL DE RADIACION: Radiación que pasa a través de la ventana, apertura, cono o
+cualquier otro artefacto de colimación de la cubierta protectora del tubo de Rayos X o fuente
+radiactiva, llamado también "HAZ PRIMARIO.
+24. INSPECTOR DE SEGURIDAD RADIOLOGICA: Funcionario de la Comisión Ecuatoriana de
+Energía Atómica (CEEA), encargado de llevar a cabo reconocimientos e inspecciones de fuentes
+radiactivas, máquinas de radiación y locales donde están instaladas, con el propósito de evaluar los
+riesgos de radiación y las técnicas de seguridad aplicadas. Su función incluye asesorar sobre las
+medidas de protección contra la radiación y velar por el cumplimiento de las normas del presente
+Reglamento.
+25. ION: Atomo o molécula que, por pérdida o ganancia de uno o más electrones, ha adquirido una
+carga eléctrica neta.
+26. IONIZACION: Proceso por el cual un átomo neutro o molécula adquiere una carga positiva o
+negativa.
+27. ISOTOPOS: Nucleidos caracterizados por el mismo número atómico (Z) y, por tanto, pertenecen
+al mismo elemento químico, pero que difieren entre si en el número másico (A).
+28. KILOVOLT PICO (kVp): Valor máximo en Kilovolt del potencial de un generador pulsante.
+29. LICENCIATARIO: Persona a quien la CEEA ha otorgado licencia para trabajar con máquinas y/o
+fuentes de radiación.
+30. MAQUINA DE RADIACION: Aparato que produce radiación, por cualquier proceso físico, natural
+o artificial diferente de la emisión radiactiva espontánea.
+31. MATERIAL RADIACTIVO:
+espontáneamente.
+
+Material
+
+sólido,
+
+líquido
+
+o
+
+gaseoso
+
+que
+
+emite
+
+radiación
+
+32. MONITOREO: Apreciación de la tasa de radiación en un lugar con fines de protección
+radiológica.
+33. NUCLEIDO: Conjunto de átomos que tienen núcleos con igual número atómico (Z) y másico (A).
+34. OFICIAL DE SEGURIDAD RADIOLOGICA: Persona reconocida por la CEEA como responsable
+de la aplicación de las normas de seguridad radiológica de una institución o laboratorio. Debe contar
+con la autorización correspondiente de la CEEA para desempeñar su función en el lugar en cuestión.
+35. PERIODO DE DESINTEGRACION: Tiempo requerido para que una substancia radiactiva pierda
+el 50% de su actividad por decaimiento.
+36. RAD: Unidad de dosis absorbida de radiación. Un (1) rad corresponde a la absorción de cien
+ergios por gramo de material (100 erg/g).
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 32
+LEXIS FINDER - www.lexis.com.ec
+
+37. RADIACION: Energía o partículas materiales que se propagan a través del espacio.
+38. RADIACION DISPERSADA: Radiación originalmente presente en el haz útil, que, al atravesar la
+materia, se desvía y deja de formar parte de él.
+39. RADIACION DE ESCAPE: Radiación proveniente del interior de la cubierta protectora del tubo o
+fuente que no forma parte del haz útil.
+40. RADIACION IONIZANTE: Radiación electromagnética o corpuscular capaz de producir directa o
+indirectamente iones al atravesar la materia (por ejemplo: Rayos X, Rayos Gamma partículas alfa y
+beta, electrones de alta velocidad, neutrones, protones y otras partículas nucleares).
+41. RADIACTIVIDAD: Propiedad de ciertos nucleidos de emitir espontáneamente partículas, núcleos
+atómicos o radiación electromagnética.
+42. RADIOMETRIA: Resultado de la medida radiológica de un área, efectuada con un instrumento
+adecuado.
+43. RADIONUCLEIDOS: Nucleidos radiactivos.
+44. REM: Unidad de dosis equivalente. Un rem corresponde a:
+a) Una dosis absorbida de un (1) rad de radiación X, o gamma o beta.
+b) Una dosis de un décimo (0.1) de rad de neutrones o protones de alta energía.
+c) Una dosis de cinco centésimas (0.05) de rad de partículas más pesadas que los protones.
+45. ROENTGEN: Unidad de exposición igual a 2.58 x 10 a la menos 4 Coulomb por kilogramo (C/kg)
+de aire.
+46. TASA DE DOSIS O EXPOSICION: Relación entre el incremento que la dosis o exposición de
+radiación experimenta y el intervalo de tiempo en que se ha producido dicho incremento.
+47. TRIMESTRE: Cada período de trece semanas consecutivas, contando el primero de ellos a partir
+del primer lunes del año.
+
+REGLAMENTO DE SEGURIDAD RADIOLOGICA - Página 33
+LEXIS FINDER - www.lexis.com.ec
+
+

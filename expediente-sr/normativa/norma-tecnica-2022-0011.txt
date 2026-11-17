@@ -1,0 +1,3373 @@
+Cuarto Suplemento
+
+FUNCIÓN EJECUTIVA
+MINISTERIO DE ENERGÍA Y
+RECURSOS NATURALES
+NO RENOVABLES
+ACUERDO:
+MERNNR-MERNNR-2022-0011-AM
+EXPÍDESE LA NORMA TÉCNICA
+PARA LAS ACTIVIDADES
+DE LICENCIAMIENTO Y
+OPERACIÓN EN RADIOLOGÍA
+INTERVENCIONISTA,
+RADIODIAGNÓSTICO MÉDICO,
+ODONTOLÓGICO Y VETERINARIO
+
+Año I - Nº 11 - 51 páginas
+Quito, viernes 25 de febrero de 2022
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+ACUERDO Nro. MERNNR-MERNNR-2022-0011-AM
+SR. ING. JUAN CARLOS BERMEO CALDERÓN
+MINISTRO DE ENERGÍA Y RECURSOS NATURALES NO RENOVABLES
+CONSIDERANDO:
+Que, el numeral 1 del artículo 154 de la Constitución de la República del Ecuador,
+señala que, a las ministras y ministros de Estado, además de las atribuciones establecidas
+en la ley, les corresponde: “1. Ejercer la rectoría de las políticas públicas del área a su
+cargo, expedir los acuerdos y resoluciones administrativas que requiera su gestión”;
+Que, el artículo 226 de la Constitución de la República del Ecuador prescribe: “Las
+instituciones del Estado, sus organismos, dependencias, las servidoras o servidores
+públicos y las personas que actúen en virtud de una potestad estatal ejercerán solamente
+las competencias y facultades que les sean atribuidas en la Constitución y la ley. Tendrán
+el deber de coordinar acciones para el cumplimiento de sus fines y hacer efectivo el goce
+y ejercicio de los derechos reconocidos en la Constitución.";
+Que, el artículo 227 ibídem, determina: “La administración pública constituye un
+servicio a la colectividad que se rige por los principios de eficacia, eficiencia, calidad,
+jerarquía,
+desconcentración,
+descentralización,
+coordinación,
+participación,
+planificación, transparencia y evaluación.”;
+Que, el artículo 17 del Estatuto del Régimen Jurídico Administrativo de la Función
+Ejecutiva establece: "Los Ministros de Estado son competentes para el despacho de todos
+los asuntos inherentes a sus ministerios sin necesidad de autorización alguna del
+presidente de la República, salvo los casos expresamente señalados en leyes
+especiales.";
+Que, la Ley de la Comisión Ecuatoriana de Energía Atómica, expedida por Decreto
+Supremo No. 3306, de 8 de marzo de 1979, publicado en el Registro Oficial Nro. 798, de
+23 de marzo de 1979, en su artículo 5 señala: “El Estado a través de la Comisión
+Ecuatoriana de Energía Atómica, controlará toda actividad y tecnología relacionadas
+con los minerales radiactivos, el uso de radioisótopos y máquinas generadoras de
+radiaciones ionizantes y, en general, con la seguridad nuclear y seguridad radiológica en
+todos sus aspectos.”;
+Que, el literal g) del artículo 10 ibídem, establece como función de la Comisión
+Ecuatoriana de Energía Atómica: “Reglamentar lo concerniente a seguridad nuclear y
+protección radiológica, particularmente en lo relacionado con la producción,
+adquisición, transporte, importación, exportación, transferencia, utilización y manejo de
+los materiales fértiles, fisionables y radiactivos, de los radioisótopos importados o
+producidos en el país y de las máquinas generadoras de radiaciones ionizantes.”;
+Que, mediante Decreto Ejecutivo Nro. 2099, publicado en el Registro Oficial Nro. 479 de
+3 de abril de 1958, el entonces Presidente Constitucional de la República, Camilo Ponce
+Enríquez, ratificó el Estatuto del Organismo Internacional de Energía Atómica, abierto a
+
+mado electrónicamente por Quipux
+
+2
+
+1/6
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+la firma en la Sede de las Naciones Unidas el 26 de octubre de 1956, atendiendo a la
+aprobación dada por Resolución Legislativa publicada en el Registro Oficial Nro. 390 de
+18 de Diciembre de 1957 mediante la cual se “Aprueba el Estatuto del organismo
+internacional de Energía Atómica suscrito ad – referéndum por el Ecuador, en las
+Naciones Unidad, el 26 de octubre de 1956, y faculta al Presidente Constitucional de la
+república para que proceda a la ratificación y depósito correspondientes”, considerando
+que el citado Estatuto reportará positivas ventajas para la comunidad internacional, pues
+tiene por finalidad, principalmente, el fomento de las investigaciones científicas y la
+utilización de los beneficios de la energía atómica para bienestar de la humanidad; y, su
+última modificación se efectúo el 02 de marzo de 1972;
+Que, el Ecuador como país miembro del Organismo Internacional de Energía Atómica
+(OIEA), puede adoptar las normas, recomendaciones, lineamientos y demás documentos
+de carácter técnico y legal, emitidos por el OIEA;
+Que, las Guías de Seguridad emitidas por el OIEA (2010) para la protección de las
+personas y el medio ambiente incluyen: el “Marco gubernamental, jurídico y regulador
+para la seguridad”, en cuyo requisito Nro. 27 respecto de la “Inspección de las
+instalaciones y Actividades”, señala: “El órgano regulador debe llevar a cabo
+inspecciones de las instalaciones y actividades para verificar si la parte autorizada
+cumple los requisitos reglamentarios y las condiciones especificadas en la autorización”;
+y el requisito Nro. 32 sobre Reglamentos y Guías dispone: “El órgano regulador debe
+establecer o adoptar reglamentos y guías para especificar los principios, requisitos y
+criterios conexos en materia de seguridad en los que se basarán sus fallos, decisiones y
+medidas reglamentarias (…)”;
+Que, en el párrafo 1.11 de los Antecedentes del documento de la OIEA “Protección
+Radiológica y Seguridad de las fuentes de radiación: Normas Básicas Internacionales de
+Seguridad, GSR Parte 3”, se establece “(…) El órgano regulador es responsable de
+desempeñar las funciones reguladoras que se le requieran, como el establecimiento de
+requisitos y directrices, la autorización e inspección de instalaciones y actividades, y el
+control del cumplimiento de las disposiciones legislativas y reglamentarias.”;
+Que, mediante Decreto Supremo Nro. 3640, publicado en el Registro Oficial Nro. 891 el
+8 de agosto de 1979, se expidió el Reglamento de Seguridad Radiológica, con el objeto de
+proteger contra los efectos nocivos de las radiaciones ionizantes a la población del país,
+en general, y en particular a las personas que trabajan de forma directa con radiaciones; el
+contenido del referido Reglamento, de acuerdo con la sexta exposición de motivos, se
+fundamentó “(…) en recomendaciones internacionales emitidas por el Organismo
+Internacional de Energía Atómica, Comisión Internacional de Protección Radiológica,
+sugerencias expresadas por los Ministerios de Salud Pública, Trabajo y Bienestar Social,
+Instituto Ecuatoriano de Seguridad Social, Sociedad Ecuatoriana de Radiología y
+Ciencias afines.”;
+Que, el Reglamento de Seguridad Radiológica, a lo largo de su contenido dispone que es
+esencial que toda actividad que implica exposición a radiaciones, en la que se incluye el
+almacenamiento y gestión de desechos radiactivos provenientes de diferentes prácticas
+autorizadas, debe someterse a normas de seguridad para proteger a las personas expuestas
+y al medio ambiente;
+
+mado electrónicamente por Quipux
+
+3
+2/6
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+Que, el artículo 17 del citado cuerpo legal referente a las “Licencias a Instituciones tipo
+C” dispone: “Esta licencia permite a todo consultorio profesional, a instituciones
+públicas o privadas, nacionales e internacionales, con sede en el Ecuador, adquirir
+radioisótopos y compuestos químicos nuclearmente marcados para satisfacer sus
+necesidades de trabajo.”, estableciendo además los requisitos que deben cumplir para
+obtener este tipo de licencias;
+Que, el artículo 76 de la norma ibídem señala: “(…) Las licencias para máquinas de
+Rayos X, serán concedidas por la CEEA, a instituciones donde los equipos vayan a ser
+instalados, a los profesionales que vayan a operar el equipo o sean responsables de la
+seguridad de su operación y al personal paramédico”;
+Que, el artículo 106 de la norma ibídem referente a las licencias a profesionales e
+instituciones señala “(…) Las licencias para Instituciones serán concedidas por la
+CEEA, previo a la inspección a los locales y equipos.”;
+Que, la Ley Orgánica de Salud, publicada en Registro Oficial Suplemento Nro. 423 de 22
+de diciembre del 2006, en su artículo 121 menciona que: "Las instituciones públicas o
+privadas cuyo personal esté expuesto a radiación ionizante y emisiones no ionizantes,
+están obligadas a proveer de dispositivos de cuidado y control de radiación y de
+condiciones de seguridad en el trabajo que prevengan riesgos para la salud";
+Que, mediante Decreto Ejecutivo Nro. 475 de 9 de julio de 2007 publicado en el Registro
+Oficial No. 132 de 23 de julio de 2007, se escindió el Ministerio de Energía y Minas, en
+los Ministerios de Minas y Petróleos y de Electricidad y Energía Renovable;
+Que, mediante Decreto Ejecutivo Nro. 978, de 25 de marzo de 2008, publicado en el
+Registro Oficial Nro. 311 de 8 de abril de 2008, el Presidente Constitucional de la
+República, fusionó la Comisión Ecuatoriana de Energía Atómica - CEEA - al Ministerio
+de Electricidad y Energía Renovable (MEER), como una unidad dependiente del mismo;
+Que, el artículo 2 del mencionado Decreto, dispuso: “El Ministerio de Electricidad y
+Energía Renovable será el ente rector de la política en materia de energía atómica, para
+lo cual ejercerá las atribuciones sobre la materia, previstas en la Ley de la Comisión
+Ecuatoriana de Energía Atómica.”;
+Que, el artículo 1 del Decreto Ejecutivo Nro. 399, publicado en el Registro Oficial Nro.
+255 del 05 de junio de 2018, el señor Presidente Constitucional de la República, dispuso
+la fusión por absorción al Ministerio de Hidrocarburos, el Ministerio de Electricidad y
+Energía Renovable, Ministerio de Minería y la Secretaria de Hidrocarburos;
+Que, el artículo 2 del Decreto Ejecutivo Nro. 399, dispone que, una vez concluido el
+proceso de fusión por absorción, modifíquese la denominación del Ministerio de
+Hidrocarburos a Ministerio de Energía y Recursos Naturales No Renovables;
+Que, el artículo 3 de la norma ibídem, establece que, una vez concluido el proceso de
+fusión por absorción, todas las competencias, atribuciones, funciones, representaciones y
+obligaciones constantes en leyes, decretos, reglamentos y demás normativa vigente que le
+
+mado electrónicamente por Quipux
+
+4
+3/6
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+correspondían al Ministerio de Electricidad y Energía Renovable, al Ministerio de
+Minería, y a la Secretaria de Hidrocarburos serán asumidas por el Ministerio de Energía y
+Recursos Naturales No Renovables;
+Que, el Estatuto Orgánico de Gestión Organizacional por Procesos del actual Ministerio
+de Energía y Recursos Naturales No Renovables, establece como Misión de la
+Subsecretaría de Control y Aplicaciones Nucleares: "Regular y controlar toda actividad y
+tecnología relacionada con el uso de fuentes de radiación ionizante y velar por la
+utilización pacífica de la energía atómica, mediante la cooperación técnica y aplicación
+de las técnicas nucleares y conexas, a fin de precautelar la salud de las personas, la
+integridad del medio ambiente y fomentar una solo cultura de protección radiológica y
+seguridad física, a través de la implementación de políticas, estrategias, proyectos y
+acciones";
+Que, dentro las atribuciones y responsabilidades de la Subsecretaría de Control y
+Aplicaciones Nucleares del Ministerio de Energía y Recursos Naturales No Renovables
+establecidas en el Estatuto Orgánico de Gestión Organizacional por Procesos, le
+corresponde: "Establecer y formular propuestas de regulación y normativa en lo
+concerniente a seguridad nuclear y protección radiológica (…)"; así como “Formular
+proyectos de licencias, permisos y autorizaciones en materia de seguridad radiológica";
+Que, en lo que corresponde a la Gestión de Licenciamiento y Protección Radiológica, del
+Estatuto ibídem, dentro de sus atribuciones y responsabilidades, se dispone: "Elaborar
+propuestas de políticas, normativas, y estrategias en materia de energía atómica.";
+Que, mediante Acuerdo Ministerial Nro. MERNNR-MERNNR-2020-0026-AM el 27 de
+mayo de 2020, se expidió la “Norma Técnica para las Actividades de Licenciamiento y
+Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico; y,
+Veterinario”;
+Que, mediante Decreto Ejecutivo Nro. 56 de 02 de junio de 2021, el Presidente
+Constitucional de la República, nombró al Ingeniero Juan Carlos Bermeo Calderón, como
+Ministro de Energía y Recursos Naturales No Renovables;
+Que, la Subsecretaría de Control y Aplicaciones Nucleares -SCAN, mediante Informe
+Técnico de Justificación para Emisión de Norma Técnica denominada “Norma Técnica
+para las Actividades de Licenciamiento y Operación en Radiología Intervencionista,
+Radiodiagnóstico Médico, Odontológico; y, Veterinario” realizó un análisis y manifestó
+que: “ (…) con las recomendaciones del Organismo Internacional de Energía Atómica y
+de ciertos cuerpos colegiados se procedió a la revisión de la normativa de tal forma que
+la misma sea más amigable y sus requerimientos sean comprensibles y estandarizados y
+se presenta el proyecto de actualización de la referida norma (…)”;
+Que, la Subsecretaría de Control y Aplicaciones Nucleares del Ministerio Energía y
+Recursos Naturales No Renovables, en el precitado Informe manifestó que, con el fin de
+brindar un mejor servicio a los usuarios, es importante contar con la actualización de la
+normativa que regule el procedimiento a seguir para las actividades de licenciamiento y
+operación en radiología intervencionista, radiodiagnóstico médico, odontológico y
+veterinario.
+
+ado electrónicamente por Quipux
+
+5
+4/6
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+Que, la Subsecretaría de Control y Aplicaciones Nucleares, mediante Memorando Nro.
+MERNNR-SCAN-2021-2467-ME del 16 de diciembre de 2021 remite a la Coordinación
+General Jurídica, el proyecto del Acuerdo Ministerial que contiene la “Norma Técnica
+para las Actividades de Licenciamiento y Operación en Radiología Intervencionista,
+Radiodiagnóstico Médico, Odontológico; y, Veterinario” con sus respectivos anexos; y,
+solicita se continúe con el trámite para la suscripción del Acuerdo Ministerial;
+Que, mediante Acuerdo Ministerial Nro. MERNNR-MERNNR-2022-0004-AM, de 25 de
+enero de 2022, el señor Ministro expidió la "NORMA TÉCNICA PARA LAS
+ACTIVIDADES DE LICENCIAMIENTO Y OPERACIÓN EN RADIOLOGÍA
+INTERVENCIONISTA, RADIODIAGNÓSTICO MÉDICO, ODONTOLÓGICO Y
+VETERINARIO"; y
+Que, mediante memorando Nro. MERNNR-SCAN-2022-0271-ME, de 05 de febrero de
+2022, la Subsecretaría de Control y Aplicaciones Nucleares solicitó que en el nuevo
+Acuerdo Ministerial, se deroguen “(…) el ACUERDO MINISTERIAL Nro.
+MERNNR-MERNNR-2020-0026-AM del 27 de mayo de 2020 y sus 8 anexos (…)”, así
+como el “(…) ACUERDO MINISTERIAL Nro. ACUERDO Nro.
+MERNNR-MERNNR-2022-0004-AM del 25 de enero de 2022(…)”, y;
+Que, la Coordinación General Jurídica del Ministerio de Energía y Recursos Naturales
+No Renovables, mediante Memorando Nro. MERNNR-COGEJ-2022-0109-M, de 08 de
+febrero de 2022 remitió al señor Ministro el informe jurídico de revisión del Acuerdo
+Ministerial de la “Norma Técnica para las Actividades de Licenciamiento y Operación en
+Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico; y, Veterinario“;
+
+En ejercicio de las atribuciones que le confiere el numeral 1 del artículo 154 de la
+Constitución de la República del Ecuador, el artículo 17 del Estatuto del Régimen
+Jurídico y Administrativo de la Función Ejecutiva y el Decreto Ejecutivo Nro. 56, de 02
+de junio de 2021.
+ACUERDA:
+Artículo 1.- Expedir la "NORMA TÉCNICA PARA LAS ACTIVIDADES DE
+LICENCIAMIENTO Y OPERACIÓN EN RADIOLOGÍA INTERVENCIONISTA,
+RADIODIAGNÓSTICO MÉDICO, ODONTOLÓGICO Y VETERINARIO", adjunta al
+presente Acuerdo.
+Artículo 2.- El Ministerio de Energía y Recursos Naturales No Renovables en el ámbito
+de su competencia a través de la Subsecretaría de Control y Aplicaciones Nucleares o
+quien haga sus veces, será el encargado de hacer cumplir lo dispuesto en el Reglamento
+de Seguridad Radiológica vigente, la presente Norma y cualquier otro instrumento legal
+de la materia.
+
+6
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+DISPOSICIONES
+DISPOSICIONESGENERALES:
+GENERALES:
+Primera.Primera.- La
+La Autoridad
+Autoridad Reguladora
+Reguladorapodrá
+podrárevocar
+revocaro o
+suspender
+suspender
+las las
+Licencias
+Licencias
+Institucionales
+Institucionales tipo
+tipoC,C,Licencias
+LicenciasPersonales
+Personales
+tipo
+tipo
+A A
+y las
+y las
+Autorizaciones
+Autorizaciones
+de Oficial
+de Oficial
+de de
+Seguridad
+Seguridad Radiológica
+Radiológicaenenelelcaso
+casodede
+que
+que
+el el
+servicio
+servicio
+o elo personal
+el personal
+del del
+mismo
+mismo
+no cumplan
+no cumplan
+con los
+los requisitos
+requisitosmínimos
+mínimosdedeSeguridad
+Seguridad
+Radiológica
+Radiológica
+establecidos
+establecidos
+en laennorma
+la norma
+aplicable.
+aplicable.
+Segunda.Segunda.- Para
+Para los
+los casos
+casosnonocontemplados
+contemplados
+en en
+la la
+"NORMA
+"NORMA
+TÉCNICA
+TÉCNICA
+PARA
+PARA
+LASLAS
+ACTIVIDADES
+ACTIVIDADES DE
+DE LICENCIAMIENTO
+LICENCIAMIENTOY YOPERACIÓN
+OPERACIÓN
+EN EN
+RADIOLOGÍA
+RADIOLOGÍA
+INTERVENCIONISTA,
+INTERVENCIONISTA, RADIODIAGNÓSTICO
+RADIODIAGNÓSTICOMÉDICO,
+MÉDICO,
+ODONTOLÓGICO
+ODONTOLÓGICO
+Y Y
+VETERINARIO",
+VETERINARIO", que
+que sese expide
+expidea através
+travésdeldelpresente
+presente
+Acuerdo,
+Acuerdo,
+se aplicará
+se aplicará
+las las
+disposiciones
+disposiciones emanadas
+emanadasenenlas
+lasregulaciones
+regulaciones
+dictadas
+dictadas
+porpor
+el Organismo
+el Organismo
+Internacional
+Internacional
+de de
+Energía
+Energía Atómica,
+Atómica,OIEA,
+OIEA,enenloloque
+quefuere
+fuere
+aplicable
+aplicable
+y no
+y no
+contravenga
+contravenga
+el ordenamiento
+el ordenamiento
+jurídico
+jurídico ecuatoriano.
+ecuatoriano.
+DISPOSICIÓN
+DISPOSICIÓNDEROGATORIA:
+DEROGATORIA:
+Con
+Con la
+la expedición
+expedicióndel
+delpresente
+presenteAcuerdo
+Acuerdo
+se se
+derogan
+derogan
+loslos
+siguientes
+siguientes
+Acuerdos
+Acuerdos
+Ministeriales:
+Ministeriales:
+Nro.
+Nro. MERNNR-MERNNR-2020-0026-AM
+MERNNR-MERNNR-2020-0026-AM deldel27 27de demayo
+mayo
+de de
+2020,
+2020,
+Nro. Nro.
+MERNNR-MERNNR-2022-0004-AM
+MERNNR-MERNNR-2022-0004-AM deldel 25 25 de deenero
+enerode de20222022
+y Nro.
+y Nro.
+MERNNR-MERNNR-2022-0006-AM
+MERNNR-MERNNR-2022-0006-AM
+dede
+3030
+de de
+enero
+enero
+de 2022.
+de 2022.
+DISPOSICIÓN
+DISPOSICIÓNFINAL:
+FINAL:
+El presente
+presente Acuerdo
+AcuerdoMinisterial
+Ministerialentrará
+entrará
+enen
+vigencia
+vigencia
+a partir
+a partir
+de la
+defecha
+la fecha
+de su
+deexpedición,
+su expedición,
+sin perjuicio
+perjuiciode
+desu
+supublicación
+publicaciónenen
+el el
+Registro
+Registro
+Oficial.
+Oficial.
+Encargar
+Encargar aa lala Secretaría
+SecretaríaGeneral
+GeneraldeldelMinisterio
+Ministerio
+de de
+Energía
+Energía
+y Recursos
+y Recursos
+Naturales
+Naturales
+No No
+Renovables
+Renovableslalapublicación
+publicacióndel
+delpresente
+presente
+acuerdo
+acuerdo
+en en
+el Registro
+el Registro
+Oficial.
+Oficial.
+Dado
+Dado en
+en Quito,
+Quito,D.M.,
+D.M.,a alos
+los1818día(s)
+día(s)
+deldel
+mes
+mes
+de de
+Febrero
+Febrero
+de dos
+de dos
+mil mil
+veintidos.
+veintidos.
+
+Documento
+Documento
+firmado
+firmado
+electrónicamente
+electrónicamente
+SR.
+SR.ING.
+ING.JUAN
+JUAN
+CARLOS
+CARLOS
+BERMEO
+BERMEO
+CALDERÓN
+CALDERÓN
+MINISTRO
+MINISTRODE
+DEENERGÍA
+ENERGÍA
+YY
+RECURSOS
+RECURSOS
+NATURALES
+NATURALES
+NONO
+RENOVABLES
+RENOVABLES
+
+mado
+ado electrónicamente
+electrónicamente por
+por Quipux
+Quipux
+
+Firmado
+Firmado
+electrónicamente
+electrónicamente
+por: por:
+
+JUAN
+JUAN
+CARLOS
+CARLOS
+BERMEO
+BERMEO
+CALDERON
+CALDERON
+
+7
+
+Firmado electrónicamente
+Firmado electrónicamente
+por:
+por:
+
+MARIA
+MARIA
+ELENAELENA
+VERDEZOTO
+VERDEZOTO
+ORTIZ
+ORTIZ
+
+6/6
+
+6/6
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+"NORMA TÉCNICA PARA LAS ACTIVIDADES DE LICENCIAMIENTO Y OPERACIÓN
+EN RADIOLOGÍA INTERVENCIONISTA, RADIODIAGNÓSTICO
+MÉDICO, ODONTOLÓGICO Y VETERINARIO"
+Art. 1.- Objeto. - La presente Norma, tiene por objeto establecer las responsabilidades y los requisitos
+técnicos y administrativos esenciales, así como los requisitos mínimos de seguridad radiológica, que
+deben cumplir las personas naturales o jurídicas, públicas, mixtas o privadas que poseen instalaciones con
+equipos generadores de radiaciones ionizantes dentro de las prácticas de Radiología Intervencionista,
+Radiodiagnóstico Médico, Odontológico y Veterinario, para obtener la licencia institucional tipo C.
+Art. 2.- Ámbito de aplicación. - La presente Norma es aplicable y de cumplimiento obligatorio para
+todas las personas naturales o jurídicas, públicas, mixtas o privadas cuenten con instalaciones con equipos
+generadores de radiaciones ionizantes para el desarrollo de las prácticas de Radiología Intervencionista,
+Radiodiagnóstico Médico, Odontológico y Veterinario y que se encuentren interesadas en obtener una
+licencia institucional.
+Art. 3.- Definiciones y siglas. Accidente: Todo suceso involuntario, incluidos errores de operación, fallos de equipo u otros
+contratiempos, cuyas consecuencias, reales o potenciales, no sean despreciables desde el punto de
+vista de la protección o de la seguridad tecnológica.
+ALARA: El valor más bajo que pueda razonablemente alcanzar aplicando el principio de
+optimización de la protección y seguridad radiológica (as low as reasonably achievable, por sus
+siglas en inglés).
+Autoridad reguladora: El Ministerio de Energía y Recursos Naturales No Renovables (MERNNR)
+a través de la Subsecretaría de Control y Aplicaciones Nucleares (SCAN), o quien haga sus veces,
+será la autoridad reguladora que controla y regula todas las actividades que usan en forma pacífica
+las radiaciones ionizantes en el país, cuyas acciones se coordinan con el Organismo Internacional de
+Energía Atómica y/o con cualquier otra entidad competente.
+Categorías de riesgo. - La clasificación expuesta en esta norma de Seguridad tiene cinco categorías.
+Dentro de este sistema, se considera que las de categoría 1 son las más “peligrosas” para la salud de
+los seres humanos si no se manejan en condiciones de seguridad tecnológica y física, en tanto que las
+fuentes de la categoría 5 son las menos peligrosas, y que se describe más detalladamente en el anexo
+I de esta norma.
+Control de Calidad: Parte de la garantía de calidad destinada a verificar que las estructuras,
+sistemas y componentes cumplan unos requisitos predeterminados.
+Dosis: Medida de la energía depositada por la radiación en un blanco.
+Dosis absorbida: Energía absorbida por unidad de masa en un determinado punto. La unidad es el
+Joule por kilogramo (J/ kg) y se le da la denominación especial de gray (Gy).
+Dosis equivalente a un órgano o tejido: Dosis al órgano corregida por un factor de ponderación del
+tipo de radiación que tiene en cuenta la eficacia biológica relativa de la radiación incidente para
+producir efectos estocásticos. Este factor de corrección es numéricamente 1 para rayos X. La unidad
+es el Joule por kilogramo (J/kg) y se le da el nombre especial de sievert (Sv).
+Dosis efectiva: Magnitud definida en la Publicación 60 del Comité Internacional de Protección
+Radiológica (ICRP) como la suma ponderada de las dosis equivalentes a todos los tejidos y órganos
+pertinentes “con el fin de indicar la combinación de diferentes dosis en diferentes tejidos de manera
+que sea posible la correlación con el total de los efectos estocásticos ". Esto es, por tanto, aplicable,
+aunque la distribución de la dosis absorbida por el cuerpo humano no sea homogénea. La unidad es
+el Joule por kilogramo (J/ kg) y se le da el nombre especial de sievert (Sv).
+
+8
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+Equipo: Máquina generadora de radiación, aparato que produce radiación, por cualquier proceso
+físico natural o artificial diferente de la emisión radiactiva espontánea.
+Equipo convencional: Máquina generadora de radiación fija que posee una mesa, un generador de
+rayos X, un tubo de rayos X con su soporte, colimadores, y/o el detector de panel plano.
+Equipos móviles: Máquina generadora de radiación que posee ruedas, un generador de rayos X, un
+tubo de rayos X con su soporte, colimadores, y un cajón para almacenar el casete con las películas o
+el detector de panel plano.
+Equipos portátiles o portables: Máquina generadora de radiación transportada en una maleta
+(rayos X monobloque portátil), utilizado generalmente para medicina ocupacional, veterinaria, para
+lugares de acceso remoto.
+Evaluación del riesgo radiológico: Identificación de peligros y evaluación cualitativa y cuantitativa
+de los riesgos radiológicos asociados al funcionamiento normal y los posibles accidentes
+relacionados con una fuente o una práctica.
+Error: Efecto o consecuencia no deseada de un determinado accionar.
+Fallo: Incapacidad de una estructura, sistema o componente para funcionar de conformidad con
+criterios de aceptación.
+Garantía de Calidad: Función de un sistema de gestión que proporciona la confianza de que
+cumplirán los requisitos especificados.
+Incidente: Todo suceso no intencionado, incluidos los errores de funcionamiento, los fallos del
+equipo, los sucesos iniciadores, los precursores de accidentes, los cuasi accidentes y otros
+contratiempos, o acto no autorizado, doloso o no, cuyas consecuencias reales o potenciales no son
+despreciables desde el punto de vista de la protección o la seguridad tecnológica.
+Inspección: Examen, observación, medición o prueba que se realiza para evaluar estructuras,
+sistemas, componentes y materiales, así como actividades operacionales, procesos técnicos, procesos
+de organización, procedimientos y la competencia del personal.
+Levantamiento radiométrico: Procedimiento en el cual se realizan mediciones de dosis o tasa de dosis
+sobre todas las barreras a fin de detectar posibles fugas o debilidades en el blindaje estructural de la
+instalación, que permita garantizar una correcta protección del personal ocupacionalmente expuesto y del
+púbico ante las radiaciones ionizantes.
+Licencia Institucional Tipo C: Documento que emite la Autoridad Reguladora que autoriza a
+personas naturales o jurídicas, públicas, mixtas o privadas poseedoras, propietarios o usuarios
+equipos generadores de radiación ionizante para la adquisición y el uso de tales equipos.
+Licenciatario: Para efectos de la presente norma, es el titular de la licencia institucional tipo C.
+Mantenimiento: Actividad organizada, tanto administra como técnicamente, para mantener las
+estructuras, sistemas y componentes en buenas condiciones de funcionamiento, incluidos los
+aspectos preventivos y correctivos (o de reparación).
+Notificación: Documento que presenta una persona natural o jurídica, pública o privada a la
+Autoridad Reguladora con el objeto de comunicar su intención de llevar a cabo una práctica que
+implique el uso de radiaciones ionizantes. Esto incluye las notificaciones durante toda la vida útil de
+la instalación, que contemple cualquier cambio o alteración dentro de la misma.
+Oficial de Seguridad Radiológica: será un profesional de tercer o cuarto nivel afín a la práctica con
+capacitación en seguridad radiológica en el área médica, y estar debidamente autorizado por la
+Autoridad Reguladora de acuerdo al ANEXO II de la presente norma, denominado “Lineamientos
+
+9
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+para la obtención de la Autorización para Oficial de Seguridad Radiológica – OSR en el área
+médica”.
+Operador: Profesional con Licencia Personal tipo A, autorizada por la Autoridad Reguladora para
+operar equipos generadores de radiaciones ionizantes en forma segura.
+Optimización: Proceso por el cual se determina el nivel de protección y seguridad tecnológica que
+hace que las exposiciones, así como la probabilidad y magnitud de las exposiciones potenciales, se
+mantengan en “el valor más bajo que pueda razonablemente alcanzarse” (ALARA), teniendo en
+cuenta los factores económicos y sociales, tal como se estipula en el sistema de protección
+radiológica de la Comisión Internacional de Protección Radiológica.
+Personal Ocupacionalmente Expuesto (POE): Toda persona que trabaja, ya sea en jornada
+completa, jornada parcial o temporalmente, por cuenta de un empleador y que tiene derechos y
+deberes reconocidos en lo que atañe a la protección radiológica ocupacional al encontrarse durante
+sus actividades laborales expuesto radiaciones ionizantes.
+Práctica: Toda actividad humana que introduce fuentes de exposición o vías de exposición
+adicionales o extiende la exposición a más personas o modifica el conjunto de las vías de exposición
+debidas a las fuentes existentes, de forma que aumente la exposición o probabilidad de exposición de
+personas o el número de las personas expuestas.
+Radiación Ionizante: A los efectos de la protección radiológica, radiación capaz de producir pares
+de iones en materiales biológicos.
+Radiodiagnóstico médico: Especialidad médica que tiene como fin el diagnóstico de las
+enfermedades, utilizando como soporte técnico fundamental las imágenes y datos funcionales
+obtenidos por medio de radiaciones ionizantes, y otras fuentes de energía.
+Radiodiagnóstico odontológico: Especialidad odontológica que tiene como fin el diagnóstico de las
+enfermedades dentales, utilizando como soporte técnico fundamental las imágenes y datos
+funcionales obtenidos por medio de radiaciones ionizantes, y otras fuentes de energía.
+Radiodiagnóstico veterinario: es la especialidad veterinaria que tiene como fin el diagnóstico de
+las enfermedades en animales, utilizando como soporte técnico fundamental las imágenes y datos
+funcionales obtenidos por medio de radiaciones ionizantes, y otras fuentes de energía.
+Radiología intervencionista: especialidad médica que permite realizar un diagnóstico mínimamente
+invasivo guiado por imagen de las enfermedades en cada órgano o sistema, utilizando para ello las
+técnicas menos invasivas disponibles.
+Riesgo: El riesgo se define como la combinación de la probabilidad de que se produzca un evento y
+sus consecuencias negativas, debido al efecto de las radiaciones ionizantes.
+Sala de irradiación: Sala con suficiente blindaje donde se instala un equipo generador de radiación
+ionizante con fines de diagnóstico.
+Seguridad radiológica o tecnológica: Conjunto de herramientas, procedimientos y estrategias que
+tienen como objetivo mejorar las condiciones de funcionamiento, prevención de accidentes o
+mitigación de sus consecuencias, cuyo resultado es la protección de los trabajadores, del público y
+del medio ambiente, frente a peligros excesivos causados por la radiación.
+Sievert (Sv): Unidad de dosis equivalente y dosis efectiva en el Sistema Internacional (SI),
+denominado Sievert, igual a 1J/Kg.
+Zona Controlada: Área delimitada en la que se requieren o podrían requerirse medidas de
+protección y de seguridad tecnológica específicas con objeto de controlar las exposiciones normales
+o prevenir la propagación de la contaminación, durante las condiciones normales de trabajo, y de
+
+10
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+impedir o limitar el alcance de las exposiciones potenciales.
+Zona Supervisada: Área delimitada que no constituye una zona controlada pero dentro de la cual se
+mantienen bajo vigilancia las condiciones de exposición ocupacional, aunque normalmente no se
+requieran medidas de protección o disposiciones de seguridad tecnológica específicas.
+MERNNR: Ministerio de Energía y Recursos Naturales No Renovables.
+DLPR: Dirección de Licenciamiento y Protección Radiológica.
+OIEA: Organismo Internacional de Energía Atómica.
+OSR: Oficial de Seguridad Radiológica
+OTQ: Oficina Técnica Quito de la SCAN
+OTG: Oficina Técnica Guayaquil de la SCAN
+OTC: Oficina Técnica Cuenca de la SCAN
+POE: Personal Ocupacional Expuesto a Radiaciones Ionizantes.
+SCAN: Subsecretaría de Control y Aplicaciones Nucleares del Ministerio de Energía y Recursos
+Naturales No Renovables, responsable de la regulación y control de todas las actividades que
+involucran el uso de radiación ionizante con fines pacíficos.
+TÍTULO I
+REQUERIMIENTOS PARA LICENCIAMIENTO INSTITUCIONAL TIPO C
+Art. 4.- Requisitos generales para la concesión de la licencia institucional Tipo C.- Para el
+ejercicio de las actividades determinadas en esta Norma Técnica, tanto las personas naturales como
+las jurídicas, públicas, mixtas o privadas, deberán sujetarse a lo establecido en la normativa aplicable
+y este instrumento.
+Las personas naturales o jurídicas, públicas, mixtas o privadas, para iniciar la operación de equipos
+generadores de radiación ionizante para las prácticas de radiología intervencionista, radiodiagnóstico
+médico, odontológico y veterinario deberán contar con la licencia institucional tipo C. Para la
+construcción, modificación de la instalación y cierre de instalaciones de Categorías 1 y 2 se requerirá
+de la correspondiente autorización. Tales autorizaciones serán otorgadas por la Autoridad
+Reguladora previo cumplimiento de los requisitos y condiciones establecidas en el Reglamento de
+Seguridad Radiológica y la presente Norma.
+Las categorías se encuentran definidas en el ANEXO I de la presente norma, denominado
+clasificación de prácticas por categoría de riesgo.
+4.1. Concesión de la licencia institucional tipo C
+4.1.1. Requisitos previos a la concesión de la licencia tipo C
+Previo al inicio de trámite de licenciamiento, la entidad interesada debe presentar ante la Autoridad
+Reguladora la siguiente documentación:
+a) Presentación del proyecto a implementarse (Categoría 1).
+b) Autorización de construcción, ampliación o modificación de la instalación (Categoría 1).
+c) Informe Preliminar de Seguridad (Categoría 1), con el contenido mínimo indicado en el
+ANEXO IV de esta norma.
+
+11
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+d) Memoria de cálculo de blindaje, elaborado cumpliendo con el contenido mínimo establecido
+en el ANEXO VI de la presente norma, (Categoría 1, 2, unidades móviles, equipos de Rayos
+X Telecomandados, Tomografía computarizada en diagnóstico médico y Tomografía
+computarizada en diagnóstico veterinario).
+e) Manual de Seguridad Radiológica, elaborado cumpliendo el contenido mínimo establecido
+en el ANEXO V de la presente norma, (Categoría 1, 2).
+f)
+
+Levantamiento radiométrico elaborado cumpliendo el contenido mínimo establecido en
+ANEXO VII (Categoría 1, 2 y unidades móviles, equipos de Rayos X Telecomandados,
+Tomografía computarizada en diagnóstico médico y Tomografía computarizada en
+diagnóstico veterinario).
+
+La Autoridad Reguladora verificará que los documentos anteriormente señalados, cumplan con el
+contenido mínimo establecido en los anexos de la presente norma y emitirá la conformidad o no
+conformidad con los mismos al requirente, según corresponda. Con el pronunciamiento de
+conformidad y habiendo cumplido con los precitados requisitos, en un plazo máximo de 3 meses
+contados a partir de dicho pronunciamiento, el usuario requirente solicitará a la Autoridad
+Reguladora la inspección inicial de seguridad radiológica, de conformidad con lo establecido en el
+artículo 72 del Reglamento de Seguridad Radiológica.
+En la inspección de seguridad radiológica la Autoridad Reguladora verificará el cumplimiento de lo
+establecido en los documentos requeridos en este numeral, lo dispuesto en el Reglamento de
+Seguridad Radiológica y la presente norma; y, las recomendaciones emitidas por los organismos
+internacionales aplicables a las prácticas objeto del presente licenciamiento.
+La Autoridad Reguladora emitirá un informe técnico de seguridad radiológica en el que se reportarán
+las acciones cumplidas por el interesado, los requisitos pendientes de implementación y
+recomendaciones de ser el caso. Una vez que el interesado haya dado cumplimiento a la totalidad de
+requisitos previos y a las disposiciones de las normas antes indicadas, la Autoridad Reguladora
+emitirá la aprobación de los documentos establecidos en los literal a), b) c) d) e) y la constancia de la
+recepción del literal f) de este artículo.
+4.1.2. Concesión de la licencia Institucional tipo C, por primera vez.
+Una vez que las personas naturales o jurídicas, públicas, mixtas o privadas, cuenten con toda la
+documentación aprobada que se señala en el numeral 4.1.1 del artículo 4 de la presente norma,
+podrán solicitar la emisión de la licencia institucional tipo C, para iniciar la operación de equipos
+generadores de radiación ionizante, para lo cual deben adjuntar, a su solicitud, la referida
+documentación aprobada y la constancia de la recepción del levantamiento radiométrico del ser el
+caso.
+Las personas naturales o jurídicas, públicas, mixtas o privadas que hayan obtenido la licencia
+institucional tipo C, por parte de la Autoridad Reguladora se obligan, además, al cumplimiento de las
+regulaciones vigentes aplicables.
+4.2. Renovación de la licencia institucional tipo C.
+4.2.1. Requisitos previos para la renovación de la licencia institucional tipo C.
+Para la renovación de la licencia institucional tipo C, las personas naturales o jurídicas, públicas,
+mixtas o privadas, deben presentar a la Autoridad Reguladora la siguiente documentación:
+a) Manual de Seguridad Radiológica, elaborado y/o actualizado cumpliendo el contenido
+mínimo establecido en el ANEXO V de la presente norma (Categoría 1, 2).
+b) Levantamiento radiométrico, documento presentado por el Licenciatario con la verificación
+del diseño de la instalación en el ámbito de la protección radiológica se cumplan y evaluar
+
+12
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+los niveles de exposición a los cuales están expuestos el personal ocupacionalmente
+expuesto y el público, elaborado de acuerdo al contenido mínimo establecido en el ANEXO
+VII (categoría 1, 2 y unidades móviles, equipos de Rayos X Telecomandados, Tomografía
+computarizada en diagnóstico médico y Tomografía computarizada en diagnóstico
+veterinario).
+La Autoridad Reguladora verificará que los documentos presentados cumplan con los contenidos
+mínimos establecidos en los anexos de la presente norma y emitirá la conformidad o no conformidad
+con los mismos, según corresponda. Con el pronunciamiento de conformidad, en un plazo no mayor
+a 3 meses contados desde su emisión, el requirente podrá solicitar a dicha Autoridad la inspección de
+seguridad radiológica para la renovación de la licencia institucional de tipo C.
+En la inspección de seguridad radiológica, la Autoridad Reguladora verificará el cumplimiento de lo
+establecido en los documentos señalados en los literales a) y b) del presente numeral, lo dispuesto en
+el Reglamento de Seguridad Radiológica y la presente norma; y, las recomendaciones emitidas por
+organismos internacionales aplicables a las prácticas objeto de licenciamiento.
+La Autoridad Reguladora emitirá un informe técnico de seguridad radiológica en el que se reportarán
+las acciones cumplidas por el interesado, los requisitos pendientes de implementación y
+recomendaciones de ser el caso.
+4.2.2. Renovación de la licencia institucional tipo C
+Una vez que las personas naturales o jurídicas, públicas, mixtas o privadas, cuenten con toda la
+documentación aprobada que se señala en el literal a del numeral 4.2.1. del artículo 4 de la presente
+norma, podrá solicitar la renovación de la Licencia Institucional tipo C, para continuar con la
+operación de los equipos generadores de radiación ionizante, para lo cual deben adjuntar a su
+solicitud la referida documentación.
+4.3. Actualización o ampliación de la licencia institucional tipo C
+4.3.1. Actualización de la licencia institucional tipo C por reemplazo o adquisición de equipos o
+modificación de la instalación.
+Para instalaciones licenciadas donde se reemplace un equipo generador de radiaciones ionizantes (equipos
+de rayos X) de diferentes características al autorizado, se adquiera un nuevo equipo o se modifique la
+instalación, se dará cumplimiento a los requisitos aplicables establecidos en el numeral 4.1 del artículo
+4 de la presente norma.
+4.3.2. Actualización de la licencia Institucional tipo C por dada de baja de equipo o cambio de
+representante legal y cierre del expediente por dada de baja de todos los equipos.
+En caso de que uno o varios de los equipos generadores de radiaciones ionizantes, incluidos en la
+licencia institucional de operación, hayan sido dados de baja, el licenciatario debe solicitar la
+actualización de la licencia institucional tipo C para los equipos restantes.
+En el caso que todos los equipos de rayos X licenciados sean dados de baja, el licenciatario debe
+solicitar la extinción de la licencia y cierre del expediente a la Autoridad Reguladora.
+En el caso de cambio de Representante Legal, el licenciatario debe solicitar la actualización de la
+licencia institucional tipo C, presentando los documentos que evidencien el cambio de
+Representante.
+
+13
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+TÍTULO II
+REGULACIONES APLICABLES A TODAS LAS PRÁCTICAS
+
+Art. 5.- Obligaciones del licenciatario y requisitos técnicos del equipo.
+5.1. Requisitos y obligaciones generales del titular de la licencia institucional tipo C. Para iniciar
+las operaciones de equipos generadores de radiaciones ionizantes en las prácticas de Radiología
+Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario, el titular de la licencia
+institucional tipo C deberá cumplir con los requisitos determinados en las normas vigentes y lo
+señalado a continuación:
+a) Ser el máximo responsable de la protección radiológica de la instalación.
+b) Demostrar a la Autoridad Reguladora que la operación de los equipos generadores de
+radiación ionizante, en las prácticas de radiología intervencionista, radiodiagnóstico médico,
+odontológico y veterinario, se la realiza de manera segura y controlada, cumpliendo con la
+normativa nacional vigente y las Normas Básicas de Seguridad, publicadas por el OIEA,
+mediante un programa de mantenimiento y control de calidad.
+c) Asegurar que el personal de la institución o entidad que está asociado a la práctica que
+corresponda, cuente con la correspondiente Licencia Personal Tipo A.
+d) Nombrar al Oficial de Seguridad Radiológica (OSR), para hacer cumplir el Reglamento de
+Seguridad Radiológica en todas las instalaciones que realicen sus actividades con equipos
+generadores de radiaciones ionizantes, correspondientes a las prácticas de categoría 1 y 2, de
+manera que los aspectos de control de radiación estén permanentemente vigilados.
+e) La autorización de OSR tendrá una vigencia de 4 años a partir de su emisión.
+f)
+
+Notificar el cese de funciones del Oficial de Seguridad Radiológica en un término máximo
+de 15 días contados a partir del cese y nombrar un nuevo Oficial de Seguridad Radiológica,
+el cual deberá efectuarse de manera inmediata al cese. El nuevo oficial deberá cumplir con
+los requisitos establecidos en el Reglamento de Seguridad Radiológica y esta norma.
+
+g) Los establecimientos de salud que dispongan de 4 o más equipos generadores de radiaciones
+ionizantes y entre ellos contemplen un equipo tomógrafo y/o intensificador de imagen arco
+en C y/o litotriptor y/o equipo telecomandado, deben disponer de al menos un Oficial de
+Seguridad Radiológica y cumplir con las funciones establecidas en el Anexo III de la
+presente norma y controlar de forma permanente los aspectos de seguridad radiológica.
+h) Verificar que la instalación cuente con el número y permanencia suficiente de Oficiales de
+Seguridad Radiológica (ORS), con la finalidad de que se garantice una supervisión y
+vigilancia permanente de la seguridad de la instalación y el cumplimiento de lo establecido
+en el Reglamento de Seguridad Radiológica, la presente norma y demás normativa
+aplicable, entendiéndose que en los casos de vacaciones o permisos ocasionales se deberá
+contar un Oficial de reemplazo el mismo que deberá estar debidamente autorizado por la
+Autoridad Reguladora.
+i)
+
+Contar con el personal suficiente para que todas las funciones puedan cumplirse con el nivel
+de seguridad radiológica adecuado. La cantidad de trabajadores y su entrenamiento deberán
+estar de acuerdo con las técnicas empleadas, la carga de trabajo y el equipamiento utilizado.
+Estas condiciones deberán ser evaluadas cada vez que se produzca un cambio en cualquiera
+de los aspectos antes mencionados.
+
+14
+
+Registro Oficial - Cuarto Suplemento Nº 11
+j)
+
+Viernes 25 de febrero de 2022
+
+Asegurar la capacitación y entrenamiento de su personal, a través de un plan de capacitación
+y entrenamiento anual, el cual debe ser elaborado y ejecutado por el Oficial de Seguridad
+Radiológica o el responsable de la instalación, el mismo que deberá estar disponible para la
+Autoridad Reguladora, cuando esta la requiera y durante la inspección de seguridad
+radiológica.
+
+k) Garantizar que ningún paciente, sea sometido a exposiciones radiológicas menos que se
+disponga la realización de estudios o procedimientos por prescripción médica documentada.
+l)
+
+Asignar la responsabilidad total de la protección del paciente a un médico especialista que
+haga uso de radiaciones ionizantes.
+
+m) Asignar la responsabilidad de la operación del equipo a los profesionales autorizados para la
+operación mediante licencia personal tipo A.
+n) Verificar que el médico ha informado a la persona sometida a la exposición o a su
+apoderado de los beneficios y riesgos esperados debido al estudio o procedimiento en
+radiología intervencionista, médica, odontológica y/o veterinaria.
+o) Proveer los medios necesarios para cumplir y hacer cumplir, los requisitos establecidos en la
+licencia institucional tipo C, en las normas aplicables y todo requerimiento de la Autoridad
+Reguladora aplicable a la instalación o práctica.
+p) En el caso de suspensión temporal o definitiva del uso de los equipos generadores de
+radiaciones ionizantes integradas en la licencia institucional de la instalación, deberá
+notificar por escrito a la Autoridad Reguladora en el término de 15 días después de ocurrida
+dicha suspensión. De igual forma el titular de la licencia debe informar, en el término de 15
+días previos al reinicio de operación del equipo en el caso de suspensión temporal.
+q) Establecer la justificación de la exposición para pacientes embarazadas, así como pacientes
+pediátricos en las prácticas de radiología intervencionista, radiodiagnóstico médico y/u
+odontológico.
+r)
+
+Proveer vigilancia dosimétrica ocupacional para todo el personal ocupacionalmente
+expuesto (POE). El POE debe tener acceso a los registros de la evaluación de dosis. Los
+registros deben conservarse durante el período de empleo del trabajador y como mínimo
+durante treinta años con posterioridad a la fecha en que el trabajador deje de prestar
+servicios para la instalación. Si se sobrepasa el límite de investigación de dosis establecido
+por la autoridad reguladora, el empleador, será notificado de la misma y debe realizar la
+investigación del hecho e implementar las acciones correctivas.
+
+s)
+
+Cumplir con la vigilancia médica de su personal ocupacionalmente expuesto, para lo cual se
+cumplirán las siguientes disposiciones:
+
+t)
+
+•
+
+Toda persona que trabaje por primera vez en el campo de las radiaciones,
+cualesquiera sean sus responsabilidades, tiene que someterse a una evaluación
+médica, antes de iniciar sus tareas (exámenes pre-ocupacionales).
+
+•
+
+El personal que se encuentra laborando en el campo de las radiaciones se someterá
+a una evaluación médica anualmente (examen ocupacional periódico).
+
+Mantener actualizados los registros indicados en la presente Norma.
+
+5.2. Requisitos para las instalaciones de radiología
+a) Garantizar que las salas de irradiación, durante la operación normal de los equipos de
+radiología intervencionista, radiodiagnóstico médico, odontológico y veterinario, las dosis
+que reciban los trabajadores y los miembros del público, excluyendo los pacientes, no
+
+15
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+superen los límites de dosis internacionales enunciadas a continuación:
+o
+
+Una dosis efectiva de 20 mSv anuales promediada durante cinco años consecutivos
+(100 mSv en 5 años) y de 50 mSv en un año cualquiera;
+
+o
+
+Una dosis equivalente en el cristalino de 20 mSv anuales promediada durante cinco
+años consecutivos (100 mSv en 5 años) y de 50 mSv en un año cualquiera;
+
+o
+
+El límite de dosis efectiva es de 1 mSv por año, para la exposición del público; y
+
+o
+
+Una dosis equivalente en las extremidades (manos y pies) o en la piel de 500 mSv
+en un año.
+
+b) Notificar al empleador si se sospecha que una trabajadora está embarazada, no se
+considerará razón para excluir a la trabajadora del trabajo. El empleador aplicará
+restricciones adicionales y adaptará las condiciones de trabajo en relación con la exposición
+ocupacional a fin de asegurar que se da al embrión o al feto el mismo grado amplio de
+protección que se requiere para los miembros del público.
+c) Delimitar las zonas controladas de tal forma, que evite el libre acceso a personal no
+autorizado. Las puertas de ingreso a la sala de irradiación deberán proporcionar protección
+contra la radiación ionizante.
+d) Disponer de las barreras primarias y secundarias necesarias en el área con equipos
+generadores de radiaciones ionizantes (Rayos X), garantizando que brinden un blindaje
+adecuado, para limitar la probabilidad de ocurrencia de situaciones anormales, y contar con
+señalización visible en la parte exterior de las puertas de acceso, conteniendo el símbolo
+internacional de radiación ionizante y leyendas que indiquen “Rayos X” y la prohibición de
+que ingresen personas no autorizadas.
+e) Mantener las puertas de acceso de las salas cerradas durante las exposiciones.
+f)
+
+Disponer de rotulación en un lugar visible con los textos siguientes: “Paciente, solicite
+vestimentas plomadas para su protección durante el examen radiográfico”, “Acompañante,
+cuando haya necesidad de sujetar al paciente, exija y use correctamente las vestimentas
+plomadas para su protección”, “Si usted está embarazada o cree estarlo hágalo saber al
+operador”.
+
+5.3. Requisitos de los equipos de radiación ionizante (Rayos X)
+a) El diseño del equipamiento cumplirá con la Normas CEI - IEC, dadas por la Comisión
+Internacional Electrotécnica – Comisión Electrónica Internacional (CEI – IEC) o su
+equivalente vigente.
+b) Operar el equipo de conformidad con las condiciones establecidas en la licencia
+institucional tipo C emitida por la Autoridad Reguladora.
+c) Operar el equipamiento de radiaciones ionizantes (Rayos X), únicamente con personal que
+cuente con la licencia emitida por la Autoridad Reguladora y conforme lo dispuesto en el
+Reglamento de Seguridad Radiológica y esta norma.
+d) Utilizar los equipos para el fin para el cual fueron diseñados y cuenten con sistemas de
+calidad de imagen adecuada, acorde a cada estudio.
+e) Garantizar que se utilicen adecuadamente los equipos generadores de radiación ionizante,
+optimizando los métodos de trabajo y cumpliendo con un programa de garantía de calidad,
+acorde a las especificaciones técnicas del fabricante y a los Protocolos de Control de
+Calidad para Radiodiagnóstico en América Latina y el Caribe del año 2021 o la versión que
+
+16
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+se encuentre vigente.
+f)
+
+Disponer de toda la documentación técnica que el fabricante o vendedor del equipo le
+suministre, así como las especificaciones técnicas, manuales de uso y mantenimiento, entre
+otros, de preferencia en español; tomando en cuenta que si el proveedor entrega un
+documento que sea una traducción local debe tener una certificación que fue realizada por
+traductores registrados o acreditados en Embajadas, Consulados, departamentos de idiomas
+de universidades, escuelas politécnicas u otros organismos oficiales, o a su vez tener la
+legalización consular de ser el caso.
+
+g) Los estudios deben realizarse cumpliendo el principio de optimización de la práctica.
+h) Mantener los equipos generadores de radiaciones ionizantes en perfectas condiciones para
+su operación.
+5.4. Elementos de protección radiológica para el personal ocupacionalmente expuesto
+a) Usar los equipos de protección personal durante los procedimientos, en la sala de irradiación
+con, al menos, las siguientes especificaciones:
+• Delantales con espesor equivalente de 0.5 a 0.7 mm de Pb cuando cubra solamente el
+frente del cuerpo o delantal de 0.25 mm cuando cubra completamente los costados del
+tórax y pelvis.
+•
+
+Cuello para protección de tiroides con espesor equivalente a 0.5 mm de Pb.
+
+•
+
+Protectores de gónadas con espesores equivalentes de 0.5 mm de Pb.
+
+•
+
+Las vestimentas plomadas no deben doblarse. Cuando no están en uso, deben guardarse
+en soporte adecuado del tipo percha, de manera que se preserve su integridad.
+
+•
+
+Los delantales plomados deben ser probados a intervalos aproximados de 12 meses con
+el fin de comprobar la integridad de su blindaje. Las fallas en el blindaje pueden
+comprobarse usando imágenes de Rx mínimo a 60kVp.
+
+b) Utilizar equipo de protección personal adicional para el caso de radiología intervencionista
+con las siguientes especificaciones:
+•
+
+Lentes para protección del cristalino, con cristales de espesor a 0.2 mm de Pb.
+
+•
+
+Guantes de compresión con espesor equivalente de 0.25 mm de Pb.
+
+•
+
+Gorra plomada para el médico intervencionista.
+
+5.5. Requisitos operacionales. Es obligación del titular de la licencia institucional tipo C cumplir
+con los siguientes requisitos referentes a la operación de la instalación:
+a)
+
+Iniciar solamente la operación del equipo cuando se haya obtenido la licencia institucional
+tipo C y el personal previsto para operar el equipo disponga de licencias personales tipo A
+vigentes y acorde a la práctica.
+
+b)
+
+En las prácticas de categoría 1 y 2 deben dar cumplimiento a lo establecido en el Manual de
+Seguridad Radiológica y llevar los registros de su ejecución.
+
+c)
+
+Estar disponible permanentemente dentro del área, toda la documentación técnica referente
+a la práctica con equipos generadores de radiación ionizante.
+
+17
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+5.6. Requisitos de mantenimiento. Es obligación del titular de la licencia institucional tipo C
+cumplir con los siguientes requisitos:
+a) Efectuar el mantenimiento preventivo y correctivo de acuerdo a las recomendaciones del
+fabricante y una periodicidad mínima anual. Dicho mantenimiento será realizado por
+instituciones autorizadas por la Autoridad Reguladora con sus respectivas licencias vigentes
+de acuerdo a la práctica.
+b) El equipo deberá ser sometido a un programa de control de calidad con una frecuencia mínima
+anual, y que será realizado por empresas autorizadas por la Autoridad Reguladora.
+c) El personal técnico que instale y/o preste servicios de mantenimiento de equipos de rayos X y/o
+realice control de calidad, deberá contar con la licencia personal tipo A otorgada por la
+Autoridad Reguladora y haber realizado entrenamiento en los diferentes tipos de equipos
+generadores de radiaciones ionizantes a los cuales prestará servicio.
+5.7. Requisitos referentes al personal. Es obligación del titular de la licencia institucional tipo C:
+a)
+
+Contar con el personal mínimo requerido para una instalación donde se haga uso de equipos
+generadores de radiación ionizante (Rayos X) para las prácticas de radiología
+intervencionista, radiodiagnóstico médico, odontológico y veterinario, los cuales deberán
+ser profesionales acordes con la aplicación radiológica y que posean licencia tipo A vigente,
+de conformidad con lo estipulado en el Reglamento de Seguridad Radiológica.
+
+5.8. Responsabilidades del personal de radiología en cuanto a seguridad radiológica.
+5.8.1. Del Médico Especialista:
+a) Asumir la responsabilidad de la protección radiológica del paciente durante el diagnóstico,
+sin perjuicio de las demás que se establezcan en la Ley Orgánica de Salud y demás
+normativas relacionadas.
+b) Evaluar el estudio solicitado y recomendar el procedimiento adecuado a fin de obtener la
+información diagnóstica requerida, con la mínima exposición para el paciente.
+c) Cumplir con los protocolos clínicos establecidos dentro de cada práctica.
+d) Establecer los parámetros de exposición por práctica, tipo de equipo y de estudio.
+e) Justificar todos los estudios a realizarse, con énfasis en personas embarazadas y pediátricas.
+f)
+
+Utilizar adecuadamente los dosímetros y elementos de seguridad radiológica y mantenerlos
+en condiciones adecuadas.
+
+g) Mantener su licencia personal tipo A vigente.
+h) Participar activamente en los procedimientos necesarios para la optimización de la práctica.
+i)
+
+Participar activamente en el programa de garantía de calidad de la instalación.
+
+5.8.2. Del Médico Radiólogo:
+a) Asumir la responsabilidad de la Protección Radiológica del paciente durante el
+diagnóstico, sin perjuicio de las demás que se establezcan en la Ley Orgánica de Salud y
+demás normativas relacionadas.
+b) Evaluar el estudio solicitado y recomendar el procedimiento adecuado a fin de obtener la
+información diagnóstica requerida, con la mínima exposición para el paciente.
+c) Establecer los protocolos optimizados para los procedimientos de diagnóstico.
+
+18
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+d) Revisar las tablas de exposición (técnicas de exámenes) para cada equipo de
+radiodiagnóstico del servicio, con apoyo de los operadores.
+e) Justificar todos los estudios a realizarse, con énfasis en personas embarazadas y
+pediátricas.
+f)
+
+Evaluar cualquier accidente o incidente radiológico ocurrido.
+
+g) Utilizar adecuadamente los dosímetros y elementos de seguridad radiológica y
+mantenerlos en condiciones adecuadas.
+h) Mantener su licencia personal tipo A vigente.
+5.8.3. Del Oficial de Seguridad Radiológica:
+a) Cumplir con las funciones expresadas en el ANEXO III (Funciones generales del Oficial de
+Seguridad Radiológica-OSR) de la presente norma y demás normativas relacionadas.
+b) Mantener su autorización de OSR vigente.
+5.8.4. Del Técnico, Tecnólogo Médico en Radiología o Licenciado en Radiología o su
+equivalente debidamente registrado en la entidad competente:
+a) Operar el equipo bajo condiciones seguras.
+b) Utilizar las técnicas que correspondan para cada estudio.
+c) Proporcionar y asegurar el uso de los elementos de protección radiológica tanto al paciente
+como a sus acompañantes de ser el caso.
+d) Utilizar adecuadamente los dosímetros y elementos de seguridad radiológica y mantenerlos
+en condiciones adecuadas.
+e) Participar activamente en los procedimientos necesarios para la optimización de la práctica.
+f)
+
+Participar activamente en el programa de garantía de calidad de la instalación.
+
+g) Cumplir con los protocolos clínicos establecidos dentro de cada práctica.
+h) Mantener su Licencia Personal tipo A vigente.
+Art. 6.- Protección al personal ocupacionalmente expuesto, pacientes y público.
+6.1. Del personal ocupacionalmente expuesto.
+6.1.1. Vigilancia dosimétrica: La vigilancia dosimétrica deberá ser efectuada con un laboratorio
+autorizado por la Autoridad Reguladora, y cumplir lo siguiente:
+a) Efectuar la vigilancia radiológica individual a todo el personal que participa en la práctica
+con equipos generadores de radiaciones ionizantes, incluyendo estudiantes o personal en
+formación.
+b) Contar con dosimetría personal de cuerpo entero correspondiente al personal de la práctica.
+c) Realizar la vigilancia radiológica del POE en estado de gravidez la cual no deberá
+sobrepasar el límite de dosis internacional de 1 mSv considerando para el feto durante el
+periodo de gestación.
+d) Realizar el canje de los dosímetros con la periodicidad establecida por la Autoridad
+Reguladora en la Norma Técnica expedida para el efecto.
+
+19
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+e) Entregar el reporte de dosis al personal, llevar el registro correspondiente y presentar a la
+Autoridad Reguladora cuando la solicite.
+6.1.2. Disposiciones para control de exposición: Sin perjuicio de las obligaciones determinadas en
+la normativa, se cumplirán las siguientes disposiciones:
+a) Emplear, durante la realización de los estudios radiológicos, el colimador apropiado para
+obtener el haz mínimo necesario y utilizar de forma adecuada la tensión, la corriente y el
+tiempo.
+b) Establecer los dispositivos mínimos indispensables de protección radiológica para cada
+departamento o servicio de radiología de acuerdo al tipo de estudios a realizar y conforme lo
+detallado en el numeral 5.4 literal a y b.
+c) Portar durante la jornada de trabajo y al término de ésta, los dosímetros personales y deben
+permanecer almacenados en cada institución, en un lugar adecuado, fuera de la zona
+controlada.
+d) Notificar al Representante Legal de la institución o su delegado, el POE que sospeche
+encontrarse en estado de gravidez y debe someterse a la vigilancia radiológica
+correspondiente.
+6.1.3. Del paciente.
+a) Velar porque el médico especialista y el operador son responsables de que, en cada estudio,
+utilicen el equipo e indumentaria adecuada para la protección radiológica del paciente,
+procurando que la exposición sea la más baja posible y se evite la repetición innecesaria de
+estudios radiológicos.
+b) Contar con procedimientos técnicos elaborados y firmados conjuntamente entre el médico
+especialista y el personal operador, que establezcan la forma de realizar cada una de las
+técnicas de exploración radiológica.
+c) Durante la operación del equipo de radiación ionizante (Rayos X) no deben permanecer
+personas ni pacientes en los vestidores internos de la sala de irradiación.
+d) Mantener cerradas las puertas de acceso a salas y a los vestidores durante el estudio
+radiológico.
+e) El paciente debe ser visible en todo momento desde la consola de control y además debe
+existir comunicación verbal con el mismo.
+f)
+
+No utilizar simultáneamente la sala de rayos X para más de un paciente a la vez.
+
+g) Verificar la posibilidad de embarazo en la paciente para lo cual se establecerá un
+procedimiento.
+h) Proteger en todo estudio radiológico que, las gónadas del paciente queden a menos de 5cm
+del campo de radiación, con un blindaje de espesor al menos 0.5 mm de Pb, excepto cuando
+el blindaje interfiera en el estudio o excluya información diagnóstica importante.
+i)
+
+Evitar exámenes radiológicos a pacientes embarazadas o que puedan estarlo, a menos que
+existan fuertes indicaciones clínicas para hacerlo.
+
+j)
+
+Disponer de rotulación en un lugar visible con los textos siguientes: “Acompañante, cuando
+haya necesidad de sujetar al paciente, exija y use correctamente las vestimentas plomadas
+para su protección”, “Si usted está embarazada o cree estarlo hágalo saber al operador”.
+
+20
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+6.1.4. Del público.
+a) Las personas cuya presencia no sea indispensable, deberán permanecer fuera de la zona
+controlada durante la operación del equipo.
+b) Cuando por las condiciones de incapacidad del paciente se requiera la presencia de un
+acompañante, el operador del equipo debe dar las indicaciones y proporcionará los
+dispositivos necesarios para su protección; se prohíbe que la acompañante sea una persona
+en estado de gestación.
+c) En las zonas supervisadas ningún individuo deberá recibir una dosis superior al límite de
+dosis establecido para el público.
+d) Para instalaciones de categoría 1, 2 (ANEXO I) y unidades móviles, equipos de Rayos X
+Telecomandados, Tomografía computarizada en diagnóstico médico y Tomografía
+computarizada en diagnóstico veterinario, se demostrará, a través del levantamiento
+radiométrico, que los niveles de radiación producidos cumplen los requisitos de límite de
+dosis establecidos.
+e) Restringir el acceso a las salas de rayos X durante los exámenes radiológicos.
+Art. 7.- Garantía y Control de Calidad en las Instalaciones de Radiología y Radiodiagnóstico.El titular de la licencia institucional tipo C, deberán implementar un programa de garantía de calidad
+acorde a un protocolo reconocido internacionalmente, con la finalidad de conseguir la optimización
+de imágenes radiológicas, la protección radiológica del paciente y que las dosis recibidas por los
+trabajadores expuestos y el público en general tienda a valores tan bajos cómo pueda razonablemente
+conseguirse. La garantía de calidad incluye muchas actividades como el control de calidad, el
+mantenimiento preventivo, la calibración de los equipos, la formación del personal, las
+especificaciones y aceptación de nuevo equipamiento, etc.
+Art. 8.- Registros e informes. - El titular de la licencia institucional tipo C deberá implementar y
+mantener disponible en todo momento un sistema de registro y archivo de toda la documentación
+generada en el servicio, al menos lo relativo a:
+a) Licencias personales tipo A e institucional tipo C.
+b) Autorización de Oficial de Seguridad Radiológica si procede.
+c) Inventario de equipos generadores de radiación ionizante, donde conste al menos tipo,
+marca, modelo, serie y uso del equipo y del tubo Rayos X.
+d) Inventario de los elementos de protección radiológica.
+e) Vigilancia dosimetría personal y récord dosimétrico de cada personal ocupacionalmente
+expuesto.
+f)
+
+Control médico ocupacional, donde indique la aptitud del empleado para trabajar con
+radiaciones ionizantes.
+
+g) Informes técnicos de mantenimiento preventivo y correctivo de los equipos generadores de
+radiaciones ionizantes.
+h) Informes técnicos de control de calidad de los equipos generadores de radiaciones
+ionizantes.
+i)
+
+Incidentes y/o accidentes.
+
+j)
+
+Inspecciones de seguridad radiológica realizadas por la Autoridad Reguladora.
+
+21
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+Art. 9.- Suspensión de la Licencia Institucional Tipo C.- Las licencias pueden ser suspendidas o
+revocadas por la Autoridad Reguladora cuando el licenciatario incumpla los requisitos de seguridad
+establecidos en el Reglamento de Seguridad Radiológica y la presente norma.
+TÍTULO III
+DISPOSICIONES ESPECÍFICAS SEGÚN LA PRÁCTICA DE LA RADIOLOGÍA
+CAPÍTULO I
+RADIOLOGÍA INTERVENCIONISTA
+Art. 10.- Obligaciones del licenciatario y requisitos técnicos del equipo. - El titular de la licencia
+institucional Tipo C, a más de lo previsto en las disposiciones que le sean aplicables del Título II de
+la presenta norma, cumplirá con los siguientes requisitos previstos para la práctica de radiología
+intervencionista:
+10.1. Requisitos de los equipos de radiología intervencionista. - Los equipos de radiaciones
+ionizantes (Rayos X) utilizados en radiología intervencionista en los servicios de angiografía,
+hemodinámica e intervencionismo cardiovascular, intensificador de imagen arco en C, Litotriptor,
+etc., deberán cumplir con lo siguiente:
+a) Garantizar que los equipos cuenten con la funcionalidad de reporte de índices de dosis y
+parámetros tendientes a estimar las dosis recibidas por el paciente.
+b) Disponer que en la consola de mando se indiquen los valores instantáneos de voltaje del
+tubo (kVp), corriente del tubo (mA) y el tiempo acumulado de exposición.
+c) Mantener calibrados los equipos con sistema automático de exposición de forma tal que
+garanticen la calidad de imagen con mínimas dosis a los pacientes.
+d) Emplear el tiempo mínimo indispensable, accionando el interruptor en forma intermitente y
+considerando la protección radiológica de órganos sensibles como cristalino, tiroides y
+gónadas.
+e) Mantener registros de parámetros dosimétricos del paciente con la finalidad de optimizar la
+práctica.
+f)
+
+Limitar el haz de radiación al área de interés, en todo estudio radiológico.
+
+g) Incluir, en el protocolo clínico para cada tipo de procedimiento intervencionista, la
+información sobre imágenes radiográficas (proyecciones, número, factores y técnica),
+tiempo de fluoroscopia, tasa de Kerma, etc.
+h) Utilizar equipos de radiología intervencionista con intensificador de imagen.
+i)
+
+Disponer de cortinas plomadas para los equipos de angiografía, las cuales se ubicarán
+debajo de la mesa del paciente, mampara móvil y cielítica, entre otros.
+
+10.2. Requisitos para la instalación de radiología intervencionista: Es obligación del titular de la
+licencia institucional tipo C cumplir con los siguientes requisitos para la instalación de la radiología
+intervencionista:
+10.2.1. Requisitos mínimos de diseño: Para reducir la probabilidad de ocurrencia de situaciones
+anormales, el diseño de una instalación que opere equipos de radiología intervencionista debe
+considerar lo siguiente:
+
+22
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+a)
+
+Distribución de zonas y accesos.
+
+b)
+
+Sistemas de ventilación y climatización.
+
+c)
+
+Instalaciones eléctricas.
+
+d)
+
+Sistemas de protección contra incendios.
+
+e)
+
+Vestidores y servicios sanitarios.
+
+10.2.2. La ubicación de la consola de control debe ser de tal forma que exista contacto visual directo
+con el paciente en todo momento, a través de una ventana blindada o circuito cerrado de televisión y
+verificar que los mismos estén siempre operativos.
+10.2.3. Además, para instalaciones de radiología intervencionista de categoría 1 y 2, la
+infraestructura física debe cumplir el diseño establecido y aprobado en la memoria de cálculo de
+blindaje.
+10.2.4. La instalación debe tener señalización luminosa color roja ubicada arriba de la parte externa
+de la puerta de acceso con la siguiente advertencia: “Se prohíbe la entrada cuando la luz esté
+encendida”. La señalización luminosa deberá ser accionada durante los estudios y procedimientos
+radiológicos indicando que el generador está encendido y que puede haber riesgo de exposición.
+10.2.5. En la sala de irradiación únicamente debe estar el equipo y los accesorios indispensables para
+su funcionamiento y en su interior contará con uno o más interruptores manuales, adecuadamente
+ubicados, que permitan interrumpir la irradiación cuando sea necesario.
+10.3. Requisitos referentes al personal. El personal mínimo requerido para una instalación donde
+se haga uso de equipos de radiología intervencionista será el siguiente:
+10.3.1. Médico Especialista, para radiología intervencionista con licencia personal tipo A vigente.
+10.3.2. Oficial de Seguridad Radiológica, con autorización vigente para instalaciones que poseen
+equipos contemplados dentro de las categorías 1 y 2 de acuerdo al anexo I de la presente norma.
+10.3.3. Técnico, Tecnólogo Médico en Radiología o Licenciado en Radiología o su equivalente
+debidamente registrado en la entidad competente, que posean licencia personal tipo A vigente.
+10.3.4. Personal involucrado en la práctica: El personal como anestesiólogas/os, instrumentistas,
+enfermeras/os y practicantes no requiere de licencia otorgada por la Autoridad Reguladora, pero
+obligatoriamente requieren de dosimetría personal, elementos de protección y control médico.
+10.4. Responsabilidades del Personal de radiología intervencionista en cuanto a seguridad
+radiológica:
+10.4.1. Del médico especialista en la práctica de radiología intervencionista en cuanto a
+Seguridad Radiológica. especialista que utilice rayos X en la práctica de Radiología
+Intervencionista como complemento a su actividad profesional y disponga de licencia personal tipo
+A vigente.
+10.4.2. Del Oficial de Seguridad Radiológica, con autorización vigente, para instalaciones que
+poseen equipos generadores de radiación ionizante contemplados dentro de las categorías 1 y 2.
+10.4.3. Del Técnico, Tecnólogo Médico en Radiología o Licenciado en Radiología o su
+equivalente debidamente registrado en la entidad competente, que posean licencia personal tipo A
+vigente, acorde a lo estipulado en el Reglamento de Seguridad Radiológica y la presente norma.
+
+23
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+Art. 11.- Protección al personal ocupacional expuesto, pacientes y público.
+El personal ocupacional expuesto deberá cumplir con las siguientes disposiciones:
+a) Disponer de dosimetría personal de cuerpo entero, extremidades y cristalino para el personal
+de la práctica de intervencionismo.
+b) Extremar las medidas de protección radiológica durante los estudios radiológicos de
+fluoroscopia al permanecer cerca del paciente, especialmente aquellas asociadas con la
+protección de gónadas.
+c) Usar los dispositivos de protección con los que cuentan los equipos para atenuar la radiación
+dispersa, tales como: cortinas plomadas, biombos plomados, pantallas plomadas, mamparas,
+entre otros.
+d) Utilizar inmovilizadores para los pacientes que presenten dificultad para permanecer quietos
+durante la exposición, tales como bandas de compresión, vendas, cuñas, fijadores de
+cabezas y utilizar técnicas radiográficas rápidas.
+e) Utilizar la combinación compatible chasis-pantalla-película-procesador automático o digital.
+Art. 12.- Registros e informes: El licenciatario debe implementar y mantener disponible en todo
+momento un sistema de registro y archivo de toda la documentación generada en el servicio, relativo
+a:
+a) Autorizaciones del Oficial de Seguridad Radiológica en el caso que se aplique.
+b) Planos del servicio y sus instalaciones en formato A1 o A3.
+c) Modificaciones realizadas en la instalación para las prácticas de radiología intervencionista
+incluyendo el cálculo específico del blindaje, aprobado por parte de la Autoridad
+Reguladora.
+d) Plan de capacitación establecido anualmente.
+e) Capacitación y entrenamiento del personal, con carga horaria y frecuencia.
+f)
+
+Auditorías internas y externas para categoría 1 y 2.
+
+g) Funciones y responsabilidades del personal con la aceptación respectiva.
+h) Manual de Seguridad Radiológica, elaborado de acuerdo a lo establecido en el anexo IV de
+la presente norma y aprobado por la Autoridad Reguladora (Categoría 1 y 2), en las
+prácticas de Radiología Intervencionista.
+i)
+
+Levantamiento radiométrico (categoría 1, 2 y unidades móviles, equipos de Rayos X
+Telecomandados, Tomografía computarizada en diagnóstico médico y Tomografía
+computarizada en diagnóstico veterinario).
+CAPÍTULO II
+RADIODIAGNÓSTICO MÉDICO
+
+Art. 13.- Obligaciones del licenciatario y requisitos técnicos del equipo. - El titular de la licencia
+institucional tipo C, a más de lo previsto en las disposiciones que le sean aplicables del Título II de
+la presenta norma, cumplirá con los siguientes requisitos previstos para la práctica de
+radiodiagnóstico médico:
+
+24
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+13.1. Requisitos aplicables a los equipos:
+13.1.1. Equipos de rayos X convencionales fijos:
+a) Limitar el haz de radiación al área de interés en todo estudio radiológico el cual deberá ser
+siempre menor al tamaño de la película.
+b) Mantener los equipos con sistema automático de exposición calibrados de forma tal que
+garanticen la calidad de imagen con mínimas dosis a los pacientes.
+c) Utilizar un método para determinar el espesor del paciente y poder seleccionar la tensión y
+el tiempo más adecuados, y usar los parámetros recomendados por el fabricante, cuando el
+equipo no cuente con sistema automático de exposición.
+d) No utilizar un equipo de rayos X que no disponga de colimador ajustable e iluminación de
+campo.
+e) Disponer de un blindaje en el cabezal que garantice un nivel mínimo de radiación de fuga,
+restringida a una tasa de kerma en aire de 1 mGy/h a una distancia del punto focal de 1 metro, al
+ser operado en condiciones de ensayo de fuga. Este mismo requisito se aplica a la radiación de
+fuga que atraviesa el sistema de colimación.
+f)
+
+Asegurar la filtración total permanente del haz útil de radiación, por lo menos equivalente a 2,5
+mm de aluminio.
+
+g) No se debe sostener con las manos el chasis portapelículas durante la exposición.
+h) Disponer con rejilla móvil motorizada (Potter-Bucky) en la mesa de exámenes y en la pared,
+para los equipos de Rayos X, cuando proceda.
+i)
+
+Proveer los medios adecuados para que, en todo momento, el operador tenga una visión
+clara y correcta del paciente durante el procedimiento.
+
+13.1.2. Equipos de mamografía:
+a) Contar con placa de compresión motorizada, lectura del espesor y fuerza de compresión.
+b) Usar la rejilla antidifusora en las proyecciones convencionales asegurándose que la distancia
+foco imagen corresponda a la focalización de esa rejilla.
+c) Identificar correctamente la proyección en cada mama, para evitar la repetición de placas.
+d) Efectuar la interpretación de las mamografías por médicos radiólogos con licencia personal
+de protección radiológica vigente.
+e) Realizar proyecciones repetidas o adicionales (por ejemplo, magnificación) bajo la
+supervisión del médico radiólogo, cuando éstas sean necesarias para obtener un examen de
+calidad diagnóstica.
+f)
+
+Utilizar un sistema de visualización de imágenes que garantice una alta calidad de imagen y baja
+dosis.
+
+g) Elegir los factores de operación del equipo (blanco/filtro, kVp, posición del detector del CAE)
+con respecto al espesor y composición de la mama. Utilizar la rejilla de compresión excepto en
+exámenes de mamas comprimidas delgadas.
+h) Estar bien entrenados y capacitados los radiólogos que reportan estos exámenes radiográficos.
+i)
+
+Comprobar diariamente el procesamiento de los estudios radiográficos y limpiar semanalmente
+cada chasis, en mamografía.
+
+25
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+j)
+
+Disponer de un dispositivo para mantener la compresión firme en la mama para garantizar un
+espesor uniforme en la parte radiografiada, maximizando la calidad de la imagen y minimizando
+la dosis glandular media. La placa de compresión debe producir una atenuación de, como
+máximo, la equivalente a 2 mm de PMMA (Polimetil Meta Acrilato, Plexiglás o Acrílico).
+
+13.1.3. Equipos móviles:
+a) Utilizar los equipos móviles solamente cuando no sea posible trasladar a los pacientes a una
+instalación radiológica convencional y no deben utilizarse en sustitución de un equipo
+convencional fijo.
+b) Utilizar los equipos móviles únicamente para movilizarlos dentro de una casa de salud, no
+externa a ella.
+c) Usar rejilla antidifusora cuando la región bajo estudio tenga un espesor mayor de 12 cm.
+d) No se deberán usar equipos sin colimador ajustable e iluminación de campo.
+e) Utilizar biombos plomados como protección radiológica en el caso de que el paciente se
+encuentre en habitaciones compartidas con otros pacientes.
+f)
+
+Disponer de un cable disparador con longitud mínima de 2 metros, en los equipos móviles.
+
+13.1.4. Equipos portátiles o portables:
+a) Utilizar los equipos portátiles solamente cuando no sea posible trasladar a los pacientes a
+una instalación radiológica convencional y el lugar donde se encuentra el paciente sea de
+difícil acceso.
+b) No deberá utilizarse los equipos portátiles en sustitución de un equipo convencional fijo o
+móvil.
+c) No se deberán usar equipos sin un colimador ajustable e iluminación de campo.
+d) Utilizar los equipos portátiles al aire libre o en un lugar donde no exista público alrededor de
+un perímetro de tres metros.
+13.1.5. Equipos de tomografía computarizada (TC):
+a) Establecer, mantener y revisar periódicamente los protocolos de exploración de TC para
+pacientes adultos, pediátricos y mujeres embarazadas, asegurando que estén optimizados
+para limitar la exposición del paciente.
+b) Utilizar dispositivos de inmovilización y blindaje para órganos sensibles cuando sea posible.
+c) Evitar las repeticiones y exámenes radiológicos innecesarios. El médico prescriptor y el
+médico radiólogo serán responsables de la justificación de los estudios.
+13.1.6. Radiología pediátrica:
+a) Tener un generador de alta potencia que permita tiempos de exposición muy cortos y
+exactos (3 milisegundos), para ello el generador debe ser del tipo 12 pulsos o de alta
+frecuencia.
+b) Asegurar que el tamaño nominal del punto focal se encuentre entre 0,6 y 1,3 mm.
+c) Ajustar los colimadores a dimensiones que puedan ser más pequeñas que las alcanzables por
+algunos equipos de Rayos X convencionales.
+
+26
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+d) Restringir cuidadosamente el haz de Rayos x al área de interés clínico mediante el uso de
+colimadores con sistema de iluminación.
+e) Disponer de filtros adicionales (1 mm de Al; 0,1 a 0,2 mm de Cu) para ser usados en caso de
+ser necesarios.
+13.1.7. Unidades móviles con equipos de rayos X:
+a) Para unidades móviles en la práctica de radiodiagnóstico médico se autorizarán únicamente
+equipos de rayos X convencionales fijos, que cumplan con todos los requisitos de la
+presente norma.
+b) Cumplir con todos los requisitos establecidos para un equipo de rayos X convencional fijo.
+13.1.8. Sistemas de Digitalización:
+Según las normativas de estandarización, para la captura de imágenes digitales en sistema de
+digitalización radiológica, se deberá cumplir con los siguientes requisitos:
+a) Captura directa: Está recomendada la comunicación DICOM, como estándar para la
+adquisición de imágenes destinadas al diagnóstico primario.
+b) Captura secundaria: Imágenes de matrices pequeñas: las imágenes deberán ser digitalizadas
+en el mismo formato que las originales, con profundidad de niveles de grises de 8 bits por
+pixel o mayor. La digitalización mediante escáneres digitales CCD o Láser y “frame
+grabber” es aceptada como estándar.
+c) Imágenes de matrices grandes: estas imágenes deberán ser digitalizadas con resolución de
+2,5 lp/mm o mayor, y deben ser digitalizadas con una profundidad de 10 bits por pixel o
+mayor.
+d) Los sistemas de digitalización radiológica, deberán tener protocolos de seguridad, tanto para
+las redes, como para la utilización de los sistemas (software), con la finalidad de proteger la
+confidencialidad de los datos de los pacientes.
+e) Por otra parte, los sistemas deberán estar provistos de protocolos que resguarden la
+integridad de los datos y eviten la corrupción intencionada de los mismos.
+13.1.9. Sistemas de visualización: Los sistemas de visualización utilizados para lectura del médico
+radiólogo deberán contar, al menos con las siguientes funciones: paneo, magnificación de imagen,
+rotación, ajuste del nivel y de la anchura de ventana, mediciones, medición de densidad, número
+total de imágenes en estudio.
+13.1.10. Mantenimiento de casetes digitales: Previo a su uso, deberán borrarse, observando si hay
+partículas de polvo o marcas de fricción mecánica en las imágenes, realizando la limpieza según las
+instrucciones del fabricante, con el objeto de verificar su integridad, no exponerlas a la luz o
+radiación y almacenarlas como las películas convencionales y verificar su vida útil.
+13.1.11. Contenido de la imagen digital: Los operadores deberán revisar en cada radiografía digital
+la información correcta del paciente y del examen, el brillo/contraste, el indicador de exposición, los
+errores de procesamiento, la anatomía requerida, el correcto posicionamiento y la presencia de
+artefactos.
+Los proveedores de sistemas digitales deberán proporcionar una guía de valores de indicadores de
+exposición sugeridos según las regiones anatómicas exploradas.
+
+27
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+13.2. Requisitos para la instalación de radiodiagnóstico médico. - Para instalaciones de categoría
+1 y 2, unidades móviles, equipos de Rayos X Telecomandados y Tomografía computarizada en
+diagnóstico médico, la infraestructura física deberá cumplir el diseño establecido y aprobado en la
+memoria de cálculo de blindaje.
+13.3. Requisitos referentes al personal. - El personal mínimo requerido para una instalación donde
+se haga uso de equipos generadores de radiaciones ionizante (rayos X) para la práctica de
+radiodiagnóstico médico será:
+13.3.1. Médico Especialista o Médico Radiólogo, especialista que utilice rayos X con fines de
+diagnóstico médico como complemento a su actividad profesional y disponga de licencia personal
+tipo A vigente.
+13.3.2. Oficial de Seguridad Radiológica, con autorización vigente, para instalaciones que poseen
+equipos generadores de radiación ionizante contemplados dentro de las categorías 1 y 2.
+13.3.3. Técnico, Tecnólogo Médico en Radiología o Licenciado en Radiología o su equivalente
+debidamente registrado en la entidad competente, que posean licencia personal tipo A vigente,
+acorde a lo estipulado en el Reglamento de Seguridad Radiológica y la presente norma.
+13.4. Responsabilidades del Personal de radiodiagnóstico médico en cuanto a seguridad
+radiológica.
+13.4.1. Del Médico Radiólogo, especialista que utilice rayos X con fines de diagnóstico médico
+como complemento a su actividad profesional y disponga de licencia personal tipo A vigente.
+13.4.2. Del Oficial de Seguridad Radiológica, con autorización vigente, para instalaciones que
+poseen equipos generadores de radiación ionizante contemplados dentro de las categorías 1 y 2.
+13.4.3. Del Técnico, Tecnólogo Médico en Radiología o Licenciado en Radiología o su
+equivalente debidamente registrado en la entidad competente, que posean licencia personal tipo A
+vigente, acorde a lo estipulado en el Reglamento de Seguridad Radiológica y la presente norma.
+Art. 14.- Protección al personal ocupacionalmente expuesto, pacientes y público en
+radiodiagnóstico médico. Para la protección del POE, paciente y público, a más de lo establecido
+en la reglamentación vigente y lo descrito en esta norma, se cumplirán las siguientes disposiciones:
+a) Utilizar inmovilizadores, tales como bandas de compresión, vendas, cuñas, fijadores de
+cabezas y utilizar técnicas radiográficas rápidas, en pacientes que presenten dificultad para
+permanecer quietos durante la exposición.
+b) Utilizar la combinación compatible chasis-pantalla-película-procesador automático o digital.
+Art. 15.- Registros e informes: Se debe implementar y mantener disponible, en todo momento, un
+sistema de registro y archivo de toda la documentación generada en el servicio, relativo a:
+a) Autorizaciones del Oficial de Seguridad Radiológica si procede.
+b) Planos del servicio y sus instalaciones en formato A1 o A3 si procede.
+c) Modificaciones realizadas en la instalación para las prácticas de radiología intervenc ionista
+incluyendo el cálculo específico del blindaje, aprobado por parte de la Autoridad
+Reguladora si procede.
+d) Plan de capacitación establecido anualmente.
+e) Capacitación y entrenamiento del personal, con carga horaria y frecuencia.
+f)
+
+Auditorías internas y externas.
+
+28
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+g) Funciones y responsabilidades del personal con la aceptación respectiva.
+h) Manual de Seguridad Radiológica, elaborado de acuerdo a lo establecido en el ANEXO V
+de la presente norma y aprobado por la Autoridad Reguladora (Categoría 1 y 2), en las
+prácticas de radiología intervencionista y radiodiagnóstico médico.
+i)
+
+Levantamiento radiométrico (categoría 1, 2 y unidades móviles, equipos de Rayos X
+Telecomandados, Tomografía computarizada en diagnóstico médico y Tomografía
+computarizada en diagnóstico veterinario).
+CAPÍTULO III
+RADIODIAGNÓSTICO ODONTOLÓGICO
+
+Art. 16.- Obligaciones del licenciatario y requisitos técnicos del equipo. - El titular de la licencia
+institucional Tipo C, a más de lo previsto en las disposiciones que le sean aplicables del Título II de
+la presenta norma, cumplirá con los siguientes requisitos previstos para la práctica de
+radiodiagnóstico odontológico:
+16.1. Requisitos de los equipos de radiodiagnóstico odontológico.
+16.1.1. Radiografía extra-oral (panorámico, cefalométrico, tomógrafo dental):
+El equipo de radiografía extra-oral debe ser instalado en una sala específica, cumpliendo los mismos
+requisitos solicitados para radiodiagnóstico médico dentro de la presente norma.
+16.1.2. Radiológica intra-oral (periapical):
+a) El equipo periapical puede instalarse en un área exclusiva o en la sala de tratamiento
+siempre y cuando cuente con el blindaje estructural que garantice la protección radiológica
+de las áreas aledañas.
+b) Los equipos periapicales utilizados en instituciones académicas deben ser instalados en salas
+individuales.
+c) Para radiografías periapical, deben utilizarse cámaras portátiles de revelado o sistemas de
+adquisición de imágenes
+16.2. Requisitos para la Instalación de radiodiagnóstico odontológico. Es obligación del titular
+de la Licencia Institucional tipo C cumplir con los siguientes requisitos para la instalación:
+16.2.1. Requisitos mínimos de diseños:
+a) Construir el cuarto oscuro para radiografías extra-orales de modo que se evite la formación
+de velo en las películas, equiparlo con procesadora automática o digital, lámpara de
+seguridad apropiada al tipo de película y un sistema adecuado de extracción de aire.
+b) Disponer de señalización visible en las puertas de acceso a las salas de rayos X, con el
+símbolo internacional de radiación ionizante.
+c) Disponer de rotulación en un lugar visible con los textos siguientes: “Paciente, solicite
+vestimentas plomadas para su protección durante el examen radiográfico”, “Acompañante,
+cuando haya necesidad de sujetar al paciente, exija y use correctamente las vestimentas
+plomadas para su protección”, “Si usted está embarazada o cree estarlo hágalo saber al
+operador”.
+
+29
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+d) Ubicar los controles de exposición del equipo periapical en un lugar seguro para evitar
+manipulaciones.
+16.3. Requisitos Operacionales. Es obligación del titular de la Licencia Institucional tipo C cumplir
+con los requisitos del numeral 5.5. literal a y c de la presente norma.
+16.4. Requisitos referentes al personal. El personal mínimo requerido para una instalación donde
+se haga uso de equipos de Rayos X para Radiodiagnóstico Odontológico, puede ser: Profesionales en
+Odontología, Estomatólogo, Tecnólogos, Licenciados en Radiología y afines, que posean licencia
+personal tipo A vigente, acorde a lo estipulado en el Reglamento de Seguridad Radiológica.
+16.5. Responsabilidades del personal de radiodiagnóstico odontológico en cuanto a seguridad
+radiológica.
+16.5.1. Del Profesional en Odontología o Estomatología:
+a) Operar el equipo bajo condiciones seguras.
+b) Interpretar las imágenes que se obtengan como resultado radiodiagnóstico odontológico.
+c) Proporcionar y asegurar el uso de los elementos de protección radiológica tanto al paciente
+como a sus acompañantes de ser el caso y mantenerlos en condiciones adecuadas.
+Art. 17.- Registros e informes. – Se debe implementar y mantener disponible en todo momento un
+sistema de registro y archivo de toda la documentación generada en el servicio, relativo a:
+a) Planos del servicio y sus instalaciones en formato A1 o A3 si procede.
+b) Levantamiento radiométrico (categoría 1, 2 y unidades móviles, equipos de Rayos X
+Telecomandados, Tomografía computarizada en diagnóstico médico y Tomografía
+computarizada en diagnóstico veterinario) si procede.
+CAPÍTULO IV
+RADIODIAGNÓSTICO VETERINARIO
+Art. 18.- Obligaciones del licenciatario y requisitos técnicos del equipo.
+18.1. Requisitos de los equipos de radiodiagnóstico veterinario. Los equipos de Rayos X
+utilizados en radiodiagnóstico veterinario deben cumplir con lo siguiente:
+18.1.1. Equipos de radiodiagnóstico veterinario fijos
+a) En todo estudio radiológico, el haz de radiación debe limitarse al área de interés y ser
+siempre menor al tamaño de la película.
+b) Los equipos con sistema automático de exposición, deben estar calibrados de forma tal que
+garanticen la calidad de imagen con mínimas dosis a los pacientes.
+c) Cuando el equipo no cuente con sistema automático de exposición, se debe utilizar un
+método para determinar el espesor del paciente y poder seleccionar la tensión y el tiempo
+más adecuados, y usar los parámetros recomendados por el fabricante.
+d) No se debe utilizar un equipo de rayos X que no disponga de colimador ajustable e
+iluminación de campo.
+
+30
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+e) El equipo será operado dentro de las condiciones establecidas en la licencia institucional
+tipo C emitida por la Autoridad Reguladora.
+f)
+
+Deben proveerse los medios adecuados para que, en todo momento, el operador tenga una
+visión clara y correcta del paciente durante el procedimiento.
+
+g) El equipo debe ser sometido a un programa periódico de mantenimiento mismo que debe ser
+realizado por empresas autorizadas por la Autoridad Reguladora, con una frecuencia
+mínima anual.
+h) El equipo debe ser sometido a un programa de control de calidad con una frecuencia mínima
+anual, mismo que debe ser realizado por empresas autorizadas por la Autoridad Reguladora.
+18.1.2. Equipos portátiles o portables:
+a) Utilizar los equipos portátiles solo cuando no sea posible trasladar a los pacientes a una
+instalación radiológica convencional y el lugar donde se encuentra el paciente sea de difícil
+acceso.
+b) Los equipos portátiles no deben utilizarse en sustitución de un equipo convencional fijo o
+móvil.
+c) Utilizar equipos de rayos X con colimador ajustable e iluminación de campo.
+d) Los equipos portátiles deben ser utilizados al aire libre o en un lugar donde no exista público
+alrededor de un perímetro de tres metros.
+18.2. Requisitos para la Instalación de radiodiagnóstico veterinario.
+a) Cumplir con el diseño establecido y aprobado en la memoria de cálculo de blindaje, para las
+instalaciones de categoría 1 y 2 y tomografía computarizada en diagnóstico veterinario.
+b) Favorecer en la radiografía veterinaria, los métodos de sedación o de fijación mecánica del
+animal. Cuando esto no sea posible, será necesario que todo el personal que deba
+permanecer en la sala disponga de prendas de protección adecuadas, tales como guantes y
+delantales plomados.
+c) Poseer kits para fijación mecánica del animal y sedantes.
+18.3. Requisitos referentes al personal. El personal mínimo requerido para una instalación donde
+se haga uso de equipos de rayos X veterinario pueden ser: profesionales en veterinaria, tecnólogos,
+licenciados en radiología y afines, que posean licencia personal tipo A vigente, acorde a lo
+estipulado en el Reglamento de Seguridad Radiológica.
+18.4. Responsabilidades del personal de radiodiagnóstico veterinario en cuanto a seguridad
+radiológica.
+18.4.1. Del Profesional Veterinario
+a) Operar el equipo bajo condiciones seguras.
+b) Utilizar las técnicas que correspondan para cada estudio.
+c) Interpretar las imágenes radiográficas, que se obtengan como resultado del radiodiagnóstico
+veterinario.
+d) Contar con la licencia personal tipo A y mantenerla vigente.
+
+31
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+e) Asumir la responsabilidad de la Protección Radiológica durante el diagnóstico, sin perjuicio
+de las demás que se establezcan en la Ley Orgánica de Salud y demás normativas
+relacionadas.
+18.4.2. Del Técnico, Tecnólogo Médico en Radiología o Licenciado en Radiología o su
+equivalente debidamente registrado en la entidad competente: Es obligación cumplir los
+requisitos del numeral 5.8.4. de la presente norma.
+Art. 19.- Protección al personal ocupacionalmente expuesto, pacientes y público en
+radiodiagnóstico veterinario. Para los pacientes que presenten dificultad para permanecer quietos
+durante la exposición, el operador debe utilizar inmovilizadores, tales como bandas de compresión,
+vendas, cuñas, fijadores de cabezas y utilizar técnicas radiográficas rápidas.
+Art. 20.- Registros e informes: El titular de la licencia Institucional tipo C debe implementar y
+mantener disponible en todo momento un sistema de registro y archivo de toda la documentación
+generada en el servicio, relativo a:
+a) Planos del servicio y sus instalaciones en formato A1 o A3 si procede.
+b) Levantamiento radiométrico (categoría 1, 2 y unidades móviles, equipos de Rayos X
+Telecomandados, Tomografía computarizada en diagnóstico médico y Tomografía
+computarizada en diagnóstico veterinario) si procede.
+DISPOSICIONES GENERALES:
+Primera. - El Ministerio de Energía y Recursos Naturales No Renovables a través de la
+Subsecretaría de Control y Aplicaciones Nucleares o quien haga sus veces, será el encargado de
+hacer cumplir lo dispuesto en el Reglamento de Seguridad Radiológica vigente, la presente Norma y
+cualquier otro instrumento legal de la materia.
+Segunda. - La Autoridad Reguladora podrá revocar o suspender las Licencias Institucionales tipo C,
+Licencias Personales tipo A y las Autorizaciones de Oficial de Seguridad Radiológica en el caso de
+que el servicio o el personal del mismo no cumplan con los requisitos mínimos de Seguridad
+Radiológica.
+Tercera. - Para los casos no contemplados en esta Norma, se aplicará las disposiciones emanadas en
+las Normas dictadas por el Organismo Internacional de Energía Atómica, OIEA, en lo que fuere
+aplicable y no contravenga el ordenamiento jurídico ecuatoriano.
+Cuarta. - La presenta Norma Técnica contiene 8 Anexos que forman parte integrante de la misma.
+DISPOSICIÓN DEROGATORIA:
+Con la expedición del presente Acuerdo Ministerial se deroga los siguientes Acuerdos Ministeriales: Nro.
+MERNNR-MERNNR-2020-0026-AM del 27 de mayo de 2020, Nro. MERNNR-MERNNR-2022-0004AM del 25 de enero de 2022 y Nro. MERNNR-MERNNR-2022-0006-AM de 30 de enero de 2022.
+
+32
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+ANEXO I.
+CLASIFICACIÓN DE PRÁCTICAS POR CATEGORÍA DE RIESGO
+PRÁCTICA
+
+Radioterapia
+
+TÉCNICA
+
+CATEGORÍA
+
+Teleterapia con fuente radiactiva
+
+1
+
+Teleterapia con LINAC
+
+1
+
+Tomoterapia
+
+1
+
+Simulador CT
+
+3
+
+Simulador RX
+
+3
+
+Gammaknife (Teleterapia fija de múltiples haces)
+
+1
+
+Braquiterapia de alta/media tasa de dosis
+
+2
+3
+
+Braquiterapia de baja tasa
+Braquiterapia
+con
+placas
+oculares
+implantes permanentes de baja tasa de dosis
+Terapia superficial con Rayos X
+
+Medicina Nuclear
+
+Radiología Intervencionista
+
+Radiodiagnóstico Médico
+
+Radiodiagnóstico Odontológico
+
+Radiodiagnóstico Veterinario
+
+Radiografía Industrial
+Radiotrazador en la Industria
+
+e
+
+4
+
+Diagnóstico
+
+1
+2
+
+Terapia
+
+2
+
+Radiosinoviortesis
+
+3
+
+Radioinmunoanálisis
+
+5
+
+PET CT
+
+2
+
+SPECT CT
+
+2
+
+PET (Tomografía por emisión de positrones)
+
+3
+
+MEP (mamografía por emisión de positrones)
+
+3
+
+Angiografía
+
+2
+
+Litotripcia
+
+3
+
+Intensificador de Imagen con Arco en C
+Hemodinamia e Intervencionismo Cardiovascular
+
+3
+2
+
+Intensificador de imagen Arco en C de uso veterinario
+
+3
+
+Tomografía Computarizada CT
+
+3
+
+Mamografía
+Radiografía convencional fija/ Fluoroscopía
+
+3
+3
+
+Radiografía con equipo portátil de Rayos X
+
+3
+
+Radiografía con equipo móvil de Rayos X
+
+3
+
+Densitometría ósea
+
+4
+
+Radiografía con equipo Periapical
+
+Radiografía convencional fija
+
+5
+3
+3
+3
+
+Tomografía
+
+3
+
+Radiografía con equipo portátil de Rayos X
+
+3
+
+Radiografía con equipo móvil de Rayos X
+
+3
+
+Densitometría ósea
+
+4
+
+Gammagrafía Industrial
+
+1
+
+con Rayos X
+
+2
+
+Radiotrazador
+
+3
+
+Radiografía con equipo Panorámico- Cefalométrico
+Tomografía Dental
+
+33
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+PRÁCTICA
+
+TÉCNICA
+
+Irradiación Industrial
+
+Medidores Nucleares
+
+Perfilaje de pozos
+
+Técnicas analíticas
+
+Producción de radioisótopos
+
+Rayos X de Seguridad
+
+Gestión de desechos radiactivos
+
+Radiológico
+
+Irradiador con fuentes
+
+1
+
+Irradiador autoblindado
+
+1
+
+Acelerador de partículas
+
+3
+
+Fijos
+
+3
+
+Portátiles
+
+3
+
+Con Rayos X
+
+4
+
+Con fuentes
+
+2
+
+Con generadores de neutrones
+
+3
+
+Difracción de Rayos X
+
+5
+
+Fluorescencia con fuentes selladas
+
+5
+
+Fluorescencia por Rayos X
+
+5
+
+Rayos X de investigación y docencia
+
+5
+
+Espectrometría Mossbauer
+
+5
+
+Espectrometría de movilidad iónica
+
+5
+
+Cromatografía de gases
+
+5
+
+Planta para producción de radioisótopos
+
+1
+
+Ciclotrón
+
+2
+
+Fluoroscopía (Control de carga y equipaje)
+
+4
+
+Fluoroscopía (Control de bultos postales)
+
+4
+
+Tomografía (Control de carga y equipaje)
+Acelerador Lineal (Control de Contenedores)
+
+3
+1
+
+Fluoroscopía (Inspección corporal -Bodyscanner)
+
+3
+
+Gestión de desechos radiactivos
+Pararrayos Radiactivos
+
+1
+5
+5
+
+Monitoreo Radiológico NORM, TENORM
+
+3
+
+Dosimetría personal
+
+3
+
+Detectores de humo
+
+Productos de consumo
+Monitoreo
+TENORM
+
+CATEGORÍA
+
+NORM,
+
+Dosimetría personal
+Metrología y calibración
+
+Instalación y mantenimiento
+Control de Calidad
+Importación y comercialización
+
+Con equipos generadores Rayos X
+Con fuentes radiactivas
+Para fuentes radiactivas
+Para equipos generadores Rayos X
+Para equipos generadores Rayos X
+Para fuentes
+Para equipos generadores Rayos X
+
+Transporte
+
+Transporte de fuentes radiactivas
+
+Monitoreo Radiológico
+
+Monitoreo Radiológico
+
+34
+
+3
+Todas las
+categorías
+Todas las
+categorías
+Todas las
+categorías
+Todas las
+categorías
+Todas las
+categorías
+Todas las
+categorías
+Todas las
+categorías
+Todas las
+categorías
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+ANEXO II.
+LINEAMIENTOS PARA LA OBTENCIÓN DE LA AUTORIZACIÓN PARA OFICIAL DE
+SEGURIDAD RADIOLÓGICA – OSR EN EL ÁREA DE RADIOLOGÍA
+INTERVENCIONISTA Y RADIODIAGNÓSTICO MÉDICO.
+1.
+
+Introducción
+1.1. Objetivo.- Establecer los requisitos para la emisión de la autorización del Oficial de
+Seguridad Radiológica (OSR) en el área médica.
+1.2. Ámbito de aplicación.- Estos lineamientos son aplicables a todas aquellos profesionales
+que requieren obtener la autorización para Oficial de Seguridad Radiológica para trabajar
+en instalaciones médicas correspondientes a las prácticas de Radiología Intervencionista y
+Radiodiagnóstico Médico contempladas dentro de categoría 1 y 2 de la “Clasificación de
+prácticas por categoría de riesgo” del ANEXO I de la presente norma. Además, los
+establecimientos de salud que dispongan 4 o más equipos generadores de radiaciones
+ionizantes y entre ellos contemplen un equipo tomógrafo y/o intensificador de imagen arco
+en C y/o litotriptor y/o equipo telecomandado, deben disponer de al menos un Oficial de
+Seguridad Radiológica.
+
+2.
+
+Requisitos para la obtención de la autorización para Oficiales de Seguridad Radiológica
+OSR:
+2.1. Formación Académica.- El aspirante para obtener la autorización de OSR, deberá ser un
+profesional graduado en ciencias físicas, biológicas, médicas o de ingeniería en áreas
+técnicas, cuyo título deberá estar registrado ante la Autoridad Nacional Competente.
+2.2. Capacitación.- Previo a la obtención de la Autorización para Oficial de Seguridad
+Radiológica, los aspirantes, deben tomar el curso de capacitación para Oficiales de
+Seguridad Radiológica, establecido según recomendación del Organismo Internacional de
+Energía Atómica, con un equivalente de 80 horas teórico – prácticas en una entidad
+reconocida por la Autoridad Reguladora (ANEXO VIII, Requisitos para acreditación de
+capacitadores para el curso en protección radiológica para OSR de la presente norma). En
+el caso de que la capacitación para oficiales de seguridad radiológica sea realizada en el
+extranjero, el certificado deberá estar debidamente apostillado.
+
+Los profesionales de cuarto nivel con formación en Física Médica o profesionales con Posgrado de
+Protección Radiológica no es obligatorio realizar el Curso para Oficiales de Seguridad Radiológica .
+Los profesionales que cuenten con la capacitación en protección radiológica y que hayan obtenido
+autorización para Oficial de Seguridad Radiológica, previo a la entrada en vigencia de esta norma,
+presentarán el mismo certificado para tramitar las futuras autorizaciones en la misma práctica.
+2.3. Evaluación Teórica
+a) Aprobar la evaluación teórica efectuada por la Autoridad Reguladora con una nota mínima
+equivalente al 80%, para cada práctica de aplicación.
+b) En caso de que el profesional no alcance el puntaje establecido en el literal a), efectuará una
+segunda evaluación, debiendo rendir el examen en un término máximo de ocho (8) días de rendida la
+primera evaluación.
+c) En caso de que el profesional no alcance el puntaje establecido en las dos oportunidades iniciales
+literales a) y b), deberá reiniciar el trámite por última vez en el término de máximo de 30 días y
+acogerse a las 2 oportunidades más de evaluación como lo establece el punto b.
+
+35
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+d) El interesado podrá, dentro de los tres días siguientes al de la notificación de la nota, podrá
+solicitar las aclaraciones, rectificaciones y subsanaciones de ser el caso.
+2.4. Documentación habilitante
+a) Solicitud para la emisión de la autorización de Oficial de Seguridad Radiológica, realizado a
+través de la plataforma informática establecida para el caso.
+b) Formulario de solicitud de autorización de Oficial de Seguridad Radiológica debidamente lleno,
+firmado y con fotografía actualizada.
+c) Carta de designación como postulante a Oficial de Seguridad Radiológica, otorgado por el
+Representante Legal de la Institución, especificando las funciones que va a cumplir, y el horario
+en el que prestará sus servicios.
+d) La aceptación de la designación como postulante a Oficial de Seguridad Radiológica.
+e) Copia simple del certificado médico que confirme que el solicitante está apto para trabajar con
+radiaciones ionizantes, en base a los análisis clínicos de sangre. (Validez tres meses desde la
+fecha de la emisión del certificado médico).
+f)
+
+Copia simple del certificado psicológico emitido por el profesional competente.
+
+g) Certificado de asistencia y aprobación del Curso Básico de Protección Radiológica.
+h) Certificado de asistencia al Curso de Protección Radiológica para Oficial de Seguridad
+Radiológica, brindado por capacitadores autorizados por la Autoridad Reguladora.
+i)
+
+Certificado de aprobación del examen para Oficial de Seguridad Radiológica en la práctica de
+interés.
+
+j)
+
+Factura de pago del costo respectivo de la Autorización.
+
+3.
+
+Renovación de la autorización de OSR
+3.1. El licenciatario deberá solicitar la renovación con 90 días de anticipación a la fecha de su
+vencimiento de la autorización, para lo cual deberá cumplir con todos los requisitos
+señalados en el presente documento para la emisión de la autorización de Oficiales de
+Seguridad Radiológica.
+3.2. Dar cumplimiento a lo establecido en el numeral 2.3. de la evaluación teórica y a lo
+establecido en el numeral 2.4 literales a, b, c, d, e, f, i y j.
+3.3. Presentar el certificado del curso de actualización en protección radiológica por 40 horas
+(validez 1 año), brindado por los capacitadores autorizados por la Autoridad Reguladora
+(ANEXO VIII, Requisitos para autorización de capacitadores para el curso en protección
+radiológica para Oficial de Seguridad Radiológica) de la presente norma.
+3.4. Los profesionales de cuarto nivel con formación en Física Médica o profesionales con
+Posgrado de Protección Radiológica no es obligatorio realizar el Curso para Oficiales de
+Seguridad Radiológica.
+
+Indicaciones Generales
+El profesional designado como OSR no podrá ejercer doble función dentro de una misma práctica
+dentro de la institución, de tal forma que:
+a) Disponga del tiempo suficiente para cumplir las funciones de OSR de manera que los aspectos
+de control de radiación estén permanentemente vigilados.
+
+36
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+b) No exceda el máximo de exposición ocupacional prevista en la normativa.
+c) No exceda la jornada laboral determinada en las normativas que regulan el régimen laboral y de
+seguridad y salud de los trabajadores.
+El OSR deberá ser nombrando para una sola práctica dentro de la instalación, con excepción de
+radiodiagnóstico médico y radiología intervencionista en el cual puede nombrarse un solo OSR para
+las dos prácticas indicadas.
+La Autoridad Reguladora verificará que el OSR cumpla con las funciones asignadas, de no ser el
+caso se notificará al Representante Legal de la instalación para que tome las acciones correctivas
+necesarias, las cuales deberán ser informadas a la Autoridad Reguladora en un plazo máximo de 15
+días a partir de la notificación.
+El curso recibido de 80 horas deberá ser cursado por una sola vez y su certificado será válido para
+postularse como candidato a OSR para la práctica de Radiológica Intervencionista y
+Radiodiagnóstico Médico según corresponda.
+
+37
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+ANEXO III.
+FUNCIONES GENERALES DEL OFICIAL DE SEGURIDAD RADIOLÓGICA PARA
+LAS ACTIVIDADES DE LICENCIAMIENTO Y OPERACIÓN EN RADIOLOGÍA
+INTERVENCIONISTA, RADIODIAGNÓSTICO MÉDICO.
+1. El Oficial de Seguridad Radiológica (OSR) conocerá, participará y supervisará las fases de
+diseño, montaje, instalación, operación, modificación y clausura de las instalaciones, en
+particular lo que se refiere a todos aquellos sistemas y dispositivos (incluyendo sistemas
+auxiliares) con implicación radiológica, así como todo tipo de medidas de protección contra
+las radiaciones ionizantes. Aplicando la filosofía ALARA (As low as reasonably
+achievable), manteniendo los niveles de radiación tan bajo como razonablemente sea
+posible.
+2. El OSR velará porque las licencias, autorizaciones y demás documentación se encuentren
+actualizados, vigentes y disponibles.
+3. Asegurar que solamente el personal autorizado manipule los equipos generadores de
+radiaciones ionizantes.
+4. Asegurar que los manuales de operación de los equipos estén disponibles para el personal
+del Servicio.
+5. Estar presente en el desarrollo de las inspecciones y auditorias que practique la Autoridad
+Reguladora.
+6. Informar al Titular de la Autorización, cualquier hecho relacionado con la seguridad de
+estudios y procedimientos radiológicos.
+7. Llevar a cabo o verificar que se efectúe el levantamiento radiométrico.
+8. El OSR conocerá, participará y supervisará, desde el inicio del trámite de adquisición hasta
+la recepción, de equipos generadores de radiación ionizante.
+9. Efectuar evaluaciones de seguridad radiológica de los Servicios de Radiodiagnóstico
+Médico bajo su responsabilidad, relativas a las medidas aplicables en las fases de
+construcción y operación y presentarlos a la Autoridad Reguladora según corresponda.
+10. El OSR, conocerá y efectuará, la estimación de los riesgos radiológicos y físicos,
+cuantificándolos en términos de dosis, asociados al funcionamiento normal de la instalación.
+11. En relación con las zonas de trabajo el OSR llevará a cabo su clasificación, señalización,
+vigilancia, limitación de accesos y condiciones de trabajo en función del riesgo de
+exposición debido a las radiaciones ionizantes; la clasificación de las mismas se mantendrá
+actualizada en función de las condiciones existentes.
+12. El OSR establecerá los requisitos adecuados para acceder a zonas supervisadas y
+controladas, las medidas de control de acceso y permanencia en las zonas controladas y las
+actividades no permitidas en zonas supervisadas y controladas.
+13. El OSR gestionará la Vigilancia y control dosimétrico individual de la irradiación externa
+del personal expuesto.
+a) Actualización y archivo de los datos de la dosimetría personal y de área.
+b) Estimación del riesgo radiológico individual y colectivo en la instalación.
+
+38
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+c) Mantener el récord dosimétrico del personal ocupacionalmente expuesto.
+d) Investigar las dosis de radiación que superan el límite de investigación del
+laboratorio de dosimetría personal.
+e) Mantener informados a todo el personal ocupacionalmente expuesto las dosis de
+radiación recibida por cada uno de ellos durante su trabajo con radiaciones
+ionizantes.
+f)
+
+Vigilar que el personal ocupacionalmente expuesto disponga un dosímetro personal
+en cada sitio de trabajo.
+
+14. El OSR verificará que el personal ocupacionalmente expuesto disponga de los resultados de
+reconocimientos médicos que demuestren la correspondiente aptitud médica para trabajar
+con radiaciones ionizantes. El OSR, proporcionará al médico los datos referentes al riesgo
+radiológico derivado del puesto de trabajo o actividad desempeñada para que, con arreglo al
+mismo, se realice la vigilancia y seguimiento médico adecuados.
+15. El OSR conocerá y analizará, en su caso, el impacto radiológico derivado del
+funcionamiento de la instalación vigilada. Asimismo, en el supuesto de una situación
+accidental, tendrán que conocer y asumir las funciones establecidas en el Manual de
+Seguridad Radiológica correspondiente.
+16. El OSR coordinará y ejecutará los diferentes procedimientos establecidos en el manual de
+seguridad radiológica, en caso de accidente o incidente, tendientes a poner la situación bajo
+control la emergencia radiológica.
+17. El OSR capacitará al personal ocupacionalmente expuesto, para asegurar de que el
+trabajador de la instalación tenga los conocimientos adecuados relacionados con el riesgo
+radiológico asociado a su puesto de trabajo. Dichos conocimientos habrán de mantenerse
+actualizados con la periodicidad que se establezca en el plan anual de capacitación y de
+acuerdo a la complejidad de la práctica correspondiente. El plan de capacitación
+comprenderá como mínimo la siguiente temática:
+a) Protección radiológica del POE.
+b) Protección radiológica del paciente.
+c) Uso correcto de Dosímetro Personal.
+d) Uso correcto de los elementos de protección radiológica.
+e) Tramites de licencia personal e institucional.
+f)
+
+Entre otros.
+
+18. El OSR asegurará que el personal contratado dispone de la Licencia emitida por la
+Autoridad Reguladora y además debe realizar una inducción en temas de protección
+radiológica para el trabajador ocupacionalmente expuesto, el paciente y público en general.
+19. Elaborar un programa de vigilancia y control para garantizar que las dosis recibidas por los
+trabajadores radioexpuestos, así como por los pacientes, sean tan bajas como sea
+razonablemente posible, tanto a nivel individual como por departamentos, trabajos y tareas,
+que deberá detallar:
+a.
+
+Identificar los lugares, operaciones y condiciones de trabajo que puedan causar
+exposición significativa y establecer un programa de acción para su control.
+
+39
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+b. Participar en la revisión de las modificaciones de diseño de las instalaciones, que
+puedan afectar a la exposición del personal.
+20. El OSR observará y vigilará el control de calidad de equipos de rayos X con fines de
+diagnóstico y de los sistemas de imagen, conforme a lo solicitado por la Autoridad
+Reguladora.
+21. El OSR asegurará que se realicen las mejoras continuas y se corrijan las no conformidades
+presentadas en las auditorías.
+22. El OSR está en la potestad de paralizar o suspender los trabajos e incluso disponer el
+desalojo de un área cuando demuestre que no se cumplen los debidos requisitos de
+protección radiológica.
+23. El OSR de la instalación deberá elaborar el Manual de Seguridad Radiológica de la
+instalación de acuerdo al contenido mínimo establecido en el anexo V.
+24. El OSR implementará el Programa de Protección Radiológica de acuerdo a la práctica
+autorizada, el mismo que está incluido en el Manual de Seguridad Radiológica.
+25. El OSR será el encargado de llevar todos los registros y evidencias de todos los puntos
+anteriores, con la finalidad de que se encuentren disponibles en todo momento.
+
+40
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+ANEXO IV.
+CONTENIDO MÍNIMO DEL INFORME PRELIMINAR PARA LAS PRÁCTICAS DE
+CATEGORÍA I
+1.
+
+Descripción general de la instalación, los documentos legales de la empresa y el nombre y
+calificación del responsable de la construcción:
+•
+•
+•
+•
+•
+•
+
+Nombre del responsable legal.
+Número de RUC.
+Ubicación de la instalación (dirección completa).
+Teléfono de contacto.
+Correo electrónico.
+Tipo de autorización: construcción, remodelación u operación.
+
+2.
+
+Introducción.
+
+3.
+
+Objetivos.
+
+4.
+
+Antecedentes.
+
+5.
+
+Justificación de la práctica, considerando la capacidad máxima de atención.
+
+6.
+
+Planos a escala, entre los que se incluya el conjunto completo del Servicio y cuantos planos
+individuales sean necesarios para identificar con claridad los componentes de la instalación
+indicando:
+i)
+ii)
+iii)
+iv)
+
+características de pisos, techos y paredes.
+identificación de las áreas adyacentes.
+ubicación del equipo, consola de control y accesorios.
+cortes relevantes.
+
+7.
+
+Descripción técnica de los equipos de rayos X, así como de los componentes y accesorios que se
+utilizarán.
+
+8.
+
+Descripción de los estudios y procedimientos que se pretenden realizar.
+
+9.
+
+Carga de trabajo máxima de la instalación, prevista en los próximos 5 años.
+
+10. Planos y esquemas constructivos de los sistemas generales (sistema eléctrico, sistema contra
+incendios, etc.).
+11. Descripción del uso al que está destinado cada uno de los recintos. Deben ser indicados con
+claridad los factores de ocupación y factores de uso de las áreas, despachos, pasillos, etc. de la
+instalación y de las zonas circundantes, que puedan verse afectadas por las radiaciones de la
+instalación en cuestión.
+12. Descripción y clasificación de las distintas zonas de la instalación.
+13. Memoria de los cálculos de blindaje. Se debe tomar como base la metodología y
+recomendaciones nacionales e internacionales en la materia, considerando todas las alternativas
+de movimiento y uso de los equipos. Esta memoria debe contener los datos y la firma de las
+personas que la elaboraron.
+14. Descripción de los dispositivos técnicos disponibles para controlar el acceso a la instalación,
+tales como cerraduras, enclavamientos y dispositivos de alarma, indicando su ubicación.
+15. Señalización.
+16. Sistema de control de incendios.
+17. Evaluación del riesgo radiológico y plan de emergencias.
+
+41
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+ANEXO V.
+CONTENIDO MÍNIMO DEL MANUAL DE SEGURIDAD RADIOLÓGICA
+(Categoría 1 y 2)
+1.
+
+CARÁTULA
+•
+•
+•
+•
+
+•
+•
+2.
+
+Nombre de la institución o Razón Social.
+Nombre comercial si aplica.
+Práctica para la cual se realiza el manual.
+Firmas de responsabilidad con datos de identificación del Representante Legal y Profesional
+que elabora el manual (Especialista en Protección Radiológica, Físico Médico, Físicos,
+Biofísicos, Oficial de Seguridad Radiológica en el área con autorización vigente emitida por
+la SCAN). Los profesionales para la elaboración del Manual, deben tener capacitación en
+área de aplicación y experiencia de al menos 1 año.
+Fecha de presentación.
+Nro. de revisión.
+
+DATOS GENERALES
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Razón Social.
+Nombre Comercial.
+RUC.
+Representante Legal.
+Oficial de Seguridad Radiológica.
+Nombres Completos.
+Cédula.
+N° Autorización/caducidad.
+Práctica.
+Dirección.
+Ciudad-Provincia.
+Teléfono.
+Código postal.
+
+3.
+
+ANTECEDENTES
+
+4.
+
+OBJETIVO
+
+5.
+
+JUSTIFICACIÓN
+
+6.
+
+UBICACIÓN DENTRO DE LA INSTALACIÓN
+
+7.
+
+DESCRIPCIÓN DE LAS INSTALACIONES
+7.1. Fuentes de radiación/Equipos generadores.
+
+8.
+
+FLUJO TECNOLÓGICO Y UBICACIÓN DE EQUIPOS
+
+9.
+
+DESCRIPCIÓN DE LOS ELEMENTOS DE SEGURIDAD
+
+10. CLASIFICACIÓN DE ZONAS
+10.1. Normas Generales de seguridad.
+10.2. Normas Generales y acceso para zonas controladas.
+10.3. Normas Generales y acceso para zonas supervisadas.
+
+42
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+11. SISTEMA DE GESTIÓN
+11.1.
+
+Una declaración expresa del representante legal de la institución a licenciarse, donde
+reconoce que es el máximo responsable por la seguridad radiológica, además se deben
+definir en el programa de garantía de calidad claramente las responsabilidades de todo el
+personal vinculado a la práctica.
+
+11.2.
+
+Una política con principios rectores que estipulen claramente que la seguridad radiológica
+de los trabajadores, miembros del público o pacientes son asuntos de la más alta prioridad.
+
+11.3.
+
+Una estructura organizacional y líneas de comunicación que propicien un flujo apropiado de
+la información relacionada con la seguridad, entre los diferentes niveles de la organización
+(Representante Legal, Oficial de Seguridad Radiológica, Médicos y Especialistas, Personal
+Ocupacionalmente Expuesto. Enfermeras y auxiliares, etc.).
+
+11.4.
+
+Un programa de monitoreo y verificación de los diferentes parámetros.
+
+11.5.
+
+Un programa de evaluación sistemática (auditorías internas y externas).
+
+11.6.
+
+Un programa de mejora continua.
+
+11.7.
+
+Un plan de clausura de la instalación.
+
+12. EVALUACIÓN DE LA SEGURIDAD
+12.1.
+
+Identificación de los sucesos iniciadores de accidentes.
+
+12.2.
+
+Descripción de la severidad de las consecuencias potenciales para cada suceso iniciador.
+
+12.3.
+
+Descripción de las barreras de seguridad existente para prevenir o mitigar los accidentes
+para cada suceso iniciador.
+
+12.4.
+
+Evaluación de riesgos según el método propuesto por ejemplo FMEA, HAZOP, Análisis
+Preliminar de Peligros.
+
+12.5.
+
+Medidas preventivas y correctivas.
+
+13. EXPOSICIÓN OCUPACIONAL
+13.1.
+
+Límites de dosis para trabajadores Ocupacionalmente Expuestos y Público.
+
+13.2.
+
+Restricciones de dosis para trabajadores Ocupacionalmente Expuestos y Público.
+
+13.3.
+
+Monitoreo por puesto de trabajo.
+
+13.4.
+
+Vigilancia Dosimétrica.
+
+13.5.
+
+Estimación de dosis en exposiciones accidentales y de emergencia.
+
+13.6.
+
+Procedimiento para casos que sobrepasan el nivel de investigación.
+
+13.7.
+
+Procedimiento de uso del dosímetro.
+
+13.8.
+
+Procedimiento a seguir en caso de personas embarazadas.
+
+13.9.
+
+Capacitaciones.
+
+13.10. Programa anual de capacitación y entrenamiento al Personal Ocupacionalmente Expuesto.
+13.11. Programa anual de capacitación y entrenamiento a los empleados de la institución que no
+forman parte del POE.
+
+43
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+13.12. Registros (establecer el formato para los registros).
+13.12.1. Historial dosimétrico.
+13.12.2. Vigilancia de la salud (certificados médicos, ocupacionales, clínicos…).
+13.12.3. Capacitaciones y Entrenamientos.
+13.12.4. Licencias y autorizaciones.
+13.12.5. Levantamientos radiométricos.
+13.12.6. Registro de dosis que sobrepasan el nivel de investigación.
+14. EXPOSICIÓN DEL PÚBLICO
+14.1.
+
+Programa de monitoreo del área.
+
+14.2.
+
+Protección de familiares, personas próximas y voluntarios que colaboran en la asistencia y
+bienestar del paciente.
+
+15. EXPOSICIÓN MÉDICA
+15.1.
+
+Procedimiento para estudios de radiología intervencionista.
+
+15.2.
+
+Consentimiento informado.
+
+15.3.
+
+Recomendaciones para evitar exposiciones innecesarias.
+
+15.4.
+
+Optimización de la protección radiológica del paciente.
+15.4.1. Protocolo para mujeres embarazadas.
+
+15.5.
+
+Consideraciones Operacionales.
+15.5.1. Aceptación y puesta en marcha del equipo.
+
+15.6.
+
+Registro (establecer el formato para los registros).
+15.6.1. Mantenimientos.
+15.6.2. Equipos y tubos de Rayos X.
+15.6.3. Pacientes y dosis del paciente.
+
+16. EMERGENCIAS
+16.1.
+
+Investigación de exposiciones médicas no intencionales y accidentales.
+
+16.2.
+
+Descripción del procedimiento para realizar la investigación de exposiciones no
+intencionales y accidentales (para cada caso, al menos 5 casos, los más relevantes).
+
+17. PROCEDIMIENTO DE CLAUSURA DE LA INSTALACIÓN (DESTINO FINAL DE
+LOS EQUIPOS Y TUBOS DE RAYOS X.
+
+44
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+ANEXO VI.
+CONTENIDO MÍNIMO DE LA MEMORIA DE CÁLCULO DE BLINDAJE
+CARÁTULA:
+
+•
+•
+•
+
+•
+•
+1.
+
+Nombre de la institución.
+Sala para la cual se realiza el cálculo.
+Firmas de responsabilidad con datos de identificación del Representante Legal y
+Profesional que elabora la memoria de cálculo (Especialista en Protección Radiológica,
+Físico Médico, Físicos, Biofísicos, Oficial de Seguridad Radiológica, profesionales en
+ingeniería acordes a la práctica).
+Fecha de presentación.
+Nro. de revisión.
+
+DATOS GENERALES:
+1.1.
+
+Datos de la Instalación:
+
+•
+•
+•
+•
+•
+•
+•
+•
+•
+1.2.
+
+Razón social.
+Nombre comercial (si aplica).
+RUC.
+Representante legal.
+Dirección.
+Provincia-Ciudad.
+Correo electrónico.
+Teléfono.
+Código postal.
+Datos del Profesional que elabora el Cálculo:
+
+•
+•
+•
+•
+•
+1.3.
+
+Nombre Completo.
+N° Licencia Personal/Autorización de OSR.
+Vigencia de Licencia Personal/Autorización de OSR.
+Correo electrónico.
+Teléfono.
+Información específica:
+
+•
+•
+•
+
+Práctica.
+Tipo de Equipo (categoría 1 y 2).
+Ubicación (en la institución).
+
+2.
+
+OBJETIVO DE LA MEMORIA DE CÁLCULO: (Máximo un párrafo).
+
+3.
+
+JUSTIFICACIÓN DE LA PRÁCTICA: (Indicar porque es necesario implementar esta práctica).
+
+4.
+
+DESCRIPCIÓN DEL EQUIPO: Tipo de equipo, marca, modelo, especificaciones técnicas (kV. y
+mA. máximos de diseño, no gráficos).
+
+45
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+5.
+
+6.
+
+PLANO A ESCALA DEL SERVICIO:
+
+a)
+
+Formato mínimo A1 o A3.
+
+b)
+
+En el plano debe constar la sala de rayos X en estudio y las áreas colindantes, (firmado por
+un arquitecto o ing. Civil).
+
+c)
+
+Descripción de los materiales de construcción y acabado de superficies (firmado por el
+representante legal, un arquitecto o ing. Civil).
+
+d)
+
+Identificación de los puntos del cálculo (barreras) en el plano, con mayúsculas y en sentido
+horario.
+
+e)
+
+Delimitación de las zonas controlada y no controlada.
+
+f)
+
+Flujo tecnológico y ubicación del equipo (especificar como se desplazan los pacientes y
+POE desde el ingreso y salida del servicio hasta la sala de rayos X).
+
+g)
+
+Descripción (en el plano) de los elementos, sistemas y componentes importantes para el
+(control de acceso a la sala de rayos x y protección radiológica (señales luminosas, sonoras,
+señalética).
+
+FUNDAMENTO TEÓRICO:
+
+a)
+
+Conceptos básicos relacionados al cálculo de blindaje (Máximo 1 hoja).
+
+b)
+
+Consideraciones para el cálculo se debe incluir el protocolo o documento utilizado (usar los
+valores de las tablas del documento NCRP 147).
+
+c)
+
+Metodología de cálculo (usar la metodología del documento NCRP 147).
+
+d)
+
+(Desarrollar un ejemplo de cálculo de la barrera que requiera mayor blindaje). Para ladrillo
+entregar resultado de interpolación o método utilizado.
+
+e)
+
+Resultados (barreras primarias y secundarias) acorde a la siguiente tabla.
+DESCRIPCIÓN
+DEL PUNTO DE
+CÁLCULO
+
+PUNTO DE
+CÁLCULO
+
+TIPO DE
+BARRERA
+
+TIPO DEL
+MATERIAL
+
+DISTANCIA DESDE
+EL ISOCENTRO
+FACTOR DE FACTOR DE USO TIPO DE ZONA
+AL PUNTO DE
+OCUPACIÓN (T)
+(U)
+(ZC/ZNC)
+CÁLCULO
+(mm)
+
+A
+B
+
+PUNTO DE
+CÁLCULO
+
+ESPESOR
+CALCULADO EN
+CONCRETO
+(mm)
+
+ESPESOR
+CALCULADO EN
+PLOMO
+(mm)
+
+ESPESOR CALCULADO
+LADRILLO
+(mm)
+
+ESPESOR
+EXISTENTE
+(mm)
+
+CUMPLIMIENTO
+SI/NO
+
+A
+B
+
+f)
+
+Para tomografía se deberá además completar la siguiente información
+nCTDI 100
+cabeza
+
+g)
+
+nCTDI 100
+cuerpo
+
+mAs, cabeza
+
+mAs, cuerpo
+
+En el caso de que se utilice otro método de cálculo para tomografía reportar los valores
+necesarios para la estimación de espesores como el DLP (Producto Dosis-longitud
+[mGy.cm]).
+
+46
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+h)
+
+Viernes 25 de febrero de 2022
+
+Para caso de equipos de radiología intervencionista es importante reportar:
+TIEMPO PROMEDIO / TIPO DE INTERVENCIÓN
+
+7.
+
+CONCLUSIONES:
+
+La Subsecretaría de Control y Aplicaciones Nucleares, aprobará el documento siempre y cuando todas las
+barreras cumplan con el blindaje de acuerdo a las normas establecidas para el cálculo.
+8.
+
+SIGLAS Y ABREVIACIONES.
+
+9.
+
+REFERENCIAS BIBLIOGRÁFICAS.
+
+10. ANEXOS: (Plano mínimo en formato A1 o A3, tablas, figuras, la hoja técnica del equipo y copia de
+autorización de OSR o licencia personal del responsable de la elaboración de la memoria de cálculo
+de blindaje)
+
+47
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+ANEXO VII.
+CONTENIDO DEL INFORME DE LEVANTAMIENTO RADIOMÉTRICO
+El Informe de levantamiento radiométrico deberá incluir:
+CARÁTULA DOCUMENTO:
+
+•
+•
+•
+
+•
+•
+1.
+
+Nombre de la institución.
+Sala para la cual se realiza el cálculo.
+Firmas de responsabilidad con datos de identificación del Representante Legal y
+Profesional que elabora la memoria de cálculo (Especialista en Protección Radiológica,
+Físico Médico, Físicos, Biofísicos, Oficial de Seguridad Radiológica, profesionales en
+ingeniería acordes a la práctica).
+Fecha de presentación.
+Nro. de revisión.
+
+DATOS GENERALES
+
+1.1. Datos de la Instalación:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Razón social.
+Nombre comercial (si aplica).
+RUC.
+Dirección.
+Representante legal.
+Correo electrónico.
+Teléfono.
+Provincia.
+Ciudad.
+Código postal.
+
+1.2. Datos del Profesional que elabora el Levantamiento Radiométrico:
+•
+•
+•
+•
+•
+
+Nombre Completo.
+N° Licencia Personal/Autorización de OSR.
+Vigencia de Licencia Personal/Autorización de OSR.
+Correo electrónico.
+Número Telefónico.
+
+2.
+
+OBJETIVO DEL LEVANTAMIENTO RADIOMÉTRICO
+
+3.
+
+DESCRIPCIÓN DEL EQUIPO
+(Detalle específico del equipo motivo de estudio considerando el tipo de equipo y sus energías,
+incluir las especificaciones técnicas del mismo).
+
+4.
+
+PLANOS A ESCALA DE LA INSTALACIÓN y alrededores mostrando el equipo de
+Radiodiagnóstico Médico y la consola de control, indicando los detalles estructurales de las
+
+48
+
+Registro Oficial - Cuarto Suplemento Nº 11
+
+Viernes 25 de febrero de 2022
+
+paredes y la ocupación de las salas adyacentes, delimitación de zonas (zona controlada y zona
+supervisada), flujo tecnológico y ubicación de los equipos (especificar como se desplazan los
+pacientes y POE).
+5.
+
+IDENTIFICACIÓN DEL EQUIPO DE RADIODIAGNÓSTICO MÉDICO (fabricante,
+modelo, número de serie).
+
+6.
+
+Carga de trabajo máxima estimada y los factores de uso relativos a los ambientes hacia los
+cuales se puede dirigir el haz primario.
+
+7.
+
+Descripción de la instrumentación utilizada y de la calibración.
+
+8.
+
+Descripción de los factores de operación utilizados en el levantamiento (ma, tiempo, kvp,
+dirección del haz, tamaño de campo, maniquí, entre otros).
+
+9.
+
+Lecturas realizadas en puntos dentro y fuera del área controlada, considerando la ubicación de
+los receptores de imagen. en el croquis deben estar indicados los puntos.
+
+10. Estimativa de los equivalentes de dosis ambiente semanales (o anuales) en los puntos de medida,
+considerando los factores de uso (u), de ocupación (t) y carga de trabajo (w) aplicables.
+Punto de
+medición
+
+Descripción del punto de
+medición
+
+Distancia (m)
+
+Dosis calculada
+
+Dosis medida
+
+Observaciones
+(cumple si/no)
+
+11. Conclusiones y recomendaciones aplicables, considerando los niveles de restricciones de dosis
+establecidos por la Autoridad Reguladora.
+12. Fecha, nombre, título profesional y firma del responsable del levantamiento radiométrico.
+13. Referencias Bibliográficas.
+
+49
+
+Cuarto Suplemento Nº 11 - Registro Oficial
+
+Viernes 25 de febrero de 2022
+
+ANEXO VIII.
+REQUISITOS PARA AUTORIZACIÓN DE CAPACITADORES Y AUTORIZACIÓN PARA
+LA IMPARTICIÓN DE CURSOS EN PROTECCIÓN RADIOLÓGICA PARA OSR
+Requisitos para autorización de capacitadores:
+1. Formación Académica:
+a.
+
+Título de cuarto nivel y acreditar amplios conocimientos en Protección Radiológica y uso de las
+radiaciones ionizantes para el área médica.
+
+2. Experiencia:
+a. Acreditar 10 años de experiencia, en el ámbito de las radiaciones ionizantes, a través de un
+certificado laboral.
+Requisitos para solicitud de autorización de cada curso a dictarse:
+1.
+
+Carta de solicitud: Previo a impartir un programa de capacitación inicial y de actualización, se
+deberá solicitar la aprobación de la Autoridad Reguladora.
+
+2.
+
+Contenido: Syllabus con duración mínima de 80 horas para capacitación inicial y 40 horas para
+actualización.
+
+3.
+
+Documentación habilitante: Listado de capacitadores, lugar, fecha, horario y equipamiento.
+
+4.
+
+Modalidad: Presencial o semi-presencial para la parte teórica y presencial para la práctica.
+
+5.
+
+Carga horaria: 70% teórico y 30% práctica.
+
+6.
+
+Prácticas: Las instalaciones médicas donde se realizarán las horas prácticas deberá tener licencia
+vigente, disponer de los tipos de equipos para las diferentes prácticas y contar con el autorizado del
+representante legal de la misma.
+
+7.
+
+Capacitación práctica: Para la capacitación práctica, deben establecer claramente la temática a ser
+desarrollada, para lo cual deberán considerar los diversos tipos de equipos de radiodiagnóstico
+médico y radiología intervencionista.
+
+Firmado electrónicamente por:
+
+MATILDE
+CEPEDA
+
+50
+
+Ing. Hugo Del Pozo Barrezueta
+DIRECTOR
+Quito:
+Calle Mañosca 201 y Av. 10 de Agosto
+Telf.: 3941-800
+Exts.: 3131 - 3134
+www.registroficial.gob.ec
+
+El Pleno de la Corte Constitucional mediante Resolución Administrativa No. 010-AD-CC-2019,
+resolvió la gratuidad de la publicación virtual del Registro Oficial y sus productos, así como la
+eliminación de su publicación en sustrato papel, como un derecho de acceso gratuito de la
+información a la ciudadanía ecuatoriana.
+“Al servicio del país desde el 1º de julio de 1895”
+
+El Registro Oficial no se responsabiliza por los errores
+ortográficos, gramaticales, de fondo y/o de forma que
+contengan los documentos publicados, dichos documentos
+remitidos por las diferentes instituciones para su publicación,
+son transcritos fielmente a sus originales, los mismos que
+se encuentran archivados y son nuestro respaldo.
+
+
