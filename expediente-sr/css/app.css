@@ -120,6 +120,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .verif tr.sub td { background: var(--surface-2); font-weight: 700; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
 .verif .gen { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 .verif .ext { font-size: 11px; color: var(--ink-2); margin-top: 2px; }
+.verif .adj { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 4px; }
+.verif .adj-it { display: inline-flex; align-items: center; gap: 4px; padding: 1px 2px 1px 8px; border: 1px solid var(--line, #d0d5da); border-radius: 12px; font-size: 12px; max-width: 100%; }
+.verif .adj-it small { color: var(--ink-2); }
+.verif .link-adj { background: none; border: 0; padding: 0; color: inherit; text-decoration: underline; cursor: pointer; font: inherit; overflow-wrap: anywhere; text-align: left; }
+.verif .adj-add { font-size: 12px; padding: 2px 4px; }
 .chip { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--accent); color: var(--accent); background: transparent; border-radius: 10px; padding: 1px 8px; cursor: pointer; }
 .verif tr.est-Pendiente td:first-child { box-shadow: inset 3px 0 0 var(--bad); }
 .verif tr.est-Entrámite td:first-child { box-shadow: inset 3px 0 0 var(--warn); }

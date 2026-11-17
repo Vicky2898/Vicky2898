@@ -87,11 +87,17 @@ Se agregaron, sin quitar los anteriores, los requisitos adicionales de la lista 
 - **Matriz de registros institucionales**: licencias institucional y del POE, inventario de EPR, dosimetría, vigilancia médica, mantenimiento, inspecciones e incidentes en un solo documento; en Excel, una hoja por registro.
 - **Procedimiento para informar a la persona expuesta** sobre beneficios y riesgos, como alternativa o complemento de los cinco consentimientos informados.
 
+## Archivos propios de la institución
+
+En la *Lista de verificación* cada requisito tiene «Adjuntar archivo de la institución» (PDF, Word, Excel o fotos, hasta 25 MB cada uno): por ejemplo, los consentimientos informados con el modelo del MSP, contratos, certificados o fotografías. El requisito pasa a «Se adjunta», el oficio de entrega cita el nombre del archivo y el paquete .zip los incluye en la carpeta `Archivos_institucion`, ordenados por requisito. Los archivos se guardan en este navegador (IndexedDB); el **Respaldo** .json los incluye para llevarlos a otro equipo.
+
 ## Base normativa
 
 - Reglamento de Seguridad Radiológica, Decreto Supremo N.º 3640 (R.O. 891, 8 de agosto de 1979).
 - Acuerdo Ministerial MERNNR-MERNNR-2022-0011-AM (R.O. Cuarto Suplemento N.º 11, 25 de febrero de 2022), Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario.
 
 Citas verificadas contra los textos: límites de dosis (num. 5.2 lit. a), feto 1 mSv (6.1.1 lit. c), trabajadora gestante (5.2 lit. b y Reglamento Art. 112 lit. e), prendas (5.4 lit. a y b), dosimetría de cristalino y extremidades en intervencionismo (Art. 11 lit. a), responsabilidades del personal (5.8.1 a 5.8.4, 10.3.4, 16.5.1), funciones del OSR (Anexo III), categorías de riesgo (Anexo I), comunicación trimestral de dosis (Reglamento Art. 7 lit. b), venta o arrendamiento de equipos (Art. 70) y actualización de licencia por baja de equipos (4.3.2). El trébol de los rótulos es magenta sobre amarillo (Reglamento Art. 6).
+
+La carpeta `normativa/` guarda el texto o las notas de la normativa usada (ver su README).
 
 Los valores de técnica radiográfica de los procedimientos son referenciales; cada instalación debe ajustarlos a su equipo y receptor de imagen.

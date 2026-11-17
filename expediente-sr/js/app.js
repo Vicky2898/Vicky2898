@@ -106,6 +106,7 @@ function normalizar(s) {
   ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas', 'levantamientos', 'levPuntos', 'levFuga', 'mant', 'blSalas', 'blParams', 'blBarreras'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
   s.epp.forEach(e => { if (e.kv && !e.kv1) e.kv1 = e.kv; if (e.mas && !e.ma1) e.ma1 = e.mas; });
   if (!s.check) s.check = {};
+  if (!Array.isArray(s.adjuntos)) s.adjuntos = [];
 }
 let tGuardar = null;
 function guardar() {
@@ -686,12 +687,13 @@ function renderSeccion() {
       const fila = r => {
         const est = estadoReq(c, r);
         const genera = (r.doc || []).filter(id => { const d = DOCS.find(x => x.id === id); return d && d.aplica(c); });
-        return `<tr class="est-${est.replace(/\s/g, '')}"><td class="mono">${r.id}</td><td>${esc(r.txt)}${genera.length ? `<div class="gen">${genera.map(id => `<button class="chip" data-ir="${id}">${esc(codigoDoc(c, id))}</button>`).join('')}</div>` : ''}${r.ext ? '<div class="ext">Documento de la institución</div>' : ''}</td>
+        return `<tr class="est-${est.replace(/\s/g, '')}"><td class="mono">${r.id}</td><td>${esc(r.txt)}${genera.length ? `<div class="gen">${genera.map(id => `<button class="chip" data-ir="${id}">${esc(codigoDoc(c, id))}</button>`).join('')}</div>` : ''}${r.ext ? '<div class="ext">Documento de la institución</div>' : ''}${adjuntosReq(r.id)}</td>
           <td><select data-chk="${r.id}" aria-label="Estado ${r.id}">${ESTADOS_REQ.map(e => `<option ${e === est ? 'selected' : ''}>${e}</option>`).join('')}</select></td>
           <td><input data-obs="${r.id}" value="${esc((s.check[r.id] || {}).obs || '')}" placeholder="Observación" aria-label="Observación ${r.id}"></td></tr>`;
       };
       const pend = REQUISITOS.filter(r => estadoReq(c, r) === 'Pendiente').length;
-      h = `<h2>Lista de verificación de requisitos</h2><p class="lead">Los 33 requisitos documentales y los 9 de evidencia fotográfica del oficio. El estado que marque aquí aparece en el oficio de entrega. ${pend ? `<b class="alerta-txt">${pend} pendientes.</b>` : 'Todo marcado.'}</p>
+      const nAdj = (s.adjuntos || []).length;
+      h = `<h2>Lista de verificación de requisitos</h2><p class="lead">Requisitos del oficio de inspección (I y II) y de la lista actualizada de licenciamiento (III). El estado que marque aquí aparece en el oficio de entrega. En cada requisito puede adjuntar los archivos propios de la institución (PDF, Word, Excel o fotos): quedan guardados en el expediente, salen en el paquete .zip y el requisito pasa a «Se adjunta». ${nAdj ? `Archivos adjuntos: ${nAdj} (${adjTamano(s.adjuntos.reduce((t, a) => t + (a.tamano || 0), 0))}).` : ''} ${pend ? `<b class="alerta-txt">${pend} pendientes.</b>` : 'Todo marcado.'}</p>
         <div class="tabla-ed verif"><table><thead><tr><th>N.º</th><th>Requisito</th><th style="min-width:130px">Estado</th><th style="min-width:200px">Observación</th></tr></thead><tbody>
         <tr class="sub"><td colspan="4">I. Requisitos documentales</td></tr>${REQUISITOS.filter(r => r.id.startsWith('I-')).map(fila).join('')}
         <tr class="sub"><td colspan="4">II. Evidencias</td></tr>${REQUISITOS.filter(r => r.id.startsWith('II-')).map(fila).join('')}
@@ -731,6 +733,7 @@ function renderDocumentos() {
       <label><input type="checkbox" id="z-docx" checked> Word</label>
       <label><input type="checkbox" id="z-pdf" checked> PDF</label>
       <label><input type="checkbox" id="z-xlsx" checked> Excel</label>
+      ${(s.adjuntos || []).length ? `<label><input type="checkbox" id="z-adj" checked> Archivos de la institución (${s.adjuntos.length})</label>` : ''}
       <button class="btn" id="btn-zip">Descargar seleccionados (.zip)</button>
       <button class="btn sec" id="btn-libro">Libro de registros (.xlsx)</button>
       <button class="btn link" id="btn-todos">${seleccion.size === aplican.length ? 'Quitar todos' : 'Marcar todos'}</button>
@@ -802,6 +805,13 @@ async function exportarLote() {
       if (fx.pdf) carpeta('PDF').file(n + '.pdf', buildPDF(r, c));
     }
     if (fx.xlsx) zip.file(`Expediente_${c.pref}_${c.P.id}.xlsx`, await buildXLSX(docs, c));
+    const zAdj = document.getElementById('z-adj');
+    if (zAdj && zAdj.checked) {
+      for (const a of (c.S.adjuntos || [])) {
+        const blob = await adjLeerBlob(a.id).catch(() => null);
+        if (blob) zip.folder('Archivos_institucion').folder(adjNombreSeguro(a.req)).file(adjNombreSeguro(a.nombre), blob);
+      }
+    }
     const blob = await zip.generateAsync({ type: 'blob' });
     const inst = nombreArchivo({ code: c.pref, title: c.P.nombre });
     await guardarArchivo(`Expediente_${inst}.zip`, blob);
@@ -924,6 +934,11 @@ function alCambiar(e) {
   if (t.dataset.sel) { if (t.checked) seleccion.add(t.dataset.sel); else seleccion.delete(t.dataset.sel); document.querySelector('.lote-t').textContent = `${seleccion.size} seleccionados`; return; }
 }
 
+function adjuntosReq(req) {
+  const lista = adjDeReq(S(), req);
+  return `<div class="adj">${lista.map(a => `<span class="adj-it"><button class="link-adj" data-adjver="${a.id}" title="Descargar">${esc(a.nombre)}</button><small>${adjTamano(a.tamano || 0)}</small><button class="icono" data-adjdel="${a.id}" title="Quitar archivo" aria-label="Quitar ${esc(a.nombre)}">✕</button></span>`).join('')}<label class="btn link adj-add"><input type="file" multiple hidden data-adj="${req}">+ Adjuntar archivo de la institución</label></div>`;
+}
+
 async function alClic(e) {
   const b = e.target.closest('button, [data-img]');
   if (!b) return;
@@ -942,6 +957,13 @@ async function alClic(e) {
   if (b.dataset.add) { s[b.dataset.add].push(filaVacia(b.dataset.add)); quitarEjemplo(); guardar(); renderSeccion(); renderNav(); const ult = document.querySelector(`[data-t="${b.dataset.add}"][data-i="${s[b.dataset.add].length - 1}"]`); if (ult) ult.focus(); return; }
   if (b.dataset.del) { s[b.dataset.del].splice(+b.dataset.i, 1); guardar(); renderSeccion(); renderNav(); return; }
   if (b.dataset.doc) { docActivo = b.dataset.doc; document.querySelectorAll('.doc-it').forEach(x => x.classList.toggle('on', x.querySelector('[data-doc]').dataset.doc === docActivo)); pintarVista(); if (window.innerWidth < 900) document.querySelector('.vista').scrollIntoView({ behavior: 'smooth' }); return; }
+  if (b.dataset.adjver) {
+    const a = (s.adjuntos || []).find(x => x.id === b.dataset.adjver);
+    const blob = a ? await adjLeerBlob(a.id).catch(() => null) : null;
+    if (!blob) { aviso('El archivo no está en este navegador. Restaure el respaldo donde se adjuntó.', true); return; }
+    await guardarArchivo(a.nombre, blob); return;
+  }
+  if (b.dataset.adjdel) { const a = (s.adjuntos || []).find(x => x.id === b.dataset.adjdel); await adjQuitar(s, b.dataset.adjdel); guardar(); renderSeccion(); aviso(`Se quitó ${a ? a.nombre : 'el archivo'}.`); return; }
   if (b.dataset.ir) { docActivo = b.dataset.ir; seccion = 'documentos'; renderNav(); renderSeccion(); return; }
   if (b.dataset.exp) { exportarUno(b.dataset.exp); return; }
   if (b.dataset.imgQuitar) { s.inst[b.dataset.imgQuitar] = null; guardar(); renderSeccion(); return; }
@@ -956,7 +978,7 @@ async function alClic(e) {
       const n = estadoVacio(s.practica); BD.lista[n.id] = n; BD.actual = n.id; seleccion = null; seccion = 'institucion'; guardar(); render(); aviso('Expediente nuevo creado.'); break;
     }
     case 'btn-duplicar': {
-      const n = JSON.parse(JSON.stringify(s)); n.id = 'exp' + Date.now().toString(36); n.ejemplo = false; n.check = {};
+      const n = JSON.parse(JSON.stringify(s)); n.id = 'exp' + Date.now().toString(36); n.ejemplo = false; n.check = {}; n.adjuntos = [];
       const otras = Object.keys(PRACTICAS).filter(p => p !== s.practica); n.practica = otras[0];
       BD.lista[n.id] = n; BD.actual = n.id; seleccion = null; guardar(); render();
       aviso(`Copia creada para ${PRACTICAS[n.practica].nombre}. Cambie la práctica arriba si necesita otra.`); break;
@@ -978,6 +1000,7 @@ async function alClic(e) {
     case 'btn-borrar': document.getElementById('confirmar').hidden = false; break;
     case 'btn-borrar-no': document.getElementById('confirmar').hidden = true; break;
     case 'btn-borrar-si': {
+      adjBorrarExpediente(BD.lista[BD.actual]);
       delete BD.lista[BD.actual];
       if (!Object.keys(BD.lista).length) { const n = estadoVacio('medico'); BD.lista[n.id] = n; }
       BD.actual = Object.keys(BD.lista)[0]; seleccion = null;
@@ -985,13 +1008,26 @@ async function alClic(e) {
     }
     case 'btn-respaldo': {
       const nombre = `Respaldo_${nombreArchivo({ code: 'expediente', title: PRACTICAS[s.practica].nombre })}.json`;
-      guardarArchivo(nombre, new Blob([JSON.stringify(s, null, 1)], { type: 'application/json' })); break;
+      ocupado(true);
+      adjParaRespaldo(s).catch(() => []).then(adj => guardarArchivo(nombre, new Blob([JSON.stringify({ ...s, adjuntos: adj }, null, 1)], { type: 'application/json' }))).finally(() => ocupado(false));
+      break;
     }
   }
 }
 
 async function alArchivo(e) {
   const t = e.target;
+  if (t.dataset.adj && t.files.length) {
+    try {
+      ocupado(true);
+      const s = S();
+      const errores = await adjAgregar(s, t.dataset.adj, Array.from(t.files));
+      quitarEjemplo(); guardar(); renderSeccion();
+      aviso(errores.length ? `No se guardaron: ${errores.join('; ')}` : (t.files.length === 1 ? 'Archivo adjuntado.' : `${t.files.length} archivos adjuntados.`), !!errores.length);
+    } catch (err) { aviso('No se pudo guardar el archivo en este navegador: ' + err.message, true); }
+    finally { ocupado(false); t.value = ''; }
+    return;
+  }
   if (t.dataset.imgt && t.files[0]) {
     try {
       const fila = S()[t.dataset.imgt][+t.dataset.i];
@@ -1023,8 +1059,11 @@ async function alArchivo(e) {
       const txt = await t.files[0].text();
       const n = JSON.parse(txt);
       if (!n.inst || !n.practica || !PRACTICAS[n.practica]) throw new Error('El archivo no es un respaldo de expediente.');
-      n.id = 'exp' + Date.now().toString(36); normalizar(n);
-      BD.lista[n.id] = n; BD.actual = n.id; seleccion = null; guardar(); render(); aviso('Expediente restaurado.');
+      n.id = 'exp' + Date.now().toString(36);
+      const perdidos = await adjDesdeRespaldo(n, n.adjuntos);
+      normalizar(n);
+      BD.lista[n.id] = n; BD.actual = n.id; seleccion = null; guardar(); render();
+      aviso(perdidos ? `Expediente restaurado; ${perdidos} archivos adjuntos no se pudieron recuperar.` : 'Expediente restaurado.', !!perdidos);
     } catch (err) { aviso(err.message.startsWith('El archivo') ? err.message : 'No se pudo leer el respaldo: el archivo está dañado o no es JSON.', true); }
     t.value = '';
   }

@@ -136,6 +136,7 @@ const ESTADOS_REQ = ['Se adjunta', 'No aplica', 'En trámite', 'Pendiente'];
 function estadoReq(c, r) {
   const v = (c.S.check[r.id] || {}).estado;
   if (v) return v;
+  if ((c.S.adjuntos || []).some(x => x.req === r.id)) return 'Se adjunta';
   if (r.id === 'I-7' || r.id === 'I-23') return c.R.osrAplica ? 'Se adjunta' : 'No aplica';
   if (r.id === 'II-9' || r.id === 'III-3') return c.eqBaja.length ? 'Se adjunta' : 'No aplica';
   if (r.id === 'III-2') return c.eqAct.some(e => /arrend/i.test(e.procedencia || '')) ? 'Pendiente' : 'No aplica';
@@ -147,7 +148,8 @@ function estadoReq(c, r) {
 
 function docOficioRespuesta(c) {
   const { I, O, P } = c;
-  const filas = REQUISITOS.map(r => [r.id.replace('II-', 'II.').replace('I-', ''), r.txt, estadoReq(c, r), (c.S.check[r.id] || {}).obs || '']);
+  const archivos = (r) => (c.S.adjuntos || []).filter(x => x.req === r.id).map(x => x.nombre).join('; ');
+  const filas = REQUISITOS.map(r => [r.id.replace('II-', 'II.').replace('I-', ''), r.txt, estadoReq(c, r), [(c.S.check[r.id] || {}).obs, archivos(r) && `Archivo: ${archivos(r)}`].filter(Boolean).join('. ')]);
   const noAplica = REQUISITOS.filter(r => estadoReq(c, r) === 'No aplica');
   const tramite = REQUISITOS.filter(r => estadoReq(c, r) === 'En trámite');
   const blocks = [
