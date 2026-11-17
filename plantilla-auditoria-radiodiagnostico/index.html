@@ -297,6 +297,7 @@
   <div class="actions no-print">
     <button class="btn primary" id="btnDownloadPDF" type="button">Descargar informe (PDF)</button>
     <button class="btn" id="btnDownloadReport" type="button">Descargar informe (HTML)</button>
+    <button class="btn" id="btnDownloadWord" type="button">Descargar informe (Word)</button>
     <button class="btn" id="btnExport" type="button">Exportar datos</button>
     <button class="btn" id="btnImportTrigger" type="button">Importar datos</button>
     <input type="file" id="fileImport" accept="application/json" hidden>
@@ -410,10 +411,11 @@
     <div class="actions">
       <button class="btn on-surface" id="btnDownloadPDF2" type="button">Descargar informe (PDF)</button>
       <button class="btn on-surface" id="btnDownloadReport2" type="button">Descargar informe (HTML)</button>
+      <button class="btn on-surface" id="btnDownloadWord2" type="button">Descargar informe (Word)</button>
       <button class="btn on-surface" id="btnExport2" type="button">Exportar datos (JSON)</button>
     </div>
   </section>
-  <p class="hint no-print" style="text-align:center; margin-top:10px;">El PDF se genera directamente en tu navegador, sin encabezados ni pies de página añadidos automáticamente.</p>
+  <p class="hint no-print" style="text-align:center; margin-top:10px;">El PDF se genera directamente en tu navegador, sin encabezados ni pies de página añadidos automáticamente. El informe en Word es editable, por si quieres ajustar la redacción antes de entregarlo.</p>
 
   <div class="sign-block" id="signBlock"></div>
 
@@ -1333,7 +1335,7 @@ window.__PDF_FONTS__ = {
     ".r-ring-band{font-family:'Source Sans 3',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.3px;padding:5px 14px;border-radius:999px;margin-top:9px;white-space:nowrap;}"+
     ".r-summary-copy{flex:1;min-width:280px;}"+
     ".r-summary-copy h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:19px;margin:0 0 9px;}"+
-    ".r-summary-copy p{font-size:14.5px;color:#45524d;margin:0 0 13px;}"+
+    ".r-summary-copy p{font-size:14.5px;color:#45524d;margin:0 0 13px;text-align:justify;}"+
     ".r-progress-track{height:10px;border-radius:999px;background:#e6ece9;overflow:hidden;}"+
     ".r-progress-fill{height:100%;border-radius:999px;background:#0f766e;}"+
     ".r-stats{display:flex;gap:16px;flex-wrap:wrap;}"+
@@ -1342,14 +1344,14 @@ window.__PDF_FONTS__ = {
     ".r-stat .l{display:block;font-size:12px;font-weight:700;color:#71827c;text-transform:uppercase;letter-spacing:.4px;margin-top:3px;}"+
     ".r-section{margin-bottom:32px;break-inside:avoid-page;}"+
     ".r-section h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;border-bottom:2px solid #13201d;padding-bottom:9px;margin:0 0 13px;}"+
-    ".r-note{background:#fbeed3;border-left:3px solid #a8730f;color:#7a5610;padding:11px 15px;font-size:14.5px;line-height:1.35;border-radius:6px;margin:0 0 15px;}"+
+    ".r-note{background:#fbeed3;border-left:3px solid #a8730f;color:#7a5610;padding:11px 15px;font-size:14.5px;line-height:1.35;text-align:justify;border-radius:6px;margin:0 0 15px;}"+
     ".r-item{border-bottom:1px solid #e4e9e7;padding:13px 0;break-inside:avoid;}"+
     ".r-item-top{display:flex;align-items:baseline;gap:12px;}"+
     ".r-n{font-family:'IBM Plex Mono',Consolas,monospace;font-weight:600;font-size:13.5px;color:#71827c;width:34px;flex:none;}"+
     ".r-title{font-weight:700;font-size:16px;flex:1;}"+
     ".r-badge{color:#fff;border-radius:999px;padding:4px 13px;font-size:12.5px;font-weight:700;flex:none;white-space:nowrap;}"+
-    ".r-ev{font-size:14px;color:#5b6b66;margin:5px 0 0 46px;}"+
-    ".r-obs,.r-resp{font-size:14px;margin:6px 0 0 46px;}"+
+    ".r-ev{font-size:14px;color:#5b6b66;margin:5px 0 0 46px;text-align:justify;}"+
+    ".r-obs,.r-resp{font-size:14px;margin:6px 0 0 46px;text-align:justify;}"+
     ".r-obs strong,.r-resp strong{color:#45524d;}"+
     ".r-final{margin-top:46px;}"+
     ".r-final>h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;margin:0 0 16px;}"+
@@ -1567,6 +1569,125 @@ window.__PDF_FONTS__ = {
   }
   document.getElementById("btnDownloadReport").addEventListener("click", downloadReportSnapshot);
   document.getElementById("btnDownloadReport2").addEventListener("click", downloadReportSnapshot);
+
+  // ---------- Downloadable report as Word (RTF) ----------
+  // RTF (not .docx) because it is plain text — no zip/XML library needed —
+  // and Word, LibreOffice and Google Docs all open it natively as an
+  // editable document. This is the format meant to be rewritten/"humanized"
+  // by hand, so it favors clean structure over visual fidelity to the PDF.
+  var RTF_COLORS = ["", "13201d", "5f6b66", "1c7a4a", "b23a34", "5c6b66", "a8730f", "7a5610", "0f766e"];
+  var RTF_CF = {ink:1, mute:2, cumple:3, no_cumple:4, na:5, pendiente:6, note:7, accent:8};
+  function rtfColorTable(){
+    return "{\\colortbl;" + RTF_COLORS.slice(1).map(function(hex){
+      return "\\red"+parseInt(hex.substr(0,2),16)+"\\green"+parseInt(hex.substr(2,2),16)+"\\blue"+parseInt(hex.substr(4,2),16)+";";
+    }).join("") + "}";
+  }
+  function rtfEsc(s){
+    s = String(s==null ? "" : s);
+    var out = "";
+    for(var i=0;i<s.length;i++){
+      var c = s.charCodeAt(i);
+      if(c===92 || c===123 || c===125){ out += "\\"+s[i]; }
+      else if(c<128){ out += s[i]; }
+      else{ out += "\\u"+(c>32767 ? c-65536 : c)+"?"; }
+    }
+    return out;
+  }
+  function rtfStatusColor(estado){ return RTF_CF[estado] || RTF_CF.na; }
+
+  function buildReportRTF(){
+    var data = computeReportData();
+    var out = [];
+    out.push("{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang3082");
+    out.push("{\\fonttbl{\\f0\\fswiss\\fcharset0 Calibri;}{\\f1\\fmodern\\fcharset0 Consolas;}}");
+    out.push(rtfColorTable());
+    out.push("\\viewkind4\\uc1\\pard\\sa160\\sl264\\slmult1\\f0\\fs22");
+
+    out.push("\\pard\\sa60\\f0\\fs40\\b\\cf"+RTF_CF.ink+" "+rtfEsc("Informe de auditoría de seguridad radiológica")+"\\b0\\par");
+    out.push("\\sa320\\fs20\\cf"+RTF_CF.mute+" "+rtfEsc("Radiodiagnóstico médico · Radiología intervencionista")+"\\cf"+RTF_CF.ink+"\\fs22\\par");
+
+    out.push("\\sa200\\fs28\\b "+rtfEsc("Ficha técnica")+"\\b0\\fs22\\par");
+    data.headerRows.forEach(function(r){
+      out.push("\\trowd\\trgaph80\\trleft0\\cellx2900\\cellx9350");
+      out.push("\\pard\\intbl\\sa40\\fs18\\b\\cf"+RTF_CF.mute+" "+rtfEsc(r[0].toUpperCase())+"\\cell");
+      out.push("\\pard\\intbl\\sa40\\fs21\\b0\\cf"+RTF_CF.ink+" "+rtfEsc(r[1]||"—")+"\\cell\\row");
+    });
+    out.push("\\pard\\sa0\\par");
+
+    var evaluadosCount = data.totalCumple+data.totalNoCumple+data.totalNA;
+    out.push("\\sa100\\fs28\\b "+rtfEsc("Resumen de cumplimiento")+"\\b0\\fs22\\par");
+    out.push("\\sa80\\fs32\\b\\cf"+RTF_CF.accent+" "+data.pct+"% de cumplimiento\\b0\\cf"+RTF_CF.ink+"\\fs22\\par");
+    out.push("\\qj\\sa200 "+rtfEsc(evaluadosCount+" de "+TOTAL_ITEMS+" ítems evaluados ("+data.avance+"%). El % de cumplimiento se calcula sobre "+data.evaluados+" ítems evaluados; excluye N.A. y pendientes.")+"\\ql\\par");
+    out.push("\\sa320\\b Cumple: \\b0\\cf"+RTF_CF.cumple+" "+data.totalCumple+"\\cf"+RTF_CF.ink+
+      "    \\b No cumple: \\b0\\cf"+RTF_CF.no_cumple+" "+data.totalNoCumple+"\\cf"+RTF_CF.ink+
+      "    \\b N.A.: \\b0\\cf"+RTF_CF.na+" "+data.totalNA+"\\cf"+RTF_CF.ink+
+      "    \\b Pendiente / sin revisar: \\b0\\cf"+RTF_CF.pendiente+" "+data.totalOtros+"\\cf"+RTF_CF.ink+"\\par");
+
+    data.sectionsData.forEach(function(sec){
+      out.push("\\pard\\sb200\\sa120\\fs26\\b\\brdrb\\brdrs\\brdrw10\\brsp60\\cf"+RTF_CF.ink+" "+
+        String(sec.id).padStart(2,"0")+". "+rtfEsc(sec.title)+"\\brdrn\\b0\\fs22\\par");
+      if(sec.note){
+        out.push("\\pard\\li160\\sa200\\qj\\i\\cf"+RTF_CF.note+" "+rtfEsc(sec.note)+"\\i0\\cf"+RTF_CF.ink+"\\ql\\par");
+      }
+      sec.items.forEach(function(it){
+        out.push("\\pard\\sb160\\sa40\\f1\\fs18\\cf"+RTF_CF.mute+" #"+String(it.n).padStart(2,"0")+"  \\f0\\fs22\\b\\cf"+RTF_CF.ink+" "+
+          rtfEsc(it.req)+"  \\cf"+rtfStatusColor(it.estado)+"["+rtfEsc(it.label.toUpperCase())+"]\\cf"+RTF_CF.ink+"\\b0\\par");
+        out.push("\\pard\\li160\\sa40\\qj\\cf"+RTF_CF.mute+" "+rtfEsc(it.ev)+"\\cf"+RTF_CF.ink+"\\ql\\par");
+        if(it.obs){
+          out.push("\\pard\\li160\\sa40\\qj\\b "+rtfEsc("Observación: ")+"\\b0 "+rtfEsc(it.obs)+"\\ql\\par");
+        }
+        if(it.resp){
+          out.push("\\pard\\li160\\sa120\\qj\\b "+rtfEsc("Responsable / en trámite con: ")+"\\b0 "+rtfEsc(it.resp)+"\\ql\\par");
+        }
+      });
+    });
+
+    out.push("\\pard\\sb280\\sa160\\fs28\\b "+rtfEsc("Firma")+"\\b0\\fs22\\par");
+    out.push("\\pard\\sa40\\fs18\\b\\cf"+RTF_CF.mute+" "+rtfEsc("OFICIAL DE SEGURIDAD RADIOLÓGICA (OSR)")+"\\b0\\cf"+RTF_CF.ink+"\\fs22\\par");
+    out.push("\\pard\\sb400\\sa40\\brdrb\\brdrs\\brdrw10 \\brdrn\\par");
+    out.push("\\pard\\sa40 "+rtfEsc("Nombre: "+(state.header.osr||"—"))+"\\par");
+    out.push("\\pard\\sa240 "+rtfEsc("Fecha: "+(state.header.fecha||"—"))+"\\par");
+
+    out.push("\\pard\\sb200\\sa160\\fs28\\b "+rtfEsc("Elaboración, revisión y aprobación")+"\\b0\\fs22\\par");
+    var controlItems = [
+      {label:"Elaborado por", role:"Oficial de Seguridad Radiológica (OSR)", name: state.header.osr},
+      {label:"Revisado por", role:"Dirigido a", name: state.header.dirigidoA},
+      {label:"Aprobado por", role:"Representante legal", name: state.header.representanteLegal}
+    ];
+    out.push("\\trowd\\trgaph80\\trleft0\\cellx3100\\cellx6200\\cellx9350");
+    out.push(controlItems.map(function(it){ return "\\pard\\intbl\\qc\\sa30\\fs18\\b\\cf"+RTF_CF.accent+" "+rtfEsc(it.label.toUpperCase())+"\\b0\\cf"+RTF_CF.ink+"\\ql\\cell"; }).join(""));
+    out.push("\\row\\trowd\\trgaph80\\trleft0\\cellx3100\\cellx6200\\cellx9350");
+    out.push(controlItems.map(function(it){ return "\\pard\\intbl\\qc\\sa30\\fs19\\cf"+RTF_CF.mute+" "+rtfEsc(it.role)+"\\cf"+RTF_CF.ink+"\\ql\\cell"; }).join(""));
+    out.push("\\row\\trowd\\trgaph80\\trleft0\\cellx3100\\cellx6200\\cellx9350");
+    out.push(controlItems.map(function(it){ return "\\pard\\intbl\\qc\\sa30\\fs21\\b "+rtfEsc(it.name || "—")+"\\b0\\ql\\cell"; }).join(""));
+    out.push("\\row\\pard\\sa0\\par");
+
+    out.push("\\pard\\sb200\\fs18\\cf"+RTF_CF.mute+" "+rtfEsc("Generado el "+new Date().toLocaleString("es-EC")+" · Plantilla de auditoría de seguridad radiológica.")+"\\cf"+RTF_CF.ink+"\\fs22\\par");
+    out.push("}");
+    return out.join("\n");
+  }
+
+  async function downloadReportWord(){
+    var rtf = buildReportRTF();
+    var filename = "informe-"+fileSafe(state.header.razonSocial)+"-"+(state.header.fecha||"")+".rtf";
+    try{
+      if(window.claude && typeof window.claude.use === "function"){
+        var downloads = await window.claude.use("downloads");
+        if(downloads){
+          await downloads.save({filename:filename, data:rtf});
+          return;
+        }
+      }
+    }catch(e){ /* fall through to browser download */ }
+    var blob = new Blob([rtf], {type:"application/rtf"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+  document.getElementById("btnDownloadWord").addEventListener("click", downloadReportWord);
+  document.getElementById("btnDownloadWord2").addEventListener("click", downloadReportWord);
 
   // ---------- Downloadable report as PDF ----------
   // Built directly with jsPDF (bundled below, no network dependency and no

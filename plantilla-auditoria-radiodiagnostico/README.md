@@ -13,10 +13,15 @@ No requiere instalación ni servidor: se abre directamente en el navegador (dobl
 - **Cálculo automático del % de cumplimiento** (excluye los ítems marcados N.A. y Pendiente), con panel resumen, avance de la auditoría y desglose por sección.
 - **Sello institucional**: se puede cargar una imagen (PNG/JPG) del sello de la instalación; aparece en grande en la portada y junto a la firma del OSR del informe generado. Es opcional y se guarda junto con el resto de la auditoría.
 - **Descargar informe (PDF)**: genera un PDF con diseño de informe institucional (portada con banda de color y sello, ficha técnica, tarjetas de resumen, insignias de estado por ítem, firma del OSR y cuadro de elaborado/revisado/aprobado) directamente en el navegador, con [jsPDF](https://github.com/parallax/jsPDF) y las tipografías Archivo / Source Sans 3 / IBM Plex Mono incluidas en el propio archivo — no depende de internet ni del diálogo de impresión. Es la forma recomendada de generar el informe.
-- **Descargar informe (HTML)**: misma tipografía, tamaños y anillo grande de % de cumplimiento que el PDF (usa Google Fonts si hay internet, con una alternativa del sistema si no la hay); útil si se quiere editar o visualizar antes de imprimir.
+- **Descargar informe (HTML)**: misma tipografía, tamaños, anillo grande de % de cumplimiento y texto justificado que el PDF (usa Google Fonts si hay internet, con una alternativa del sistema si no la hay); útil si se quiere editar o visualizar antes de imprimir.
+- **Descargar informe (Word)**: el mismo contenido del informe (ficha técnica, resumen, secciones/ítems, firma del OSR y cuadro de elaborado/revisado/aprobado) en un archivo `.rtf` que Word, LibreOffice y Google Docs abren de forma nativa y totalmente editable — pensado para ajustar la redacción a mano antes de entregarlo, ya que la plantilla no puede "humanizar" el texto por sí sola.
 - **Exportar / importar datos (JSON)**: para guardar la auditoría de una instalación y retomarla después, o auditar varias instalaciones por separado.
 
 Los datos se guardan automáticamente en el navegador (localStorage) mientras se completa el formulario; el archivo JSON exportado es la forma confiable de conservar o compartir una auditoría específica.
+
+## Matriz de responsabilidades OSR / Gerencia / Médico / POE
+
+`matriz-responsabilidades-osr.xlsx` es un libro de Excel aparte (una hoja por práctica: radiodiagnóstico médico y radiología intervencionista) que retoma los mismos 72 ítems del checklist y le asigna a cada uno quién es responsable de cumplirlo: **GG** (Gerencia General / representante legal), **DM** (director médico / médico responsable), **OSR** (Oficial de Seguridad Radiológica) o **POE** (personal ocupacionalmente expuesto) — con columnas en blanco de tiempo de ejecución, recursos, estado del proceso y observaciones para completar por instalación. Está basado en el formato de la hoja de actividades del OSR que ya usa la institución, para poder mostrarle a las autoridades qué depende del área de imagen/OSR y qué depende de administración, gerencia o dirección.
 
 ## Fuente
 
