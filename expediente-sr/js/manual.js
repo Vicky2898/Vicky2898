@@ -200,7 +200,7 @@ function docManual(c) {
       ['13.12.6. Dosis que sobrepasan el nivel de investigación', `${fmt(['INF-DOS'])} y anexos de investigación`]
     ], { widths: [45, 55], small: true }),
     H('14. Exposición del público'),
-    Ps(`14.1. **Programa de monitoreo del área.** El levantamiento radiométrico (${fmt(['LEV-RAD'])}) se realiza con el método del IAEA-TECDOC-1958 (actualización del ARCAL XLIX) en la aceptación de cada sala, al menos cada cuatro años y después de cualquier cambio de equipo o de la instalación, en puntos ubicados en la consola, puertas, ventanas y áreas colindantes. Los resultados se comparan con ${criterioARCAL(c) ? 'los niveles de restricción de 5,0 mSv/año en área controlada y 0,5 mSv/año en áreas libres' : `la restricción de ${num2(restriccionPublico(c), 1)} mSv/año para el público`}.`, { align: 'j' }),
+    Ps(`14.1. **Programa de monitoreo del área.** El levantamiento radiométrico (${fmt(['LEV-RAD'])}) se presenta con el formato del Anexo VII de la Norma Técnica y las disposiciones del Memorando MEM-DLPR-2024-0087-ME (cámara de ionización calibrada en H*(10) o kerma en aire), tomando como referencia técnica el IAEA-TECDOC-1958; se realiza en la aceptación de cada sala, cada cuatro años en la renovación de la licencia institucional y después de cualquier cambio de equipo o de la instalación, en puntos ubicados en la consola, puertas, ventanas y áreas colindantes. Los resultados se comparan con ${criterioARCAL(c) ? 'los niveles de restricción de 5,0 mSv/año en área controlada y 0,5 mSv/año en áreas libres' : `la restricción de ${num2(restriccionPublico(c), 1)} mSv/año para el público`}.`, { align: 'j' }),
     Ps('14.2. **Protección de familiares, personas próximas y voluntarios.** Solo ingresa a la sala un acompañante cuando el paciente no puede colaborar. El operador le entrega delantal y collarín, le indica dónde ubicarse fuera del haz directo y le explica la exposición. No puede ser una persona gestante ni menor de 18 años, y su participación se registra en la hoja del estudio.', { align: 'j' }),
     H('15. Exposición médica'),
     Ps(interv
@@ -318,6 +318,40 @@ function kptLev(lev, c) {
   return ((273.2 + T) / (273.2 + T0)) * (P0 / P);
 }
 
+/* Memorando MEM-DLPR-2024-0087-ME (2 de febrero de 2024): requisitos del detector y de la medición
+   para revisar los informes de levantamiento radiométrico de equipos de 70 a 150 kV. */
+const MEMO_LEV = 'Memorando Nro. MEM-DLPR-2024-0087-ME de la Dirección de Licenciamiento y Protección Radiológica (2 de febrero de 2024)';
+function observacionesInstrumento(c) {
+  const V = c.V, o = [];
+  const camara = /ionizaci/i.test(V.levInstTipo || 'Cámara de ionización');
+  const vol = nivel(V.levInstVolumen);
+  if (!camara) o.push({ nivel: 'alta', txt: `El detector del levantamiento es «${V.levInstTipo}»: el ${MEMO_LEV.split(' de la')[0]} exige cámara de ionización (óptima de 1800 cc; mínimo 250 cc).` });
+  else if (vol == null) o.push({ nivel: 'media', txt: 'Falta el volumen de la cámara de ionización del levantamiento (mínimo 250 cc; óptima 1800 cc).' });
+  else if (vol < 250) o.push({ nivel: 'alta', txt: `La cámara de ionización del levantamiento tiene ${V.levInstVolumen} cc; el memorando MEM-DLPR-2024-0087-ME exige un volumen mínimo de 250 cc.` });
+  if (!/H\*|kerma/i.test(V.levInstMagnitud || '')) o.push({ nivel: 'alta', txt: 'Indique la magnitud de calibración del detector del levantamiento: H*(10) o kerma en aire, en calidades ISO 4037.' });
+  if (!V.levInstCert) o.push({ nivel: 'media', txt: 'Falta el número del certificado de calibración del detector del levantamiento (SCAN–DANCT o laboratorio primario, secundario o terciario).' });
+  if (V.levInstVence && diasHasta(V.levInstVence) < 0) o.push({ nivel: 'alta', txt: `El certificado de calibración del detector venció el ${fCorta(V.levInstVence)}.` });
+  else if (!V.levInstVence && V.levInstCal && diasHasta(V.levInstCal) < -365) o.push({ nivel: 'media', txt: 'La calibración del detector del levantamiento tiene más de un año; verifique que el certificado siga vigente.' });
+  if (/préstamo|prestamo|alquiler/i.test(V.levInstPropiedad || '') && !V.levInstPrestamoDoc) o.push({ nivel: 'alta', txt: 'El detector del levantamiento es prestado o alquilado: falta el documento suscrito de préstamo o alquiler.' });
+  if (V.levInstSpecs !== 'Sí') o.push({ nivel: 'media', txt: 'Adjunte las especificaciones técnicas del detector usado en el levantamiento.' });
+  return o;
+}
+
+// Modo de medición según el tiempo de respuesta del detector frente a la duración del haz
+function modoMedicion(lev, c) {
+  const tr = nivel(c.V.levInstRespuesta), t = nivel(lev.tiempo);
+  const puntos = (c.S.levPuntos || []).filter(p => p.sala === lev.sala && p.lectura);
+  const integrado = puntos.length ? puntos.every(p => !/h/.test(p.unidad || '')) : null;
+  const largos = /Fluoroscopia|Tomograf/.test(modalidadLev(lev, c));
+  let alerta = null;
+  if (tr != null && t != null && t <= tr) {
+    if (largos) alerta = `${lev.sala}: el tiempo de exposición (${lev.tiempo} s) no supera el tiempo de respuesta del detector (${c.V.levInstRespuesta} s); en tomografía, arcos en C y angiógrafos debe aumentarse la duración de la exposición.`;
+    else if (integrado === false) alerta = `${lev.sala}: el haz (${lev.tiempo} s) dura menos que el tiempo de respuesta del detector (${c.V.levInstRespuesta} s); la medición debe hacerse en modo integración con varios disparos, no en tasa.`;
+    else if (integrado && puntos.some(p => !(nivel(p.disparos) > 1))) alerta = `${lev.sala}: en modo integración registre el número de disparos de cada punto (la lectura se divide para ese número).`;
+  }
+  return { tr, t, integrado, largos, alerta };
+}
+
 function calcularPunto(lev, p, c) {
   const mAs = nivel(lev.mas) || ((nivel(lev.ma) || 0) * (nivel(lev.tiempo) || 0)) || null;
   const mA = nivel(lev.ma), t = nivel(lev.tiempo);
@@ -384,17 +418,24 @@ function docLevantamiento(c) {
     H('2. Objetivo del levantamiento radiométrico'),
     Ps('Medir los niveles de radiación en las barreras y áreas colindantes de las salas de rayos X para detectar posibles fugas o debilidades del blindaje estructural, y verificar que las dosis estimadas para el personal ocupacionalmente expuesto y el público no superen las restricciones y límites establecidos (Norma Técnica, Art. 3, definición de levantamiento radiométrico; num. 6.1.4 lit. d).', { align: 'j' }),
     Ps('2.1. Metodología', { bold: true }),
-    Ps('Se aplicó el protocolo de evaluación de las condiciones ambientales o levantamiento radiométrico del IAEA-TECDOC-1958, Protocolos de Control de Calidad para Radiodiagnóstico en América Latina y el Caribe (OIEA/OPS, 2021), que actualiza el ARCAL XLIX, en la sección correspondiente a cada modalidad; para mamografía y para la radiación de fuga de la coraza, que el TECDOC no desarrolla, se mantuvieron las pruebas del ARCAL XLIX. Las lecturas se corrigieron por el factor de calibración y, en cámaras de ionización, por presión y temperatura. En el croquis de cada sala se identificaron con letras mayúsculas los puntos dentro y fuera de la sala donde pueden permanecer trabajadores o miembros del público. La cámara de ionización se colocó detrás de cada barrera, a unos 15 cm (30 cm en fluoroscopia), y en cada punto se registró el mayor valor obtenido tras repetir la medición en un punto adyacente.', { align: 'j' }),
+    Ps(`El informe sigue el contenido mínimo del Anexo VII de la Norma Técnica. La medición se realizó según las disposiciones del ${MEMO_LEV} sobre el detector, su calibración y la forma de medir, y con la metodología técnica de referencia del IAEA-TECDOC-1958, Protocolos de Control de Calidad para Radiodiagnóstico en América Latina y el Caribe (OIEA/OPS, 2021), que actualiza el ARCAL XLIX; para mamografía y para la radiación de fuga de la coraza, que el TECDOC no desarrolla, se tomaron como referencia las pruebas del ARCAL XLIX.`, { align: 'j' }),
+    Ps('En el croquis de cada sala se identificaron con letras mayúsculas los puntos dentro y fuera de la sala donde pueden permanecer trabajadores o miembros del público. El detector se colocó detrás de cada barrera, a unos 15 cm (30 cm en fluoroscopia), y en cada punto se registró el mayor valor obtenido tras repetir la medición. Cuando la duración del haz fue menor que el tiempo de respuesta del detector, se midió en modo integración con varios disparos y la lectura se dividió para el número de disparos; en tomografía, arcos en C y angiógrafos se usaron exposiciones de varios segundos, superiores al tiempo de respuesta. Las lecturas se corrigieron por el factor de calibración y, en cámaras de ionización, por presión y temperatura. Se adjunta el registro fotográfico de las mediciones.', { align: 'j' }),
     H('7. Instrumentación utilizada y calibración'),
     KV([
       ['Tipo de detector', V.levInstTipo || 'Cámara de ionización'],
       ['Marca / modelo', `${V.levInstMarca || '[marca]'} / ${V.levInstModelo || '[modelo]'}`],
       ['N.° de serie', V.levInstSerie || '[serie]'],
       ['Rango de medida', V.levInstRango || '[rango]'],
-      ['Fecha de la última calibración', V.levInstCal ? fCorta(V.levInstCal) : '[fecha]'],
-      ['Laboratorio de calibración / certificado', `${V.levInstLab || '[laboratorio]'}${V.levInstCert ? ' / ' + V.levInstCert : ''}`]
+      ['Volumen de la cámara de ionización', V.levInstVolumen ? `${V.levInstVolumen} cc` : '[cc]'],
+      ['Tiempo de respuesta del detector', V.levInstRespuesta ? `${V.levInstRespuesta} s` : '[s]'],
+      ['Magnitud y calidades de calibración', `${V.levInstMagnitud || '[H*(10) o kerma en aire]'}; ${V.levInstCalidades || 'calidades ISO 4037'}`],
+      ['Fecha de calibración / vigencia del certificado', `${V.levInstCal ? fCorta(V.levInstCal) : '[fecha]'} / ${V.levInstVence ? fCorta(V.levInstVence) : '[vigencia]'}`],
+      ['Laboratorio de calibración / certificado', `${V.levInstLab || '[SCAN–DANCT u otro laboratorio de calibraciones dosimétricas]'}${V.levInstCert ? ' / ' + V.levInstCert : ''}`],
+      ['Propiedad del detector', `${V.levInstPropiedad || '[propio / de la institución / préstamo / alquiler]'}${/préstamo|prestamo|alquiler/i.test(V.levInstPropiedad || '') ? ` · documento: ${V.levInstPrestamoDoc || '[documento de préstamo o alquiler]'}` : ''}`],
+      ['Especificaciones técnicas', V.levInstSpecs === 'Sí' ? 'Se adjuntan como anexo' : '[adjuntar]']
     ]),
-    ...(V.levInstCal && diasHasta(V.levInstCal) < -365 ? [NOTE('La calibración del instrumento tiene más de un año; conviene recalibrarlo antes del próximo levantamiento.')] : [])
+    Ps(`Conforme al ${MEMO_LEV}, el detector óptimo es una cámara de ionización de 1800 cc y, como segunda opción, una cámara de ionización de al menos 250 cc, calibrada en H*(10) o kerma en aire para calidades de radiación ISO 4037, con certificado vigente emitido por la SCAN–DANCT o por un laboratorio primario, secundario o terciario de calibraciones dosimétricas.`, { align: 'j' }),
+    ...observacionesInstrumento(c).map(x => NOTE(x.txt))
   ];
   if (!levs.length) blocks.push(Ps('[Registre al menos una sala en la sección Levantamiento radiométrico.]'));
   const resumen = [], resumenFuga = [];
@@ -443,9 +484,19 @@ function docLevantamiento(c) {
       const obs = [p.obs, r.chr != null ? `Requiere ${num2(Math.max(r.chr, 0.1), 1)} CHR adicionales` : ''].filter(Boolean).join('. ');
       return [{ t: p.punto || '', align: 'c', bold: true }, p.descripcion || '', { t: [p.barrera, p.distancia ? p.distancia + ' m' : ''].filter(Boolean).join(', '), align: 'c' }, { t: p.zona || '', align: 'c' }, { t: `${p.u || '1'} / ${p.t || '1'}`, align: 'c' }, { t: p.lectura ? `${p.lectura} ${p.unidad || 'µSv'}${nivel(p.disparos) > 1 ? ` (${p.disparos} disp.)` : ''}` : '—', align: 'c' }, { t: r.porCarga == null ? '—' : num2(r.porCarga, 3), align: 'c' }, { t: r.semanal == null ? '—' : num2(r.semanal, 4), align: 'c' }, { t: r.anual == null ? '—' : num2(r.anual, 3), align: 'c' }, { t: num2(r.criterio, r.criterio < 1 ? 2 : 1), align: 'c' }, { t: r.cumple == null ? '—' : (r.cumple ? 'S' : 'N'), align: 'c', bold: true, fill: r.cumple == null ? null : (r.cumple ? 'C6E0B4' : 'F8CBAD') }, obs];
     });
+    const mm = modoMedicion(lev, c);
+    blocks.push(Ps(`Modo de medición: ${mm.integrado === false ? 'tasa de dosis' : (mm.integrado ? 'integración' : '[tasa o integración]')}. Duración de la exposición: ${lev.tiempo || '[s]'} s; tiempo de respuesta del detector: ${c.V.levInstRespuesta || '[s]'} s.${mm.largos ? ' En esta modalidad la exposición se prolongó varios segundos para superar el tiempo de respuesta del detector.' : (mm.integrado ? ' La lectura integrada se dividió para el número de disparos registrado en cada punto.' : '')}`, { align: 'j' }));
+    if (mm.alerta) blocks.push(NOTE(mm.alerta));
     blocks.push(Ps(`9 y 10. Lecturas y estimación de equivalentes de dosis ambiente`, { bold: true }));
     blocks.push(Ps(`Para cada punto la mayor lectura, descontado el fondo, se multiplicó por el factor de calibración del instrumento (Fc) y por el factor de conversión a la magnitud de interés; el resultado se expresó por unidad de carga (µSv/mA·min) considerando ${/h/.test((puntos[0] || {}).unidad || '') ? 'la corriente' : 'el mAs'} de la técnica, y se multiplicó por W × U × T para obtener la dosis semanal. La dosis anual se obtuvo multiplicando por 50 semanas. Cuando la lectura integrada corresponde a varios disparos, se dividió por su número.`, { align: 'j' }));
     blocks.push(T(['Punto', 'Descripción del punto de medición', 'Barrera, distancia', 'Zona', 'U / T', 'Lectura', 'µSv/ mA·min', 'mSv/ semana', 'mSv/ año', 'Criterio (mSv/año)', 'Acepta (S/N)', 'Observaciones'], filas.length ? filas : [['', '', '', '', '', '', '', '', '', '', '', '']], { widths: [5, 17, 9, 9, 6, 9, 7, 7, 7, 7, 6, 11], small: true }));
+    const fotos = puntos.filter(p => p.foto && p.foto.data);
+    if (fotos.length) {
+      blocks.push(Ps(`Registro fotográfico de las mediciones`, { bold: true }));
+      const filasFoto = [];
+      for (let i = 0; i < fotos.length; i += 2) filasFoto.push([fotos[i], fotos[i + 1]].map(p => p ? { img: p.foto, h: 55 } : ''), [fotos[i], fotos[i + 1]].map(p => p ? { t: `Punto ${p.punto}: ${p.descripcion || ''}${p.lectura ? ` · ${p.lectura} ${p.unidad || 'µSv'}` : ''}`, align: 'c' } : ''));
+      blocks.push(T(['Fotografía de la medición', 'Fotografía de la medición'], filasFoto, { widths: [50, 50], small: true }));
+    } else blocks.push(NOTE('El registro fotográfico de las mediciones (lectura del detector en cada punto) se adjunta como anexo.'));
     if (fugas.length) {
       const filasF = fugas.map(f => {
         const r = calcularFuga(f, lev, c);
@@ -478,7 +529,7 @@ function docLevantamiento(c) {
         : `La radiación de fuga de la coraza está dentro de la tolerancia en todos los puntos evaluados.`] : []),
       criterios,
       ...(resumen.some(x => /delantal|interior/i.test(x.p.zona || '')) ? ['En el interior de la sala, en la posición del personal, la dosis sobre el delantal no debe superar 1,0 mSv/semana o 50 mSv/año (ARCAL XLIX, TP-005).'] : []),
-      'Repetir el levantamiento en la aceptación de cada sala, al menos cada cuatro años y después de cualquier modificación que afecte la protección radiológica (cambio de equipo o de tubo, obras en las barreras, cambio de uso de las áreas colindantes o aumento significativo de la carga de trabajo), o con la frecuencia que disponga la Autoridad Reguladora.',
+      'Presentar el levantamiento cada cuatro años, en cada renovación de la licencia institucional (Memorando MEM-DLPR-2024-0087-ME), y repetirlo en la aceptación de cada sala y después de cualquier modificación que afecte la protección radiológica (cambio de equipo o de tubo, obras en las barreras, cambio de uso de las áreas colindantes o aumento significativo de la carga de trabajo), o con la frecuencia que disponga la Autoridad Reguladora.',
       'Mantener la señalización, la luz roja y las puertas cerradas durante las exposiciones.'
     ]),
     H('12. Responsable del levantamiento'),

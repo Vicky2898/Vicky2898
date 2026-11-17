@@ -482,7 +482,8 @@ const REQUISITOS = [
   { id: 'III-10', txt: 'Licencia institucional de la empresa de mantenimiento', ext: true },
   { id: 'III-11', txt: 'Licencia personal del técnico de mantenimiento', ext: true },
   { id: 'III-12', txt: 'Factura de compra de los EPRI con menos de un año (alternativa al informe de integridad)', ext: true, cond: true },
-  { id: 'III-13', txt: 'Fotografías de la sala de irradiación, el comando y las áreas adyacentes (salas vecinas, sala de espera y recepción)', ext: true }
+  { id: 'III-13', txt: 'Fotografías de la sala de irradiación, el comando y las áreas adyacentes (salas vecinas, sala de espera y recepción)', ext: true },
+  { id: 'III-14', txt: 'Levantamiento radiométrico: certificado de calibración vigente del detector (H*(10) o kerma en aire), especificaciones técnicas, documento de préstamo o alquiler si aplica y registro fotográfico de las mediciones (Memorando MEM-DLPR-2024-0087-ME)', doc: ['LEV-RAD'], ext: true }
 ];
 
 /* Código corto de práctica para la codificación de documentos */

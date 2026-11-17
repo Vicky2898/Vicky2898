@@ -1505,6 +1505,11 @@ function revisarExpediente(c) {
   });
   if (!c.poe.length) a.push({ nivel: 'media', txt: 'Aún no hay personal registrado.' });
   if (!c.eqAct.length) a.push({ nivel: 'media', txt: 'Aún no hay equipos registrados.' });
+  // Detector y forma de medir del levantamiento radiométrico (Memorando MEM-DLPR-2024-0087-ME, en manual.js)
+  if ((c.S.levantamientos || []).some(l => l.sala) && typeof observacionesInstrumento === 'function') {
+    observacionesInstrumento(c).forEach(x => a.push(x));
+    c.S.levantamientos.filter(l => l.sala).forEach(l => { const m = modoMedicion(l, c); if (m.alerta) a.push({ nivel: 'alta', txt: m.alerta }); });
+  }
   const pend = REQUISITOS.filter(r => estadoReq(c, r) === 'Pendiente');
   if (pend.length) a.push({ nivel: 'baja', txt: `${pend.length} requisitos marcados como pendientes en la lista de verificación.` });
   return a;
