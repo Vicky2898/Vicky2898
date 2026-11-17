@@ -200,7 +200,7 @@ function docManual(c) {
       ['13.12.6. Dosis que sobrepasan el nivel de investigación', `${fmt(['INF-DOS'])} y anexos de investigación`]
     ], { widths: [45, 55], small: true }),
     H('14. Exposición del público'),
-    Ps(`14.1. **Programa de monitoreo del área.** El levantamiento radiométrico (${fmt(['LEV-RAD'])}) se realiza con el método del protocolo ARCAL XLIX en la aceptación de cada sala, al menos cada cuatro años y después de cualquier cambio de equipo o de la instalación, en puntos ubicados en la consola, puertas, ventanas y áreas colindantes. Los resultados se comparan con ${criterioARCAL(c) ? 'los niveles de restricción de 5,0 mSv/año en área controlada y 0,5 mSv/año en áreas libres' : `la restricción de ${num2(restriccionPublico(c), 1)} mSv/año para el público`}.`, { align: 'j' }),
+    Ps(`14.1. **Programa de monitoreo del área.** El levantamiento radiométrico (${fmt(['LEV-RAD'])}) se realiza con el método del IAEA-TECDOC-1958 (actualización del ARCAL XLIX) en la aceptación de cada sala, al menos cada cuatro años y después de cualquier cambio de equipo o de la instalación, en puntos ubicados en la consola, puertas, ventanas y áreas colindantes. Los resultados se comparan con ${criterioARCAL(c) ? 'los niveles de restricción de 5,0 mSv/año en área controlada y 0,5 mSv/año en áreas libres' : `la restricción de ${num2(restriccionPublico(c), 1)} mSv/año para el público`}.`, { align: 'j' }),
     Ps('14.2. **Protección de familiares, personas próximas y voluntarios.** Solo ingresa a la sala un acompañante cuando el paciente no puede colaborar. El operador le entrega delantal y collarín, le indica dónde ubicarse fuera del haz directo y le explica la exposición. No puede ser una persona gestante ni menor de 18 años, y su participación se registra en la hoja del estudio.', { align: 'j' }),
     H('15. Exposición médica'),
     Ps(interv
@@ -264,13 +264,13 @@ const fraccion = (v) => { const s = String(v || '').trim(); if (s.includes('/'))
 
 // Parámetros de cada protocolo del ARCAL XLIX (TP-002 a TP-006)
 const MODALIDADES_LEV = {
-  'Radiografía general': { tp: 'TP-002', dist: '15 cm', u: 'U = 0,7 para el piso y 0,3 para la pared del bucky mural en el haz primario; 1 en barreras secundarias', simulador: 'Simulador de tórax de un adulto típico, fijado al bucky mural o sobre la mesa', param: 'tensión más alta usada en los exámenes de rutina, control automático de exposición (CAE) desactivado, tiempo igual o superior a 1 s con la menor corriente disponible en modo tasa (o el mAs más alto que permita el generador en modo de dosis integrada) y el campo más amplio del colimador', haz: 'Primero se midió el haz primario sin simulador, dirigido a cada barrera donde puede haber receptor de imagen, con la distancia foco-película más usada; luego la radiación dispersa con el simulador en la mesa y en el bucky mural, en cada dirección de uso clínico del tubo.', fuga: 1 },
-  'Radiografía portátil': { tp: 'TP-002', dist: '15 cm', u: 'U = 1 en las áreas donde se usa el equipo (solo radiación dispersa fuera del haz)', simulador: 'Simulador de tórax de un adulto típico', param: 'tensión más alta de rutina, CAE desactivado, tiempo igual o superior a 1 s y el campo más amplio del colimador', haz: 'Se midió la radiación dispersa alrededor de la cama del paciente, a la distancia que ocupan el operador y las personas de las camas vecinas.', fuga: 1 },
-  'Radiografía intraoral': { tp: 'TP-003', dist: '15 cm', u: 'U = 1, porque solo hay radiación dispersa', simulador: 'Simulador de cabeza en la posición usual del paciente, con el localizador en contacto', param: 'mayor técnica usada en los exámenes de rutina y tiempo igual o superior a 1 s en modo tasa', haz: 'Se midió la radiación dispersa con el tubo en posición frontal y en las oblicuas derecha e izquierda respecto del paciente.', fuga: 0.25 },
-  'Panorámica / cefalométrica': { tp: 'TP-003 (por analogía)', dist: '15 cm', u: 'U = 1, porque fuera del receptor solo llega radiación dispersa', simulador: 'Simulador de cabeza en el cefalostato', param: 'mayor técnica de rutina (adulto) con el ciclo completo de exposición', haz: 'Se midió la radiación dispersa durante el ciclo completo de rotación, en los puntos del operador y de las áreas vecinas.', fuga: 1 },
+  'Radiografía general': { tec: { sec: '2.1', rep: 3, txt: 'láminas de PMMA de 25 cm de espesor y 30 × 30 cm (o un recipiente con agua) centradas sobre la mesa, tubo a 100 cm con el haz perpendicular, CAE desactivado, la mayor técnica de rutina y el campo más amplio del colimador; luego se repitió orientando el rayo central al bucky de pared, con las láminas delante de él' },  tp: 'TP-002', dist: '15 cm', u: 'U = 0,7 para el piso y 0,3 para la pared del bucky mural en el haz primario; 1 en barreras secundarias', simulador: 'Simulador de tórax de un adulto típico, fijado al bucky mural o sobre la mesa', param: 'tensión más alta usada en los exámenes de rutina, control automático de exposición (CAE) desactivado, tiempo igual o superior a 1 s con la menor corriente disponible en modo tasa (o el mAs más alto que permita el generador en modo de dosis integrada) y el campo más amplio del colimador', haz: 'Primero se midió el haz primario sin simulador, dirigido a cada barrera donde puede haber receptor de imagen, con la distancia foco-película más usada; luego la radiación dispersa con el simulador en la mesa y en el bucky mural, en cada dirección de uso clínico del tubo.', fuga: 1 },
+  'Radiografía portátil': { tec: { sec: '2.1', rep: 3, txt: 'láminas de PMMA de 25 cm y 30 × 30 cm centradas en el campo, la mayor técnica de rutina sin CAE y el campo más amplio' },  tp: 'TP-002', dist: '15 cm', u: 'U = 1 en las áreas donde se usa el equipo (solo radiación dispersa fuera del haz)', simulador: 'Simulador de tórax de un adulto típico', param: 'tensión más alta de rutina, CAE desactivado, tiempo igual o superior a 1 s y el campo más amplio del colimador', haz: 'Se midió la radiación dispersa alrededor de la cama del paciente, a la distancia que ocupan el operador y las personas de las camas vecinas.', fuga: 1 },
+  'Radiografía intraoral': { tec: { sec: '3.A.1', rep: 2, txt: 'maniquí de cabeza o placas de PMMA de 10 × 10 cm en la posición usual de la cabeza, cono localizador en contacto y en posición frontal, la mayor técnica de rutina; luego con el tubo a la derecha y a la izquierda del paciente' },  tp: 'TP-003', dist: '15 cm', u: 'U = 1, porque solo hay radiación dispersa', simulador: 'Simulador de cabeza en la posición usual del paciente, con el localizador en contacto', param: 'mayor técnica usada en los exámenes de rutina y tiempo igual o superior a 1 s en modo tasa', haz: 'Se midió la radiación dispersa con el tubo en posición frontal y en las oblicuas derecha e izquierda respecto del paciente.', fuga: 0.25 },
+  'Panorámica / cefalométrica': { tec: { sec: '3.A.1', rep: 2, txt: 'maniquí de cabeza o placas de PMMA en el cefalostato y la mayor técnica de rutina para adulto' },  tp: 'TP-003 (por analogía)', dist: '15 cm', u: 'U = 1, porque fuera del receptor solo llega radiación dispersa', simulador: 'Simulador de cabeza en el cefalostato', param: 'mayor técnica de rutina (adulto) con el ciclo completo de exposición', haz: 'Se midió la radiación dispersa durante el ciclo completo de rotación, en los puntos del operador y de las áreas vecinas.', fuga: 1 },
   'Mamografía': { tp: 'TP-004', dist: '15 cm', u: 'U = 1, porque solo hay radiación dispersa', simulador: 'Simulador de mama de 4,5 cm con el compresor en contacto', param: 'exposición sin CAE, tiempo de 1 s y el mayor kV disponible para rutina', haz: 'Se midió con el tubo en proyección cráneo-caudal y en las oblicuas laterales derecha e izquierda.', fuga: 1 },
-  'Fluoroscopia / intervencionismo': { tp: 'TP-005', dist: '30 cm', u: 'U = 1, porque solo hay radiación dispersa', simulador: 'Simulador de tórax entre el tubo y el intensificador o detector, a 45 cm de distancia foco-superficie', param: 'modo manual, tiempo igual o superior a 10 s, corriente de 1 a 5 mA y el campo más amplio permitido', haz: 'Se midió la radiación dispersa en cada dirección de uso clínico del tubo. En el interior de la sala, en la posición del personal, se midió con y sin las barreras de protección, anotando la distancia al centro del simulador.', fuga: 1 },
-  'Tomografía computarizada': { tp: 'TP-006', dist: '15 cm', u: 'U = 1, porque solo hay radiación secundaria', simulador: 'Simulador de abdomen equivalente a agua de unos 30 cm de diámetro', param: 'barrido de abdomen con la tensión más alta y el espesor de corte más amplio usados en rutina', haz: 'Se midió la radiación secundaria durante el barrido en cada punto, ajustando la escala del instrumento cuando fue necesario.', fuga: 1, wTipico: 5000 }
+  'Fluoroscopia / intervencionismo': { tec: { sec: '5.A.1', rep: 3, txt: 'modo manual cuando es posible, el kVp más alto de rutina, láminas de PMMA de 20 cm y 30 × 30 cm entre el tubo y el receptor, distancia foco-superficie de al menos 45 cm (foco-receptor de unos 100 cm), el campo más amplio y un tiempo suficiente para que la lectura se estabilice; en el interior de la sala se midió con y sin las barreras de protección' },  tp: 'TP-005', dist: '30 cm', u: 'U = 1, porque solo hay radiación dispersa', simulador: 'Simulador de tórax entre el tubo y el intensificador o detector, a 45 cm de distancia foco-superficie', param: 'modo manual, tiempo igual o superior a 10 s, corriente de 1 a 5 mA y el campo más amplio permitido', haz: 'Se midió la radiación dispersa en cada dirección de uso clínico del tubo. En el interior de la sala, en la posición del personal, se midió con y sin las barreras de protección, anotando la distancia al centro del simulador.', fuga: 1 },
+  'Tomografía computarizada': { tec: { sec: '6.1', rep: 3, txt: 'maniquí de abdomen de unos 30 cm de diámetro centrado en la mesa y un barrido de abdomen con la tensión más alta y la colimación más amplia, empezando en la menor escala de tasa de dosis' },  tp: 'TP-006', dist: '15 cm', u: 'U = 1, porque solo hay radiación secundaria', simulador: 'Simulador de abdomen equivalente a agua de unos 30 cm de diámetro', param: 'barrido de abdomen con la tensión más alta y el espesor de corte más amplio usados en rutina', haz: 'Se midió la radiación secundaria durante el barrido en cada punto, ajustando la escala del instrumento cuando fue necesario.', fuga: 1, wTipico: 5000 }
 };
 const MODALIDADES_LEV_OPC = Object.keys(MODALIDADES_LEV);
 const ZONAS_LEV = ['Controlada', 'Supervisada', 'Libre', 'Interior de la sala (sobre el delantal)'];
@@ -305,14 +305,23 @@ function cargaLev(lev, c) {
 function criterioZona(zona, c) {
   const z = zona || '';
   if (/delantal|interior/i.test(z)) return { anual: 50, texto: 'sobre el delantal (ARCAL XLIX, TP-005)' };
-  if (/Controlada/i.test(z)) return criterioARCAL(c) ? { anual: 5, texto: 'área controlada (ARCAL XX)' } : { anual: restriccionPOE(c), texto: 'restricción institucional del POE' };
-  return criterioARCAL(c) ? { anual: 0.5, texto: 'área libre (ARCAL XX)' } : { anual: restriccionPublico(c), texto: 'restricción para el público' };
+  if (/Controlada/i.test(z)) return criterioARCAL(c) ? { anual: 5, texto: 'área controlada (TECDOC-1958, Tabla 3; ICRP 103)' } : { anual: restriccionPOE(c), texto: 'restricción institucional del POE' };
+  return criterioARCAL(c) ? { anual: 0.5, texto: 'área libre (TECDOC-1958, Tabla 3; ICRP 103)' } : { anual: restriccionPublico(c), texto: 'restricción para el público' };
+}
+
+// Corrección por presión y temperatura para cámaras de ionización abiertas (TECDOC-1958, ec. 8)
+function kptLev(lev, c) {
+  if (!/ionizaci/i.test(c.V.levInstTipo || 'Cámara de ionización')) return 1;
+  const T = nivel(lev.temp), P = nivel(lev.presion);
+  if (T == null || !P) return 1;
+  const T0 = nivel(c.V.levInstT0) ?? 20, P0 = nivel(c.V.levInstP0) || 101.3;
+  return ((273.2 + T) / (273.2 + T0)) * (P0 / P);
 }
 
 function calcularPunto(lev, p, c) {
   const mAs = nivel(lev.mas) || ((nivel(lev.ma) || 0) * (nivel(lev.tiempo) || 0)) || null;
   const mA = nivel(lev.ma), t = nivel(lev.tiempo);
-  const fc = nivel(lev.fc) || 1, fconv = nivel(lev.fconv) || 1;
+  const fc = (nivel(lev.fc) || 1) * kptLev(lev, c), fconv = nivel(lev.fconv) || 1;
   const lectura = nivel(p.lectura);
   const disparos = nivel(p.disparos) || 1;
   const fondo = nivel(lev.fondo) || 0;
@@ -375,7 +384,7 @@ function docLevantamiento(c) {
     H('2. Objetivo del levantamiento radiométrico'),
     Ps('Medir los niveles de radiación en las barreras y áreas colindantes de las salas de rayos X para detectar posibles fugas o debilidades del blindaje estructural, y verificar que las dosis estimadas para el personal ocupacionalmente expuesto y el público no superen las restricciones y límites establecidos (Norma Técnica, Art. 3, definición de levantamiento radiométrico; num. 6.1.4 lit. d).', { align: 'j' }),
     Ps('2.1. Metodología', { bold: true }),
-    Ps('Se aplicó el protocolo de levantamiento radiométrico (prueba 1) y de radiación de fuga (prueba 2) del Protocolo de Control de Calidad en Radiodiagnóstico ARCAL XLIX, en la versión correspondiente a cada modalidad. En el croquis de cada sala se identificaron con letras mayúsculas los puntos dentro y fuera de la sala donde pueden permanecer trabajadores o miembros del público. La cámara de ionización se colocó detrás de cada barrera, a unos 15 cm (30 cm en fluoroscopia), y en cada punto se registró el mayor valor obtenido tras repetir la medición en un punto adyacente.', { align: 'j' }),
+    Ps('Se aplicó el protocolo de evaluación de las condiciones ambientales o levantamiento radiométrico del IAEA-TECDOC-1958, Protocolos de Control de Calidad para Radiodiagnóstico en América Latina y el Caribe (OIEA/OPS, 2021), que actualiza el ARCAL XLIX, en la sección correspondiente a cada modalidad; para mamografía y para la radiación de fuga de la coraza, que el TECDOC no desarrolla, se mantuvieron las pruebas del ARCAL XLIX. Las lecturas se corrigieron por el factor de calibración y, en cámaras de ionización, por presión y temperatura. En el croquis de cada sala se identificaron con letras mayúsculas los puntos dentro y fuera de la sala donde pueden permanecer trabajadores o miembros del público. La cámara de ionización se colocó detrás de cada barrera, a unos 15 cm (30 cm en fluoroscopia), y en cada punto se registró el mayor valor obtenido tras repetir la medición en un punto adyacente.', { align: 'j' }),
     H('7. Instrumentación utilizada y calibración'),
     KV([
       ['Tipo de detector', V.levInstTipo || 'Cámara de ionización'],
@@ -417,14 +426,16 @@ function docLevantamiento(c) {
     blocks.push(Ps(`${txtW} ${mod.u}. Los factores de ocupación (T) responden a la estimación realista de la permanencia de las personas más expuestas en cada área; a modo de orientación se usó la tabla del protocolo:`, { align: 'j' }));
     blocks.push(T(['Ocupación', 'Local', 'T'], T_ARCAL.map(r => [r[0], r[1], { t: r[2], align: 'c' }]), { widths: [20, 65, 15], small: true }));
     blocks.push(Ps(`8. Factores de operación utilizados`, { bold: true }));
-    blocks.push(Ps(`Según el protocolo ${mod.tp} del ARCAL XLIX se usaron los siguientes parámetros: ${mod.param}. ${mod.haz}`, { align: 'j' }));
+    blocks.push(Ps(mod.tec ? `Según la sección ${mod.tec.sec} del IAEA-TECDOC-1958 se usaron ${mod.tec.txt}. En cada punto la medición se repitió ${mod.tec.rep === 2 ? 'dos' : 'tres'} veces y se registró el valor máximo.` : `Según el protocolo ${mod.tp} del ARCAL XLIX se usaron los siguientes parámetros: ${mod.param}. ${mod.haz}`, { align: 'j' }));
+    const kpt = kptLev(lev, c);
     blocks.push({ t: 'kv4', rows: [
       ['Tensión', `${lev.kv || '[kV]'} kVp`, 'Corriente', `${lev.ma || '[mA]'} mA`],
       ['Tiempo', `${lev.tiempo || '[s]'} s`, 'Producto', `${lev.mas || (nivel(lev.ma) && nivel(lev.tiempo) ? num2(nivel(lev.ma) * nivel(lev.tiempo), 1) : '[mAs]')} mAs`],
       ['Dirección del haz', lev.direccion || '[dirección]', 'Tamaño de campo', lev.campo || '[campo]'],
       ['Simulador', lev.maniqui || mod.simulador, 'Fondo ambiental', `${lev.fondo || '[ ]'} µSv/h`],
       ['Factor de calibración (Fc)', lev.fc || '1', 'Factor de conversión', lev.fconv || '1'],
-      ['Distancia de la cámara a la barrera', mod.dist, 'Modalidad (protocolo)', `${modNombre} (${mod.tp})`]
+      ['Temperatura / presión', `${lev.temp || '[°C]'} °C / ${lev.presion || '[kPa]'} kPa`, 'Factor KPT', kpt !== 1 ? num2(kpt, 3) : (/ionizaci/i.test(V.levInstTipo || 'Cámara de ionización') ? '[sin datos]' : 'No aplica')],
+      ['Distancia de la cámara a la barrera', mod.dist, 'Modalidad (protocolo)', `${modNombre} (${mod.tec ? 'TECDOC-1958, ' + mod.tec.sec : 'ARCAL XLIX, ' + mod.tp})`]
     ] });
     const filas = puntos.map(p => {
       const r = calcularPunto(lev, p, c);
@@ -441,7 +452,7 @@ function docLevantamiento(c) {
         resumenFuga.push({ sala: lev.sala, f, r });
         return [{ t: f.punto || '', align: 'c', bold: true }, { t: f.kv || lev.kvMax || '', align: 'c' }, { t: f.ie || '', align: 'c' }, { t: f.imax || '', align: 'c' }, { t: f.distancia || '1', align: 'c' }, { t: f.lectura || '—', align: 'c' }, { t: r.lr == null ? '—' : num2(r.lr, 3), align: 'c' }, { t: r.lr == null ? '—' : num2(r.tol, 2), align: 'c' }, { t: r.lr == null ? '—' : (r.cumple ? 'S' : 'N'), align: 'c', bold: true, fill: r.lr == null ? null : (r.cumple ? 'C6E0B4' : 'F8CBAD') }, f.obs || ''];
       });
-      blocks.push(Ps(`10.1. Radiación de fuga de la coraza del tubo`, { bold: true }));
+      blocks.push(Ps(`10.1. Radiación de fuga de la coraza del tubo (prueba complementaria del ARCAL XLIX)`, { bold: true }));
       blocks.push(Ps(`Con el colimador cerrado y bloqueado con una lámina de plomo, se cubrió la coraza con chasis o películas para localizar las zonas de mayor ennegrecimiento y, en la dirección de cada una, se midió con la cámara de ionización a 1 m del foco con el máximo kVp. La lectura (Lo, en mGy/h) se corrigió a la corriente máxima que el tubo soporta durante una hora de forma continua con LR = Lo × If / Ie${fugas.some(f => nivel(f.distancia) && nivel(f.distancia) !== 1) ? ', y por la ley del inverso del cuadrado de la distancia cuando la medición no se hizo a 1 m' : ''}. Tolerancia: ${num2(mod.fuga, 2)} mGy/h a 1 m del foco, promediado en un área no mayor de 100 cm².`, { align: 'j' }));
       blocks.push(T(['Zona de la coraza', 'kVp', 'Ie (mA)', 'If (mA)', 'Distancia (m)', 'Lo (mGy/h)', 'LR a 1 m (mGy/h)', 'Tolerancia (mGy/h)', 'Acepta (S/N)', 'Observaciones'], filasF, { widths: [14, 7, 8, 8, 8, 9, 10, 10, 8, 18], small: true }));
     }
@@ -451,7 +462,7 @@ function docLevantamiento(c) {
   const fugaMal = resumenFuga.filter(x => x.r.lr != null && !x.r.cumple);
   const maxAnual = Math.max(0, ...resumen.map(x => x.r.anual || 0));
   const criterios = arcal
-    ? 'Criterios aplicados (niveles de restricción del ARCAL XX que adopta el protocolo ARCAL XLIX): 0,10 mSv/semana o 5,0 mSv/año en área controlada, y 0,01 mSv/semana o 0,5 mSv/año en áreas supervisadas y libres, más exigentes que los límites de dosis de la Norma Técnica (num. 5.2 lit. a: 20 mSv/año para el POE y 1 mSv/año para el público).'
+    ? 'Criterios aplicados (niveles de restricción de la Tabla 3 del IAEA-TECDOC-1958, basados en la ICRP 103, iguales a los del ARCAL XX): 0,10 mSv/semana o 5,0 mSv/año en área controlada, y 0,01 mSv/semana o 0,5 mSv/año en áreas supervisadas y libres, más exigentes que los límites de dosis de la Norma Técnica (num. 5.2 lit. a: 20 mSv/año para el POE y 1 mSv/año para el público).'
     : `Criterios aplicados: ${num2(restriccionPOE(c), 1)} mSv/año en zona controlada (restricción institucional para el POE, inferior al límite de 20 mSv/año) y ${num2(restriccionPublico(c), 1)} mSv/año en zonas supervisadas y libres (límite de dosis del público, Norma Técnica num. 5.2 lit. a).`;
   blocks.push(
     H('11. Conclusiones y recomendaciones'),
@@ -476,12 +487,14 @@ function docLevantamiento(c) {
     L([
       'Ministerio de Energía y Recursos Naturales No Renovables. Acuerdo Ministerial MERNNR-MERNNR-2022-0011-AM, Norma Técnica para las Actividades de Licenciamiento y Operación en Radiología Intervencionista, Radiodiagnóstico Médico, Odontológico y Veterinario. Registro Oficial, Cuarto Suplemento N.º 11, 25 de febrero de 2022.',
       'Reglamento de Seguridad Radiológica, Decreto Supremo N.º 3640. Registro Oficial N.º 891, 8 de agosto de 1979.',
+      'Organismo Internacional de Energía Atómica. IAEA-TECDOC-1958, Protocolos de Control de Calidad para Radiodiagnóstico en América Latina y el Caribe. Viena, 2021.',
+      'Comisión Internacional de Protección Radiológica. Publicación 103: Recomendaciones 2007 de la ICRP. Annals of the ICRP 37 (2-4), 2007.',
       'ARCAL XLIX / OIEA. Protocolos de Control de Calidad en Radiodiagnóstico (TP-002 Radiografía general, TP-003 Radiografía intraoral, TP-004 Mamografía, TP-005 Fluoroscopia, TP-006 Tomografía computarizada), Revisión 1. Implementación de las Normas Básicas de Seguridad en la Práctica Médica.',
       'National Council on Radiation Protection and Measurements. NCRP Report No. 147: Structural Shielding Design for Medical X-Ray Imaging Facilities. Bethesda, 2004.',
       'Organismo Internacional de Energía Atómica. Protección radiológica y seguridad de las fuentes de radiación: Normas básicas internacionales de seguridad. Colección de Normas de Seguridad N.º GSR Part 3. Viena, 2016.'
     ])
   );
-  return { title: 'Informe de levantamiento radiométrico', subtitle: 'Contenido según el Anexo VII de la Norma Técnica; método ARCAL XLIX', kind: 'sgc', landscape: true, blocks };
+  return { title: 'Informe de levantamiento radiométrico', subtitle: 'Contenido según el Anexo VII de la Norma Técnica; método IAEA-TECDOC-1958 (ARCAL XLIX)', kind: 'sgc', landscape: true, blocks };
 }
 
 /* ================================================================ INTERPRETACIÓN DOSIMÉTRICA */

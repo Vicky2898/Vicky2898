@@ -74,7 +74,9 @@ function crearContexto(S) {
   const P = PRACTICAS[S.practica];
   const I = S.inst, R = S.resp, V = S.serv, O = S.oficio, M = S.meta;
   const poe = S.poe.map(p => personaPOE(p, S.practica)).filter(p => p.nombre);
-  const eq = S.equipos.filter(e => (e.tipo || e.marca || e.serie));
+  // El último mantenimiento sale del registro de mantenimiento cuando es más reciente que el dato del equipo
+  const ultMant = (serie) => (S.mant || []).filter(m => m.serie && m.serie === serie && m.fecha).map(m => m.fecha).sort().pop() || '';
+  const eq = S.equipos.filter(e => (e.tipo || e.marca || e.serie)).map(e => { const u = e.serie ? ultMant(e.serie) : ''; return u && u > (e.mantFecha || '') ? { ...e, mantFecha: u } : e; });
   const BAJA = /baja|Vendido|Donado|Trasladado|Devuelto/i;
   const eqAct = eq.filter(e => !BAJA.test(e.estado || ''));
   const eqBaja = eq.filter(e => BAJA.test(e.estado || ''));
@@ -135,7 +137,8 @@ function estadoReq(c, r) {
   const v = (c.S.check[r.id] || {}).estado;
   if (v) return v;
   if (r.id === 'I-7' || r.id === 'I-23') return c.R.osrAplica ? 'Se adjunta' : 'No aplica';
-  if (r.id === 'II-9') return c.eqBaja.length ? 'Se adjunta' : 'No aplica';
+  if (r.id === 'II-9' || r.id === 'III-3') return c.eqBaja.length ? 'Se adjunta' : 'No aplica';
+  if (r.id === 'III-2') return c.eqAct.some(e => /arrend/i.test(e.procedencia || '')) ? 'Pendiente' : 'No aplica';
   if (r.id === 'I-31') return c.S.practica === 'odontologico' ? 'No aplica' : 'Se adjunta';
   return r.ext && !r.doc ? 'Pendiente' : 'Se adjunta';
 }
@@ -1143,6 +1146,10 @@ function docListadoEquipos(c) {
     Ps(`Equipos generadores de radiación ionizante de la práctica de ${c.P.corto} de ${ph(c.I.razonSocial, 'Razón social')}.`, { align: 'j' }),
     T(['N.º', 'Tipo', 'Marca equipo', 'Modelo equipo', 'Serie equipo', 'Marca tubo', 'Modelo tubo (insert)', 'Serie tubo (insert)', 'Año fab.', 'Ubicación', 'Estado'], filasEquipos(c, c.eqAct).length ? filasEquipos(c, c.eqAct) : [['1', '', '', '', '', '', '', '', '', '', '']], { small: true }),
     NOTE('NR: no registra en la placa. Se adjuntan fotografías de las placas de identificación del equipo y del tubo de rayos X.'),
+    Ps('Procedencia de los equipos', { bold: true }),
+    T(['Equipo (serie)', 'Procedencia', 'Proveedor o arrendador', 'Factura o contrato N.º', 'Fecha', 'Plazo del arriendo', 'Vigente hasta'],
+      c.eqAct.length ? c.eqAct.map(e => { const arr = /arrend/i.test(e.procedencia || ''); return [`${e.tipo || ''} (${e.serie || 'NR'})`, e.procedencia || '[compra / arrendamiento]', e.procProveedor || '', e.procDoc || '', fCorta(e.procFecha), arr ? (e.arrPlazo ? `${e.arrPlazo} años` : '[años]') : 'No aplica', arr ? fCorta(e.arrHasta) : 'No aplica']; }) : [['', '', '', '', '', '', '']], { widths: [22, 13, 18, 16, 10, 11, 10], small: true }),
+    NOTE('Equipos comprados: se adjunta la factura o el contrato de compra-venta. Equipos arrendados: se adjunta el contrato de arrendamiento, con un plazo mínimo de 4 años para el licenciamiento por primera vez.'),
     SIGN([c.firmas.osr])
   ];
   return { code: `${c.pref}-LS-02`, title: 'Listado de equipos generadores de radiación ionizante', kind: 'sgc', landscape: true, blocks };
@@ -1473,6 +1480,13 @@ function revisarExpediente(c) {
   }
   if (R.medLicCad && estadoVigencia(R.medLicCad) === 'Caducada') a.push({ nivel: 'alta', txt: 'La licencia del responsable de la protección del paciente está caducada.' });
   c.eqAct.forEach(e => {
+    const idq = `${e.tipo || 'Equipo'} serie ${e.serie || 'NR'}`;
+    if (/arrend/i.test(e.procedencia || '')) {
+      const pl = nivel(e.arrPlazo);
+      if (pl != null && pl < 4) a.push({ nivel: 'alta', txt: `${idq}: el contrato de arrendamiento es de ${e.arrPlazo} años; para licenciamiento se exige un plazo mínimo de 4 años.` });
+      if (e.arrHasta && diasHasta(e.arrHasta) < 0) a.push({ nivel: 'alta', txt: `${idq}: el contrato de arrendamiento venció el ${fCorta(e.arrHasta)}.` });
+      if (!e.procDoc) a.push({ nivel: 'media', txt: `${idq}: falta el número del contrato de arrendamiento.` });
+    }
     const d = diasHasta(e.mantFecha);
     const id = `${e.tipo || 'Equipo'} ${e.marca || ''} serie ${e.serie || 'NR'}`;
     if (!e.mantFecha) a.push({ nivel: 'media', txt: `${id}: sin fecha de último mantenimiento y control de calidad.` });

@@ -9,10 +9,10 @@ function estadoVacio(practica = 'medico') {
     ejemplo: false,
     inst: { razonSocial: '', nombreComercial: '', sede: '', ruc: '', establecimiento: '', tipoEstab: '', actividad: '', licencia: '', licenciaExp: '', licenciaCad: '', kvMax: '', maMax: '', repEmpresa: '', repLegal: '', repCedula: '', repCargo: 'Gerente General', repProfesion: '', repTelefono: '', repCorreo: '', direccion: '', parroquia: '', referencia: '', ciudad: '', provincia: '', codPostal: '', telefono: '', correo: '', logo: null, sello: null },
     resp: Object.assign({ osrAplica: practica === 'intervencionista', osrTitulo: '', osrNombre: '', osrProfesion: '', osrCedula: '', osrRuc: '', osrDireccion: '', osrAut: '', osrAutCad: '', osrLicencia: '', osrTelefono: '', osrCorreo: '', medTitulo: '', medNombre: '', medCedula: '', medEspecialidad: '', medLicencia: '', medLicCad: '' }, (typeof BD !== 'undefined' && BD.perfil) || {}),
-    serv: { dosPerDesde: '', dosPerHasta: '', dosCiclo: '', dosReporte: '', dosFechaReporte: '', dosFechaInterp: '', medOcupNombre: '', medOcupRegistro: '', levFecha: '', levInstTipo: 'Cámara de ionización', levInstMarca: '', levInstModelo: '', levInstSerie: '', levInstRango: '', levInstCal: '', levInstLab: '', levInstCert: '', informeDirigido: '', invHoja: '1', invFecha: '', invDepto: '', invAdmin: '', obsEpp: '', dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
+    serv: { dosPerDesde: '', dosPerHasta: '', dosCiclo: '', dosReporte: '', dosFechaReporte: '', dosFechaInterp: '', medOcupNombre: '', medOcupRegistro: '', levFecha: '', levInstTipo: 'Cámara de ionización', levInstMarca: '', levInstModelo: '', levInstSerie: '', levInstRango: '', levInstCal: '', levInstLab: '', levInstCert: '', levInstT0: '20', levInstP0: '101,3', informeDirigido: '', invHoja: '1', invFecha: '', invDepto: '', invAdmin: '', obsEpp: '', dosEmpresa: '', dosLicencia: '', dosTipo: 'OSL', dosPeriodo: 'Bimestral', dosInicio: '', dosVigencia: '', mantEmpresa: '', mantLicencia: '', mantVigencia: '', mantTecnico: '', mantTecLicencia: '', labMedico: '', eqPrueba: '', modoPrueba: 'Radiografía', fechaPruebaEpp: '' },
     oficio: { autoridad: 'Ministerio de Ambiente y Energía', direccionMEM: 'Dirección de Licenciamiento y Protección Radiológica', numero: '', fecha: '', tramite: '', tecnicoTitulo: 'Especialista', tecnicoNombre: '', tecnicoCargo: 'Técnico de Licenciamiento y Protección Radiológica', numResp: '', numDisp: '', numBaja: '', informeNum: '', informeFecha: '', plazo: '90' },
-    meta: { restriccionPOE: '6', restriccionPublico: '1', levCriterio: 'ARCAL XX (protocolo ARCAL XLIX)', blFecha: '', blRevision: '01', blPc: '0,1', blPnc: '0,02', blDensConcreto: '2,4', blDensLadrillo: '1,8', blLadrilloNota: '', blFormatoPlano: 'A3', blMateriales: '', blElementos: '', blObjetivo: '', blJustificacion: '', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
-    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], levantamientos: [], levPuntos: [], levFuga: [], blSalas: [], blParams: [], blBarreras: [], check: {}
+    meta: { restriccionPOE: '6', restriccionPublico: '1', levCriterio: 'TECDOC-1958 / ARCAL XX (ICRP 103)', blFecha: '', blRevision: '01', blPc: '0,1', blPnc: '0,02', blDensConcreto: '2,4', blDensLadrillo: '1,8', blLadrilloNota: '', blFormatoPlano: 'A3', blMateriales: '', blElementos: '', blObjetivo: '', blJustificacion: '', manualFecha: '', manualRevision: '', manualJustificacion: '', manualUbicacion: '', manualFlujo: '', manualPolitica: '', zonasSupervisadas: '', zonasLibres: '', capParticipantes: '', capObjetivo: '', siglas: '', plantilla: '{TIPO}-{SIGLAS}-{PRAC}-PR-OSR-{AÑO}-{N}', estilo: 'ficha', color: '#1F4E79', version: '01', fechaEmision: hoyISO(), anioPlan: String(new Date().getFullYear()), ubicacion: 'Archivo físico y digital' },
+    poe: [], equipos: [], epp: [], disp: [], capacitaciones: [], facturas: [], levantamientos: [], levPuntos: [], levFuga: [], mant: [], blSalas: [], blParams: [], blBarreras: [], check: {}
   };
 }
 
@@ -35,8 +35,8 @@ function estadoEjemplo() {
     { apellidos: 'Muestra Vera', nombres: 'Ana Lucía', categoria: 'osr', cedula: '0900000002', licencia: '0900000002', codigo: 'OSR-000', ren: '0', act: '0', expedicion: '2023-03-02', licCad: '2027-03-01', profesion: 'Tecnóloga médica', cargo: 'Oficial de Seguridad Radiológica', campo: 'Radiodiagnóstico Médico', observacion: '', certMed: '2026-01-20', dosimetro: 'D-01', docs: { ...X } }
   ];
   s.equipos = [
-    { tipo: 'Rayos X convencional fijo', marca: 'SHIMADZU', modelo: 'RADspeed', serie: '0000A1', tuboMarca: 'SHIMADZU', tuboModelo: '0.6/1.2P324DK-85', tuboSerie: '0000T1', anio: '2019', anioTubo: '2019', anioInst: '2020', enLicencia: 'Sí', sala: 'Sala 1', uso: 'Diagnóstico general', estado: 'Funcionando', mantFecha: '2026-02-10' },
-    { tipo: 'Rayos X portátil', marca: 'FUJIFILM', modelo: 'FDR Nano', serie: '0000B2', tuboMarca: 'FUJIFILM', tuboModelo: 'NR', tuboSerie: '', anio: '2021', sala: 'Hospitalización', uso: 'Hospitalización (portátil)', estado: 'Funcionando', mantFecha: '2026-02-10' },
+    { tipo: 'Rayos X convencional fijo', marca: 'SHIMADZU', modelo: 'RADspeed', serie: '0000A1', tuboMarca: 'SHIMADZU', tuboModelo: '0.6/1.2P324DK-85', tuboSerie: '0000T1', anio: '2019', anioTubo: '2019', anioInst: '2020', enLicencia: 'Sí', procedencia: 'Compra', procProveedor: 'Distribuidora Ejemplo S.A.', procDoc: '001-001-000000123', procFecha: '2019-11-20', sala: 'Sala 1', uso: 'Diagnóstico general', estado: 'Funcionando', mantFecha: '2026-02-10' },
+    { tipo: 'Rayos X portátil', marca: 'FUJIFILM', modelo: 'FDR Nano', serie: '0000B2', tuboMarca: 'FUJIFILM', tuboModelo: 'NR', tuboSerie: '', anio: '2021', procedencia: 'Arrendamiento', procProveedor: 'Arrendadora Ejemplo S.A.', procDoc: 'CT-ARR-0001', procFecha: '2024-03-01', arrPlazo: '4', arrHasta: '2028-03-01', sala: 'Hospitalización', uso: 'Hospitalización (portátil)', estado: 'Funcionando', mantFecha: '2026-02-10' },
     { tipo: 'Tomógrafo computarizado', marca: 'GE', modelo: 'Revolution ACT', serie: '0000C3', tuboMarca: 'GE', tuboModelo: 'Performix 40 Plus', tuboSerie: '0000T3', anio: '2020', sala: 'Sala de tomografía', uso: 'Tomografía', estado: 'Funcionando', mantFecha: '2025-07-01' }
   ];
   s.epp = [
@@ -50,7 +50,7 @@ function estadoEjemplo() {
   s.serv.informeDirigido = 'Dr. Nombre Ejemplo';
   Object.assign(s.serv, { dosPerDesde: '2026-06-05', dosPerHasta: '2026-08-04', dosCiclo: '1', dosReporte: 'DC-000', dosFechaReporte: '2026-08-20', dosFechaInterp: '2026-08-27', medOcupNombre: 'Dr. Médico Ocupacional Ejemplo', medOcupRegistro: '0000000000', levFecha: '2026-03-15', levInstMarca: 'Fluke Biomedical', levInstModelo: '451P', levInstSerie: '0000', levInstRango: '0 – 50 mSv/h', levInstCal: '2025-11-10', levInstLab: 'Laboratorio de calibración ejemplo', levInstCert: 'CAL-0000' });
   s.poe.forEach((p, i) => Object.assign(p, { dosisPeriodo: ['0,214', '0,105', '0,000'][i], dosisAnual: ['0,410', '0,230', '0,050'][i], dosisTotal: ['0,410', '0,230', '0,050'][i], telefono: '099 000 000' + i, correo: `poe${i + 1}@ejemplo.ec`, fechaNac: ['1985-04-12', '1992-09-30', '1990-01-15'][i] }));
-  s.levantamientos = [{ sala: 'Sala 1 - Rayos X', serie: '0000A1', modalidad: 'Radiografía general', kv: '100', ma: '200', tiempo: '0,1', mas: '20', campo: '35 × 43 cm', direccion: 'Vertical hacia la mesa', maniqui: 'Simulador de tórax', fondo: '0,1', fc: '1,02', fconv: '1', nr: '150', masPaciente: '20', w: '', plano: null }];
+  s.levantamientos = [{ sala: 'Sala 1 - Rayos X', serie: '0000A1', modalidad: 'Radiografía general', kv: '100', ma: '200', tiempo: '0,1', mas: '20', campo: '35 × 43 cm', direccion: 'Vertical hacia la mesa', maniqui: 'Simulador de tórax', fondo: '0,1', fc: '1,02', fconv: '1', temp: '24', presion: '100,8', nr: '150', masPaciente: '20', w: '', plano: null }];
   s.levPuntos = [
     { sala: 'Sala 1 - Rayos X', punto: 'A', descripcion: 'Consola de mando, detrás de la barrera', distancia: '2,5', barrera: 'Consola', zona: 'Supervisada', u: '1', t: '1', lectura: '0,05', unidad: 'µSv', obs: '' },
     { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso a la sala', distancia: '3,0', barrera: 'Puerta', zona: 'Supervisada', u: '1', t: '1/4', lectura: '0,20', unidad: 'µSv', obs: '' },
@@ -69,6 +69,11 @@ function estadoEjemplo() {
     { sala: 'Sala 1 - Rayos X', punto: 'B', descripcion: 'Puerta de acceso (pasillo)', tipo: 'Secundaria', param: NCRP147_BIB[5].nombre, d: '3,0', u: '', t: '1/5', zona: 'ZNC', material: 'Puerta plomada', existente: '2', plomoAdic: '' },
     { sala: 'Sala 1 - Rayos X', punto: 'C', descripcion: 'Pared hacia la sala de espera', tipo: 'Secundaria', param: NCRP147_BIB[5].nombre, d: '2,8', u: '', t: '1/5', zona: 'ZNC', material: 'Ladrillo', existente: '150', plomoAdic: '2' },
     { sala: 'Sala 1 - Rayos X', punto: 'D', descripcion: 'Piso (losa hacia el subsuelo)', tipo: 'Primaria', param: NCRP147_BIB[0].nombre, d: '1,7', u: '0,89', t: '1/20', zona: 'ZNC', material: 'Concreto', existente: '200', plomoAdic: '' }
+  ];
+  s.serv.mantTecnico = 'Ing. Técnico Ejemplo'; s.serv.mantTecLicencia = 'LP-0000';
+  s.mant = [
+    { serie: '0000A1', fecha: '2025-08-12', tipo: 'Preventivo y control de calidad', empresa: s.serv.mantEmpresa, licEmpresa: s.serv.mantLicencia, tecnico: 'Ing. Técnico Ejemplo', licTecnico: 'LP-0000', informe: 'MT-2025-031', descripcion: 'Limpieza, ajuste mecánico y pruebas de kVp, tiempo, rendimiento y CHR dentro de tolerancia.', resultado: 'Apto', proxima: '2026-02-10' },
+    { serie: '0000A1', fecha: '2026-02-10', tipo: 'Preventivo y control de calidad', empresa: s.serv.mantEmpresa, licEmpresa: s.serv.mantLicencia, tecnico: 'Ing. Técnico Ejemplo', licTecnico: 'LP-0000', informe: 'MT-2026-007', descripcion: 'Cambio de cable de alta tensión; pruebas de control de calidad dentro de tolerancia.', resultado: 'Apto', proxima: '2026-08-10' }
   ];
   s.serv.obsEpp = 'Se reemplazó un mandil de la Sala 1 por roturas en el anterior.';
   return s;
@@ -98,7 +103,7 @@ function normalizar(s) {
     if (!p.cargo && p.funcion) p.cargo = p.funcion;
   });
   ['inst', 'resp', 'serv', 'oficio', 'meta'].forEach(k => { s[k] = Object.assign({}, base[k], s[k] || {}); });
-  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas', 'levantamientos', 'levPuntos', 'levFuga', 'blSalas', 'blParams', 'blBarreras'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
+  ['poe', 'equipos', 'epp', 'disp', 'capacitaciones', 'facturas', 'levantamientos', 'levPuntos', 'levFuga', 'mant', 'blSalas', 'blParams', 'blBarreras'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
   s.epp.forEach(e => { if (e.kv && !e.kv1) e.kv1 = e.kv; if (e.mas && !e.ma1) e.ma1 = e.mas; });
   if (!s.check) s.check = {};
 }
@@ -311,12 +316,31 @@ function colsEquipos() {
     { k: 'anioTubo', l: 'Año fab. tubo', w: 90 },
     { k: 'anioInst', l: 'Año instalación', w: 90 },
     { k: 'enLicencia', l: 'En la licencia', type: 'select', opts: ['Sí', 'No'], w: 90 },
+    { k: 'procedencia', l: 'Procedencia', type: 'select', opts: ['Compra', 'Arrendamiento', 'Comodato', 'Donación'], w: 140 },
+    { k: 'procProveedor', l: 'Proveedor o arrendador', w: 160 },
+    { k: 'procDoc', l: 'Factura o contrato N.º', w: 140 },
+    { k: 'procFecha', l: 'Fecha de factura o contrato', type: 'date', w: 140 },
+    { k: 'arrPlazo', l: 'Plazo del arriendo (años)', w: 100, ph: 'mín. 4', when: r => /arrend/i.test(r.procedencia || '') },
+    { k: 'arrHasta', l: 'Arriendo vigente hasta', type: 'date', w: 140, when: r => /arrend/i.test(r.procedencia || '') },
     { k: 'sala', l: 'Ubicación', w: 120 },
     { k: 'uso', l: 'Uso', type: 'select', opts: P.usos, w: 160 },
     { k: 'estado', l: 'Estado', type: 'select', opts: ESTADOS_EQ, w: 140 },
     { k: 'mantFecha', l: 'Último mant. / CC', type: 'date', w: 140 },
     { k: 'destinoFecha', l: 'Fecha de destino final', type: 'date', w: 140, when: r => /baja|Vendido|Donado|Trasladado/.test(r.estado || '') },
     { k: 'destinoDoc', l: 'Respaldo del destino', w: 180, when: r => /baja|Vendido|Donado|Trasladado/.test(r.estado || '') }
+  ];
+}
+function colsMant() {
+  return [
+    { k: 'serie', l: 'Equipo (serie)', type: 'select', opts: S().equipos.map(e => e.serie).filter(Boolean), w: 130 },
+    { k: 'fecha', l: 'Fecha', type: 'date', w: 140 },
+    { k: 'tipo', l: 'Tipo de intervención', type: 'select', opts: ['Preventivo', 'Correctivo', 'Control de calidad', 'Preventivo y control de calidad', 'Instalación y pruebas de aceptación', 'Cambio de tubo'], w: 200 },
+    { k: 'empresa', l: 'Empresa', w: 150 }, { k: 'licEmpresa', l: 'Licencia institucional', w: 120 },
+    { k: 'tecnico', l: 'Técnico', w: 150 }, { k: 'licTecnico', l: 'Licencia personal', w: 120 },
+    { k: 'informe', l: 'Informe N.º', w: 110 },
+    { k: 'descripcion', l: 'Trabajos y hallazgos', type: 'textarea', w: 220 },
+    { k: 'resultado', l: 'Resultado', type: 'select', opts: ['Apto', 'Apto con observaciones', 'No apto', 'Fuera de servicio'], w: 150 },
+    { k: 'proxima', l: 'Próxima intervención', type: 'date', w: 140 }
   ];
 }
 function colsEpp() {
@@ -509,7 +533,9 @@ function renderSeccion() {
     case 'equipos':
       h = `<h2>Equipos generadores de radiación ionizante</h2><p class="lead">Copie los datos de las placas del equipo y del tubo. Escriba NR cuando la placa no registre el dato. Los equipos marcados como dados de baja, vendidos o trasladados generan el oficio de destino final.</p>
         ${tablaEditable('equipos', colsEquipos(), s.equipos, 'Agregar equipo')}
-        <p class="lead">Los procedimientos técnicos se arman según los tipos de equipo registrados. Tipos disponibles para ${esc(P.corto)}: ${esc(P.tiposEquipo.join(', '))}.</p>`;
+        <p class="lead">Los procedimientos técnicos se arman según los tipos de equipo registrados. Tipos disponibles para ${esc(P.corto)}: ${esc(P.tiposEquipo.join(', '))}. Procedencia: si el equipo se compró, adjunte la factura o el contrato de compra-venta; si se arrienda, el contrato debe tener un plazo mínimo de 4 años.</p>
+        <h3>Empresa y técnico de mantenimiento</h3>${grupoCampos([{ k: 'serv.mantEmpresa', l: 'Empresa de mantenimiento', span: 2 }, { k: 'serv.mantLicencia', l: 'Licencia institucional de la empresa' }, { k: 'serv.mantVigencia', l: 'Contrato vigente hasta', type: 'date' }, { k: 'serv.mantTecnico', l: 'Técnico de mantenimiento', span: 2 }, { k: 'serv.mantTecLicencia', l: 'Licencia personal del técnico' }])}
+        <h3>Registro de mantenimiento y control de calidad</h3><p class="lead">Un renglón por intervención. La fecha más reciente de cada equipo actualiza su «último mantenimiento».</p>${tablaEditable('mant', colsMant(), s.mant, 'Agregar intervención')}`;
       break;
     case 'prendas': {
       const c = crearContexto(s);
@@ -534,7 +560,7 @@ function renderSeccion() {
         { k: 'kv', l: 'kVp', w: 60 }, { k: 'ma', l: 'mA', w: 60 }, { k: 'tiempo', l: 'Tiempo (s)', w: 80 }, { k: 'mas', l: 'mAs', w: 70, ph: 'auto' },
         { k: 'campo', l: 'Tamaño de campo', w: 120, ph: '35 × 43 cm' }, { k: 'direccion', l: 'Dirección del haz', w: 140, ph: 'Vertical hacia la mesa' },
         { k: 'maniqui', l: 'Simulador', w: 140, ph: 'según el protocolo' }, { k: 'fondo', l: 'Fondo (µSv/h)', w: 90 },
-        { k: 'fc', l: 'Factor de calibración (Fc)', w: 100, ph: '1' }, { k: 'fconv', l: 'Factor de conversión', w: 100, ph: '1' },
+        { k: 'fc', l: 'Factor de calibración (Fc)', w: 100, ph: '1' }, { k: 'temp', l: 'Temperatura (°C)', w: 80 }, { k: 'presion', l: 'Presión (kPa)', w: 80 }, { k: 'fconv', l: 'Factor de conversión', w: 100, ph: '1' },
         { k: 'nr', l: 'NR (radiografías / semana)', w: 110 }, { k: 'masPaciente', l: 'It (mAs promedio)', w: 100 },
         { k: 'w', l: 'W declarada (mA·min/sem)', w: 120, ph: 'NR × It / 60' },
         { k: 'plano', l: 'Croquis con puntos', type: 'img', w: 160 }
@@ -560,9 +586,9 @@ function renderSeccion() {
       const res = s.levPuntos.filter(p => p.punto).map(p => { const lev = s.levantamientos.find(l => l.sala === p.sala); const r = lev ? calcularPunto(lev, p, c) : {}; return `<tr><td>${esc(p.sala || '')}</td><td>${esc(p.punto)}</td><td>${r.porCarga == null ? '—' : num2(r.porCarga, 3)}</td><td>${r.semanal == null ? '—' : num2(r.semanal, 4)}</td><td>${r.anual == null ? '—' : num2(r.anual, 3)}</td><td>${r.criterio == null ? '—' : num2(r.criterio, 2)}</td><td class="${r.cumple === false ? 'alerta-txt' : ''}">${r.cumple == null ? 'Faltan datos' : (r.cumple ? 'Cumple' : `No cumple: ${num2(Math.max(r.chr, 0.1), 1)} CHR adicionales`)}</td></tr>`; }).join('');
       const resF = (s.levFuga || []).filter(f => f.lectura).map(f => { const lev = s.levantamientos.find(l => l.sala === f.sala); const r = calcularFuga(f, lev, c); return `<tr><td>${esc(f.sala || '')}</td><td>${esc(f.punto || '')}</td><td>${num2(r.lr, 3)}</td><td>${num2(r.tol, 2)}</td><td class="${r.cumple ? '' : 'alerta-txt'}">${r.cumple ? 'Cumple' : 'No cumple'}</td></tr>`; }).join('');
       const cargas = s.levantamientos.filter(l => l.sala).map(l => { const w = cargaLev(l, c); return `${esc(l.sala)}: ${modalidadLev(l, c)}, W = ${w.W ? num2(w.W, 1) + ' mA·min/semana' + (w.origen === 'típica' ? ' (valor típico de TC)' : '') : 'faltan NR e It'}`; }).join(' · ');
-      h = `<h2>Levantamiento radiométrico</h2><p class="lead">Alimenta el informe del Anexo VII con el método del protocolo ARCAL XLIX (prueba 1, levantamiento; prueba 2, radiación de fuga). Para cada punto: lectura × Fc × factor de conversión, llevada a µSv/mA·min con el mAs (o la corriente, si mide en tasa), multiplicada por W × U × T y por 50 semanas.</p>
-        <h3>Instrumento de medición y criterio</h3>${grupoCampos([{ k: 'serv.levInstTipo', l: 'Tipo de detector', type: 'select', opts: ['Cámara de ionización', 'Geiger-Müller', 'Centelleador', 'Detector de estado sólido'] }, { k: 'serv.levInstMarca', l: 'Marca' }, { k: 'serv.levInstModelo', l: 'Modelo' }, { k: 'serv.levInstSerie', l: 'Serie' }, { k: 'serv.levInstRango', l: 'Rango' }, { k: 'serv.levInstCal', l: 'Última calibración', type: 'date' }, { k: 'serv.levInstLab', l: 'Laboratorio de calibración' }, { k: 'serv.levInstCert', l: 'N.º de certificado' }, { k: 'serv.levFecha', l: 'Fecha del levantamiento', type: 'date' }, { k: 'meta.levCriterio', l: 'Criterio de aceptación', type: 'select', span: 2, opts: ['ARCAL XX (protocolo ARCAL XLIX)', 'Restricciones institucionales'] }, ...(criterioARCAL(c) ? [] : [{ k: 'meta.restriccionPOE', l: 'Zona controlada (mSv/año)' }, { k: 'meta.restriccionPublico', l: 'Supervisada y libre (mSv/año)' }])])}
-        <p class="lead">${criterioARCAL(c) ? 'ARCAL XX: área controlada 0,10 mSv/semana (5,0 mSv/año); áreas supervisada y libre 0,01 mSv/semana (0,5 mSv/año); interior de la sala en fluoroscopia, sobre el delantal, 1,0 mSv/semana (50 mSv/año).' : 'Se comparan con la restricción del POE en zona controlada y con la del público en las demás.'}</p>
+      h = `<h2>Levantamiento radiométrico</h2><p class="lead">Alimenta el informe del Anexo VII con el método del IAEA-TECDOC-1958 (2021, actualización del ARCAL XLIX); la radiación de fuga y la mamografía siguen el ARCAL XLIX. Con cámara de ionización, registre temperatura y presión de cada sala: la lectura se corrige con KPT = [(273,2 + T)/(273,2 + T₀)] × (P₀/P). En la Sierra la corrección es grande (en Quito, a unos 72 kPa, KPT ≈ 1,4). Para cada punto: lectura × Fc × factor de conversión, llevada a µSv/mA·min con el mAs (o la corriente, si mide en tasa), multiplicada por W × U × T y por 50 semanas.</p>
+        <h3>Instrumento de medición y criterio</h3>${grupoCampos([{ k: 'serv.levInstTipo', l: 'Tipo de detector', type: 'select', opts: ['Cámara de ionización', 'Geiger-Müller', 'Centelleador', 'Detector de estado sólido'] }, { k: 'serv.levInstMarca', l: 'Marca' }, { k: 'serv.levInstModelo', l: 'Modelo' }, { k: 'serv.levInstSerie', l: 'Serie' }, { k: 'serv.levInstRango', l: 'Rango' }, { k: 'serv.levInstCal', l: 'Última calibración', type: 'date' }, { k: 'serv.levInstLab', l: 'Laboratorio de calibración' }, { k: 'serv.levInstCert', l: 'N.º de certificado' }, { k: 'serv.levInstT0', l: 'T₀ de referencia del certificado (°C)', ph: '20' }, { k: 'serv.levInstP0', l: 'P₀ de referencia del certificado (kPa)', ph: '101,3' }, { k: 'serv.levFecha', l: 'Fecha del levantamiento', type: 'date' }, { k: 'meta.levCriterio', l: 'Criterio de aceptación', type: 'select', span: 2, opts: ['TECDOC-1958 / ARCAL XX (ICRP 103)', 'Restricciones institucionales'] }, ...(criterioARCAL(c) ? [] : [{ k: 'meta.restriccionPOE', l: 'Zona controlada (mSv/año)' }, { k: 'meta.restriccionPublico', l: 'Supervisada y libre (mSv/año)' }])])}
+        <p class="lead">${criterioARCAL(c) ? 'TECDOC-1958 (Tabla 3, ICRP 103) y ARCAL XX: área controlada 0,10 mSv/semana (5,0 mSv/año); áreas supervisada y libre 0,01 mSv/semana (0,5 mSv/año); interior de la sala en fluoroscopia, sobre el delantal, 1,0 mSv/semana (50 mSv/año).' : 'Se comparan con la restricción del POE en zona controlada y con la del público en las demás.'}</p>
         <h3>Salas y técnica utilizada</h3><p class="lead">Use los parámetros del protocolo de cada modalidad: radiografía general, kV más alto de rutina sin CAE, ≥ 1 s y campo máximo; intraoral, mayor técnica de rutina; mamografía, sin CAE, 1 s y kV máximo; fluoroscopia, modo manual ≥ 10 s con 1 a 5 mA; TC, barrido de abdomen con el kV y el corte más amplios (W típica 5000 mA·min/semana). Si llena la W declarada, reemplaza a NR × It / 60.</p>${tablaEditable('levantamientos', colsLev, s.levantamientos, 'Agregar sala')}
         ${cargas ? `<p class="lead">${cargas}</p>` : ''}
         <h3>Puntos de medición</h3><p class="lead">Cámara a unos 15 cm detrás de la barrera (30 cm en fluoroscopia). U = 0,7 piso y 0,3 bucky mural en el haz primario de radiografía general; U = 1 en barreras secundarias y en intraoral, mamografía, fluoroscopia y TC. T orientativo: 1 consultorio, recepción o comando; 1/4 espera, vestidor o circulación interna; 1/16 circulación externa, baños o escaleras; 1/32 jardines o casa de máquinas.</p>${salas.length ? tablaEditable('levPuntos', colsPun, s.levPuntos, 'Agregar punto') : '<p class="lead">Primero agregue una sala.</p>'}
@@ -668,6 +694,7 @@ function renderSeccion() {
         <div class="tabla-ed verif"><table><thead><tr><th>N.º</th><th>Requisito</th><th style="min-width:130px">Estado</th><th style="min-width:200px">Observación</th></tr></thead><tbody>
         <tr class="sub"><td colspan="4">I. Requisitos documentales</td></tr>${REQUISITOS.filter(r => r.id.startsWith('I-')).map(fila).join('')}
         <tr class="sub"><td colspan="4">II. Evidencias</td></tr>${REQUISITOS.filter(r => r.id.startsWith('II-')).map(fila).join('')}
+        <tr class="sub"><td colspan="4">III. Requisitos adicionales de licenciamiento</td></tr>${REQUISITOS.filter(r => r.id.startsWith('III-')).map(fila).join('')}
         </tbody></table></div>`;
       break;
     }
@@ -836,7 +863,8 @@ function leerImagen(file) {
 /* ---------- eventos ---------- */
 function filaVacia(t) {
   if (t === 'poe') return { apellidos: '', nombres: '', cedula: '', categoria: 'tecnologo', profesion: '', cargo: '', campo: PRACTICAS[S().practica].nombre, licencia: '', codigo: '', ren: '0', act: '0', expedicion: '', licCad: '', observacion: '', certMed: '', dosimetro: '', docs: {} };
-  if (t === 'equipos') return { tipo: '', marca: '', modelo: '', serie: '', tuboMarca: '', tuboModelo: '', tuboSerie: '', anio: '', anioTubo: '', anioInst: '', enLicencia: 'Sí', sala: '', uso: '', estado: 'Funcionando', mantFecha: '' };
+  if (t === 'equipos') return { tipo: '', marca: '', modelo: '', serie: '', tuboMarca: '', tuboModelo: '', tuboSerie: '', anio: '', anioTubo: '', anioInst: '', enLicencia: 'Sí', procedencia: 'Compra', procProveedor: '', procDoc: '', procFecha: '', arrPlazo: '', arrHasta: '', sala: '', uso: '', estado: 'Funcionando', mantFecha: '' };
+  if (t === 'mant') { const e = S().equipos.find(x => x.serie) || {}; return { serie: e.serie || '', fecha: '', tipo: 'Preventivo y control de calidad', empresa: S().serv.mantEmpresa || '', licEmpresa: S().serv.mantLicencia || '', tecnico: S().serv.mantTecnico || '', licTecnico: S().serv.mantTecLicencia || '', informe: '', descripcion: '', resultado: 'Apto', proxima: '' }; }
   if (t === 'epp') { const n = S().epp.length + 1; return { codigo: 'EPR-' + String(n).padStart(2, '0'), tipo: '', espesor: '0,5', marca: '', talla: '', sala: '', cantidad: '1', factura: '', proveedor: '', fechaCaducidad: '', estado: 'Bueno', cubierta: '', sujeciones: '', costuras: '', estetica: '', kv1: '60', ma1: '', kv2: '65', ma2: '', defectos: 'Ninguno', resultado: 'Apta' }; }
   if (t === 'facturas') return { fecha: '', numero: '', proveedor: '', producto: '', subtotal: '', iva: '', total: '', img: null };
   if (t === 'levantamientos') return { sala: '', serie: '', modalidad: '', kv: '', ma: '', tiempo: '', mas: '', campo: '', direccion: '', maniqui: '', fondo: '0,1', fc: '1', fconv: '1', nr: '', masPaciente: '', w: '', plano: null };

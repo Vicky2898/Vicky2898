@@ -662,6 +662,8 @@ function buildPDF(doc, c) {
 /* ================================================================ EXCEL */
 
 function agregarHojaExcel(wb, doc, c, usados) {
+  // Un documento compuesto (matriz de registros) va en una hoja por cada parte
+  if (doc.partes) { doc.partes.forEach(p => agregarHojaExcel(wb, p, c, usados)); return; }
   const st = estilo(c);
   let nombre = doc.code.replace(/[\\/*?:[\]]/g, '-').slice(0, 31);
   let k = 2;
@@ -857,7 +859,8 @@ async function buildXLSX(docs, c) {
   wb.creator = c.I.razonSocial || '';
   wb.created = new Date();
   const usados = new Set();
-  docs.forEach(d => agregarHojaExcel(wb, d, c, usados));
+  // En el libro completo los registros ya van en sus propias hojas: no se repite la matriz
+  (docs.length > 1 ? docs.filter(d => !d.partes) : docs).forEach(d => agregarHojaExcel(wb, d, c, usados));
   const buf = await wb.xlsx.writeBuffer();
   return new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 }

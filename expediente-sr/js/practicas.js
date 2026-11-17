@@ -447,7 +447,7 @@ const REQUISITOS = [
   { id: 'I-18', txt: 'Informe de integridad de blindaje de los delantales plomados', doc: ['INF-DEL'] },
   { id: 'I-19', txt: 'Contrato de mantenimiento preventivo y correctivo con empresa licenciada', ext: true },
   { id: 'I-20', txt: 'Informe de mantenimiento y control de calidad de cada equipo', ext: true },
-  { id: 'I-21', txt: 'Documentos de procedencia de los equipos', ext: true },
+  { id: 'I-21', txt: 'Documentos de procedencia de los equipos comprados: factura o contrato de compra-venta', ext: true },
   { id: 'I-22', txt: 'Registro de licencias institucional y ocupacionales', doc: ['REG-LIC', 'BT-LIC'] },
   { id: 'I-23', txt: 'Registro de autorizaciones de OSR (en caso de aplicar)', doc: ['REG-OSR'], cond: true },
   { id: 'I-24', txt: 'Registro de inventario de equipos generadores de radiación ionizante', doc: ['REG-EQ', 'BT-EQ'] },
@@ -465,10 +465,24 @@ const REQUISITOS = [
   { id: 'II-3', txt: 'Fotografías de la rotulación informativa para pacientes y acompañantes', doc: ['ROTULOS'], ext: true },
   { id: 'II-4', txt: 'Fotografías de la señalización luminosa roja sobre la puerta', ext: true },
   { id: 'II-5', txt: 'Fotografías y facturas de las prendas de protección', ext: true },
-  { id: 'II-6', txt: 'Fotografía del lugar de almacenamiento de los dosímetros', ext: true },
+  { id: 'II-6', txt: 'Fotografía del lugar de almacenamiento de los dosímetros, con la etiqueta del usuario visible', ext: true },
   { id: 'II-7', txt: 'Fotografías del sistema de visualización y comunicación con el paciente', ext: true },
   { id: 'II-8', txt: 'Listado de equipos con fotografías de las placas', doc: ['LIST-EQ'], ext: true },
-  { id: 'II-9', txt: 'Destino final de equipos dados de baja, vendidos o trasladados (en caso de aplicar)', doc: ['OF-BAJA'], cond: true }
+  { id: 'II-9', txt: 'Destino final de equipos dados de baja, vendidos o trasladados (en caso de aplicar)', doc: ['OF-BAJA'], cond: true },
+  // Requisitos adicionales de la lista actualizada de licenciamiento (curso de actualización para OSR)
+  { id: 'III-1', txt: 'Factura de pago de la inspección (equipos nuevos)', ext: true, cond: true },
+  { id: 'III-2', txt: 'Contrato de arrendamiento de los equipos con plazo mínimo de 4 años (licenciamiento por primera vez)', ext: true, cond: true },
+  { id: 'III-3', txt: 'Oficio de baja de equipos generadores de radiación ionizante (si aplica)', doc: ['OF-BAJA'], cond: true },
+  { id: 'III-4', txt: 'Último informe de inspección emitido por la Autoridad Reguladora (excepto licenciamiento por primera vez)', ext: true, cond: true },
+  { id: 'III-5', txt: 'Matriz completa de registros institucionales', doc: ['MAT-REG'] },
+  { id: 'III-6', txt: 'Registro de mantenimiento del equipo de rayos X', doc: ['REG-MANT'] },
+  { id: 'III-7', txt: 'Procedimiento para informar a la persona expuesta o a su apoderado sobre beneficios y riesgos (o cinco consentimientos informados)', doc: ['PROC-INF', 'CONS-INF'] },
+  { id: 'III-8', txt: 'Última licencia institucional tipo C (excepto licenciamiento por primera vez)', ext: true, cond: true },
+  { id: 'III-9', txt: 'Reportes dosimétricos de los dos últimos periodos', ext: true },
+  { id: 'III-10', txt: 'Licencia institucional de la empresa de mantenimiento', ext: true },
+  { id: 'III-11', txt: 'Licencia personal del técnico de mantenimiento', ext: true },
+  { id: 'III-12', txt: 'Factura de compra de los EPRI con menos de un año (alternativa al informe de integridad)', ext: true, cond: true },
+  { id: 'III-13', txt: 'Fotografías de la sala de irradiación, el comando y las áreas adyacentes (salas vecinas, sala de espera y recepción)', ext: true }
 ];
 
 /* Código corto de práctica para la codificación de documentos */
